@@ -831,15 +831,7 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
             mb: isMobile ? 2 : 4,
           }}
         >
-          <Typography
-            variant="h5"
-            sx={{
-              ...themeUtils.chart.typography["chart-title"],
-              fontSize: isMobile ? "1.25rem" : undefined,
-            }}
-          >
-            Cluster Connections
-          </Typography>
+          <Typography variant="chart-title">Cluster Connections</Typography>
         </Box>
       </Box>
 
@@ -1626,34 +1618,34 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
                         fontWeight: 600,
                         whiteSpace: "normal",
                         wordBreak: "break-word",
-                        paddingTop: isMobile ? "3px" : "4px",
+                        paddingTop: isMobile ? "6px" : "8px",
                         paddingLeft: isMobile ? "4px" : "6px",
-                        paddingRight: isMobile ? "3px" : "4px",
-                        paddingBottom: isMobile ? "3px" : "4px",
-
+                        paddingRight: isMobile ? "24px" : "28px",
+                        paddingBottom: isMobile ? "6px" : "8px",
                         minWidth: 0,
                         lineHeight: 1.3,
+                        display: "flex",
+                        alignItems: "center",
                       },
                       "& .MuiSelect-icon": {
                         top: "50%",
                         transform: "translateY(-50%) rotate(0deg)",
                         transition: "transform 150ms ease",
-                        right: isMobile ? 4 : 8,
-                        position: "absolute",
+                        right: isMobile ? 4 : 6,
                       },
                       "& .MuiSelect-icon.MuiSelect-iconOpen": {
                         transform: "translateY(-50%) rotate(180deg)",
                       },
                       "& .MuiOutlinedInput-root": {
                         backgroundColor: "rgba(255, 255, 255, 0.6)",
-                        alignItems: "flex-start",
+                        alignItems: "center",
                         "& .MuiOutlinedInput-input": {
                           height: "auto",
                           minHeight: isMobile ? "1.2em" : "1.4em",
-                          paddingTop: isMobile ? "3px" : "4px",
-                          paddingBottom: isMobile ? "3px" : "4px",
+                          paddingTop: isMobile ? "6px" : "8px",
+                          paddingBottom: isMobile ? "6px" : "8px",
                           paddingLeft: isMobile ? "4px" : "6px",
-                          paddingRight: isMobile ? "3px" : "4px",
+                          paddingRight: isMobile ? "24px" : "28px",
                           width: "100%",
                           boxSizing: "border-box",
                         },

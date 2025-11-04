@@ -387,7 +387,28 @@ const ProductsTable = ({
           return (
             <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
               {atlasUrl && (
-                <Tooltip title="View in Atlas" placement="top">
+                <Tooltip
+                  title="View in Atlas"
+                  placement="top"
+                  slotProps={{
+                    tooltip: {
+                      sx: {
+                        backgroundColor: "#fff",
+                        color: "#000",
+                        border: "1px solid #ccc",
+                        boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
+                      },
+                    },
+                    arrow: {
+                      sx: {
+                        color: "#fff",
+                        "&::before": {
+                          border: "1px solid #ccc",
+                        },
+                      },
+                    },
+                  }}
+                >
                   <IconButton
                     component="a"
                     href={atlasUrl}
@@ -962,7 +983,28 @@ const NestedProductsTable = ({
           return (
             <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
               {atlasUrl && (
-                <Tooltip title="View in Atlas" placement="top">
+                <Tooltip
+                  title="View in Atlas"
+                  placement="top"
+                  slotProps={{
+                    tooltip: {
+                      sx: {
+                        backgroundColor: "#fff",
+                        color: "#000",
+                        border: "1px solid #ccc",
+                        boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
+                      },
+                    },
+                    arrow: {
+                      sx: {
+                        color: "#fff",
+                        "&::before": {
+                          border: "1px solid #ccc",
+                        },
+                      },
+                    },
+                  }}
+                >
                   <IconButton
                     component="a"
                     href={atlasUrl}

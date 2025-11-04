@@ -69,7 +69,7 @@ const DownloadModal: React.FC<DownloadModalProps> = ({
     imageAvailable !== undefined ? imageAvailable : isImageAvailable;
 
   // Generate default description text with country name
-  const defaultDescriptionText = `Download a high-resolution image of the current visualization or data for ${countryName}.`;
+  const defaultDescriptionText = `Download a high-resolution image of the current visualization or data for ${countryName}`;
 
   const handleDataDownload = () => {
     if (customDataHandler) {
@@ -175,6 +175,7 @@ const DownloadModal: React.FC<DownloadModalProps> = ({
                 textTransform: "uppercase",
                 letterSpacing: "1px",
                 pointerEvents: "none",
+                whiteSpace: "nowrap",
               }}
             >
               <DownloadIcon />
@@ -218,6 +219,7 @@ const DownloadModal: React.FC<DownloadModalProps> = ({
                 textTransform: "uppercase",
                 letterSpacing: "1px",
                 pointerEvents: "none",
+                whiteSpace: "nowrap",
               }}
             >
               <DownloadIcon />
@@ -227,7 +229,12 @@ const DownloadModal: React.FC<DownloadModalProps> = ({
         </Box>
         <Typography
           variant="h3"
-          sx={{ textAlign: "center", m: 2, color: "black" }}
+          sx={{
+            textAlign: "center",
+            m: 2,
+            color: "black",
+            textTransform: "none",
+          }}
         >
           {descriptionText || defaultDescriptionText}
         </Typography>

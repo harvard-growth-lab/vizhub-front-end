@@ -71,11 +71,11 @@ const RankingsPage = () => {
   // Get metrics for current year and previous period (5 years ago)
   const allCountriesMetrics = useMemo(
     () => getMetricsForYear(year),
-    [getMetricsForYear, year]
+    [getMetricsForYear, year],
   );
   const prevAllCountriesMetrics = useMemo(
     () => getMetricsForYear(year - 5),
-    [getMetricsForYear, year]
+    [getMetricsForYear, year],
   );
 
   const scrollToIso = useCallback((iso3: string) => {
