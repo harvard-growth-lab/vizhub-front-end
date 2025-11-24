@@ -197,11 +197,24 @@ const AboutPage = () => {
             <a target="_blank" href="https://www.bortfolio.net/">
               Robert Christie
             </a>{" "}
-            Front-end Developer
+            Front-End Developer
             <br />
             Robert is responsible for the front-end development of Viz Hub
             projects. He architects and implements interactive interfaces and
             visualizations with an emphasis on cartography.
+          </Content>
+
+          <Content>
+            <a target="_blank" href="https://www.tammy-zhang.com/">
+              Tammy Zhang
+            </a>{" "}
+            Front-End Developer
+            <br />
+            Tammy supports the front-end development and maintenance of Viz Hub
+            projects. Previously, she has collaborated with researchers in a
+            variety of fields to communicate their work through interactive data
+            visualization. Tammy holds a bachelor's and master's degree in
+            information science from Cornell University.
           </Content>
         </Root>
       </HubContentContainer>
