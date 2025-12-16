@@ -138,7 +138,10 @@ export default (props: Props) => {
 
   let titleForSocial = "Check out the Growth Lab Viz Hub";
   if (useTitle) {
-    titleForSocial = `Check out '${useTitle},' in Visual Insights from the Growth Lab's 2022 Research`;
+    // Extract year from URL path (e.g., /best-of-2025 -> 2025)
+    const yearMatch = window.location.pathname.match(/best-of-(\d{4})/);
+    const year = yearMatch ? yearMatch[1] : new Date().getFullYear();
+    titleForSocial = `Check out '${useTitle},' in Visual Insights from the Growth Lab's ${year} Research`;
   }
   return (
     <Modal onClose={onClose} height="auto" width="500px">

@@ -10,6 +10,7 @@ const Routes = {
   BestOf2021: "/best-of-2021",
   BestOf2022: "/best-of-2022",
   BestOf2024: "/best-of-2024",
+  BestOf2025: "/best-of-2025",
   NamibiaTool: "/namibia-tool",
   CustomProductSpace: "/custom-product-space",
   CustomIndustrySpace: "/custom-industry-space",
@@ -132,6 +133,15 @@ const metadata = [
     description:
       "2024's most notable visual insights from faculty, fellows, researchers and staff at Harvard's Growth Lab.",
     og_image: "best-of-2024-share-image.png",
+    favicon: defaultFavicon,
+  },
+  {
+    url: Routes.BestOf2025,
+    title:
+      "Visual Insights from the Growth Lab's 2025 Research | " + defaultTitle,
+    description:
+      "2025's most notable visual insights from faculty, fellows, researchers and staff at Harvard's Growth Lab.",
+    og_image: "best-of-2025-share-image.png",
     favicon: defaultFavicon,
   },
   {
