@@ -390,8 +390,19 @@ export default function DataSelection() {
             paragraph
             sx={{ textAlign: "center" }}
           >
-            Select a dataset to visualize the product, industry, or technology
-            space network.
+            Growth Lab Space Viewer is an interactive network visualization
+            tool for exploring relatedness and connections between entities.
+            The tool generates configurable force-directed graphs that reveal
+            clustering patterns and structural relationships in your data.
+          </Typography>
+          <Typography
+            variant="body1"
+            color="text.secondary"
+            paragraph
+            sx={{ textAlign: "center" }}
+          >
+            To start, select a default dataset, upload custom data, or connect
+            to remote sources.
           </Typography>
           <Tabs
             value={modalTab}

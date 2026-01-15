@@ -1,0 +1,110 @@
+[
+  {
+    "title": "It's not easy being green: Greenplexity reveals divide in readiness to capture green value chain opportunities",
+    "image": "glmap.png",
+    "text": "This map ranks countries based on their presence in industries in green value chains, using the Growth Lab's Greenplexity Index. The Greenplexity Index balances a country's breadth and complexity in green value chains. Countries improve their Greenplexity Index score by making more complex products within green value chains.\n\nAdvanced manufacturing economies tend to rank highly on the Greenplexity Index, suggesting they have have strong capabilities across green value chains. By contrast, many emerging economies rank lower on the Greenplexity Index, suggesting they remain concentrated in a narrow set of simpler activities.",
+    "source": "Greenplexity",
+    "order": "1",
+    "link": "https://growthlab.app/greenplexity/rankings",
+    "hash_id": "greenplexity-index"
+  },
+  {
+    "title": "From regional powerhouse to (potential) net importer: The looming collapse of Bolivia's gas surplus",
+    "image": "naturalgas.png",
+    "text": "Bolivia is on track to become a net importer of natural gas by the end of the decade if current trends continue. At its peak in 2014, natural gas exports reached $6 billion and drove much of the country's economic growth. Since then, production has declined rapidly due to the depletion of mature gas fields and a dearth of major new discoveries.\n\nThis exploration shortfall stems from government-imposed restrictions on private-sector participation. Combined with high government take and a domestic price cap, these policies have severely reduced incentives for private exploration while public investment has failed to yield significant new finds. Reforming the regulatory framework and removing price controls could unlock the private-sector investment needed to reverse Bolivia's decline and secure its energy future.",
+    "source": "Growth Lab estimations based on data from S&P Capital IQ and Ministerio de Hidrocarborus y Energia",
+    "order": "2",
+    "link": "https://growthlab.hks.harvard.edu/news/growth-lab-announces-new-bolivia-research-agenda/",
+    "hash_id": "bolivia-gas"
+  },
+  {
+    "title": "Growing beyond oil and away from Russia: Azerbaijan finds new engines for export growth",
+    "image": "treemap.gif",
+    "text": "Azerbaijan has diversified its exports across several non-oil sectors, with notable gains in chemicals, agriculture, vehicles, and metals. While Russia remains a major destination, broadly consistent with its historical weight in Azerbaijan's trade portfolio, the pattern of export growth does not point to an outsized or exceptional shift toward the Russian market. In contrast to several regional economies where post-2022 export growth has been dominated by war-related re-export dynamics, Azerbaijan's expansion appears more balanced across destinations.\n\nThe evidence suggests that Azerbaijan's recent export growth reflects a genuine diversification of its production and export structure, rather than a simple redirection of trade toward Russia. Alongside Russia, exports have grown meaningfully to Türkiye, Georgia, Kazakhstan, and the UAE, indicating that diversification is occurring across both products and markets.",
+    "source": "Growth Lab estimations",
+    "order": "3",
+    "link": "https://growthlab.hks.harvard.edu/project/azerbaijan-project/",
+    "hash_id": "azerbaijan-exports"
+  },
+  {
+    "title": "Navigating scarcity: Morocco's non-agricultural exports are better positioned for a water-constrained future than peers",
+    "image": "waterintensity.png",
+    "text": "Morocco has been experiencing increasing water stress over the last decade due to changing rainfall patterns, severely impacting its agricultural sector. While the effects on farm production are well documented, implications for the country's economic diversification opportunities remain understudied. This figure explores that gap.\n\nBased on the latest available data from 2019, Morocco's non-agricultural export portfolio has relatively low overall water intensity. Although this may rise as trade grows, the country appears better positioned to manage future scarcity than peers such as Egypt or South Africa, which face comparable stress levels but far more water-intensive export structures.",
+    "source": "Growth Lab estimations using WDI, Atlas of Economic Complexity, OECD ICIO",
+    "order": "4",
+    "link": "",
+    "hash_id": "water-intensity"
+  },
+  {
+    "title": "Getting the most 'bang' for your clean power: How energy-intensive industries can contribute to regional development",
+    "image": "powershoring.png",
+    "text": "Powershoring—leveraging abundant clean power to stimulate energy-intensive industries—can catalyze broader regional economic development. This visualization highlights that some energy-intensive industries are better connected to future diversification pathways than others, as it ranks industries by potential spillovers from shared capabilities.\n\nWe approximate spillovers from a network built using firm co-location data. Industries that often appear in the same urban commuting zone are more strongly connected in the network. Some industries, like aluminum and battery manufacturing, hold more central positions in this network and offer more potential for spillovers than others, such as datacenters. Targeting industries with higher spillover potential allows regions to use powershoring as a development strategy, adding new capabilities to their economies.",
+    "source": "Industry on the Road to 2050",
+    "order": "5",
+    "link": "https://www.hks.harvard.edu/publications/catalysing-economic-growth-through-powershoring",
+    "hash_id": "powershoring"
+  },
+  {
+    "title": "The end of the energy boom fuels historic depopulation in San Juan, New Mexico",
+    "image": "sanjuanpopulation.png",
+    "text": "San Juan County is among New Mexico's largest population centers and a historic pillar of the state's economy. Yet, while other major urban areas grew 5.5% on average over the last decade, San Juan experienced its steepest population decline in over a century.\n\nThe exodus reflects the dramatic collapse of the county's economic foundation: coal, oil, and gas production, and power generation. What followed has been prolonged stagnation with little sign of recovery. Local officials are working to reverse course, but now face an additional obstacle: a shrinking base of skilled workers and knowhow needed to build a new economic future.",
+    "source": "U.S. Census Bureau via New Mexico Economic Development Department",
+    "order": "6",
+    "link": "",
+    "hash_id": "san-juan-population"
+  },
+  {
+    "title": "Once bitten, twice shy: Interest rate differentials reflect persistent currency fears for the Azerbaijani manat after the 2015-16 financial crisis",
+    "image": "DIFFmemories.png",
+    "text": "The interest rate differential between manat and U.S. dollar deposits in Azerbaijan has widened sharply during episodes of financial stress. Since the 2016 devaluation and the re-pegging of the manat to the U.S. dollar, the interest rate differential has remained elevated. This persistent gap reflects lingering uncertainty about the future dollar value of the manat and a structural preference among savers for foreign-currency assets.",
+    "source": "Central Bank of the Republic of Azerbaijan; author's calculations",
+    "order": "7",
+    "link": "https://growthlab.hks.harvard.edu/project/azerbaijan-project/",
+    "hash_id": "azerbaijan-manat"
+  },
+  {
+    "title": "Branching out: Leveraging existing industrial capabilities to identify green growth opportunities",
+    "image": "glclusters.gif",
+    "text": "Growth Lab's Greenplexity tool highlights a country's strongest green industrial clusters and how they connect to green value chains and their related products. The visualization reveals strategic pathways for green transition: capabilities within a single industrial cluster can unlock opportunities across multiple green sectors.\n\nRomania demonstrates this clearly—products within its industrial mechanical cluster position the country to enter the nuclear energy value chain, while its electrical installation cluster creates entry points for solar manufacturing. This mapping shows not only where Romania is already competitive but which existing industrial strengths can be leveraged to capture emerging green opportunities.",
+    "source": "Greenplexity",
+    "order": "8",
+    "link": "https://growthlab.app/greenplexity/connections?country=642&year=2023&cluster=Industrial+Mechanical+Systems+and+Components",
+    "hash_id": "romania-green-clusters"
+  },
+  {
+    "title": "More kwachas, more problems: Financing deficits through money creation fueled the parallel market exchange rate premium",
+    "image": "kwachas.png",
+    "text": "Malawi ran persistent fiscal deficits that initially were financed by running down foreign reserves. As reserves collapsed and hard-currency buffers were exhausted, the government issued debt to continue financing the deficit. This monetary expansion created the classic setup for currency depreciation: While base money measured at the official exchange rate kept growing, the market recognized that these additional kwachas were worth far less than the official rate suggested, causing the parallel market rate to depreciate sharply and diverge from the official rate.",
+    "source": "Reserve Bank of Malawi and Growth Lab's own calculations. In the absence of official data, parallel market data was informally collected.",
+    "order": "9",
+    "link": "",
+    "hash_id": "malawi-kwachas"
+  },
+  {
+    "title": "The data babel: Inconsistent adoption of classification systems obscure understanding of global trade",
+    "image": "tradedata.png",
+    "text": "This timeline tracks the adoption of international trade classification systems from 1962 to 2022. Countries are sorted by economy size (largest at top), with colors indicating which classification vintage each country reported in a given year.\n\nThe staggered pattern reveals a key challenge: at a given moment in time, countries use different vintages, making direct trade comparisons impossible without harmonization. Adoption delays were pronounced during the SITC era (blue, 1962–1990s) but persist through the Harmonized System's rollout (green, orange, red) and continue today. By addressing this fragmentation, the Growth Lab recovered 8% of Harmonized System product codes, distinguishing genuine product turnover driven by innovation and obsolescence from conversion artifacts.",
+    "source": "UN Comtrade and Growth Lab research",
+    "order": "10",
+    "link": "https://growthlab.hks.harvard.edu/publication/tackling-discrepancies-in-trade-data-the-harvard-growth-lab-international-trade-datasets/",
+    "hash_id": "trade-data"
+  },
+  {
+    "title": "A delayed crisis: Postponing adjustment has compounded Bolivia's economic pain and reduced the levers for recovery",
+    "image": "monetarybase.png",
+    "text": "Bolivia's monetary base was once backed by international reserves accumulated during the natural gas boom. This chart captures a dramatic structural shift: from 2007 to 2014, robust reserves underpinned the currency. But as gas revenues declined, the Central Bank sold reserves to defend the fixed exchange rate, steadily eroding that backing. By 2023, reserves were exhausted.\n\nThe composition flipped entirely—credit to the public sector and banking system now dominate the monetary base, marking a clear transition to monetary financing. This shift foreshadowed Bolivia's balance-of-payments crisis, the breakdown of currency convertibility, and the rise of a parallel exchange market.",
+    "source": "Banco Central de Bolivia",
+    "order": "11",
+    "link": "https://growthlab.hks.harvard.edu/project/bolivia/",
+    "hash_id": "bolivia-monetary"
+  },
+  {
+    "title": "Credit where credit isn't due: Fiscal deficits and market conditions enable near risk-free arbitrage for banks in Malawi",
+    "image": "malawi.png",
+    "text": "Malawian banks charge some of the highest lending rates in the world, yet they also pay some of the lowest deposit rates. This huge interest rate spread delivers high profits for banks, sustained by government borrowing at elevated yields and limited competition for household savings. The result: savers receive poor returns while firms face prohibitively expensive credit.",
+    "source": "WDI, World Bank",
+    "order": "12",
+    "link": "",
+    "hash_id": "malawi-banks"
+  }
+]
