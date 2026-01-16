@@ -36,6 +36,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import DownloadIcon from "@mui/icons-material/Download";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useLoaderData } from "react-router-dom";
 import type { LoaderData } from "./loader";
 import { Link } from "react-router-dom";
@@ -379,32 +380,73 @@ export default function Configurator({
             >
               <MenuIcon />
             </IconButton>
-            <Link
-              to="/space-viewer"
-              style={{
-                textDecoration: "none",
-                color: "inherit",
+            <Box
+              sx={{
                 display: "flex",
                 alignItems: "center",
-                gap: "10px",
+                gap: { xs: 0.4, sm: 0.6 },
+                flexWrap: "nowrap",
+                minWidth: 0,
+                flex: 1,
+                maxWidth: "100%",
               }}
             >
-              <img
-                src={GrowthLabLogo}
-                alt="Growth Lab Logo"
-                style={{ height: "45px", width: "auto" }}
-              />
-              <Typography
-                variant="h4"
-                component="h1"
-                sx={{ fontWeight: 400, fontSize: "2rem" }}
+              <Link to="/" style={{ display: "inline-flex" }}>
+                <img
+                  src={GrowthLabLogo}
+                  alt="Growth Lab Logo"
+                  style={{
+                    height: "clamp(22px, 2.5vw, 28px)",
+                    width: "auto",
+                  }}
+                />
+              </Link>
+              <Link
+                to="/space-viewer"
+                style={{
+                  textDecoration: "none",
+                  color: "inherit",
+                  minWidth: 0,
+                  flex: "1 1 auto",
+                }}
               >
-                Space Viewer
-              </Typography>
-            </Link>
+                <Typography
+                  variant="h4"
+                  component="h1"
+                  sx={{
+                    fontWeight: 400,
+                    fontSize: "clamp(0.95rem, 1.8vw, 1.2rem)",
+                    lineHeight: 1.2,
+                    whiteSpace: "nowrap",
+                    minWidth: 0,
+                    flexShrink: 1,
+                  }}
+                >
+                  Space Viewer
+                </Typography>
+              </Link>
+            </Box>
           </Box>
         </Box>
         <Box sx={{ p: 2, flex: 1, overflowY: "auto" }}>
+          <Box sx={{ mb: 2 }}>
+            <Link
+              to="/space-viewer"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 6,
+                textDecoration: "none",
+                color: "inherit",
+              }}
+            >
+              <ArrowBackIcon fontSize="small" />
+              <Typography variant="body2" sx={{ fontWeight: 500 }}>
+                Return to data configuration
+              </Typography>
+            </Link>
+            <Divider sx={{ mt: 1.5 }} />
+          </Box>
           <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
             <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
               <FormLabel>
@@ -1045,19 +1087,21 @@ export default function Configurator({
                 )}
               </>
             ) : null}
+            <Typography
+              variant="caption"
+              color="text.secondary"
+              sx={{ mt: 2 }}
+            >
+              For help using the tool please contact:{" "}
+              <a href="mailto:growthlabtools@hks.harvard.edu">
+                growthlabtools@hks.harvard.edu
+              </a>
+              .{" "}
+              <Link to="/" style={{ color: "inherit" }}>
+                Explore all Growth Lab tools at growthlab.app
+              </Link>
+            </Typography>
           </Box>
-        </Box>
-        <Box sx={{ p: 2, borderTop: "1px solid #333" }}>
-          <Typography variant="caption" color="text.secondary">
-            For help using the tool please contact:{" "}
-            <a href="mailto:growthlabtools@hks.harvard.edu">
-              growthlabtools@hks.harvard.edu
-            </a>
-            .{" "}
-            <Link to="/" style={{ color: "inherit" }}>
-              Explore all Growth Lab tools at growthlab.app
-            </Link>
-          </Typography>
         </Box>
       </Drawer>
 

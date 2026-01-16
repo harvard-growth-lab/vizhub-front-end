@@ -35,11 +35,8 @@ const FileDropzone = ({
   isUploaded,
   fileName,
 }: {
-  type: "nodes" | "links" | "meta" | "clusters";
-  onFileUpload: (
-    file: File,
-    type: "nodes" | "links" | "meta" | "clusters",
-  ) => void;
+  type: "nodes" | "links" | "meta";
+  onFileUpload: (file: File, type: "nodes" | "links" | "meta") => void;
   isUploaded: boolean;
   fileName?: string;
 }) => {
@@ -54,14 +51,9 @@ const FileDropzone = ({
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
-    accept:
-      type === "clusters"
-        ? {
-            "application/json": [".json"],
-          }
-        : {
-            "text/csv": [".csv"],
-          },
+    accept: {
+      "text/csv": [".csv"],
+    },
     multiple: false,
   });
 
@@ -73,8 +65,6 @@ const FileDropzone = ({
         return "Links Data";
       case "meta":
         return "Metadata (Optional)";
-      case "clusters":
-        return "Cluster Boundaries (Optional)";
     }
   };
 
@@ -149,15 +139,13 @@ export default function DataSelection() {
     nodes: File | null;
     links: File | null;
     meta: File | null;
-    clusters: File | null;
-  }>({ nodes: null, links: null, meta: null, clusters: null });
+  }>({ nodes: null, links: null, meta: null });
 
   const [remoteUrls, setRemoteUrls] = useState<{
     nodes: string;
     links: string;
     meta: string;
-    clusters: string;
-  }>({ nodes: "", links: "", meta: "", clusters: "" });
+  }>({ nodes: "", links: "", meta: "" });
 
   // Utility function to transform Dropbox URLs for CORS compatibility
   const transformDropboxUrl = (url: string): string => {
@@ -265,15 +253,13 @@ export default function DataSelection() {
 
   const handleCustomUpload = async (
     file: File,
-    type: "nodes" | "links" | "meta" | "clusters",
+    type: "nodes" | "links" | "meta",
   ) => {
     try {
       const text = await file.text();
       let storageKey: string;
       if (type === "meta") {
         storageKey = "custom_meta";
-      } else if (type === "clusters") {
-        storageKey = "custom_clusters";
       } else {
         storageKey = `custom_${type}`;
       }
@@ -289,7 +275,7 @@ export default function DataSelection() {
   };
 
   const handleRemoteUrlChange = (
-    type: "nodes" | "links" | "meta" | "clusters",
+    type: "nodes" | "links" | "meta",
     url: string,
   ) => {
     setRemoteUrls((prev) => ({ ...prev, [type]: url }));
@@ -306,9 +292,6 @@ export default function DataSelection() {
     const transformedMetaUrl = remoteUrls.meta
       ? transformDropboxUrl(remoteUrls.meta)
       : "";
-    const transformedClustersUrl = remoteUrls.clusters
-      ? transformDropboxUrl(remoteUrls.clusters)
-      : "";
 
     // Encode the transformed URLs for the query parameters
     const params = new URLSearchParams();
@@ -317,9 +300,6 @@ export default function DataSelection() {
     params.append("linksUrl", encodeURIComponent(transformedLinksUrl));
     if (transformedMetaUrl) {
       params.append("metaUrl", encodeURIComponent(transformedMetaUrl));
-    }
-    if (transformedClustersUrl) {
-      params.append("clustersUrl", encodeURIComponent(transformedClustersUrl));
     }
 
     navigate(`/space-viewer/visualization?${params.toString()}`);
@@ -390,10 +370,10 @@ export default function DataSelection() {
             paragraph
             sx={{ textAlign: "center" }}
           >
-            Growth Lab Space Viewer is an interactive network visualization
-            tool for exploring relatedness and connections between entities.
-            The tool generates configurable force-directed graphs that reveal
-            clustering patterns and structural relationships in your data.
+            Growth Lab Space Viewer is an interactive network visualization tool
+            for exploring relatedness and connections between entities. The tool
+            visualizes configurable network graphs that reveal clustering
+            patterns and structural relationships in your data.
           </Typography>
           <Typography
             variant="body1"
@@ -507,13 +487,6 @@ export default function DataSelection() {
                 fileName={uploadedFiles.meta?.name}
               />
 
-              <FileDropzone
-                type="clusters"
-                onFileUpload={handleCustomUpload}
-                isUploaded={!!uploadedFiles.clusters}
-                fileName={uploadedFiles.clusters?.name}
-              />
-
               <Button
                 variant="contained"
                 color="primary"
@@ -566,17 +539,6 @@ export default function DataSelection() {
                 onChange={(e) => handleRemoteUrlChange("meta", e.target.value)}
                 fullWidth
                 placeholder="https://example.com/metadata.csv"
-                sx={{ mb: 2 }}
-              />
-
-              <TextField
-                label="Cluster Boundaries URL (Optional)"
-                value={remoteUrls.clusters}
-                onChange={(e) =>
-                  handleRemoteUrlChange("clusters", e.target.value)
-                }
-                fullWidth
-                placeholder="https://example.com/clusters.json"
                 sx={{ mb: 2 }}
               />
 

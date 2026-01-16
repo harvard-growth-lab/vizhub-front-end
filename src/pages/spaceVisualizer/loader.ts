@@ -211,7 +211,6 @@ export async function loader({
       const nodesText = localStorage.getItem("custom_nodes");
       const linksText = localStorage.getItem("custom_links");
       const metadataText = localStorage.getItem("custom_meta");
-      const clustersText = localStorage.getItem("custom_clusters");
 
       if (!nodesText || !linksText) {
         throw new Error("Nodes and links files are required");
@@ -232,17 +231,6 @@ export async function loader({
         } catch (error) {
           console.error("Failed to parse metadata:", error);
           // Continue with empty metadata rather than failing
-        }
-      }
-
-      // Handle optional cluster boundaries
-      if (clustersText) {
-        try {
-          clusters = JSON.parse(clustersText).clusters as ClusterData;
-          console.log("Loaded custom clusters:", clusters);
-        } catch (error) {
-          console.error("Failed to parse clusters:", error);
-          // Continue without clusters rather than failing
         }
       }
 
