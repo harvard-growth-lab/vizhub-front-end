@@ -547,9 +547,7 @@ export default () => {
             />
           </SocialLink>
           <SocialLink
-            href={
-              "https://youtube.com/playlist?list=PLVJQsjaKb-4SNl2obPcBFtIbjKoyi4e5z"
-            }
+            href={"https://www.youtube.com/@HarvardGrowthLab/videos"}
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -571,6 +569,18 @@ export default () => {
             <Icon
               dangerouslySetInnerHTML={{
                 __html: raw("../../components/text/assets/applepodcast.svg"),
+              }}
+            />
+          </SocialLink>
+          <SocialLink
+            href={"https://github.com/harvard-growth-lab"}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            GitHub
+            <Icon
+              dangerouslySetInnerHTML={{
+                __html: raw("../../components/text/assets/githubicon.svg"),
               }}
             />
           </SocialLink>
