@@ -1,22 +1,22 @@
-import React, { useState } from "react";
-import Modal from "./StandardModal";
-import styled, { keyframes } from "styled-components";
+import React, { useState } from 'react';
+import Modal from './StandardModal';
+import styled, { keyframes } from 'styled-components';
 import {
   baseColor,
   secondaryFont,
   primaryFont,
-} from "../../styling/styleUtils";
+} from '../../styling/styleUtils';
 // import useFluent from '../../../../hooks/useFluent';
-import raw from "raw.macro";
-import getShareFunctions from "./shareFn";
+import raw from 'raw.macro';
+import getShareFunctions from './shareFn';
 
-const iconGray = "#2D363F";
+const iconGray = '#2D363F';
 
-const linkSvg = raw("../../assets/link.svg");
-const twitterSvg = raw("../../assets/x.svg");
-const linkedinSvg = raw("../../assets/linkedin.svg");
-const facebookSvg = raw("../../assets/facebook.svg");
-const emailSvg = raw("../../assets/email.svg");
+const linkSvg = raw('../../assets/link.svg');
+const twitterSvg = raw('../../assets/x.svg');
+const linkedinSvg = raw('../../assets/linkedin.svg');
+const facebookSvg = raw('../../assets/facebook.svg');
+const emailSvg = raw('../../assets/email.svg');
 
 const growIn = keyframes`
   0% {
@@ -131,12 +131,12 @@ export default (props: Props) => {
     setCopied(true);
     setTimeout(() => setCopied(false), 5000);
   };
-  const copyText = copied ? "Copied" : "Copy";
+  const copyText = copied ? 'Copied' : 'Copy';
 
   const { shareFacebook, shareTwitter, shareLinkedIn, shareEmail } =
     getShareFunctions(window.location.href);
 
-  let titleForSocial = "Check out the Growth Lab Viz Hub";
+  let titleForSocial = 'Check out the Growth Lab Viz Hub';
   if (useTitle) {
     // Extract year from URL path (e.g., /best-of-2025 -> 2025)
     const yearMatch = window.location.pathname.match(/best-of-(\d{4})/);
@@ -144,7 +144,7 @@ export default (props: Props) => {
     titleForSocial = `Check out '${useTitle},' in Visual Insights from the Growth Lab's ${year} Research`;
   }
   return (
-    <Modal onClose={onClose} height="auto" width="500px">
+    <Modal onClose={onClose} height='auto' width='500px'>
       <Root>
         <SectionTitle>Direct Link</SectionTitle>
         <CopyUrlBar onClick={onCopy}>
@@ -157,14 +157,14 @@ export default (props: Props) => {
           <SocialMediaButton onClick={() => shareTwitter(titleForSocial)}>
             <SvgBase dangerouslySetInnerHTML={{ __html: twitterSvg }} />
           </SocialMediaButton>
-          <SocialMediaButton onClick={() => shareLinkedIn(titleForSocial, "")}>
+          <SocialMediaButton onClick={() => shareLinkedIn(titleForSocial, '')}>
             <SvgBase dangerouslySetInnerHTML={{ __html: linkedinSvg }} />
           </SocialMediaButton>
           <SocialMediaButton onClick={() => shareFacebook()}>
             <SvgBase dangerouslySetInnerHTML={{ __html: facebookSvg }} />
           </SocialMediaButton>
           <SocialMediaButton
-            style={{ width: "3.25rem" }}
+            style={{ width: '3.25rem' }}
             onClick={() =>
               shareEmail(titleForSocial, titleForSocial, window.location.href)
             }

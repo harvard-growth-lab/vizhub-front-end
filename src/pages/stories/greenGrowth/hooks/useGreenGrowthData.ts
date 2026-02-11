@@ -1,5 +1,5 @@
-import { useMemo } from "react";
-import { useQuery } from "@apollo/client";
+import { useMemo } from 'react';
+import { useQuery } from '@apollo/client';
 import {
   GET_PRODUCTS,
   GET_CLUSTERS,
@@ -9,13 +9,13 @@ import {
   GET_ALL_PRODUCT_MAPPINGS,
   GET_ALL_COUNTRIES_YEAR_METRICS,
   GET_COUNTRIES,
-} from "../queries/shared";
+} from '../queries/shared';
 import {
   ProductMapping,
   CountryClusterData,
   ProductClusterRow,
   Product,
-} from "../types";
+} from '../types';
 
 // Enhanced type for country year metrics
 interface CountryYearMetrics {
@@ -211,8 +211,8 @@ export const useGreenGrowthData = (
         return {
           HS2012_4dg: product.code,
           dominant_cluster: mapping.clusterId,
-          supply_chain: supplyChainMap.get(mapping.supplyChainId) || "Unknown",
-          cluster_name: clusterMap.get(mapping.clusterId) || "Unknown",
+          supply_chain: supplyChainMap.get(mapping.supplyChainId) || 'Unknown',
+          cluster_name: clusterMap.get(mapping.clusterId) || 'Unknown',
           product_id: product.productId,
           name_short_en: product.nameShortEn,
           product_level: product.productLevel,
@@ -220,7 +220,7 @@ export const useGreenGrowthData = (
       })
       .filter(
         (row: ProductClusterRow) =>
-          row.supply_chain !== "Unknown" && row.cluster_name !== "Unknown",
+          row.supply_chain !== 'Unknown' && row.cluster_name !== 'Unknown',
       );
   }, [productsData, clustersData, supplyChainsData, productMappings]);
 

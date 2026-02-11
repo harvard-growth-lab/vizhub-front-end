@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
-import TopLevelNav from "./TopLevelNav";
-import { scrollToTop } from "../../hooks/useScrollBehavior";
+import React, { useEffect } from 'react';
+import TopLevelNav from './TopLevelNav';
+import { scrollToTop } from '../../hooks/useScrollBehavior';
 import {
   activeLinkColor,
   HubContentContainer,
@@ -11,11 +11,11 @@ import {
   ZigZagContent,
   Title,
   Content,
-} from "./Utils";
-import StandardFooter from "../../components/text/StandardFooter";
-import Helmet from "react-helmet";
+} from './Utils';
+import StandardFooter from '../../components/text/StandardFooter';
+import Helmet from 'react-helmet';
 
-const metaTitle = "Community | Harvard Growth Lab Viz Hub";
+const metaTitle = 'Community | Harvard Growth Lab Viz Hub';
 
 const CommunityPage = () => {
   useEffect(() => scrollToTop({ smooth: false }), []);
@@ -24,10 +24,10 @@ const CommunityPage = () => {
     <>
       <Helmet>
         <title>{metaTitle}</title>
-        <meta property="og:title" content={metaTitle} />
+        <meta property='og:title' content={metaTitle} />
       </Helmet>
       <TopLevelNav
-        linkColor={"#fff"}
+        linkColor={'#fff'}
         activeColor={activeLinkColor}
         showTitle={true}
         backgroundColor={navBackgroundColor}
@@ -44,10 +44,10 @@ const CommunityPage = () => {
           <Title>Community</Title>
           <Content>
             The Viz Hub is a portfolio of visualization tools and supporting
-            software packages, powered by{" "}
-            <a href="https://growthlab.hks.harvard.edu/">
+            software packages, powered by{' '}
+            <a href='https://growthlab.hks.harvard.edu/'>
               Harvard’s Growth Lab’s
-            </a>{" "}
+            </a>{' '}
             research.
           </Content>
 
@@ -73,10 +73,10 @@ const CommunityPage = () => {
           <Content>
             Are you looking to collaborate on complementary projects? Do you
             have ideas or critique to share? We welcome all interest and
-            inquiries and invite you to{" "}
-            <a href="mailto:growthlabtools@hks.harvard.edu">drop us a line</a>{" "}
-            or find us on <a href="https://github.com/cid-harvard">Github</a>{" "}
-            and <a href="https://x.com/HarvardGrwthLab">X</a>.
+            inquiries and invite you to{' '}
+            <a href='mailto:growthlabtools@hks.harvard.edu'>drop us a line</a>{' '}
+            or find us on <a href='https://github.com/cid-harvard'>Github</a>{' '}
+            and <a href='https://x.com/HarvardGrwthLab'>X</a>.
           </Content>
         </Root>
       </HubContentContainer>

@@ -1,5 +1,5 @@
-import type React from "react";
-import { useState } from "react";
+import type React from 'react';
+import { useState } from 'react';
 import {
   Box,
   Button,
@@ -11,13 +11,13 @@ import {
   Typography,
   IconButton,
   Tooltip,
-} from "@mui/material";
+} from '@mui/material';
 import {
   Download as DownloadIcon,
   Highlight as HighlightIcon,
   CropFree as CropFreeIcon,
   LegendToggle as LegendToggleIcon,
-} from "@mui/icons-material";
+} from '@mui/icons-material';
 
 interface SpaceVisualizationControlsProps {
   onDownload: () => void;
@@ -39,7 +39,7 @@ export const SpaceVisualizationControls: React.FC<
   onShowLegendChange,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [tempNodeIds, setTempNodeIds] = useState("");
+  const [tempNodeIds, setTempNodeIds] = useState('');
 
   const handleModalOpen = () => {
     setTempNodeIds(selectedNodeIds);
@@ -59,68 +59,68 @@ export const SpaceVisualizationControls: React.FC<
     <>
       <Box
         sx={{
-          position: "absolute",
+          position: 'absolute',
           bottom: 10,
           right: 10,
           zIndex: 1000,
-          display: "flex",
+          display: 'flex',
           gap: 1,
         }}
       >
-        <Tooltip title="Set Custom Highlighting">
+        <Tooltip title='Set Custom Highlighting'>
           <IconButton
             onClick={handleModalOpen}
-            size="small"
+            size='small'
             sx={{
-              backgroundColor: "primary.main",
-              color: "white",
-              "&:hover": {
-                backgroundColor: "primary.dark",
+              backgroundColor: 'primary.main',
+              color: 'white',
+              '&:hover': {
+                backgroundColor: 'primary.dark',
               },
             }}
           >
             <HighlightIcon />
           </IconButton>
         </Tooltip>
-        <Tooltip title="Download Image">
+        <Tooltip title='Download Image'>
           <IconButton
             onClick={onDownload}
-            size="small"
+            size='small'
             sx={{
-              backgroundColor: "primary.main",
-              color: "white",
-              "&:hover": {
-                backgroundColor: "primary.dark",
+              backgroundColor: 'primary.main',
+              color: 'white',
+              '&:hover': {
+                backgroundColor: 'primary.dark',
               },
             }}
           >
             <DownloadIcon />
           </IconButton>
         </Tooltip>
-        <Tooltip title="Show/Hide Legend">
+        <Tooltip title='Show/Hide Legend'>
           <IconButton
             onClick={() => onShowLegendChange(!showLegend)}
-            size="small"
+            size='small'
             sx={{
-              backgroundColor: "primary.main",
-              color: "white",
-              "&:hover": {
-                backgroundColor: "primary.dark",
+              backgroundColor: 'primary.main',
+              color: 'white',
+              '&:hover': {
+                backgroundColor: 'primary.dark',
               },
             }}
           >
             <LegendToggleIcon />
           </IconButton>
         </Tooltip>
-        <Tooltip title="Reset Zoom">
+        <Tooltip title='Reset Zoom'>
           <IconButton
             onClick={onResetZoom}
-            size="small"
+            size='small'
             sx={{
-              backgroundColor: "primary.main",
-              color: "white",
-              "&:hover": {
-                backgroundColor: "primary.dark",
+              backgroundColor: 'primary.main',
+              color: 'white',
+              '&:hover': {
+                backgroundColor: 'primary.dark',
               },
             }}
           >
@@ -132,12 +132,12 @@ export const SpaceVisualizationControls: React.FC<
       <Dialog
         open={isModalOpen}
         onClose={handleModalClose}
-        maxWidth="sm"
+        maxWidth='sm'
         fullWidth
       >
         <DialogTitle>Set Node Highlighting</DialogTitle>
         <DialogContent>
-          <Typography variant="body2" sx={{ mb: 2 }}>
+          <Typography variant='body2' sx={{ mb: 2 }}>
             Enter node IDs to highlight (one per line or comma-separated)
           </Typography>
           <TextField
@@ -151,15 +151,15 @@ export const SpaceVisualizationControls: React.FC<
 9012,
 3456,`}
             sx={{
-              "& .MuiOutlinedInput-root": {
-                "& fieldset": {
-                  borderColor: "rgba(0, 0, 0, 0.23)",
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': {
+                  borderColor: 'rgba(0, 0, 0, 0.23)',
                 },
-                "&:hover fieldset": {
-                  borderColor: "rgba(0, 0, 0, 0.87)",
+                '&:hover fieldset': {
+                  borderColor: 'rgba(0, 0, 0, 0.87)',
                 },
-                "&.Mui-focused fieldset": {
-                  borderColor: "primary.main",
+                '&.Mui-focused fieldset': {
+                  borderColor: 'primary.main',
                 },
               },
             }}
@@ -167,7 +167,7 @@ export const SpaceVisualizationControls: React.FC<
         </DialogContent>
         <DialogActions>
           <Button onClick={handleModalClose}>Cancel</Button>
-          <Button onClick={handleModalSave} variant="contained">
+          <Button onClick={handleModalSave} variant='contained'>
             Apply
           </Button>
         </DialogActions>

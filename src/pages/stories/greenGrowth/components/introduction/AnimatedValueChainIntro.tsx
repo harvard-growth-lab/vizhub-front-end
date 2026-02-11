@@ -1,17 +1,17 @@
-import React from "react";
-import { useState, useMemo, useEffect, useRef, useLayoutEffect } from "react";
-import { animated, useTransition, config } from "@react-spring/web";
-import { Box, Typography, IconButton, Button } from "@mui/material";
-import { PlayArrow, Pause } from "@mui/icons-material";
-import { ParentSize } from "@visx/responsive";
-import { Text } from "@visx/text";
-import { pack, hierarchy, HierarchyCircularNode } from "d3-hierarchy";
-import { useNavigate } from "react-router-dom";
-import { useGreenGrowthData } from "../../hooks/useGreenGrowthData";
-import { getValueChainIcon } from "../visualization/ClusterTree/valueChainIconMapping";
-import HierarchyLegend from "../HierarchyLegend";
-import { getSupplyChainColor } from "../../utils";
-import { Routes } from "../../../../../metadata";
+import React from 'react';
+import { useState, useMemo, useEffect, useRef, useLayoutEffect } from 'react';
+import { animated, useTransition, config } from '@react-spring/web';
+import { Box, Typography, IconButton, Button } from '@mui/material';
+import { PlayArrow, Pause } from '@mui/icons-material';
+import { ParentSize } from '@visx/responsive';
+import { Text } from '@visx/text';
+import { pack, hierarchy, HierarchyCircularNode } from 'd3-hierarchy';
+import { useNavigate } from 'react-router-dom';
+import { useGreenGrowthData } from '../../hooks/useGreenGrowthData';
+import { getValueChainIcon } from '../visualization/ClusterTree/valueChainIconMapping';
+import HierarchyLegend from '../HierarchyLegend';
+import { getSupplyChainColor } from '../../utils';
+import { Routes } from '../../../../../metadata';
 
 // Type definitions for the simplified animation
 interface ValueChain {
@@ -113,16 +113,16 @@ interface ClusterTransitionData {
 
 // Value chain names and their exact order (matching CirclePack.jsx)
 const VALUE_CHAIN_ORDER = [
-  "Electric Vehicles",
-  "Heat Pumps",
-  "Fuel Cells And Green Hydrogen",
-  "Wind Power",
-  "Solar Power",
-  "Hydroelectric Power",
-  "Nuclear Power",
-  "Batteries",
-  "Electric Grid",
-  "Critical Metals and Minerals",
+  'Electric Vehicles',
+  'Heat Pumps',
+  'Fuel Cells And Green Hydrogen',
+  'Wind Power',
+  'Solar Power',
+  'Hydroelectric Power',
+  'Nuclear Power',
+  'Batteries',
+  'Electric Grid',
+  'Critical Metals and Minerals',
 ];
 
 // Colors now sourced from shared utilities (consistent across app)
@@ -130,58 +130,58 @@ const VALUE_CHAIN_ORDER = [
 // Animation steps with duration configuration
 const STEPS = [
   {
-    id: "value-chains",
-    title: "",
+    id: 'value-chains',
+    title: '',
     description:
-      "The path to decarbonization runs through these <b>green value chains</b>.",
+      'The path to decarbonization runs through these <b>green value chains</b>.',
     duration: 3000,
   },
   {
-    id: "green-products",
-    title: "",
+    id: 'green-products',
+    title: '',
     description:
-      "Each green value chain is composed of products used in clean energy technologies, from raw materials to finished green technologies.",
+      'Each green value chain is composed of products used in clean energy technologies, from raw materials to finished green technologies.',
     duration: 5000,
   },
   {
-    id: "product-highlight-1",
-    title: "",
-    description: "Many products appear in more than one value chain.",
+    id: 'product-highlight-1',
+    title: '',
+    description: 'Many products appear in more than one value chain.',
     duration: 2500,
   },
   {
-    id: "product-highlight-2",
-    title: "",
-    description: "Many products appear in more than one value chain.",
+    id: 'product-highlight-2',
+    title: '',
+    description: 'Many products appear in more than one value chain.',
     duration: 2500,
   },
 
   {
-    id: "value-chain-products",
-    title: "",
+    id: 'value-chain-products',
+    title: '',
     description:
-      "For example, the Batteries value chain contains many distinct products that together enable battery technologies.",
+      'For example, the Batteries value chain contains many distinct products that together enable battery technologies.',
     duration: 5000,
   },
   {
-    id: "product-clusters",
-    title: "",
+    id: 'product-clusters',
+    title: '',
     description:
-      "Products that rely on similar capabilities naturally group into <b>green industrial clusters</b>.",
+      'Products that rely on similar capabilities naturally group into <b>green industrial clusters</b>.',
     duration: 5000,
   },
   {
-    id: "value-chain-zoom",
-    title: "",
+    id: 'value-chain-zoom',
+    title: '',
     description:
-      "Zooming into the [selected chain name] value chain reveals the full structure: individual products, organized into green industrial clusters, all nested within a single value chain.",
+      'Zooming into the [selected chain name] value chain reveals the full structure: individual products, organized into green industrial clusters, all nested within a single value chain.',
     duration: 7000,
   },
   {
-    id: "all-value-chains-hierarchy",
-    title: "",
+    id: 'all-value-chains-hierarchy',
+    title: '',
     description:
-      "Greenplexity maps ten green value chains, showing their respective clusters and products inside.",
+      'Greenplexity maps ten green value chains, showing their respective clusters and products inside.',
     duration: 6000,
   },
 ];
@@ -200,9 +200,9 @@ const estimateMaxCharsPerLine = (blockWidth: number, fontSizePx: number) => {
 };
 
 const wrapTextIntoLines = (text: string, maxChars: number): string[] => {
-  const words = (text || "").split(/\s+/).filter(Boolean);
+  const words = (text || '').split(/\s+/).filter(Boolean);
   const lines: string[] = [];
-  let currentLine = "";
+  let currentLine = '';
   words.forEach((word) => {
     const candidate = currentLine ? `${currentLine} ${word}` : word;
     if (candidate.length > maxChars && currentLine) {
@@ -344,7 +344,7 @@ const AnimatedValueChainIntroInternal: React.FC<
           id: supplyChainData.supplyChainId,
           name: chainName,
           color: getSupplyChainColor(supplyChainData.supplyChainId),
-          icon: getValueChainIcon(chainName) || "",
+          icon: getValueChainIcon(chainName) || '',
           x,
           y,
           radius: valueChainCircleRadius,
@@ -410,7 +410,7 @@ const AnimatedValueChainIntroInternal: React.FC<
       if (valueChainIds.length >= 2) {
         highlights.push({
           productId,
-          valueChainIds: valueChainIds,
+          valueChainIds,
         });
       }
     });
@@ -556,7 +556,7 @@ const AnimatedValueChainIntroInternal: React.FC<
           code: row.HS2012_4dg,
           name: row.name_short_en,
           supplyChain: row.supply_chain,
-          clusterId: clusterId,
+          clusterId,
         };
 
         cluster.products.push(productObj);
@@ -829,7 +829,7 @@ const AnimatedValueChainIntroInternal: React.FC<
           const hoveredChain = animationData.valueChains.find(
             (vc) => vc.id === hoveredValueChain,
           );
-          glowColor = hoveredChain?.color || "#2685BD";
+          glowColor = hoveredChain?.color || '#2685BD';
         }
 
         // For smooth transitions with duplicated products across value chains,
@@ -837,7 +837,7 @@ const AnimatedValueChainIntroInternal: React.FC<
         // Position overlaps for all duplicates in early steps so they can fan out later.
         productValueChains.forEach((vcId: number) => {
           // Step 4: emphasize only the selected value chain's duplicates
-          let productColor = "#9CA3AF";
+          let productColor = '#9CA3AF';
           let productOpacity = 0.7;
           let productRadius = 9;
 
@@ -846,7 +846,7 @@ const AnimatedValueChainIntroInternal: React.FC<
               const selectedChain = animationData.valueChains.find(
                 (vc) => vc.id === selectedValueChain,
               );
-              productColor = selectedChain?.color || "#2685BD";
+              productColor = selectedChain?.color || '#2685BD';
               productOpacity = 1;
               productRadius = 11;
             } else {
@@ -879,8 +879,8 @@ const AnimatedValueChainIntroInternal: React.FC<
               currentStep === 4
                 ? productColor
                 : isHighlighted
-                  ? "#000"
-                  : "#9CA3AF",
+                  ? '#000'
+                  : '#9CA3AF',
             hasGlow: duplicateHasGlow,
             glowColor: duplicateHasGlow ? glowColor : null,
           });
@@ -942,16 +942,16 @@ const AnimatedValueChainIntroInternal: React.FC<
               const hoveredChain = animationData.valueChains.find(
                 (vc) => vc.id === hoveredValueChain,
               );
-              glowColor = hoveredChain?.color || "#2685BD";
+              glowColor = hoveredChain?.color || '#2685BD';
             }
 
             // Get the color of the selected value chain for highlighted products
-            let selectedChainColor = "#2685BD"; // fallback
+            let selectedChainColor = '#2685BD'; // fallback
             if (isProductHighlighted && selectedValueChain !== null) {
               const selectedChain = animationData.valueChains.find(
                 (vc) => vc.id === selectedValueChain,
               );
-              selectedChainColor = selectedChain?.color || "#2685BD";
+              selectedChainColor = selectedChain?.color || '#2685BD';
             }
 
             // Use uniform product size (equal circles) - scale based on cluster size
@@ -967,9 +967,9 @@ const AnimatedValueChainIntroInternal: React.FC<
               y,
               r: productSize, // Equal size for all products
               opacity: isProductHighlighted ? 1 : 0.3,
-              fill: isProductHighlighted ? selectedChainColor : "#CCCCCC",
+              fill: isProductHighlighted ? selectedChainColor : '#CCCCCC',
               hasGlow: isProductHovered, // Add glow state
-              glowColor: glowColor, // Add glow color
+              glowColor, // Add glow color
             });
           },
         );
@@ -992,7 +992,7 @@ const AnimatedValueChainIntroInternal: React.FC<
         id: `value-chain-${selectedValueChain}`,
         name:
           animationData.valueChains.find((vc) => vc.id === selectedValueChain)
-            ?.name || "Value Chain",
+            ?.name || 'Value Chain',
         value: 0,
         children: valueChainClusters
           .map((cluster) => {
@@ -1073,16 +1073,16 @@ const AnimatedValueChainIntroInternal: React.FC<
                 const hoveredChain = animationData.valueChains.find(
                   (vc) => vc.id === hoveredValueChain,
                 );
-                glowColor = hoveredChain?.color || "#2685BD";
+                glowColor = hoveredChain?.color || '#2685BD';
               }
 
               // Get the color of the selected value chain
-              let selectedChainColor = "#2685BD"; // fallback
+              let selectedChainColor = '#2685BD'; // fallback
               if (selectedValueChain !== null) {
                 const selectedChain = animationData.valueChains.find(
                   (vc) => vc.id === selectedValueChain,
                 );
-                selectedChainColor = selectedChain?.color || "#2685BD";
+                selectedChainColor = selectedChain?.color || '#2685BD';
               }
 
               products.push({
@@ -1097,7 +1097,7 @@ const AnimatedValueChainIntroInternal: React.FC<
                 opacity: 1,
                 fill: selectedChainColor,
                 hasGlow: isProductHovered,
-                glowColor: glowColor,
+                glowColor,
               });
             },
           );
@@ -1142,7 +1142,7 @@ const AnimatedValueChainIntroInternal: React.FC<
                   const hoveredChain = animationData.valueChains.find(
                     (vc) => vc.id === hoveredValueChain,
                   );
-                  glowColor = hoveredChain?.color || "#2685BD";
+                  glowColor = hoveredChain?.color || '#2685BD';
                 }
 
                 products.push({
@@ -1230,7 +1230,7 @@ const AnimatedValueChainIntroInternal: React.FC<
         // Zoom step - animate selected value chain to outer circle of hierarchy, hide others
         if (selectedValueChain === chain.id) {
           opacity = 1;
-          computedFillColor = "white";
+          computedFillColor = 'white';
           // Match step 8 style: outline only
           computedFillOpacity = 0;
 
@@ -1412,8 +1412,8 @@ const AnimatedValueChainIntroInternal: React.FC<
           y: position.y,
           r: position.radius,
           opacity: isHighlighted ? 1 : 0.4,
-          fill: "white",
-          stroke: "#000",
+          fill: 'white',
+          stroke: '#000',
           strokeWidth: 1,
           name: cluster.name,
           isHighlighted,
@@ -1432,7 +1432,7 @@ const AnimatedValueChainIntroInternal: React.FC<
         const selectedChainObj = animationData.valueChains.find(
           (vc) => vc.id === selectedValueChain,
         );
-        const selectedChainColor = selectedChainObj?.color || "#2685BD";
+        const selectedChainColor = selectedChainObj?.color || '#2685BD';
 
         // Create hierarchical structure matching the product layout in step 6
         const hierarchyData = {
@@ -1497,10 +1497,10 @@ const AnimatedValueChainIntroInternal: React.FC<
             y: clusterY,
             r: clusterNode.r,
             opacity: 0.6,
-            fill: "none", // Match step 8 outline-only style
+            fill: 'none', // Match step 8 outline-only style
             stroke: selectedChainColor,
             strokeWidth: 0.5,
-            name: clusterData.name || "Unnamed Cluster",
+            name: clusterData.name || 'Unnamed Cluster',
             isHighlighted: true,
             textY: clusterY, // Center text on cluster circle
             fontSize: 12,
@@ -1529,10 +1529,10 @@ const AnimatedValueChainIntroInternal: React.FC<
             y: clusterY,
             r: clusterNode.r,
             opacity: 0.6,
-            fill: "none",
+            fill: 'none',
             stroke: chain.color,
             strokeWidth: 0.5,
-            name: "",
+            name: '',
             isHighlighted: false,
             textY: clusterY,
             fontSize: 11,
@@ -1706,9 +1706,9 @@ const AnimatedValueChainIntroInternal: React.FC<
     return (
       <Box
         sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
           height,
         }}
       >
@@ -1784,12 +1784,12 @@ const AnimatedValueChainIntroInternal: React.FC<
     }
     return Math.min(width - 40, 800);
   })();
-  const titleText = (STEPS[currentStep]?.title || "").toUpperCase();
+  const titleText = (STEPS[currentStep]?.title || '').toUpperCase();
   const selectedChainName =
     (selectedValueChain !== null
       ? animationData.valueChains.find((vc) => vc.id === selectedValueChain)
           ?.name
-      : undefined) || "Batteries";
+      : undefined) || 'Batteries';
   const descText = (() => {
     if (currentStep === 4 && selectedValueChain !== null) {
       return `For example, the ${selectedChainName} value chain contains many distinct products that together enable ${selectedChainName.toLowerCase()} technologies.`;
@@ -1798,9 +1798,9 @@ const AnimatedValueChainIntroInternal: React.FC<
       return `Zooming into the ${selectedChainName} value chain reveals the full structure: individual products, organized into green industrial clusters, all nested within a single value chain.`;
     }
     if (currentStep === 7) {
-      return STEPS[currentStep]?.description || "";
+      return STEPS[currentStep]?.description || '';
     }
-    return STEPS[currentStep]?.description || "";
+    return STEPS[currentStep]?.description || '';
   })();
   const titleMaxChars = estimateMaxCharsPerLine(textBlockWidth, 22);
   const descMaxChars = estimateMaxCharsPerLine(textBlockWidth, 20);
@@ -1828,25 +1828,25 @@ const AnimatedValueChainIntroInternal: React.FC<
       sx={{
         width,
         height,
-        position: "relative",
+        position: 'relative',
       }}
     >
       {/* Hierarchy Legend - show only in step 6 (clusters-only equivalent layout) */}
       {currentStep === 6 && (
         <Box
           sx={{
-            position: "absolute",
+            position: 'absolute',
             top: 20,
             left: 20,
             zIndex: 10,
-            backgroundColor: "rgba(255, 255, 255, 0.95)",
-            padding: "12px 16px",
-            borderRadius: "8px",
-            boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
-            border: "1px solid rgba(0, 0, 0, 0.1)",
+            backgroundColor: 'rgba(255, 255, 255, 0.95)',
+            padding: '12px 16px',
+            borderRadius: '8px',
+            boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+            border: '1px solid rgba(0, 0, 0, 0.1)',
           }}
         >
-          <HierarchyLegend layoutMode="clustered" />
+          <HierarchyLegend layoutMode='clustered' />
         </Box>
       )}
 
@@ -1854,9 +1854,9 @@ const AnimatedValueChainIntroInternal: React.FC<
       <svg
         width={width}
         height={availableSvgHeight}
-        aria-hidden="true"
-        focusable="false"
-        role="img"
+        aria-hidden='true'
+        focusable='false'
+        role='img'
       >
         {/* Value Chain Circles with Icons and Names - using React Spring transitions */}
         {valueChainTransitions((style, chain) => {
@@ -1875,7 +1875,7 @@ const AnimatedValueChainIntroInternal: React.FC<
             isZoomStep || isAllChainsStep
               ? style.y.to((y: number) => {
                   const radiusValue =
-                    typeof style.r === "object" && "get" in style.r
+                    typeof style.r === 'object' && 'get' in style.r
                       ? style.r.get()
                       : style.r;
                   // place icon clearly above the circle
@@ -1891,7 +1891,7 @@ const AnimatedValueChainIntroInternal: React.FC<
           const textY = isZoomStep
             ? style.y.to((y: number) => {
                 const radiusValue =
-                  typeof style.r === "object" && "get" in style.r
+                  typeof style.r === 'object' && 'get' in style.r
                     ? style.r.get()
                     : style.r;
                 // zoom view: keep current spacing above the circle
@@ -1900,7 +1900,7 @@ const AnimatedValueChainIntroInternal: React.FC<
             : isAllChainsStep
               ? style.y.to((y: number) => {
                   const radiusValue =
-                    typeof style.r === "object" && "get" in style.r
+                    typeof style.r === 'object' && 'get' in style.r
                       ? style.r.get()
                       : style.r;
                   // final layout: move title a bit closer to the circle
@@ -1921,8 +1921,8 @@ const AnimatedValueChainIntroInternal: React.FC<
                   isAllChainsStep || isZoomStep
                     ? chain.color
                     : chain.isHighlighted
-                      ? "#000"
-                      : "#ffffff"
+                      ? '#000'
+                      : '#ffffff'
                 }
                 strokeWidth={
                   isAllChainsStep || isZoomStep
@@ -1935,8 +1935,8 @@ const AnimatedValueChainIntroInternal: React.FC<
                 style={{
                   cursor:
                     currentStep === 2 || currentStep === 4 || currentStep === 5
-                      ? "pointer"
-                      : "default",
+                      ? 'pointer'
+                      : 'default',
                 }}
                 onClick={() =>
                   (currentStep === 4 || currentStep === 5) &&
@@ -1970,14 +1970,14 @@ const AnimatedValueChainIntroInternal: React.FC<
                       currentStep === 2 ||
                       currentStep === 4 ||
                       currentStep === 5
-                        ? "all"
-                        : "none",
+                        ? 'all'
+                        : 'none',
                     cursor:
                       currentStep === 2 ||
                       currentStep === 4 ||
                       currentStep === 5
-                        ? "pointer"
-                        : "default",
+                        ? 'pointer'
+                        : 'default',
                   }}
                   onClick={() =>
                     (currentStep === 4 || currentStep === 5) &&
@@ -2002,20 +2002,20 @@ const AnimatedValueChainIntroInternal: React.FC<
               <animated.text
                 x={textX}
                 y={textY}
-                textAnchor={isZoomStep ? "start" : "middle"}
+                textAnchor={isZoomStep ? 'start' : 'middle'}
                 fontSize={fontSize}
-                fontWeight={isZoomStep ? "700" : "600"}
-                fill="#000"
+                fontWeight={isZoomStep ? '700' : '600'}
+                fill='#000'
                 opacity={style.opacity}
                 style={{
                   pointerEvents:
                     currentStep === 2 || currentStep === 4 || currentStep === 5
-                      ? "all"
-                      : "none",
+                      ? 'all'
+                      : 'none',
                   cursor:
                     currentStep === 2 || currentStep === 4 || currentStep === 5
-                      ? "pointer"
-                      : "default",
+                      ? 'pointer'
+                      : 'default',
                 }}
                 onClick={() =>
                   (currentStep === 4 || currentStep === 5) &&
@@ -2034,7 +2034,7 @@ const AnimatedValueChainIntroInternal: React.FC<
                   handleValueChainMouseLeave()
                 }
               >
-                {chain.name.replace(/\band\b/gi, "&")}
+                {chain.name.replace(/\band\b/gi, '&')}
               </animated.text>
             </animated.g>
           );
@@ -2047,7 +2047,7 @@ const AnimatedValueChainIntroInternal: React.FC<
             cx={style.x}
             cy={style.y}
             r={style.r}
-            fill={currentStep === 7 ? "none" : cluster.fill}
+            fill={currentStep === 7 ? 'none' : cluster.fill}
             stroke={cluster.stroke}
             strokeWidth={currentStep === 7 ? 0.5 : cluster.strokeWidth}
             opacity={style.opacity}
@@ -2067,11 +2067,11 @@ const AnimatedValueChainIntroInternal: React.FC<
                 filter={
                   product.hasGlow && product.glowColor
                     ? `drop-shadow(0px 0px 2px ${hexToRgba(product.glowColor, 1.0)}) drop-shadow(0px 0px 4px ${hexToRgba(product.glowColor, 0.9)}) drop-shadow(0px 0px 8px ${hexToRgba(product.glowColor, 0.8)}) drop-shadow(0px 0px 16px ${hexToRgba(product.glowColor, 0.6)})`
-                    : "none"
+                    : 'none'
                 }
                 style={{
                   cursor:
-                    currentStep >= 2 && currentStep < 4 ? "pointer" : "default",
+                    currentStep >= 2 && currentStep < 4 ? 'pointer' : 'default',
                 }}
                 onMouseEnter={
                   currentStep >= 2 && currentStep < 4
@@ -2090,21 +2090,21 @@ const AnimatedValueChainIntroInternal: React.FC<
             key={`cluster-text-${cluster.id}`}
             x={style.x}
             y={cluster.textY}
-            textAnchor="middle"
+            textAnchor='middle'
             fontSize={cluster.fontSize}
-            fontWeight="600"
-            fill={cluster.isHighlighted ? "#000" : "#666"}
+            fontWeight='600'
+            fill={cluster.isHighlighted ? '#000' : '#666'}
             opacity={style.opacity}
-            stroke="white"
-            strokeWidth={currentStep === 6 ? "4" : "3"} // Thicker stroke for step 6
-            paintOrder="stroke fill"
+            stroke='white'
+            strokeWidth={currentStep === 6 ? '4' : '3'} // Thicker stroke for step 6
+            paintOrder='stroke fill'
           >
             {(() => {
-              const displayName = (cluster.name || "").replace(
+              const displayName = (cluster.name || '').replace(
                 /\band\b/gi,
-                "&",
+                '&',
               );
-              if (currentStep === 7) return "";
+              if (currentStep === 7) return '';
               const limit = currentStep === 6 ? 20 : 15;
               return displayName.length > limit
                 ? `${displayName.substring(0, limit)}...`
@@ -2189,11 +2189,11 @@ const AnimatedValueChainIntroInternal: React.FC<
           <Text
             x={width / 2}
             y={topTitleY}
-            textAnchor="middle"
-            verticalAnchor="start"
+            textAnchor='middle'
+            verticalAnchor='start'
             fontSize={20}
-            fontWeight="600"
-            style={{ pointerEvents: "none", letterSpacing: "0.5px" }}
+            fontWeight='600'
+            style={{ pointerEvents: 'none', letterSpacing: '0.5px' }}
           >
             Value Chains
           </Text>
@@ -2203,13 +2203,13 @@ const AnimatedValueChainIntroInternal: React.FC<
           <Text
             x={width / 2}
             y={midTitleY}
-            textAnchor="middle"
-            verticalAnchor="start"
+            textAnchor='middle'
+            verticalAnchor='start'
             fontSize={20}
-            fontWeight="600"
-            style={{ pointerEvents: "none", letterSpacing: "0.5px" }}
+            fontWeight='600'
+            style={{ pointerEvents: 'none', letterSpacing: '0.5px' }}
           >
-            {currentStep === 5 ? "Clusters" : "Products"}
+            {currentStep === 5 ? 'Clusters' : 'Products'}
           </Text>
         )}
 
@@ -2224,11 +2224,11 @@ const AnimatedValueChainIntroInternal: React.FC<
                 const lineIndex = wrappedTitleLines.indexOf(line);
                 return dynamicTextTitleY + lineIndex * 22 * 1.15;
               })()}
-              textAnchor="middle"
-              verticalAnchor="start"
+              textAnchor='middle'
+              verticalAnchor='start'
               fontSize={22}
               fontWeight={800}
-              fill="#1e293b"
+              fill='#1e293b'
             >
               {line}
             </Text>
@@ -2237,7 +2237,7 @@ const AnimatedValueChainIntroInternal: React.FC<
           {/* Dynamic step description (wrapped, with <b> support) */}
           {(() => {
             // If description contains <b> tags, parse and render tspans with bold styling
-            if (descText && descText.includes("<b>")) {
+            if (descText && descText.includes('<b>')) {
               const parseBoldSegments = (
                 text: string,
               ): { text: string; bold: boolean }[] => {
@@ -2245,12 +2245,12 @@ const AnimatedValueChainIntroInternal: React.FC<
                 let i = 0;
                 let isBold = false;
                 while (i < text.length) {
-                  if (text.startsWith("<b>", i)) {
+                  if (text.startsWith('<b>', i)) {
                     isBold = true;
                     i += 3;
                     continue;
                   }
-                  if (text.startsWith("</b>", i)) {
+                  if (text.startsWith('</b>', i)) {
                     isBold = false;
                     i += 4;
                     continue;
@@ -2338,29 +2338,29 @@ const AnimatedValueChainIntroInternal: React.FC<
               };
 
               const richSegments = parseBoldSegments(
-                descText.replace(/\n/g, " "),
+                descText.replace(/\n/g, ' '),
               );
               const richLines = wrapSegments(richSegments, descMaxChars);
 
               return richLines.map((lineSegs) => (
                 <text
                   key={`desc-rich-line-${lineSegs
-                    .map((s) => `${s.bold ? "b" : "n"}:${s.text}`)
-                    .join("|")}`}
+                    .map((s) => `${s.bold ? 'b' : 'n'}:${s.text}`)
+                    .join('|')}`}
                   x={width / 2}
                   y={(() => {
                     const lineIndex = richLines.indexOf(lineSegs);
                     return dynamicTextDescY + lineIndex * 20 * 1.3;
                   })()}
-                  textAnchor="middle"
-                  dominantBaseline="hanging"
-                  style={{ pointerEvents: "none" }}
+                  textAnchor='middle'
+                  dominantBaseline='hanging'
+                  style={{ pointerEvents: 'none' }}
                   fontSize={20}
-                  fill="#1e293b"
+                  fill='#1e293b'
                 >
                   {lineSegs.map((seg, j) => (
                     <tspan
-                      key={`seg-${seg.bold ? "b" : "n"}-${seg.text}-${
+                      key={`seg-${seg.bold ? 'b' : 'n'}-${seg.text}-${
                         lineSegs
                           .slice(0, j + 1)
                           .filter(
@@ -2384,11 +2384,11 @@ const AnimatedValueChainIntroInternal: React.FC<
                   const lineIndex = wrappedDescLines.indexOf(line);
                   return dynamicTextDescY + lineIndex * 20 * 1.3;
                 })()}
-                textAnchor="middle"
-                verticalAnchor="start"
+                textAnchor='middle'
+                verticalAnchor='start'
                 fontSize={20}
                 fontWeight={400}
-                fill="#1e293b"
+                fill='#1e293b'
               >
                 {line}
               </Text>
@@ -2401,43 +2401,43 @@ const AnimatedValueChainIntroInternal: React.FC<
       <Box
         sx={{
           height: controlsHeight,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
           gap: 2,
         }}
       >
         {/* Progress indicator */}
         <Box
           sx={{
-            display: "flex",
-            alignItems: "center",
+            display: 'flex',
+            alignItems: 'center',
             gap: 0.5,
-            padding: "10px 16px",
+            padding: '10px 16px',
           }}
         >
           <IconButton
             onClick={togglePlay}
-            aria-label={isPlaying ? "Pause autoplay" : "Play autoplay"}
+            aria-label={isPlaying ? 'Pause autoplay' : 'Play autoplay'}
             sx={{
-              backgroundColor: "rgba(255,255,255,0.9)",
-              color: "#000",
-              border: "1px solid #ccc",
+              backgroundColor: 'rgba(255,255,255,0.9)',
+              color: '#000',
+              border: '1px solid #ccc',
               width: Math.max(40, Math.min(50, Math.round(width * 0.04))),
               height: Math.max(40, Math.min(50, Math.round(width * 0.04))),
-              "&:hover": {
-                backgroundColor: "rgba(255,255,255,1)",
+              '&:hover': {
+                backgroundColor: 'rgba(255,255,255,1)',
               },
             }}
           >
             {isPlaying ? <Pause /> : <PlayArrow />}
           </IconButton>
           <Box
-            component="fieldset"
-            aria-label="Step indicators"
+            component='fieldset'
+            aria-label='Step indicators'
             sx={{
-              display: "flex",
-              alignItems: "center",
+              display: 'flex',
+              alignItems: 'center',
               gap: 0.5,
               border: 0,
               margin: 0,
@@ -2448,26 +2448,26 @@ const AnimatedValueChainIntroInternal: React.FC<
             {STEPS.map((step, index) => (
               <Box
                 key={step.id}
-                component="button"
-                type="button"
+                component='button'
+                type='button'
                 onClick={() => setCurrentStep(index)}
                 aria-label={`Go to step ${index + 1}: ${step.title}`}
-                aria-current={index === currentStep ? "step" : undefined}
+                aria-current={index === currentStep ? 'step' : undefined}
                 title={step.title}
                 onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
+                  if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
                     setCurrentStep(index);
-                  } else if (e.key === "ArrowRight") {
+                  } else if (e.key === 'ArrowRight') {
                     e.preventDefault();
                     setCurrentStep(Math.min(STEPS.length - 1, currentStep + 1));
-                  } else if (e.key === "ArrowLeft") {
+                  } else if (e.key === 'ArrowLeft') {
                     e.preventDefault();
                     setCurrentStep(Math.max(0, currentStep - 1));
-                  } else if (e.key === "Home") {
+                  } else if (e.key === 'Home') {
                     e.preventDefault();
                     setCurrentStep(0);
-                  } else if (e.key === "End") {
+                  } else if (e.key === 'End') {
                     e.preventDefault();
                     setCurrentStep(STEPS.length - 1);
                   }
@@ -2478,20 +2478,20 @@ const AnimatedValueChainIntroInternal: React.FC<
                     6,
                     Math.min(10, Math.round(controlsHeight * 0.1)),
                   ),
-                  backgroundColor: index <= currentStep ? "#333" : "#ddd",
+                  backgroundColor: index <= currentStep ? '#333' : '#ddd',
                   borderRadius: 1,
-                  cursor: "pointer",
-                  transition: "all 0.3s ease",
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
                   border: 0,
                   padding: 0,
-                  appearance: "none",
+                  appearance: 'none',
                   outlineOffset: 2,
-                  "&:hover": {
-                    backgroundColor: index <= currentStep ? "#000" : "#bbb",
-                    transform: "scaleY(1.2)",
+                  '&:hover': {
+                    backgroundColor: index <= currentStep ? '#000' : '#bbb',
+                    transform: 'scaleY(1.2)',
                   },
-                  "&:focus-visible": {
-                    boxShadow: "0 0 0 3px rgba(0,0,0,0.3)",
+                  '&:focus-visible': {
+                    boxShadow: '0 0 0 3px rgba(0,0,0,0.3)',
                   },
                 }}
               />
@@ -2505,27 +2505,27 @@ const AnimatedValueChainIntroInternal: React.FC<
             // Navigate to value chains products page (next step after tutorial)
             const params = new URLSearchParams();
             if (selectedCountry) {
-              params.set("country", String(selectedCountry));
+              params.set('country', String(selectedCountry));
             }
             if (selectedYear) {
-              params.set("year", String(selectedYear));
+              params.set('year', String(selectedYear));
             }
-            const urlWithParams = `${Routes.GreenGrowthValueChainsProducts}${params.toString() ? `?${params.toString()}` : ""}`;
+            const urlWithParams = `${Routes.GreenGrowthValueChainsProducts}${params.toString() ? `?${params.toString()}` : ''}`;
             navigate(urlWithParams);
           }}
-          aria-label="Skip to value chains products page"
+          aria-label='Skip to value chains products page'
           sx={{
-            backgroundColor: "rgba(255,255,255,0.9)",
-            color: "#000",
-            border: "1px solid #000",
-            borderRadius: "8px",
-            padding: "8px 16px",
-            fontSize: "0.875rem",
+            backgroundColor: 'rgba(255,255,255,0.9)',
+            color: '#000',
+            border: '1px solid #000',
+            borderRadius: '8px',
+            padding: '8px 16px',
+            fontSize: '0.875rem',
             fontWeight: 600,
-            textTransform: "none",
-            "&:hover": {
-              backgroundColor: "rgba(255,255,255,1)",
-              border: "1px solid #333",
+            textTransform: 'none',
+            '&:hover': {
+              backgroundColor: 'rgba(255,255,255,1)',
+              border: '1px solid #333',
             },
           }}
         >
@@ -2616,11 +2616,11 @@ const ProductConnections: React.FC<{
             y2={valueChain.y + 65 + 8}
             stroke={valueChain.color}
             strokeWidth={3} // Made thicker for visibility
-            strokeLinecap="round"
+            strokeLinecap='round'
             opacity={0.8}
             style={{
-              transition: "all 0.6s ease",
-              pointerEvents: "none",
+              transition: 'all 0.6s ease',
+              pointerEvents: 'none',
             }}
           />
         );
@@ -2632,15 +2632,15 @@ const ProductConnections: React.FC<{
         <animated.text
           x={productX}
           y={productY + 25} // Positioned below the product node
-          textAnchor="middle"
-          fontSize="14"
-          fontWeight="bold"
-          fill="#000"
-          stroke="white"
+          textAnchor='middle'
+          fontSize='14'
+          fontWeight='bold'
+          fill='#000'
+          stroke='white'
           strokeWidth={3}
-          paintOrder="stroke fill" // Ensures stroke is behind the fill
+          paintOrder='stroke fill' // Ensures stroke is behind the fill
           style={{
-            transition: "all 0.6s ease",
+            transition: 'all 0.6s ease',
           }}
         >
           {product.name} {/* Show full product name */}
@@ -2725,11 +2725,11 @@ const ValueChainProductConnections: React.FC<{
             y2={productY}
             stroke={selectedChain.color}
             strokeWidth={2}
-            strokeLinecap="round"
+            strokeLinecap='round'
             opacity={0.6}
             style={{
-              transition: "all 0.8s ease",
-              pointerEvents: "none",
+              transition: 'all 0.8s ease',
+              pointerEvents: 'none',
             }}
           />
         );
@@ -2740,13 +2740,13 @@ const ValueChainProductConnections: React.FC<{
         cx={selectedChain.x}
         cy={selectedChain.y}
         r={selectedChain.radius + 8}
-        fill="none"
+        fill='none'
         stroke={selectedChain.color}
         strokeWidth={3}
         opacity={0.3}
         style={{
-          transition: "all 0.8s ease",
-          pointerEvents: "none",
+          transition: 'all 0.8s ease',
+          pointerEvents: 'none',
         }}
       />
     </g>
@@ -2765,7 +2765,7 @@ const hexToRgba = (hex: string, alpha: number): string => {
 
 // Main export component with responsive wrapper
 export const AnimatedValueChainIntro: React.FC<
-  Omit<AnimatedValueChainIntroProps, "width" | "height">
+  Omit<AnimatedValueChainIntroProps, 'width' | 'height'>
 > = ({ selectedCountry, selectedYear }) => {
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const [measuredHeight, setMeasuredHeight] = useState<number | null>(null);
@@ -2786,16 +2786,16 @@ export const AnimatedValueChainIntro: React.FC<
     const handleResize = () => compute();
     const handleTransitionEnd = () => compute();
 
-    window.addEventListener("resize", handleResize);
-    window.addEventListener("orientationchange", handleResize);
-    document.addEventListener("transitionend", handleTransitionEnd, true);
+    window.addEventListener('resize', handleResize);
+    window.addEventListener('orientationchange', handleResize);
+    document.addEventListener('transitionend', handleTransitionEnd, true);
 
     // Safari/iOS visual viewport changes when bars collapse/expand
     const vv = (window as any).visualViewport as VisualViewport | undefined;
     const onVVResize = () => compute();
     if (vv) {
-      vv.addEventListener("resize", onVVResize);
-      vv.addEventListener("scroll", onVVResize);
+      vv.addEventListener('resize', onVVResize);
+      vv.addEventListener('scroll', onVVResize);
     }
 
     // Observe layout shifts around the element
@@ -2808,12 +2808,12 @@ export const AnimatedValueChainIntro: React.FC<
     requestAnimationFrame(() => compute());
 
     return () => {
-      window.removeEventListener("resize", handleResize);
-      window.removeEventListener("orientationchange", handleResize);
-      document.removeEventListener("transitionend", handleTransitionEnd, true);
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('orientationchange', handleResize);
+      document.removeEventListener('transitionend', handleTransitionEnd, true);
       if (vv) {
-        vv.removeEventListener("resize", onVVResize);
-        vv.removeEventListener("scroll", onVVResize);
+        vv.removeEventListener('resize', onVVResize);
+        vv.removeEventListener('scroll', onVVResize);
       }
       ro.disconnect();
     };
@@ -2823,14 +2823,14 @@ export const AnimatedValueChainIntro: React.FC<
     <div
       ref={wrapperRef}
       style={{
-        width: "100%",
+        width: '100%',
         // Dynamically computed height so the visualization reflows when sidebar collapses into a topbar
-        height: measuredHeight ? `${measuredHeight}px` : "100%",
+        height: measuredHeight ? `${measuredHeight}px` : '100%',
         minHeight: 0,
-        overflow: "hidden",
-        boxSizing: "border-box",
+        overflow: 'hidden',
+        boxSizing: 'border-box',
         // Guard against iOS home indicator covering controls
-        paddingBottom: "env(safe-area-inset-bottom)",
+        paddingBottom: 'env(safe-area-inset-bottom)',
       }}
     >
       <ParentSize>

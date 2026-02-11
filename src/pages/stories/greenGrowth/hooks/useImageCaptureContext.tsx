@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useCallback } from "react";
+import React, { createContext, useContext, useState, useCallback } from 'react';
 
 interface ImageCaptureContextType {
   captureFunction: (() => Promise<void>) | null;
@@ -46,7 +46,7 @@ export const useImageCaptureContext = () => {
   const context = useContext(ImageCaptureContext);
   if (context === undefined) {
     throw new Error(
-      "useImageCaptureContext must be used within an ImageCaptureProvider",
+      'useImageCaptureContext must be used within an ImageCaptureProvider',
     );
   }
   return context;

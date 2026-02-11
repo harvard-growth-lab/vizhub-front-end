@@ -29,8 +29,8 @@ export type TooltipState = {
   greenEci: number | null;
 };
 
-export type TabType = "map" | "bump";
+export type TabType = 'map' | 'bump';
 
-export type SortColumn = "rank" | "country" | "greenplexity" | "change";
+export type SortColumn = 'rank' | 'country' | 'greenplexity' | 'change';
 
-export type SortDirection = "asc" | "desc";
+export type SortDirection = 'asc' | 'desc';

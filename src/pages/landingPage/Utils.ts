@@ -1,19 +1,19 @@
 import {
   FullWidthContent,
   FullWidthContentContainer,
-} from "../../styling/Grid";
-import styled from "styled-components";
-import { navHeight } from "../../components/navigation/TopLevelStickyNav";
-import { ProjectCategories } from "./graphql/graphQLTypes";
-import { lighten } from "polished";
-import { secondaryFont } from "../../styling/styleUtils";
-import zigZagPattern from "./images/pattern.svg";
+} from '../../styling/Grid';
+import styled from 'styled-components';
+import { navHeight } from '../../components/navigation/TopLevelStickyNav';
+import { ProjectCategories } from './graphql/graphQLTypes';
+import { lighten } from 'polished';
+import { secondaryFont } from '../../styling/styleUtils';
+import zigZagPattern from './images/pattern.svg';
 
-export const activeLinkColor = "#ed3f4b";
-export const backgroundColor = "#fff";
-export const backgroundGray = "#8791a3";
+export const activeLinkColor = '#ed3f4b';
+export const backgroundColor = '#fff';
+export const backgroundGray = '#8791a3';
 export const navBackgroundColor = lighten(0.1, backgroundGray);
-export const backgroundPattern = require("./images/background-pattern.png");
+export const backgroundPattern = require('./images/background-pattern.png');
 
 export const listViewMediumWidth = 1000; // in px
 export const listViewSmallWidth = 750; // in px
@@ -30,21 +30,21 @@ export const HubContentContainer = styled(FullWidthContent)`
 
 export const getCategoryString = (value: ProjectCategories | null) => {
   if (value === ProjectCategories.ATLAS_PROJECTS) {
-    return "Atlas Projects";
+    return 'Atlas Projects';
   } else if (value === ProjectCategories.COUNTRY_DASHBOARDS) {
-    return "Country Dashboards";
+    return 'Country Dashboards';
   } else if (value === ProjectCategories.VISUAL_STORIES) {
-    return "Visual Stories";
+    return 'Visual Stories';
   } else if (value === ProjectCategories.PROTOTYPES_EXPERIMENTS) {
-    return "Prototypes&#8203;/&#8203;Experiments";
+    return 'Prototypes&#8203;/&#8203;Experiments';
   } else if (value === ProjectCategories.PRESENTATIONS) {
-    return "Presentations";
+    return 'Presentations';
   } else if (value === ProjectCategories.SOFTWARE_PACKAGES) {
-    return "Software Packages";
+    return 'Software Packages';
   } else if (value === ProjectCategories.ANNUAL_BEST_OF) {
-    return "Annual Best-Of";
+    return 'Annual Best-Of';
   } else {
-    return "";
+    return '';
   }
 };
 

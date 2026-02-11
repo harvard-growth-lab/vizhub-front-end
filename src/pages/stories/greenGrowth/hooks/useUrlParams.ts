@@ -1,29 +1,29 @@
-import { useSearchParams } from "react-router-dom";
-import { useCallback } from "react";
+import { useSearchParams } from 'react-router-dom';
+import { useCallback } from 'react';
 
 // Default values (matching the original Recoil atoms)
-const DEFAULT_YEAR = "2023";
-const DEFAULT_COUNTRY = "710";
-const DEFAULT_CLUSTER = "";
+const DEFAULT_YEAR = '2023';
+const DEFAULT_COUNTRY = '710';
+const DEFAULT_CLUSTER = '';
 
 export const useUrlParams = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   // Get current values with defaults
-  const yearSelection = searchParams.get("year") || DEFAULT_YEAR;
+  const yearSelection = searchParams.get('year') || DEFAULT_YEAR;
   const countrySelection = parseInt(
-    searchParams.get("country") || DEFAULT_COUNTRY,
+    searchParams.get('country') || DEFAULT_COUNTRY,
   );
-  const clusterSelection = searchParams.get("cluster") || DEFAULT_CLUSTER;
+  const clusterSelection = searchParams.get('cluster') || DEFAULT_CLUSTER;
 
   // Setters that update URL params
   const setYearSelection = useCallback(
     (year: string) => {
       const newParams = new URLSearchParams(searchParams);
       if (year === DEFAULT_YEAR) {
-        newParams.delete("year");
+        newParams.delete('year');
       } else {
-        newParams.set("year", year);
+        newParams.set('year', year);
       }
       setSearchParams(newParams, { replace: true });
     },
@@ -34,9 +34,9 @@ export const useUrlParams = () => {
     (country: number) => {
       const newParams = new URLSearchParams(searchParams);
       if (country.toString() === DEFAULT_COUNTRY) {
-        newParams.delete("country");
+        newParams.delete('country');
       } else {
-        newParams.set("country", country.toString());
+        newParams.set('country', country.toString());
       }
       setSearchParams(newParams, { replace: true });
     },
@@ -47,9 +47,9 @@ export const useUrlParams = () => {
     (cluster: string) => {
       const newParams = new URLSearchParams(searchParams);
       if (cluster === DEFAULT_CLUSTER) {
-        newParams.delete("cluster");
+        newParams.delete('cluster');
       } else {
-        newParams.set("cluster", cluster);
+        newParams.set('cluster', cluster);
       }
       setSearchParams(newParams, { replace: true });
     },

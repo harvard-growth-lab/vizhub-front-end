@@ -1,22 +1,22 @@
-import React, { useState, useRef, useContext } from "react";
-import { AppContext } from "../../../App";
-import { secondaryFont } from "../../../styling/styleUtils";
-import styled from "styled-components";
+import React, { useState, useRef, useContext } from 'react';
+import { AppContext } from '../../../App';
+import { secondaryFont } from '../../../styling/styleUtils';
+import styled from 'styled-components';
 import {
   HubProject,
   CardSizes,
   ProjectCategories,
-} from "../graphql/graphQLTypes";
+} from '../graphql/graphQLTypes';
 import {
   activeLinkColor,
   backgroundColor,
   backgroundGray,
   getCategoryString,
-} from "../Utils";
-import { rgba, darken } from "polished";
-import SmartImage from "../../../components/general/SmartImage";
+} from '../Utils';
+import { rgba, darken } from 'polished';
+import SmartImage from '../../../components/general/SmartImage';
 
-import zigZagPattern from "../images/pattern.svg";
+import zigZagPattern from '../images/pattern.svg';
 
 const Root = styled.div`
   min-width: 28%;
@@ -248,22 +248,22 @@ const HubCard = ({ project }: Props) => {
     MetaDataContainer = MetaDataContainerBase;
     MetaTitleContainer = MetaTitleContainerBase;
     MetaDetail = MetaDetailBase;
-    width = "100%";
-    maxWidth = "100%";
+    width = '100%';
+    maxWidth = '100%';
     flexGrow = 1;
   } else if (project.cardSize === CardSizes.MEDIUM) {
     MetaDataContainer = MetaDataContainerBase;
     MetaTitleContainer = MetaTitleContainerBase;
     MetaDetail = MetaDetailBase;
-    width = "60%";
-    maxWidth = windowWidth > 900 ? "70%" : undefined;
+    width = '60%';
+    maxWidth = windowWidth > 900 ? '70%' : undefined;
     flexGrow = 1;
   } else {
     MetaDataContainer = MetaDataContainerSmall;
     MetaTitleContainer = MetaTitleContainerSmall;
     MetaDetail = MetaDetailSmall;
-    width = "28%";
-    maxWidth = windowWidth > 900 ? "30%" : undefined;
+    width = '28%';
+    maxWidth = windowWidth > 900 ? '30%' : undefined;
     flexGrow = 1;
   }
   const style: React.CSSProperties = {
@@ -296,16 +296,16 @@ const HubCard = ({ project }: Props) => {
   let cursorText: string;
   if (
     project.projectCategory === ProjectCategories.ATLAS_PROJECTS &&
-    (project.link.toLowerCase().includes("atlas.hks.harvard") ||
-      project.link.toLowerCase().includes("datlascolombia.com"))
+    (project.link.toLowerCase().includes('atlas.hks.harvard') ||
+      project.link.toLowerCase().includes('datlascolombia.com'))
   ) {
-    cursorText = "Explore the Tool";
-  } else if (project.link.toLowerCase().endsWith(".pdf")) {
-    cursorText = "Open PDF";
+    cursorText = 'Explore the Tool';
+  } else if (project.link.toLowerCase().endsWith('.pdf')) {
+    cursorText = 'Open PDF';
   } else if (project.projectCategory === ProjectCategories.SOFTWARE_PACKAGES) {
-    cursorText = "View Source Code";
+    cursorText = 'View Source Code';
   } else {
-    cursorText = "View Project";
+    cursorText = 'View Project';
   }
 
   const cursor =
@@ -323,42 +323,42 @@ const HubCard = ({ project }: Props) => {
   const metaDataStyle: React.CSSProperties = {
     transform:
       mouseCoords !== undefined || windowWidth < 900
-        ? "translate(0)"
-        : "translate(-100%, 0)",
+        ? 'translate(0)'
+        : 'translate(-100%, 0)',
   };
   let cardImageLo: string;
   let cardImageHi: string;
   try {
     cardImageLo = project.cardImageLo
-      ? require("../images/low-res/" + project.cardImageLo + ".jpg")
-      : require("../images/image.jpg");
+      ? require('../images/low-res/' + project.cardImageLo + '.jpg')
+      : require('../images/image.jpg');
   } catch (e) {
     try {
       cardImageLo = project.cardImageLo
-        ? require("../images/low-res/" + project.cardImageLo + "-lo.jpg")
-        : require("../images/image.jpg");
+        ? require('../images/low-res/' + project.cardImageLo + '-lo.jpg')
+        : require('../images/image.jpg');
     } catch (fallbackError) {
-      cardImageLo = require("../images/image.jpg");
+      cardImageLo = require('../images/image.jpg');
     }
   }
   try {
     cardImageHi = project.cardImageHi
-      ? require("../images/high-res/" + project.cardImageHi + ".jpg")
-      : require("../images/image.jpg");
+      ? require('../images/high-res/' + project.cardImageHi + '.jpg')
+      : require('../images/image.jpg');
   } catch (e) {
     try {
       cardImageHi = project.cardImageHi
-        ? require("../images/low-res/" + project.cardImageHi + ".jpg")
-        : require("../images/image.jpg");
+        ? require('../images/low-res/' + project.cardImageHi + '.jpg')
+        : require('../images/image.jpg');
     } catch (fallbackError) {
-      cardImageHi = require("../images/image.jpg");
+      cardImageHi = require('../images/image.jpg');
     }
   }
 
   const category = getCategoryString(project.projectCategory);
 
   const link = project.localFile
-    ? require("../internalContent/" + project.link)
+    ? require('../internalContent/' + project.link)
     : project.link;
 
   return (

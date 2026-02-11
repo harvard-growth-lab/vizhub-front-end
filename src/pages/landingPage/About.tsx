@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
-import TopLevelNav from "./TopLevelNav";
-import { scrollToTop } from "../../hooks/useScrollBehavior";
+import React, { useEffect } from 'react';
+import TopLevelNav from './TopLevelNav';
+import { scrollToTop } from '../../hooks/useScrollBehavior';
 import {
   activeLinkColor,
   HubContentContainer,
@@ -11,11 +11,11 @@ import {
   ZigZagContent,
   Title,
   Content,
-} from "./Utils";
-import StandardFooter from "../../components/text/StandardFooter";
-import Helmet from "react-helmet";
+} from './Utils';
+import StandardFooter from '../../components/text/StandardFooter';
+import Helmet from 'react-helmet';
 
-const metaTitle = "About | Harvard Growth Lab Viz Hub";
+const metaTitle = 'About | Harvard Growth Lab Viz Hub';
 
 const AboutPage = () => {
   useEffect(() => scrollToTop({ smooth: false }), []);
@@ -24,10 +24,10 @@ const AboutPage = () => {
     <>
       <Helmet>
         <title>{metaTitle}</title>
-        <meta property="og:title" content={metaTitle} />
+        <meta property='og:title' content={metaTitle} />
       </Helmet>
       <TopLevelNav
-        linkColor={"#fff"}
+        linkColor={'#fff'}
         activeColor={activeLinkColor}
         showTitle={true}
         backgroundColor={navBackgroundColor}
@@ -44,11 +44,11 @@ const AboutPage = () => {
           </ZigZagContentCard>
           <Title>About</Title>
           <Content>
-            Led by{" "}
-            <a href="https://growthlab.hks.harvard.edu/people/ricardo-hausmann-0">
+            Led by{' '}
+            <a href='https://growthlab.hks.harvard.edu/people/ricardo-hausmann-0'>
               Ricardo Hausmann
             </a>
-            , the <a href="https://growthlab.hks.harvard.edu/">Growth Lab</a> at
+            , the <a href='https://growthlab.hks.harvard.edu/'>Growth Lab</a> at
             Harvard University works to understand the dynamics of growth and to
             translate those insights into more effective policymaking in
             developing countries. The Growth Lab places increased economic
@@ -58,8 +58,8 @@ const AboutPage = () => {
             Over the last decade, our portfolio of visualization tools has
             emerged through the close collaboration between the Growth Lab’s
             Digital Development &amp; Design team and our research teams. Our
-            flagship tool, the{" "}
-            <a href="https://atlas.hks.harvard.edu/">
+            flagship tool, the{' '}
+            <a href='https://atlas.hks.harvard.edu/'>
               Atlas of Economic Complexity
             </a>
             , exemplifies this collaboration by beautifully showcasing research,
@@ -71,43 +71,43 @@ const AboutPage = () => {
           </Content>
           <Content>
             Work found in the Viz Hub has been featured in various media outlets
-            including the{" "}
-            <a href="http://www.nytimes.com/interactive/2011/05/15/magazine/art-of-economic-complexity.html">
+            including the{' '}
+            <a href='http://www.nytimes.com/interactive/2011/05/15/magazine/art-of-economic-complexity.html'>
               New York Times
             </a>
-            ,{" "}
-            <a href="https://blogs.wsj.com/indiarealtime/2016/01/01/india-will-be-fastest-growing-economy-for-coming-decade-harvard-researchers-predict/">
+            ,{' '}
+            <a href='https://blogs.wsj.com/indiarealtime/2016/01/01/india-will-be-fastest-growing-economy-for-coming-decade-harvard-researchers-predict/'>
               Wall Street Journal
             </a>
-            ,{" "}
-            <a href="https://www.washingtonpost.com/business/germanys-inconvenient-truth-its-too-complicated/2019/10/14/899ffd72-ee50-11e9-bb7e-d2026ee0c199_story.html">
+            ,{' '}
+            <a href='https://www.washingtonpost.com/business/germanys-inconvenient-truth-its-too-complicated/2019/10/14/899ffd72-ee50-11e9-bb7e-d2026ee0c199_story.html'>
               Washington Post
             </a>
-            ,{" "}
-            <a href="https://www.bloomberg.com/opinion/articles/2019-10-14/german-economic-downturn-is-symptom-of-deeper-growth-problem">
+            ,{' '}
+            <a href='https://www.bloomberg.com/opinion/articles/2019-10-14/german-economic-downturn-is-symptom-of-deeper-growth-problem'>
               Bloomberg
             </a>
-            ,{" "}
-            <a href="https://www.ft.com/content/0297ff7c-524e-11e8-b3ee-41e0209208ec">
+            ,{' '}
+            <a href='https://www.ft.com/content/0297ff7c-524e-11e8-b3ee-41e0209208ec'>
               Financial Times
             </a>
-            , and the{" "}
-            <a href="https://news.harvard.edu/gazette/story/newsplus/can-albanias-economic-turnaround-survive-covid-19/">
+            , and the{' '}
+            <a href='https://news.harvard.edu/gazette/story/newsplus/can-albanias-economic-turnaround-survive-covid-19/'>
               Harvard Gazette
             </a>
-            . In 2019 we were the 2nd runner up for the{" "}
-            <a href="http://dhawards.org/dhawards2019/results/" target="_blank">
+            . In 2019 we were the 2nd runner up for the{' '}
+            <a href='http://dhawards.org/dhawards2019/results/' target='_blank'>
               Digital Humanities
-            </a>{" "}
-            Best Data Visualization Award and were short-listed for an{" "}
+            </a>{' '}
+            Best Data Visualization Award and were short-listed for an{' '}
             <a
-              href="https://www.informationisbeautifulawards.com/"
-              target="_blank"
+              href='https://www.informationisbeautifulawards.com/'
+              target='_blank'
             >
               Information is Beautiful
-            </a>{" "}
-            award in 2018 and 2019. In 2022,{" "}
-            <a href="https://metroverse.hks.harvard.edu/" target="_blank">
+            </a>{' '}
+            award in 2018 and 2019. In 2022,{' '}
+            <a href='https://metroverse.hks.harvard.edu/' target='_blank'>
               Metroverse
             </a>
             , the Growth Lab’s urban economy navigator, won an Information is
@@ -115,14 +115,14 @@ const AboutPage = () => {
           </Content>
           <Content>
             <strong>Contact:</strong> To inquire further about our work or to
-            share your ideas, feel free to reach out over{" "}
-            <a href="mailto:cidatlas@hks.harvard.edu">email</a> or find us on{" "}
-            <a href="https://github.com/cid-harvard">Github</a> and{" "}
-            <a href="https://x.com/HarvardGrwthLab">X</a>.
+            share your ideas, feel free to reach out over{' '}
+            <a href='mailto:cidatlas@hks.harvard.edu'>email</a> or find us on{' '}
+            <a href='https://github.com/cid-harvard'>Github</a> and{' '}
+            <a href='https://x.com/HarvardGrwthLab'>X</a>.
           </Content>
           <h2>Team</h2>
           <Content>
-            Led by the Growth Lab’s{" "}
+            Led by the Growth Lab’s{' '}
             <em>Digital Development &amp; Design Team</em>, Viz Hub projects are
             the result of interdisciplinary collaboration between Growth Lab
             researchers, staff, and a rich network of alumni.
@@ -133,11 +133,11 @@ const AboutPage = () => {
 
           <Content>
             <a
-              target="_blank"
-              href="https://growthlab.hks.harvard.edu/people/annie-white"
+              target='_blank'
+              href='https://growthlab.hks.harvard.edu/people/annie-white'
             >
               Annie White
-            </a>{" "}
+            </a>{' '}
             Director, Digital Tools
             <br />
             Annie oversees the strategy and creation of all Viz Hub projects,
@@ -149,9 +149,9 @@ const AboutPage = () => {
           </Content>
 
           <Content>
-            <a target="_blank" href="https://bleonard.dev/">
+            <a target='_blank' href='https://bleonard.dev/'>
               Brendan Leonard
-            </a>{" "}
+            </a>{' '}
             Senior Back-End &amp; Data Developer
             <br />
             Brendan leads the implementation of back-end technologies and data
@@ -164,11 +164,11 @@ const AboutPage = () => {
 
           <Content>
             <a
-              target="_blank"
-              href="https://www.linkedin.com/in/ellie-jackson-6750b539/"
+              target='_blank'
+              href='https://www.linkedin.com/in/ellie-jackson-6750b539/'
             >
               Ellie Jackson
-            </a>{" "}
+            </a>{' '}
             Back-End &amp; Data Developer
             <br />
             Ellie builds, maintains and optimizes the back-end architecture and
@@ -180,9 +180,9 @@ const AboutPage = () => {
           </Content>
 
           <Content>
-            <a target="_blank" href="http://www.niltuzcu.net/">
+            <a target='_blank' href='http://www.niltuzcu.net/'>
               Nil Tuzcu
-            </a>{" "}
+            </a>{' '}
             Senior UX/UI &amp; Data Visualization Designer
             <br />
             Nil leads the design vision of Viz Hub projects, encompassing data
@@ -194,9 +194,9 @@ const AboutPage = () => {
           </Content>
 
           <Content>
-            <a target="_blank" href="https://www.bortfolio.net/">
+            <a target='_blank' href='https://www.bortfolio.net/'>
               Robert Christie
-            </a>{" "}
+            </a>{' '}
             Front-End Developer
             <br />
             Robert is responsible for the front-end development of Viz Hub
@@ -205,9 +205,9 @@ const AboutPage = () => {
           </Content>
 
           <Content>
-            <a target="_blank" href="https://www.tammy-zhang.com/">
+            <a target='_blank' href='https://www.tammy-zhang.com/'>
               Tammy Zhang
-            </a>{" "}
+            </a>{' '}
             Front-End Developer
             <br />
             Tammy supports the front-end development and maintenance of Viz Hub

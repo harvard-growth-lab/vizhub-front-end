@@ -1,4 +1,4 @@
-import { RANKING_COLORS } from "../../../utils/colors";
+import { RANKING_COLORS } from '../../../utils/colors';
 
 export const YAxisAnnotation = () => {
   const svgHeight = 400;
@@ -18,7 +18,7 @@ export const YAxisAnnotation = () => {
   const arrowDownBottom = arrowInitialTop + arrowSpacing * 5;
   const arrowDownTop = arrowUpBottom + arrowSpacing * 4;
 
-  const STROKE_COLOR = "rgb(76, 76, 76)";
+  const STROKE_COLOR = 'rgb(76, 76, 76)';
 
   return (
     <div
@@ -26,27 +26,27 @@ export const YAxisAnnotation = () => {
       style={{
         width: 120,
         minWidth: 120,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "flex-start",
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'flex-start',
         marginTop: 68,
       }}
     >
       <svg
-        width="100"
+        width='100'
         height={svgHeight}
-        style={{ overflow: "visible" }}
-        role="img"
-        aria-label="Complexity ranking scale"
+        style={{ overflow: 'visible' }}
+        role='img'
+        aria-label='Complexity ranking scale'
       >
         <title>Complexity ranking scale</title>
         <defs>
           <linearGradient
-            id="tableColorGradient"
-            x1="0%"
-            y1="0%"
-            x2="0%"
-            y2="100%"
+            id='tableColorGradient'
+            x1='0%'
+            y1='0%'
+            x2='0%'
+            y2='100%'
           >
             {[...RANKING_COLORS].reverse().map((color, i, arr) => {
               const offset = `${(i / (arr.length - 1)) * 100}%`;
@@ -60,13 +60,13 @@ export const YAxisAnnotation = () => {
             })}
           </linearGradient>
           <marker
-            id="tableArrowhead"
-            markerWidth="4"
-            markerHeight="4"
-            orient="auto"
-            refY="2"
+            id='tableArrowhead'
+            markerWidth='4'
+            markerHeight='4'
+            orient='auto'
+            refY='2'
           >
-            <path d="M0,0 L4,2 0,4" fill={STROKE_COLOR} stroke="none" />
+            <path d='M0,0 L4,2 0,4' fill={STROKE_COLOR} stroke='none' />
           </marker>
         </defs>
 
@@ -76,7 +76,7 @@ export const YAxisAnnotation = () => {
           y={colorInitialTop}
           width={colorWidth}
           height={colorTotalSize}
-          fill="url(#tableColorGradient)"
+          fill='url(#tableColorGradient)'
         />
 
         {/* Up arrow */}
@@ -86,8 +86,8 @@ export const YAxisAnnotation = () => {
           x2={arrowLeft + 20}
           y2={arrowUpTop}
           stroke={STROKE_COLOR}
-          strokeWidth="2"
-          markerEnd="url(#tableArrowhead)"
+          strokeWidth='2'
+          markerEnd='url(#tableArrowhead)'
         />
 
         {/* Up arrow text */}
@@ -97,11 +97,11 @@ export const YAxisAnnotation = () => {
           <text
             x={0}
             y={0}
-            textAnchor="middle"
+            textAnchor='middle'
             style={{
               fill: STROKE_COLOR,
-              fontSize: "13px",
-              textTransform: "uppercase",
+              fontSize: '13px',
+              textTransform: 'uppercase',
               fontFamily: '"Source Sans Pro", "Arial", sans-serif',
             }}
           >
@@ -121,8 +121,8 @@ export const YAxisAnnotation = () => {
           x2={arrowLeft + 20}
           y2={arrowDownTop}
           stroke={STROKE_COLOR}
-          strokeWidth="2"
-          markerEnd="url(#tableArrowhead)"
+          strokeWidth='2'
+          markerEnd='url(#tableArrowhead)'
         />
 
         {/* Down arrow text */}
@@ -132,11 +132,11 @@ export const YAxisAnnotation = () => {
           <text
             x={0}
             y={0}
-            textAnchor="middle"
+            textAnchor='middle'
             style={{
               fill: STROKE_COLOR,
-              fontSize: "13px",
-              textTransform: "uppercase",
+              fontSize: '13px',
+              textTransform: 'uppercase',
               fontFamily: '"Source Sans Pro", "Arial", sans-serif',
             }}
           >

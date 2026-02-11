@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Content } from "../../styling/Grid";
+import React, { useState } from 'react';
+import { Content } from '../../styling/Grid';
 import {
   TwoColumnSection,
   SectionHeader,
@@ -8,41 +8,41 @@ import {
   ParagraphHeader,
   SmallParagraph,
   SectionHeaderSecondary,
-} from "../../styling/styleUtils";
-import StickySubHeading from "../../components/text/StickySubHeading";
+} from '../../styling/styleUtils';
+import StickySubHeading from '../../components/text/StickySubHeading';
 import StickySideNav, {
   NavItem,
-} from "../../components/navigation/StickySideNav";
-import DataViz, { VizType, Legend, HowToReadDots } from "react-fast-charts";
-import TextBlock from "../../components/text/TextBlock";
-import GradientHeader from "../../components/text/headers/GradientHeader";
-import Helmet from "react-helmet";
-import { TreeNode } from "react-dropdown-tree-select";
-import { colorScheme } from "./Utils";
-import DynamicTable from "../../components/text/DynamicTable";
-import useScrollBehavior from "../../hooks/useScrollBehavior";
-import { useNavigate, useLocation } from "react-router";
-import queryString from "query-string";
-import AlbaniaMapSvg from "./assets/albania-logo.svg";
-import ExploreNextFooter from "../../components/text/ExploreNextFooter";
-import { rgba } from "polished";
+} from '../../components/navigation/StickySideNav';
+import DataViz, { VizType, Legend, HowToReadDots } from 'react-fast-charts';
+import TextBlock from '../../components/text/TextBlock';
+import GradientHeader from '../../components/text/headers/GradientHeader';
+import Helmet from 'react-helmet';
+import { TreeNode } from 'react-dropdown-tree-select';
+import { colorScheme } from './Utils';
+import DynamicTable from '../../components/text/DynamicTable';
+import useScrollBehavior from '../../hooks/useScrollBehavior';
+import { useNavigate, useLocation } from 'react-router';
+import queryString from 'query-string';
+import AlbaniaMapSvg from './assets/albania-logo.svg';
+import ExploreNextFooter from '../../components/text/ExploreNextFooter';
+import { rgba } from 'polished';
 import {
   updateScatterPlotData,
   CSVDatum as ScatterPlotCSVDatum,
   NaceIdEnhancedScatterPlotDatum,
-} from "./transformers/transformScatterplotData";
-import { useQuery } from "@apollo/client";
-import gql from "graphql-tag";
-import { Script, SubSectionEnum, NACEIndustry } from "./graphql/graphQLTypes";
-import Loading from "../../components/general/Loading";
-import FullPageError from "../../components/general/FullPageError";
-import ViabilityRadarChart from "./components/ViabilityRadarChart";
-import AttractivenessRadarChart from "./components/AttractivenessRadarChart";
-import IndustryNowLocation from "./components/IndustryNowLocation";
-import IndustryWagesBarChart from "./components/IndustryWagesBarChart";
-import transformIndustryNowTableData from "./transformers/transformIndustryNowTableData";
-import styled from "styled-components";
-import { triggerGoogleAnalyticsEvent } from "../../routing/tracking";
+} from './transformers/transformScatterplotData';
+import { useQuery } from '@apollo/client';
+import gql from 'graphql-tag';
+import { Script, SubSectionEnum, NACEIndustry } from './graphql/graphQLTypes';
+import Loading from '../../components/general/Loading';
+import FullPageError from '../../components/general/FullPageError';
+import ViabilityRadarChart from './components/ViabilityRadarChart';
+import AttractivenessRadarChart from './components/AttractivenessRadarChart';
+import IndustryNowLocation from './components/IndustryNowLocation';
+import IndustryWagesBarChart from './components/IndustryWagesBarChart';
+import transformIndustryNowTableData from './transformers/transformIndustryNowTableData';
+import styled from 'styled-components';
+import { triggerGoogleAnalyticsEvent } from '../../routing/tracking';
 
 const StyledP = styled.p`
   a {
@@ -195,15 +195,15 @@ const AlbaniaToolContent = (props: Props) => {
     rawNaceData,
   } = props;
 
-  const title = "Albania’s Industry Targeting Dashboard";
-  const metaTitle = title + " | The Growth Lab at Harvard Kennedy School";
-  const metaDescription = "View data visualizations for Albania’s industries.";
+  const title = 'Albania’s Industry Targeting Dashboard';
+  const metaTitle = title + ' | The Growth Lab at Harvard Kennedy School';
+  const metaDescription = 'View data visualizations for Albania’s industries.';
   const navigate = useNavigate();
   const { pathname, search, hash } = useLocation();
   const parsedQuery = queryString.parse(search);
-  const industry = parsedQuery.industry ? parsedQuery.industry : "484"; // Default to Data processing, hosting
+  const industry = parsedQuery.industry ? parsedQuery.industry : '484'; // Default to Data processing, hosting
 
-  let parent: TreeNode = { label: "", value: "the industry" };
+  let parent: TreeNode = { label: '', value: 'the industry' };
   const flattenedChildData: TreeNode[] = [];
   naceData.forEach(({ children }: any) =>
     children.forEach((child: TreeNode) =>
@@ -225,7 +225,7 @@ const AlbaniaToolContent = (props: Props) => {
   );
   const updateSelectedIndustry = (val: TreeNode) => {
     setSelectedIndustry(val);
-    navigate(pathname + "?industry=" + val.value + hash);
+    navigate(pathname + '?industry=' + val.value + hash);
   };
 
   const [navHeight, setNavHeight] = useState<number>(0);
@@ -235,24 +235,24 @@ const AlbaniaToolContent = (props: Props) => {
   const industryName =
     selectedIndustry && selectedIndustry.label
       ? selectedIndustry.label
-      : "No Industry Selected";
+      : 'No Industry Selected';
 
   const links: NavItem[] = [
     {
-      label: "Overview",
-      target: "#overview",
+      label: 'Overview',
+      target: '#overview',
       internalLink: true,
       scrollBuffer,
     },
     {
-      label: "Industry Now",
-      target: "#industry-now",
+      label: 'Industry Now',
+      target: '#industry-now',
       internalLink: true,
       scrollBuffer,
     },
     {
-      label: "Nearby Industries",
-      target: "#nearby-industries",
+      label: 'Nearby Industries',
+      target: '#nearby-industries',
       internalLink: true,
       scrollBuffer,
     },
@@ -267,7 +267,7 @@ const AlbaniaToolContent = (props: Props) => {
   );
   const highlighted = scatterPlotNode
     ? {
-        color: scatterPlotNode.fill ? rgba(scatterPlotNode.fill, 0.5) : "#666",
+        color: scatterPlotNode.fill ? rgba(scatterPlotNode.fill, 0.5) : '#666',
         label: industryName,
       }
     : undefined;
@@ -288,60 +288,60 @@ const AlbaniaToolContent = (props: Props) => {
       }
       return text;
     } else {
-      return "No script found for " + subsection;
+      return 'No script found for ' + subsection;
     }
   };
 
-  const overviewLinkDivider = "[LINK]";
+  const overviewLinkDivider = '[LINK]';
 
   const OverviewText = ({ text }: { text: string }) => {
     const textChunks = text.split(overviewLinkDivider).filter((t) => t);
     if (textChunks.length === 3) {
-      const gaCategory = "Albania-overview-text-links";
-      const gaEvent = "click-link";
+      const gaCategory = 'Albania-overview-text-links';
+      const gaEvent = 'click-link';
       return (
         <>
           <StyledP>
             <a
-              href="https://albania.growthlab.hks.harvard.edu/"
-              target="_blank"
-              rel="noopener noreferrer"
+              href='https://albania.growthlab.hks.harvard.edu/'
+              target='_blank'
+              rel='noopener noreferrer'
               onClick={() =>
                 triggerGoogleAnalyticsEvent(
                   gaCategory,
                   gaEvent,
-                  "growth_lab_link",
+                  'growth_lab_link',
                 )
               }
             >
               Harvard Growth Lab research in Albania
-            </a>{" "}
-            {textChunks[0]}{" "}
+            </a>{' '}
+            {textChunks[0]}{' '}
             <a
-              href="https://docs.google.com/document/d/1p1x3SmNF4ycsVdaE9-As6d9SN9FSYPFRF9ng5a-qVxc/edit?usp=sharing"
-              target="_blank"
-              rel="noopener noreferrer"
+              href='https://docs.google.com/document/d/1p1x3SmNF4ycsVdaE9-As6d9SN9FSYPFRF9ng5a-qVxc/edit?usp=sharing'
+              target='_blank'
+              rel='noopener noreferrer'
               onClick={() =>
                 triggerGoogleAnalyticsEvent(
                   gaCategory,
                   gaEvent,
-                  "methodology_link",
+                  'methodology_link',
                 )
               }
             >
               here
-            </a>{" "}
-            {textChunks[1]}{" "}
+            </a>{' '}
+            {textChunks[1]}{' '}
             <a
-              href="https://atlas.hks.harvard.edu/explore/treemap?exporter=country-516"
-              target="_blank"
-              rel="noopener noreferrer"
+              href='https://atlas.hks.harvard.edu/explore/treemap?exporter=country-516'
+              target='_blank'
+              rel='noopener noreferrer'
               onClick={() =>
-                triggerGoogleAnalyticsEvent(gaCategory, gaEvent, "atlas_link")
+                triggerGoogleAnalyticsEvent(gaCategory, gaEvent, 'atlas_link')
               }
             >
               Atlas of Economic Complexity
-            </a>{" "}
+            </a>{' '}
             {textChunks[2]}
           </StyledP>
         </>
@@ -352,7 +352,7 @@ const AlbaniaToolContent = (props: Props) => {
           dangerouslySetInnerHTML={{
             __html: getSubsectionText(SubSectionEnum.Introduction, [
               {
-                key: "<<growth_lab_link>>",
+                key: '<<growth_lab_link>>',
                 value: `<a
               href='https://albania.growthlab.hks.harvard.edu/'
               target='_blank'
@@ -362,7 +362,7 @@ const AlbaniaToolContent = (props: Props) => {
             </a>`,
               },
               {
-                key: "<<methodology_link>>",
+                key: '<<methodology_link>>',
                 value: `<a
               href='https://docs.google.com/document/d/1p1x3SmNF4ycsVdaE9-As6d9SN9FSYPFRF9ng5a-qVxc/edit?usp=sharing'
               target='_blank'
@@ -370,7 +370,7 @@ const AlbaniaToolContent = (props: Props) => {
             >here</a>`,
               },
               {
-                key: "<<atlas_link>>",
+                key: '<<atlas_link>>',
                 value: `<a
               href='https://atlas.hks.harvard.edu/explore/treemap?exporter=country-516'
               target='_blank'
@@ -444,10 +444,10 @@ const AlbaniaToolContent = (props: Props) => {
         occupationNode: industryNowOccupationNode,
         nearbyIndustryEdge: industryNowNearestIndustryEdge,
       });
-    const strategy = factors && factors.strategy ? factors.strategy : "";
+    const strategy = factors && factors.strategy ? factors.strategy : '';
     content = (
       <>
-        <div id={"overview"}>
+        <div id={'overview'}>
           <SectionHeader>{SubSectionEnum.Overview}</SectionHeader>
           <p
             dangerouslySetInnerHTML={{
@@ -457,14 +457,14 @@ const AlbaniaToolContent = (props: Props) => {
         </div>
         <TwoColumnSection>
           <DataViz
-            id={"albania-scatterplot"}
+            id={'albania-scatterplot'}
             vizType={VizType.ScatterPlot}
             data={updateScatterPlotData(
               scatterPlotData,
               selectedIndustry,
               updateSelectedIndustry,
             )}
-            axisLabels={{ x: "Viability", y: "Attractiveness" }}
+            axisLabels={{ x: 'Viability', y: 'Attractiveness' }}
             axisMinMax={{
               minX: 0,
               maxX: 10,
@@ -473,19 +473,19 @@ const AlbaniaToolContent = (props: Props) => {
             }}
             showAverageLines={true}
             averageLineText={{
-              x: "Avg. Viability: 5",
-              y: "Avg. Attractiveness: 5",
+              x: 'Avg. Viability: 5',
+              y: 'Avg. Attractiveness: 5',
             }}
             averageLineValue={{ x: 5, y: 5 }}
             enablePNGDownload={true}
             enableSVGDownload={true}
-            chartTitle={"Overview - " + industryName}
+            chartTitle={'Overview - ' + industryName}
             jsonToDownload={scatterPlotDataForDownload}
             quadrantLabels={{
-              I: "Most strategic\nfor investment\npromotion",
-              II: "Strategic if\nviability can\nbe improved",
-              III: "Least strategic\nfor investment\npromotion",
-              IV: "Limited\ngovernment\nsupport\nneeded",
+              I: 'Most strategic\nfor investment\npromotion',
+              II: 'Strategic if\nviability can\nbe improved',
+              III: 'Least strategic\nfor investment\npromotion',
+              IV: 'Limited\ngovernment\nsupport\nneeded',
             }}
           />
           <TextBlock>
@@ -498,56 +498,56 @@ const AlbaniaToolContent = (props: Props) => {
                   SubSectionEnum.HowStrategicIsTheIndustry,
                   [
                     {
-                      key: "<<description>>",
+                      key: '<<description>>',
                       value: `<strong>${industryName}</strong>`,
                     },
                     {
-                      key: "<<v_text>>",
+                      key: '<<v_text>>',
                       value:
                         factors && factors.vText
                           ? factors.vText
-                          : "MISSING VALUE",
+                          : 'MISSING VALUE',
                     },
                     {
-                      key: "<<a_text>>",
+                      key: '<<a_text>>',
                       value:
                         factors && factors.aText
                           ? factors.aText
-                          : "MISSING VALUE",
+                          : 'MISSING VALUE',
                     },
                     {
-                      key: "<<rca_text1>>",
+                      key: '<<rca_text1>>',
                       value:
                         factors && factors.rcaText1
                           ? factors.rcaText1
-                          : "MISSING VALUE",
+                          : 'MISSING VALUE',
                     },
                     {
-                      key: "<<rca_text2>>",
+                      key: '<<rca_text2>>',
                       value:
                         factors && factors.rcaText2
                           ? factors.rcaText2
-                          : "MISSING VALUE",
+                          : 'MISSING VALUE',
                     },
                     {
-                      key: "<<v_text>>",
+                      key: '<<v_text>>',
                       value:
                         factors && factors.vText
                           ? factors.vText
-                          : "MISSING VALUE",
+                          : 'MISSING VALUE',
                     },
                     {
-                      key: "<<a_text>>",
+                      key: '<<a_text>>',
                       value:
                         factors && factors.aText
                           ? factors.aText
-                          : "MISSING VALUE",
+                          : 'MISSING VALUE',
                     },
                     {
-                      key: "<<description>>",
+                      key: '<<description>>',
                       value: `<span style="text-transform: lowercase">${industryName}</span>`,
                     },
-                    { key: "<<strategy>>", value: strategy },
+                    { key: '<<strategy>>', value: strategy },
                   ],
                 ),
               }}
@@ -556,11 +556,11 @@ const AlbaniaToolContent = (props: Props) => {
               items={[
                 {
                   color: rgba(colorScheme.dataSecondary, 0.5),
-                  label: "Not intensively present in Albania",
+                  label: 'Not intensively present in Albania',
                 },
                 {
                   color: rgba(colorScheme.data, 0.5),
-                  label: "Intensively present in Albania",
+                  label: 'Intensively present in Albania',
                 },
               ]}
               highlighted={highlighted}
@@ -669,7 +669,7 @@ const AlbaniaToolContent = (props: Props) => {
             />
           </TextBlock>
         </TwoColumnSection>
-        <div id={"industry-now"}>
+        <div id={'industry-now'}>
           <SectionHeader>{SubSectionEnum.IndustryNow}</SectionHeader>
         </div>
         <div>
@@ -677,10 +677,10 @@ const AlbaniaToolContent = (props: Props) => {
             dangerouslySetInnerHTML={{
               __html: getSubsectionText(SubSectionEnum.IndustryNow, [
                 {
-                  key: "<<description>>",
+                  key: '<<description>>',
                   value: `<strong style="text-transform: lowercase">${industryName}</strong>`,
                 },
-                { key: "<<parent>>", value: parent.label.toLowerCase() },
+                { key: '<<parent>>', value: parent.label.toLowerCase() },
               ]),
             }}
           />
@@ -744,12 +744,12 @@ const AlbaniaToolContent = (props: Props) => {
             <Legend
               legendList={[
                 {
-                  label: "Industry",
+                  label: 'Industry',
                   fill: lightBorderColor,
                   stroke: undefined,
                 },
                 {
-                  label: "Country",
+                  label: 'Country',
                   fill: undefined,
                   stroke: colorScheme.quaternary,
                 },
@@ -757,7 +757,7 @@ const AlbaniaToolContent = (props: Props) => {
             />
           </TextBlock>
         </TwoColumnSection>
-        <div id={"nearby-industries"}>
+        <div id={'nearby-industries'}>
           <SectionHeader>{SubSectionEnum.NearbyIndustries}</SectionHeader>
         </div>
         <TwoColumnSection>
@@ -771,7 +771,7 @@ const AlbaniaToolContent = (props: Props) => {
               dangerouslySetInnerHTML={{
                 __html: getSubsectionText(SubSectionEnum.NearbyIndustries, [
                   {
-                    key: "<<description>>",
+                    key: '<<description>>',
                     value: `<strong>${industryName.toLowerCase()}</strong>`,
                   },
                 ]),
@@ -783,14 +783,14 @@ const AlbaniaToolContent = (props: Props) => {
     );
     nav = (
       <StickySideNav
-        id={"albania-tool-side-navigation"}
+        id={'albania-tool-side-navigation'}
         links={links}
-        backgroundColor={"#ecf0f2"}
-        borderColor={"#819ea8"}
-        hoverColor={"#b7c7cd"}
-        borderTopColor={"#fff"}
+        backgroundColor={'#ecf0f2'}
+        borderColor={'#819ea8'}
+        hoverColor={'#b7c7cd'}
+        borderTopColor={'#fff'}
         onHeightChange={(h) => setNavHeight(h)}
-        marginTop={stickyHeaderHeight + "px"}
+        marginTop={stickyHeaderHeight + 'px'}
       />
     );
   } else {
@@ -801,9 +801,9 @@ const AlbaniaToolContent = (props: Props) => {
   const introText = (
     <OverviewText
       text={getSubsectionText(SubSectionEnum.Introduction, [
-        { key: "<<growth_lab_link>>", value: overviewLinkDivider },
-        { key: "<<methodology_link>>", value: overviewLinkDivider },
-        { key: "<<atlas_link>>", value: overviewLinkDivider },
+        { key: '<<growth_lab_link>>', value: overviewLinkDivider },
+        { key: '<<methodology_link>>', value: overviewLinkDivider },
+        { key: '<<atlas_link>>', value: overviewLinkDivider },
       ])}
     />
   );
@@ -812,20 +812,20 @@ const AlbaniaToolContent = (props: Props) => {
     <>
       <Helmet>
         <title>{metaTitle}</title>
-        <meta name="description" content={metaDescription} />
-        <meta property="og:title" content={metaTitle} />
-        <meta property="og:description" content={metaDescription} />
+        <meta name='description' content={metaDescription} />
+        <meta property='og:title' content={metaTitle} />
+        <meta property='og:description' content={metaDescription} />
       </Helmet>
       <GradientHeader
         title={title}
         hasSearch={true}
-        searchLabelText={"To Start Select an Industry:"}
+        searchLabelText={'To Start Select an Industry:'}
         data={naceData}
         onChange={updateSelectedIndustry}
         initialSelectedValue={selectedIndustry}
         imageSrc={AlbaniaMapSvg}
         imageProps={{
-          imgWidth: "110px",
+          imgWidth: '110px',
         }}
         primaryColor={colorScheme.header}
         gradient={`linear-gradient(
@@ -833,16 +833,16 @@ const AlbaniaToolContent = (props: Props) => {
             rgba(255,255,255,0) 0%,
             ${rgba(colorScheme.header, 0.85)} 100%
           )`}
-        textColor={"#fff"}
-        linkColor={"#fff"}
+        textColor={'#fff'}
+        linkColor={'#fff'}
         links={[
           {
-            label: "Country Profile",
-            target: "https://atlas.hks.harvard.edu/countries/516",
+            label: 'Country Profile',
+            target: 'https://atlas.hks.harvard.edu/countries/516',
           },
           {
-            label: "Country Research",
-            target: "https://albania.growthlab.hks.harvard.edu/",
+            label: 'Country Research',
+            target: 'https://albania.growthlab.hks.harvard.edu/',
           },
         ]}
         introText={introText}
@@ -861,17 +861,17 @@ const AlbaniaToolContent = (props: Props) => {
         backgroundColor={colorScheme.quaternary}
         exploreNextLinks={[
           {
-            label: "Country Profile",
-            target: "https://atlas.hks.harvard.edu/countries/8",
+            label: 'Country Profile',
+            target: 'https://atlas.hks.harvard.edu/countries/8',
           },
           {
-            label: "Country Research",
-            target: "https://albania.growthlab.hks.harvard.edu/",
+            label: 'Country Research',
+            target: 'https://albania.growthlab.hks.harvard.edu/',
           },
         ]}
         attributions={[
-          "Growth Lab’s Albania Research Team:  Miguel Santos, Ermal Frasheri, Timothy O’Brien, Daniela Muhaj, Patricio Goldstein and Jessie Lu.",
-          "Growth Lab’s Digital Development & Design Team:  Annie White, Brendan Leonard, Nil Tuzcu and Kyle Soeltz.",
+          'Growth Lab’s Albania Research Team:  Miguel Santos, Ermal Frasheri, Timothy O’Brien, Daniela Muhaj, Patricio Goldstein and Jessie Lu.',
+          'Growth Lab’s Digital Development & Design Team:  Annie White, Brendan Leonard, Nil Tuzcu and Kyle Soeltz.',
         ]}
       />
     </>

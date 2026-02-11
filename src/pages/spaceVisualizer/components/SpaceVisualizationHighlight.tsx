@@ -1,6 +1,6 @@
-import React from "react";
-import * as d3 from "d3";
-import type { Node } from "../loader";
+import React from 'react';
+import * as d3 from 'd3';
+import type { Node } from '../loader';
 
 interface SpaceVisualizationHighlightProps {
   nodes: Node[];
@@ -19,9 +19,9 @@ interface SpaceVisualizationHighlightProps {
   yScale: d3.ScaleLinear<number, number>;
   radiusScale: (value: number) => number;
   highlightedNodeId?: string;
-  metadata?: Array<{
+  metadata?: {
     [key: string]: string | number | undefined;
-  }>;
+  }[];
   categoryColorScale: d3.ScaleOrdinal<string, string>;
 }
 
@@ -63,7 +63,7 @@ export const SpaceVisualizationHighlight: React.FC<SpaceVisualizationHighlightPr
           const category = node[fieldNames.category];
           if (category) {
             const meta = metadata.find(
-              (m) => String(m[fieldNames.metaId || ""]) === String(category),
+              (m) => String(m[fieldNames.metaId || '']) === String(category),
             );
             if (meta && fieldNames.metaColor) {
               return String(meta[fieldNames.metaColor]);
@@ -77,7 +77,7 @@ export const SpaceVisualizationHighlight: React.FC<SpaceVisualizationHighlightPr
         }
 
         // Default fallback
-        return "#999999";
+        return '#999999';
       };
 
       const highlightedNode = nodes.find(
@@ -126,7 +126,7 @@ export const SpaceVisualizationHighlight: React.FC<SpaceVisualizationHighlightPr
             const radius = fieldNames.radius
               ? (() => {
                   const radiusValue = node[fieldNames.radius];
-                  return typeof radiusValue === "number"
+                  return typeof radiusValue === 'number'
                     ? radiusScale(radiusValue)
                     : radiusScale(Number.parseFloat(String(radiusValue)));
                 })()
@@ -140,9 +140,9 @@ export const SpaceVisualizationHighlight: React.FC<SpaceVisualizationHighlightPr
                 r={radius}
                 fill={getNodeColor(node)}
                 fillOpacity={0.6}
-                stroke="grey"
+                stroke='grey'
                 strokeWidth={2}
-                style={{ pointerEvents: "none" }}
+                style={{ pointerEvents: 'none' }}
               />
             );
           })}
@@ -152,7 +152,7 @@ export const SpaceVisualizationHighlight: React.FC<SpaceVisualizationHighlightPr
             const radius = fieldNames.radius
               ? (() => {
                   const radiusValue = highlightedNode[fieldNames.radius];
-                  return typeof radiusValue === "number"
+                  return typeof radiusValue === 'number'
                     ? radiusScale(radiusValue)
                     : radiusScale(Number.parseFloat(String(radiusValue)));
                 })()
@@ -169,9 +169,9 @@ export const SpaceVisualizationHighlight: React.FC<SpaceVisualizationHighlightPr
                 r={radius}
                 fill={getNodeColor(highlightedNode)}
                 fillOpacity={0.8}
-                stroke="grey"
+                stroke='grey'
                 strokeWidth={3}
-                style={{ pointerEvents: "none" }}
+                style={{ pointerEvents: 'none' }}
               />
             );
           })()}
@@ -182,10 +182,10 @@ export const SpaceVisualizationHighlight: React.FC<SpaceVisualizationHighlightPr
               y1={yScale(link.y1)}
               x2={xScale(link.x2)}
               y2={yScale(link.y2)}
-              stroke="grey"
+              stroke='grey'
               strokeOpacity={0.6}
               strokeWidth={2}
-              style={{ pointerEvents: "none" }}
+              style={{ pointerEvents: 'none' }}
             />
           ))}
         </g>

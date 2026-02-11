@@ -1,21 +1,21 @@
-import { useState, useMemo, useCallback, useRef, useEffect } from "react";
-import { animated, useTransition, to } from "@react-spring/web";
-import { tree, hierarchy } from "d3-hierarchy";
-import { useTheme, useMediaQuery } from "@mui/material";
-import { ParentSize } from "@visx/responsive";
-import { TableWrapper, VisualizationLoading } from "../../shared";
-import { useUrlParams, useGreenGrowthData } from "../../../hooks";
-import { useImageCaptureContext } from "../../../hooks/useImageCaptureContext";
-import { themeUtils } from "../../../theme";
-import html2canvas from "html2canvas";
+import { useState, useMemo, useCallback, useRef, useEffect } from 'react';
+import { animated, useTransition, to } from '@react-spring/web';
+import { tree, hierarchy } from 'd3-hierarchy';
+import { useTheme, useMediaQuery } from '@mui/material';
+import { ParentSize } from '@visx/responsive';
+import { TableWrapper, VisualizationLoading } from '../../shared';
+import { useUrlParams, useGreenGrowthData } from '../../../hooks';
+import { useImageCaptureContext } from '../../../hooks/useImageCaptureContext';
+import { themeUtils } from '../../../theme';
+import html2canvas from 'html2canvas';
 
 // Local imports
 import {
   buildHierarchicalData,
   buildTreeDataForValueChain,
   filterHierarchyByProductRCA,
-} from "./dataUtils";
-import { applySankeyLayout, convertToPositions } from "./layoutUtils";
+} from './dataUtils';
+import { applySankeyLayout, convertToPositions } from './layoutUtils';
 // Legend and controls removed for global-only view
 
 // RCA-based opacity no longer used in global-only mode
@@ -33,7 +33,7 @@ const SankeyTreeInternal = ({
 
   // Responsive setup
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   // Calculate responsive dimensions based on available space
   const { dimensions, leftMargin, rightMargin } = useMemo(() => {
@@ -76,7 +76,7 @@ const SankeyTreeInternal = ({
     new Set(),
   );
   // Force global coloring mode (country-specific mode removed)
-  const coloringMode = "Global" as const;
+  const coloringMode = 'Global' as const;
 
   // RCA threshold not used in global mode; keep products toggle internal (no controls shown)
   const [showSubtleProducts, setShowSubtleProducts] = useState<boolean>(false);
@@ -116,13 +116,13 @@ const SankeyTreeInternal = ({
   // Image capture handler and registration
   const handleCaptureImage = useCallback(async () => {
     if (!chartContainerRef.current) {
-      console.warn("Chart container not found");
+      console.warn('Chart container not found');
       return;
     }
 
     try {
       const canvas = await html2canvas(chartContainerRef.current, {
-        backgroundColor: "#ffffff",
+        backgroundColor: '#ffffff',
         scale: 2,
         useCORS: true,
         allowTaint: true,
@@ -134,17 +134,17 @@ const SankeyTreeInternal = ({
       canvas.toBlob((blob) => {
         if (blob) {
           const url = URL.createObjectURL(blob);
-          const a = document.createElement("a");
+          const a = document.createElement('a');
           a.href = url;
-          a.download = `sankey_tree_${countrySelection}_${focusedValueChain || focusedCluster || "overview"}.png`;
+          a.download = `sankey_tree_${countrySelection}_${focusedValueChain || focusedCluster || 'overview'}.png`;
           document.body.appendChild(a);
           a.click();
           document.body.removeChild(a);
           URL.revokeObjectURL(url);
         }
-      }, "image/png");
+      }, 'image/png');
     } catch (error) {
-      console.error("Error capturing image:", error);
+      console.error('Error capturing image:', error);
     }
   }, [countrySelection, focusedValueChain, focusedCluster]);
 
@@ -173,7 +173,7 @@ const SankeyTreeInternal = ({
     try {
       return buildHierarchicalData(productClusterRows, countryData);
     } catch (err) {
-      console.error("Error processing hierarchy data:", err);
+      console.error('Error processing hierarchy data:', err);
       return null;
     }
   }, [productClusterRows, countryData]);
@@ -200,17 +200,17 @@ const SankeyTreeInternal = ({
       if (!focusedCluster && !focusedValueChain) {
         return {
           ...node,
-          visible: node.type !== "product", // Products will be handled separately in sub-trees
+          visible: node.type !== 'product', // Products will be handled separately in sub-trees
         };
       } else if (focusedValueChain && !focusedCluster) {
         if (node.id === focusedValueChain) {
           return { ...node, visible: true };
-        } else if (node.type === "manufacturing_cluster") {
+        } else if (node.type === 'manufacturing_cluster') {
           const isConnected = filteredHierarchy.links.some(
             (l) => l.source === focusedValueChain && l.target === node.id,
           );
           return { ...node, visible: isConnected };
-        } else if (node.type === "product") {
+        } else if (node.type === 'product') {
           const connectedClusters = filteredHierarchy.links
             .filter((l) => l.source === focusedValueChain)
             .map((l) => l.target);
@@ -226,12 +226,12 @@ const SankeyTreeInternal = ({
       } else if (focusedCluster) {
         if (node.id === focusedCluster) {
           return { ...node, visible: true };
-        } else if (node.type === "value_chain") {
+        } else if (node.type === 'value_chain') {
           const isConnected = filteredHierarchy.links.some(
             (l) => l.source === node.id && l.target === focusedCluster,
           );
           return { ...node, visible: isConnected };
-        } else if (node.type === "product") {
+        } else if (node.type === 'product') {
           const isConnected = filteredHierarchy.links.some(
             (l) => l.source === focusedCluster && l.target === node.id,
           );
@@ -243,14 +243,14 @@ const SankeyTreeInternal = ({
 
       return {
         ...node,
-        visible: node.type !== "product", // Products will be handled separately in sub-trees
+        visible: node.type !== 'product', // Products will be handled separately in sub-trees
       };
     });
 
     // Second pass: Hide value chains that have no visible connected indsutrial clusters
     const updatedNodes = firstPassNodes.map((node) => {
       if (
-        node.type === "value_chain" &&
+        node.type === 'value_chain' &&
         node.visible &&
         !focusedCluster &&
         !focusedValueChain
@@ -265,7 +265,7 @@ const SankeyTreeInternal = ({
               return (
                 targetNode &&
                 targetNode.visible &&
-                targetNode.type === "manufacturing_cluster"
+                targetNode.type === 'manufacturing_cluster'
               );
             }
             return false;
@@ -292,7 +292,7 @@ const SankeyTreeInternal = ({
 
       const bothNodesVisible = sourceVisible && targetVisible;
       const isOneHierarchyLevel = !(
-        sourceNode?.type === "value_chain" && targetNode?.type === "product"
+        sourceNode?.type === 'value_chain' && targetNode?.type === 'product'
       );
 
       return {
@@ -339,7 +339,7 @@ const SankeyTreeInternal = ({
       const layoutRoot = treeLayout(root);
       return layoutRoot;
     } catch (err) {
-      console.error("Error applying tree layout:", err);
+      console.error('Error applying tree layout:', err);
       return null;
     }
   }, [focusedValueChain, hierarchyData, dimensions.width, dimensions.height]);
@@ -356,7 +356,7 @@ const SankeyTreeInternal = ({
         rightMargin,
       );
     } catch (err) {
-      console.error("Error applying sankey layout:", err);
+      console.error('Error applying sankey layout:', err);
       return null;
     }
   }, [hierarchyData, leftMargin, rightMargin, dimensions, focusedValueChain]);
@@ -402,7 +402,7 @@ const SankeyTreeInternal = ({
         // For cluster -> product, only keep those that belong to the selected VC
         if (
           updatedNodes.find((n) => n.id === l.source)?.type ===
-          "manufacturing_cluster"
+          'manufacturing_cluster'
         ) {
           if (!l.supplyChains || l.supplyChains.length === 0) return true;
           return l.supplyChains.includes(focusedValueChain);
@@ -423,8 +423,8 @@ const SankeyTreeInternal = ({
       const visibleNodes = hierarchyData.nodes.filter((n) => n.visible);
 
       // Get connected value chains (sources) and products (targets)
-      const valueChains = visibleNodes.filter((n) => n.type === "value_chain");
-      const products = visibleNodes.filter((n) => n.type === "product");
+      const valueChains = visibleNodes.filter((n) => n.type === 'value_chain');
+      const products = visibleNodes.filter((n) => n.type === 'product');
 
       const updatedNodes = visibleNodes.map((node) => {
         const nodeWidth = 16; // Fixed width for circles
@@ -439,7 +439,7 @@ const SankeyTreeInternal = ({
             width: nodeWidth,
             height: nodeHeight,
           };
-        } else if (node.type === "value_chain") {
+        } else if (node.type === 'value_chain') {
           // Arrange value chains vertically on the left
           const index = valueChains.findIndex((vc) => vc.id === node.id);
           const totalHeight = valueChains.length * 60;
@@ -452,7 +452,7 @@ const SankeyTreeInternal = ({
             width: nodeWidth,
             height: nodeHeight,
           };
-        } else if (node.type === "product") {
+        } else if (node.type === 'product') {
           // Arrange products vertically on the right
           const index = products.findIndex((p) => p.id === node.id);
           const totalHeight = products.length * 40;
@@ -513,8 +513,8 @@ const SankeyTreeInternal = ({
             (n) => n.id === link.target,
           );
           return (
-            sourceNode?.type === "manufacturing_cluster" &&
-            targetNode?.type === "product"
+            sourceNode?.type === 'manufacturing_cluster' &&
+            targetNode?.type === 'product'
           );
         })
         .forEach((link) => {
@@ -622,8 +622,8 @@ const SankeyTreeInternal = ({
           (n) => n.id === link.target,
         );
         return (
-          sourceNode?.type === "manufacturing_cluster" &&
-          targetNode?.type === "product"
+          sourceNode?.type === 'manufacturing_cluster' &&
+          targetNode?.type === 'product'
         );
       })
       .forEach((link) => {
@@ -668,7 +668,7 @@ const SankeyTreeInternal = ({
             sourceName: clusterId,
             targetName: productNode.id,
             value: 1,
-            color: "#808080", // Same grey color as focus view
+            color: '#808080', // Same grey color as focus view
             isTreeLink: true, // Use tree-style curved links like focus view
             isCompactProduct: false, // Remove special compact styling
           });
@@ -707,7 +707,7 @@ const SankeyTreeInternal = ({
 
   // Prepare header data for transitions
   const headerData = useMemo(() => {
-    const headers = [] as Array<{
+    const headers = [] as {
       id: string;
       text: string;
       x: number;
@@ -716,8 +716,8 @@ const SankeyTreeInternal = ({
       fontSize: number;
       fontWeight: any;
       fontFamily: any;
-      textAnchor?: "start" | "middle" | "end";
-    }>;
+      textAnchor?: 'start' | 'middle' | 'end';
+    }[];
     const isFocusedView = focusedCluster !== null || focusedValueChain !== null;
 
     if (hasValidLayout && nodePositions.length > 0) {
@@ -725,16 +725,16 @@ const SankeyTreeInternal = ({
       const valueChainNodes = nodePositions.filter(
         (n) =>
           hierarchyData?.nodes.find((hn) => hn.id === n.id)?.type ===
-          "value_chain",
+          'value_chain',
       );
       const clusterNodes = nodePositions.filter(
         (n) =>
           hierarchyData?.nodes.find((hn) => hn.id === n.id)?.type ===
-          "manufacturing_cluster",
+          'manufacturing_cluster',
       );
       const productNodes = nodePositions.filter(
         (n) =>
-          hierarchyData?.nodes.find((hn) => hn.id === n.id)?.type === "product",
+          hierarchyData?.nodes.find((hn) => hn.id === n.id)?.type === 'product',
       );
 
       // Compute top Y of each side and anchor labels just above nodes
@@ -770,39 +770,39 @@ const SankeyTreeInternal = ({
 
       // VALUE CHAINS
       headers.push({
-        id: "header-value-chains",
-        text: "VALUE CHAINS",
+        id: 'header-value-chains',
+        text: 'VALUE CHAINS',
         x: valueChainX - 10,
         y: headerY,
         color: themeUtils.chart.colors.text.secondary,
         fontSize: isMobile ? 12 : 22,
         fontWeight:
-          themeUtils.chart.typography["chart-column-header"].fontWeight,
+          themeUtils.chart.typography['chart-column-header'].fontWeight,
         fontFamily:
-          themeUtils.chart.typography["chart-column-header"].fontFamily,
-        textAnchor: "end",
+          themeUtils.chart.typography['chart-column-header'].fontFamily,
+        textAnchor: 'end',
       });
 
       // INDUSTRIAL CLUSTERS
       headers.push({
-        id: "header-clusters",
-        text: isMobile ? "CLUSTERS" : "INDUSTRIAL CLUSTERS",
+        id: 'header-clusters',
+        text: isMobile ? 'CLUSTERS' : 'INDUSTRIAL CLUSTERS',
         x: clusterX + 25,
         y: headerY,
         color: themeUtils.chart.colors.text.secondary,
         fontSize: isMobile ? 12 : 22,
         fontWeight:
-          themeUtils.chart.typography["chart-column-header"].fontWeight,
+          themeUtils.chart.typography['chart-column-header'].fontWeight,
         fontFamily:
-          themeUtils.chart.typography["chart-column-header"].fontFamily,
-        textAnchor: "middle",
+          themeUtils.chart.typography['chart-column-header'].fontFamily,
+        textAnchor: 'middle',
       });
 
       // PRODUCTS (muted in sankey overview) - only when product column is present
       if (productNodes.length > 0) {
         headers.push({
-          id: "header-products",
-          text: "PRODUCTS",
+          id: 'header-products',
+          text: 'PRODUCTS',
           x: productX,
           y: headerY,
           color: isFocusedView
@@ -810,10 +810,10 @@ const SankeyTreeInternal = ({
             : themeUtils.chart.colors.text.muted,
           fontSize: isMobile ? 12 : 22,
           fontWeight:
-            themeUtils.chart.typography["chart-column-header"].fontWeight,
+            themeUtils.chart.typography['chart-column-header'].fontWeight,
           fontFamily:
-            themeUtils.chart.typography["chart-column-header"].fontFamily,
-          textAnchor: "start",
+            themeUtils.chart.typography['chart-column-header'].fontFamily,
+          textAnchor: 'start',
         });
       }
     }
@@ -882,7 +882,7 @@ const SankeyTreeInternal = ({
         targetX: item.targetX,
         targetY: item.targetY,
         opacity: 0.7,
-        strokeDasharray: "none", // Remove dash array when fully drawn
+        strokeDasharray: 'none', // Remove dash array when fully drawn
         strokeDashoffset: 0, // Animate to 0 (fully visible)
       }),
       update: (item) => ({
@@ -891,7 +891,7 @@ const SankeyTreeInternal = ({
         targetX: item.targetX,
         targetY: item.targetY,
 
-        strokeDasharray: "none",
+        strokeDasharray: 'none',
         strokeDashoffset: 0,
       }),
       leave: () => ({
@@ -905,7 +905,7 @@ const SankeyTreeInternal = ({
     keys: (item) => item.id,
     from: (item) => {
       // For root nodes (value chains), start from their final position
-      if (item.type === "value_chain") {
+      if (item.type === 'value_chain') {
         return {
           x: item.x,
           y: item.y,
@@ -978,12 +978,12 @@ const SankeyTreeInternal = ({
               (n) => n.id === nodeId,
             );
 
-            if (hoveredNode?.type === "value_chain") {
+            if (hoveredNode?.type === 'value_chain') {
               // Find clusters connected to this value chain (already in connectedNodes)
               const connectedClusters = Array.from(connectedNodes).filter(
                 (nodeId) => {
                   const node = hierarchyData.nodes.find((n) => n.id === nodeId);
-                  return node?.type === "manufacturing_cluster";
+                  return node?.type === 'manufacturing_cluster';
                 },
               );
 
@@ -993,7 +993,7 @@ const SankeyTreeInternal = ({
                   const targetNode = hierarchyData.nodes.find(
                     (n) => n.id === link.target,
                   );
-                  if (targetNode?.type === "product") {
+                  if (targetNode?.type === 'product') {
                     connectedNodes.add(link.target);
                     connectedLinks.add(link.id);
                   }
@@ -1073,34 +1073,34 @@ const SankeyTreeInternal = ({
     !hasPreviousData &&
     !baseHierarchyData
   ) {
-    return <VisualizationLoading message="" />;
+    return <VisualizationLoading message='' />;
   }
 
   if (!hierarchyData) {
-    return <VisualizationLoading message="" />;
+    return <VisualizationLoading message='' />;
   }
 
   return (
     <div
       style={{
-        width: "100%",
-        height: "100%",
-        position: "relative",
-        display: "flex",
-        flexDirection: "column",
+        width: '100%',
+        height: '100%',
+        position: 'relative',
+        display: 'flex',
+        flexDirection: 'column',
       }}
     >
       {/* Loading indicator - show subtle indicator when loading with previous data */}
       {isCountryDataLoading && hasPreviousData && (
         <div
           style={{
-            position: "absolute",
-            top: "20px",
-            right: "20px",
+            position: 'absolute',
+            top: '20px',
+            right: '20px',
             zIndex: 10,
           }}
         >
-          <VisualizationLoading message="" size="small" fullHeight={false} />
+          <VisualizationLoading message='' size='small' fullHeight={false} />
         </div>
       )}
 
@@ -1110,22 +1110,22 @@ const SankeyTreeInternal = ({
       {(focusedCluster || focusedValueChain) && (
         <div
           style={{
-            marginBottom: "20px",
-            display: "flex",
-            gap: "10px",
-            alignItems: "center",
+            marginBottom: '20px',
+            display: 'flex',
+            gap: '10px',
+            alignItems: 'center',
           }}
         >
           <button
-            type="button"
+            type='button'
             onClick={handleBackClick}
             style={{
-              padding: "8px 16px",
-              backgroundColor: "#f5f5f5",
-              border: "1px solid #ddd",
-              borderRadius: "4px",
-              cursor: "pointer",
-              fontSize: "0.875rem",
+              padding: '8px 16px',
+              backgroundColor: '#f5f5f5',
+              border: '1px solid #ddd',
+              borderRadius: '4px',
+              cursor: 'pointer',
+              fontSize: '0.875rem',
             }}
           >
             ← Back to Overview
@@ -1137,11 +1137,11 @@ const SankeyTreeInternal = ({
       <div
         ref={chartContainerRef}
         style={{
-          position: "relative",
-          width: "100%",
+          position: 'relative',
+          width: '100%',
           flex: 1,
-          display: "flex",
-          flexDirection: "column",
+          display: 'flex',
+          flexDirection: 'column',
           minHeight: 0, // Allow flex item to shrink
         }}
       >
@@ -1149,10 +1149,10 @@ const SankeyTreeInternal = ({
         <div
           style={{
             flex: 1,
-            position: "relative",
+            position: 'relative',
             // Add subtle visual indication when loading with previous data
             opacity: isCountryDataLoading && hasPreviousData ? 0.7 : 1,
-            transition: "opacity 0.3s ease-in-out",
+            transition: 'opacity 0.3s ease-in-out',
             minHeight: 0, // Allow flex item to shrink
           }}
         >
@@ -1160,28 +1160,28 @@ const SankeyTreeInternal = ({
             width={dimensions.width}
             height={dimensions.height}
             style={{
-              maxWidth: "100%",
-              height: "auto",
-              minHeight: isMobile ? "250px" : "300px",
+              maxWidth: '100%',
+              height: 'auto',
+              minHeight: isMobile ? '250px' : '300px',
             }}
             viewBox={`0 0 ${dimensions.width} ${dimensions.height}`}
-            preserveAspectRatio={isMobile ? "xMidYMid meet" : undefined}
-            aria-labelledby="sankeyTitle"
+            preserveAspectRatio={isMobile ? 'xMidYMid meet' : undefined}
+            aria-labelledby='sankeyTitle'
           >
-            <title id="sankeyTitle">Sankey Tree - Global</title>
+            <title id='sankeyTitle'>Sankey Tree - Global</title>
             {/* Animated column headers */}
             {headerTransitions((styles, item) => (
               <animated.text
                 key={item.id}
                 x={(styles as any).x}
                 y={(styles as any).y}
-                textAnchor="middle"
+                textAnchor='middle'
                 fontSize={item.fontSize}
                 fontWeight={item.fontWeight}
                 fill={item.color}
                 style={{
                   opacity: (styles as any).opacity,
-                  pointerEvents: "none",
+                  pointerEvents: 'none',
                 }}
               >
                 {item.text}
@@ -1279,7 +1279,7 @@ const SankeyTreeInternal = ({
                   key={item.id}
                   style={{
                     stroke: linkColor,
-                    fill: "none",
+                    fill: 'none',
                     strokeWidth,
                     opacity: to(
                       [(styles as any).opacity],
@@ -1287,7 +1287,7 @@ const SankeyTreeInternal = ({
                         animOpacity * linkRcaOpacity * flowHighlightOpacity,
                     ),
                     strokeDasharray:
-                      (styles as any).strokeDasharray === "none"
+                      (styles as any).strokeDasharray === 'none'
                         ? undefined
                         : (styles as any).strokeDasharray,
                     strokeDashoffset: (styles as any).strokeDashoffset,
@@ -1318,9 +1318,9 @@ const SankeyTreeInternal = ({
 
             {/* Nodes */}
             {nodeTransitions((styles, item) => {
-              const isValueChain = item.type === "value_chain";
-              const isCluster = item.type === "manufacturing_cluster";
-              const isProduct = item.type === "product";
+              const isValueChain = item.type === 'value_chain';
+              const isCluster = item.type === 'manufacturing_cluster';
+              const isProduct = item.type === 'product';
               const isFocused =
                 item.id === focusedCluster || item.id === focusedValueChain;
               const isHovered = item.id === hoveredNode;
@@ -1338,7 +1338,7 @@ const SankeyTreeInternal = ({
               // Node colors: value chains keep their colors, everything else is grey in focused views
               let nodeColor = item.color;
               if (isFocusedView && !isValueChain) {
-                nodeColor = "#808080"; // Grey for non-value-chain nodes in focused views
+                nodeColor = '#808080'; // Grey for non-value-chain nodes in focused views
               }
 
               // Calculate node highlighting opacity (similar to links)
@@ -1350,7 +1350,7 @@ const SankeyTreeInternal = ({
                 : 1.0; // No hover, full opacity
 
               // Calculate RCA-based opacity for visual emphasis within filtered results
-              let nodeRcaOpacity = 1.0;
+              const nodeRcaOpacity = 1.0;
               // In global-only mode, do not adjust opacity by RCA
 
               // Set opacity = 0 for subtle product nodes to enable smooth transitions
@@ -1367,8 +1367,8 @@ const SankeyTreeInternal = ({
                     cursor:
                       (isCluster && !focusedCluster) ||
                       (isValueChain && !focusedValueChain)
-                        ? "pointer"
-                        : "default",
+                        ? 'pointer'
+                        : 'default',
                   }}
                   onClick={
                     isCluster && !focusedCluster
@@ -1394,7 +1394,7 @@ const SankeyTreeInternal = ({
                       r={8}
                       fill={nodeColor}
                       stroke={
-                        isFocused || isHovered ? "#000000" : "transparent"
+                        isFocused || isHovered ? '#000000' : 'transparent'
                       }
                       strokeWidth={isFocused || isHovered ? 2 : 0}
                       style={{
@@ -1437,7 +1437,7 @@ const SankeyTreeInternal = ({
                       )}
                       fill={nodeColor}
                       stroke={
-                        isFocused || isHovered ? "#000000" : "transparent"
+                        isFocused || isHovered ? '#000000' : 'transparent'
                       }
                       strokeWidth={isFocused || isHovered ? 2 : 0}
                       style={{
@@ -1468,8 +1468,8 @@ const SankeyTreeInternal = ({
                         })}
                         width={150}
                         height={isMobile ? 16 : 20} // Height to cover the text
-                        fill="rgba(255, 255, 255, 0.65)" // Semi-transparent white
-                        stroke="none"
+                        fill='rgba(255, 255, 255, 0.65)' // Semi-transparent white
+                        stroke='none'
                         rx={2} // Slight rounding
                         ry={2}
                         style={{
@@ -1553,39 +1553,39 @@ const SankeyTreeInternal = ({
                         if (isFocusedView) {
                           if (focusedCluster) {
                             // When cluster is selected
-                            if (isValueChain) return "end"; // Root nodes (value chains) to left
+                            if (isValueChain) return 'end'; // Root nodes (value chains) to left
                             if (isCluster && item.id === focusedCluster)
-                              return "middle"; // Center node underneath
-                            if (isProduct) return "start"; // Leaf nodes (products) to right
-                            return "middle";
+                              return 'middle'; // Center node underneath
+                            if (isProduct) return 'start'; // Leaf nodes (products) to right
+                            return 'middle';
                           } else if (focusedValueChain) {
                             // When value chain is selected
-                            if (isValueChain || isCluster) return "end"; // Root and cluster labels to left
-                            if (isProduct) return "start"; // Leaf nodes to right
-                            return "middle";
+                            if (isValueChain || isCluster) return 'end'; // Root and cluster labels to left
+                            if (isProduct) return 'start'; // Leaf nodes to right
+                            return 'middle';
                           }
-                          return "middle";
+                          return 'middle';
                         }
                         // Sankey style: original text anchor logic
                         return isValueChain &&
                           !focusedCluster &&
                           !focusedValueChain
-                          ? "end"
+                          ? 'end'
                           : isCluster && focusedCluster
-                            ? "middle"
+                            ? 'middle'
                             : focusedValueChain && isValueChain
-                              ? "end"
-                              : "start";
+                              ? 'end'
+                              : 'start';
                       })(),
                       fontSize: isMobile ? 10 : 12,
                       fontWeight:
-                        themeUtils.chart.typography["chart-data-label"]
+                        themeUtils.chart.typography['chart-data-label']
                           .fontWeight,
                       fontFamily:
-                        themeUtils.chart.typography["chart-data-label"]
+                        themeUtils.chart.typography['chart-data-label']
                           .fontFamily,
                       fill: themeUtils.chart.colors.text.primary,
-                      pointerEvents: "none",
+                      pointerEvents: 'none',
                       dominantBaseline: (() => {
                         if (isFocusedView) {
                           if (
@@ -1593,11 +1593,11 @@ const SankeyTreeInternal = ({
                             isCluster &&
                             item.id === focusedCluster
                           ) {
-                            return "hanging"; // Text below the selected cluster
+                            return 'hanging'; // Text below the selected cluster
                           }
-                          return "middle"; // Text at vertical center for all other nodes
+                          return 'middle'; // Text at vertical center for all other nodes
                         }
-                        return "middle";
+                        return 'middle';
                       })(),
                       // Text opacity uses animation, hover highlighting, and subtle product opacity
                       opacity: to(
@@ -1619,11 +1619,11 @@ const SankeyTreeInternal = ({
                           );
                         },
                       ),
-                      paintOrder: "stroke",
+                      paintOrder: 'stroke',
                     }}
-                    stroke={isCluster ? "#ffffff" : "none"}
+                    stroke={isCluster ? '#ffffff' : 'none'}
                     strokeWidth={isCluster ? (isMobile ? 2 : 3) : 0}
-                    strokeLinejoin="round"
+                    strokeLinejoin='round'
                   >
                     {(() => {
                       // Truncate text with ellipsis for focused views
@@ -1645,13 +1645,13 @@ const SankeyTreeInternal = ({
                         })();
 
                         return item.label.length > maxLength
-                          ? item.label.substring(0, maxLength - 3) + "..."
+                          ? item.label.substring(0, maxLength - 3) + '...'
                           : item.label;
                       }
                       // Sankey style: use a reasonable max length to prevent overflow
                       const sankeyMaxLength = isMobile ? 18 : 25;
                       return item.label.length > sankeyMaxLength
-                        ? item.label.substring(0, sankeyMaxLength - 3) + "..."
+                        ? item.label.substring(0, sankeyMaxLength - 3) + '...'
                         : item.label;
                     })()}
                   </animated.text>
@@ -1670,8 +1670,8 @@ const SankeyTreeInternal = ({
 // Main export component with ParentSize wrapper
 export default function SankeyTree() {
   return (
-    <div style={{ width: "100%", height: "100%" }}>
-      <TableWrapper defaultDataType="products">
+    <div style={{ width: '100%', height: '100%' }}>
+      <TableWrapper defaultDataType='products'>
         <ParentSize>
           {({ width, height }) => {
             if (width === 0 || height === 0) {

@@ -1,8 +1,8 @@
-import { useMemo } from "react";
-import { useProductLookup } from "../queries/products";
-import { useSupplyChainProductLookup } from "../queries/supplyChainProducts";
-import { useSupplyChainLookup } from "../queries/supplyChains";
-import { useGreenGrowthData } from "./useGreenGrowthData";
+import { useMemo } from 'react';
+import { useProductLookup } from '../queries/products';
+import { useSupplyChainProductLookup } from '../queries/supplyChainProducts';
+import { useSupplyChainLookup } from '../queries/supplyChains';
+import { useGreenGrowthData } from './useGreenGrowthData';
 
 export interface ProcessedProductData {
   productCode: string;
@@ -93,18 +93,18 @@ export const useProcessedTableData = (
 
         const marketSize =
           item &&
-          typeof item.exportValue === "number" &&
-          typeof item.worldShareProduct === "number" &&
+          typeof item.exportValue === 'number' &&
+          typeof item.worldShareProduct === 'number' &&
           item.worldShareProduct > 0
             ? item.exportValue / item.worldShareProduct
             : null;
 
         return {
-          productCode: product?.code || "N/A",
-          productName: product?.nameShortEn || "Unknown Product",
-          productLevel: product?.productLevel || "N/A",
-          clusterName: cluster?.clusterName || "N/A",
-          supplyChainName: supplyChain?.supplyChain || "N/A",
+          productCode: product?.code || 'N/A',
+          productName: product?.nameShortEn || 'Unknown Product',
+          productLevel: product?.productLevel || 'N/A',
+          clusterName: cluster?.clusterName || 'N/A',
+          supplyChainName: supplyChain?.supplyChain || 'N/A',
           exportRca: item.exportRca,
           exportValue: item.exportValue,
           marketSize,
@@ -147,8 +147,8 @@ export const useProcessedTableData = (
       .map((item: any): ProcessedCountryData => {
         const country = countryLookup.get(item.countryId);
         return {
-          countryName: country?.nameShortEn || "Unknown Country",
-          countryCode: country?.iso3Code || "N/A",
+          countryName: country?.nameShortEn || 'Unknown Country',
+          countryCode: country?.iso3Code || 'N/A',
           year: item.year,
           coiGreen: item.coiGreen,
           lntotnetnrexpPc: item.lntotnetnrexpPc,

@@ -1,1 +1,1 @@
-export { AnimatedValueChainIntro } from "./AnimatedValueChainIntro";
+export { AnimatedValueChainIntro } from './AnimatedValueChainIntro';

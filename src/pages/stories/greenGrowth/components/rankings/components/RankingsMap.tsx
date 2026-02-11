@@ -1,16 +1,16 @@
-import { useMemo, useRef } from "react";
-import { Box, Typography } from "@mui/material";
-import type { Feature, FeatureCollection, Geometry } from "geojson";
-import { geoNaturalEarth1, geoPath } from "d3-geo";
-import raw from "raw.macro";
-import { ParentSize } from "@visx/responsive";
+import { useMemo, useRef } from 'react';
+import { Box, Typography } from '@mui/material';
+import type { Feature, FeatureCollection, Geometry } from 'geojson';
+import { geoNaturalEarth1, geoPath } from 'd3-geo';
+import raw from 'raw.macro';
+import { ParentSize } from '@visx/responsive';
 import {
   RANKING_COLORS,
   createContinuousColorScale,
-} from "../../../utils/colors";
-import { HorizontalColorScaleLegend } from "./HorizontalColorScaleLegend";
-import type { CountryYearMetric, RankedRow, TooltipState } from "../types";
-import { MapCard } from "../styles";
+} from '../../../utils/colors';
+import { HorizontalColorScaleLegend } from './HorizontalColorScaleLegend';
+import type { CountryYearMetric, RankedRow, TooltipState } from '../types';
+import { MapCard } from '../styles';
 
 type WorldProps = { iso_alpha3: string; name: string } & Record<
   string,
@@ -24,7 +24,7 @@ type AugmentedProps = WorldProps & {
 };
 
 const worldGeoJson: FeatureCollection<Geometry, WorldProps> = JSON.parse(
-  raw("../../../../../../assets/world-geojson.json"),
+  raw('../../../../../../assets/world-geojson.json'),
 );
 
 type RankingsMapProps = {
@@ -61,7 +61,7 @@ export const RankingsMap = ({
   const { featureCollection, ranked } = useMemo(() => {
     const valid: CountryYearMetric[] = (allCountriesMetrics || []).filter(
       (d: unknown): d is CountryYearMetric =>
-        typeof (d as CountryYearMetric)?.rank === "number" &&
+        typeof (d as CountryYearMetric)?.rank === 'number' &&
         (d as CountryYearMetric)?.rank !== null &&
         !!(d as CountryYearMetric)?.rankingMetric &&
         (d as CountryYearMetric)?.rankingMetric !== null &&
@@ -77,7 +77,7 @@ export const RankingsMap = ({
           ? parseFloat(m.rankingMetric)
           : null;
         const tooltip = m
-          ? `<div><strong>${m.nameEn}</strong><br/>Rank: ${m.rank}<br/>Green ECI: ${value !== null ? value.toFixed(2) : "N/A"}</div>`
+          ? `<div><strong>${m.nameEn}</strong><br/>Rank: ${m.rank}<br/>Green ECI: ${value !== null ? value.toFixed(2) : 'N/A'}</div>`
           : `<div><strong>${f.properties.name}</strong><br/>Rank: N/A</div>`;
         return {
           ...f,
@@ -95,8 +95,8 @@ export const RankingsMap = ({
       .sort((a, b) => (a.rank || 0) - (b.rank || 0))
       .map((d) => ({
         rank: d.rank || 0,
-        name: String(d.nameEn || "Unknown"),
-        iso3: String(d.iso3Code || ""),
+        name: String(d.nameEn || 'Unknown'),
+        iso3: String(d.iso3Code || ''),
         rankingMetric: d.rankingMetric ? parseFloat(d.rankingMetric) : 0,
       }));
 
@@ -135,7 +135,7 @@ export const RankingsMap = ({
       return {
         iso3: props.iso_alpha3,
         name: props.name,
-        d: path(f as Feature<Geometry, AugmentedProps>) || "",
+        d: path(f as Feature<Geometry, AugmentedProps>) || '',
         value: props.percent,
         rank: rr ? rr.rank : null,
         greenEci: rr ? rr.rankingMetric : null,
@@ -155,34 +155,34 @@ export const RankingsMap = ({
       <Box
         ref={mapVisualizationRef}
         sx={{
-          display: "flex",
-          flexDirection: "column",
+          display: 'flex',
+          flexDirection: 'column',
           gap: isCapturingImage ? 2 : 0,
-          backgroundColor: "#ffffff",
+          backgroundColor: '#ffffff',
           p: isCapturingImage ? 2 : 0,
         }}
       >
         {/* Title for image export - only visible during capture */}
         {isCapturingImage && (
           <Typography
-            variant="h4"
-            component="h2"
+            variant='h4'
+            component='h2'
             sx={{
               fontWeight: 600,
-              textTransform: "uppercase",
-              letterSpacing: "0.5px",
-              fontSize: "2rem",
-              textAlign: "center",
+              textTransform: 'uppercase',
+              letterSpacing: '0.5px',
+              fontSize: '2rem',
+              textAlign: 'center',
             }}
           >
             Greenplexity Index
           </Typography>
         )}
         {/* Legend centered below controls */}
-        <Box sx={{ display: "flex", justifyContent: "center", mb: 1, mt: 0 }}>
+        <Box sx={{ display: 'flex', justifyContent: 'center', mb: 1, mt: 0 }}>
           <HorizontalColorScaleLegend
-            minLabel="Low Greenplexity"
-            maxLabel="High Greenplexity"
+            minLabel='Low Greenplexity'
+            maxLabel='High Greenplexity'
             minColor={RANKING_COLORS[0]}
             maxColor={RANKING_COLORS[RANKING_COLORS.length - 1]}
             colors={RANKING_COLORS}
@@ -192,7 +192,7 @@ export const RankingsMap = ({
         </Box>
         <div
           ref={mapContainerRef}
-          style={{ width: "100%", position: "relative" }}
+          style={{ width: '100%', position: 'relative' }}
         >
           <ParentSize>
             {({ width }) => {
@@ -203,11 +203,11 @@ export const RankingsMap = ({
               return (
                 <>
                   <svg
-                    width="100%"
+                    width='100%'
                     height={mapHeight}
                     viewBox={`0 0 ${mapWidth} ${mapHeight}`}
-                    role="img"
-                    aria-label="World map colored by ECI"
+                    role='img'
+                    aria-label='World map colored by ECI'
                   >
                     <g>
                       {/* Render non-selected countries first */}
@@ -220,9 +220,9 @@ export const RankingsMap = ({
                             fill={
                               p.greenEci !== null && Number.isFinite(p.greenEci)
                                 ? colorScale(p.greenEci)
-                                : "#eee"
+                                : '#eee'
                             }
-                            stroke="#fff"
+                            stroke='#fff'
                             strokeWidth={0.7}
                             onClick={() => scrollToIso(p.iso3)}
                             onMouseMove={(e) => {
@@ -242,7 +242,7 @@ export const RankingsMap = ({
                             onMouseLeave={() =>
                               setTooltip((t) => ({ ...t, show: false }))
                             }
-                            style={{ cursor: "pointer" }}
+                            style={{ cursor: 'pointer' }}
                           />
                         ))}
                       {/* Render selected country last so it appears on top */}
@@ -255,9 +255,9 @@ export const RankingsMap = ({
                             fill={
                               p.greenEci !== null && Number.isFinite(p.greenEci)
                                 ? colorScale(p.greenEci)
-                                : "#eee"
+                                : '#eee'
                             }
-                            stroke="#000"
+                            stroke='#000'
                             strokeWidth={2}
                             onClick={() => scrollToIso(p.iso3)}
                             onMouseMove={(e) => {
@@ -277,7 +277,7 @@ export const RankingsMap = ({
                             onMouseLeave={() =>
                               setTooltip((t) => ({ ...t, show: false }))
                             }
-                            style={{ cursor: "pointer" }}
+                            style={{ cursor: 'pointer' }}
                           />
                         ))}
                     </g>
@@ -285,29 +285,29 @@ export const RankingsMap = ({
                   {tooltip.show && (
                     <div
                       style={{
-                        position: "absolute",
+                        position: 'absolute',
                         left: 0,
                         top: 0,
                         transform: `translate(${tooltip.x}px, ${tooltip.y}px)`,
-                        pointerEvents: "none",
-                        background: "rgba(255,255,255,0.95)",
-                        border: "1px solid #ddd",
+                        pointerEvents: 'none',
+                        background: 'rgba(255,255,255,0.95)',
+                        border: '1px solid #ddd',
                         borderRadius: 4,
-                        padding: "6px 8px",
-                        boxShadow: "0 1px 3px rgba(0,0,0,0.15)",
+                        padding: '6px 8px',
+                        boxShadow: '0 1px 3px rgba(0,0,0,0.15)',
                         fontSize: 12,
-                        color: "#333",
+                        color: '#333',
                       }}
                     >
                       <div style={{ fontWeight: 600 }}>{tooltip.name}</div>
                       <div>
-                        Rank: {tooltip.rank !== null ? tooltip.rank : "N/A"}
+                        Rank: {tooltip.rank !== null ? tooltip.rank : 'N/A'}
                       </div>
                       <div>
-                        Greenplexity Index Value:{" "}
+                        Greenplexity Index Value:{' '}
                         {tooltip.greenEci !== null
                           ? tooltip.greenEci.toFixed(2)
-                          : "N/A"}
+                          : 'N/A'}
                       </div>
                     </div>
                   )}

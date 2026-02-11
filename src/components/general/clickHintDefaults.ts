@@ -5,7 +5,7 @@ export const CLICK_HINT_DEFAULTS = {
     desktop: 16,
   },
   fontWeight: 600 as const,
-  color: "#000",
+  color: '#000',
 
   // Icon sizing and spacing
   iconHeight: 35,

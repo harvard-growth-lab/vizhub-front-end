@@ -1,30 +1,30 @@
-import { scaleOrdinal } from "d3-scale";
-import { schemeCategory10 } from "d3-scale-chromatic";
+import { scaleOrdinal } from 'd3-scale';
+import { schemeCategory10 } from 'd3-scale-chromatic';
 
 // Shared color utilities for the Green Growth story
 
 // Value chain colors (matching canonical image order)
 export const valueChainColors: Record<string, string> = {
-  "Electric Vehicles": "#dc143c", // Red
-  "Heat Pumps": "#8b4513", // Brown
-  "Fuel Cells And Green Hydrogen": "#8a2be2", // Purple
-  "Wind Power": "#20b2aa", // Cyan/Teal
-  "Solar Power": "#9acd32", // Yellow-Green
-  "Hydroelectric Power": "#ff69b4", // Pink
-  "Nuclear Power": "#808080", // Gray
-  Batteries: "#1e90ff", // Blue
-  "Electric Grid": "#32cd32", // Green
-  "Critical Metals and Minerals": "#ff8c00", // Orange
-  "Carbon Capture": "#adb5bd",
+  'Electric Vehicles': '#dc143c', // Red
+  'Heat Pumps': '#8b4513', // Brown
+  'Fuel Cells And Green Hydrogen': '#8a2be2', // Purple
+  'Wind Power': '#20b2aa', // Cyan/Teal
+  'Solar Power': '#9acd32', // Yellow-Green
+  'Hydroelectric Power': '#ff69b4', // Pink
+  'Nuclear Power': '#808080', // Gray
+  Batteries: '#1e90ff', // Blue
+  'Electric Grid': '#32cd32', // Green
+  'Critical Metals and Minerals': '#ff8c00', // Orange
+  'Carbon Capture': '#adb5bd',
 };
 
 // RCA color mapping
 export const getColorFromRca = (rca: number): string => {
-  if (rca > 1.5) return "#4caf50"; // Strong advantage
-  if (rca > 1) return "#8bc34a"; // Advantage
-  if (rca > 0.7) return "#cddc39"; // Slight advantage
-  if (rca > 0.4) return "#bdbdbd"; // Neutral
-  return "#9e9e9e"; // Disadvantage
+  if (rca > 1.5) return '#4caf50'; // Strong advantage
+  if (rca > 1) return '#8bc34a'; // Advantage
+  if (rca > 0.7) return '#cddc39'; // Slight advantage
+  if (rca > 0.4) return '#bdbdbd'; // Neutral
+  return '#9e9e9e'; // Disadvantage
 };
 
 // RCA opacity mapping (from CirclePack)
@@ -36,44 +36,44 @@ export const getRCAOpacity = (rca: number): number => {
 
 // RCA legend items for consistent legend display
 export const RCA_LEGEND_ITEMS = [
-  { color: "#4caf50", label: "RCA > 1.5 (Strong advantage)" },
-  { color: "#8bc34a", label: "RCA > 1 (Advantage)" },
-  { color: "#cddc39", label: "RCA > 0.7 (Moderate)" },
-  { color: "#9e9e9e", label: "RCA ≤ 0.7 (Disadvantage)" },
+  { color: '#4caf50', label: 'RCA > 1.5 (Strong advantage)' },
+  { color: '#8bc34a', label: 'RCA > 1 (Advantage)' },
+  { color: '#cddc39', label: 'RCA > 0.7 (Moderate)' },
+  { color: '#9e9e9e', label: 'RCA ≤ 0.7 (Disadvantage)' },
 ];
 
 // Explicit supply chain ID to color mapping based on ACTUAL database IDs (matching canonical image)
 // This ensures consistent colors between SankeyTree and CirclePack
 export const supplyChainIdColors: Record<number, string> = {
-  0: "#dc143c", // Electric Vehicles (database ID 0) - Red
-  1: "#1e90ff", // Batteries (database ID 1) - Blue
-  2: "#8a2be2", // Fuel Cells And Green Hydrogen (database ID 2) - Purple
-  3: "#32cd32", // Electric Grid (database ID 3) - Green
-  4: "#9acd32", // Solar Power (database ID 4) - Yellow-Green
-  5: "#8b4513", // Heat Pumps (database ID 5) - Brown
-  6: "#ff8c00", // Critical Metals and Minerals (database ID 6) - Orange
-  7: "#808080", // Nuclear Power (database ID 7) - Gray
-  8: "#20b2aa", // Wind Power (database ID 8) - Cyan/Teal
-  9: "#ff69b4", // Hydroelectric Power (database ID 9) - Pink
+  0: '#dc143c', // Electric Vehicles (database ID 0) - Red
+  1: '#1e90ff', // Batteries (database ID 1) - Blue
+  2: '#8a2be2', // Fuel Cells And Green Hydrogen (database ID 2) - Purple
+  3: '#32cd32', // Electric Grid (database ID 3) - Green
+  4: '#9acd32', // Solar Power (database ID 4) - Yellow-Green
+  5: '#8b4513', // Heat Pumps (database ID 5) - Brown
+  6: '#ff8c00', // Critical Metals and Minerals (database ID 6) - Orange
+  7: '#808080', // Nuclear Power (database ID 7) - Gray
+  8: '#20b2aa', // Wind Power (database ID 8) - Cyan/Teal
+  9: '#ff69b4', // Hydroelectric Power (database ID 9) - Pink
 };
 
 // Mapping from value chain names to supply chain IDs based on ACTUAL database IDs
 const valueChainNameToSupplyChainId: Record<string, number> = {
-  "Electric Vehicles": 0,
+  'Electric Vehicles': 0,
   Batteries: 1,
-  "Fuel Cells And Green Hydrogen": 2,
-  "Electric Grid": 3,
-  "Solar Power": 4,
-  "Heat Pumps": 5,
-  "Critical Metals and Minerals": 6,
-  "Nuclear Power": 7,
-  "Wind Power": 8,
-  "Hydroelectric Power": 9,
+  'Fuel Cells And Green Hydrogen': 2,
+  'Electric Grid': 3,
+  'Solar Power': 4,
+  'Heat Pumps': 5,
+  'Critical Metals and Minerals': 6,
+  'Nuclear Power': 7,
+  'Wind Power': 8,
+  'Hydroelectric Power': 9,
 };
 
 // Color function that uses explicit ID mapping for supply chains
 export const getSupplyChainColor = (supplyChainId: number): string => {
-  return supplyChainIdColors[supplyChainId] || "#1f77b4"; // fallback to blue
+  return supplyChainIdColors[supplyChainId] || '#1f77b4'; // fallback to blue
 };
 
 // NEW: Function to get consistent color for value chain by name (for SankeyTree compatibility)
@@ -82,7 +82,7 @@ export const getValueChainColor = (valueChainName: string): string => {
   if (supplyChainId !== undefined) {
     return supplyChainIdColors[supplyChainId];
   }
-  return "#808080"; // fallback to gray
+  return '#808080'; // fallback to gray
 };
 
 // Default color scale for general use (non-supply chain specific)
@@ -91,10 +91,10 @@ export const colorScale = scaleOrdinal(schemeCategory10);
 // Shared ranking/complexity color scale (low → high complexity)
 // Updated to 4 colors for better grouping
 export const RANKING_COLORS = [
-  "#F0A486", // Lower complexity (light red/orange)
-  "#F9E9C4", // Lower-mid complexity (cream)
-  "#7db89a", // Upper-mid complexity (light green)
-  "#1d8968", // High complexity (dark green)
+  '#F0A486', // Lower complexity (light red/orange)
+  '#F9E9C4', // Lower-mid complexity (cream)
+  '#7db89a', // Upper-mid complexity (light green)
+  '#1d8968', // High complexity (dark green)
 ];
 
 // Creates a discrete color scale that diverges at 0
@@ -142,8 +142,8 @@ export const createContinuousColorScale = (
     color2: string,
     factor: number,
   ): string => {
-    const hex1 = color1.replace("#", "");
-    const hex2 = color2.replace("#", "");
+    const hex1 = color1.replace('#', '');
+    const hex2 = color2.replace('#', '');
 
     const r1 = parseInt(hex1.substring(0, 2), 16);
     const g1 = parseInt(hex1.substring(2, 4), 16);
@@ -157,7 +157,7 @@ export const createContinuousColorScale = (
     const g = Math.round(g1 + (g2 - g1) * factor);
     const b = Math.round(b1 + (b2 - b1) * factor);
 
-    return `#${r.toString(16).padStart(2, "0")}${g.toString(16).padStart(2, "0")}${b.toString(16).padStart(2, "0")}`;
+    return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
   };
 
   return (value: number) => {
@@ -206,7 +206,7 @@ export const getLighterColor = (
   opacity: number = 0.5,
 ): string => {
   // Convert hex color to RGB and add opacity
-  const hex = color.replace("#", "");
+  const hex = color.replace('#', '');
   const r = parseInt(hex.substring(0, 2), 16);
   const g = parseInt(hex.substring(2, 4), 16);
   const b = parseInt(hex.substring(4, 6), 16);
@@ -219,7 +219,7 @@ export const getLighterColorSolid = (
   color: string,
   lightness: number = 0.3,
 ): string => {
-  const hex = color.replace("#", "");
+  const hex = color.replace('#', '');
   const r = parseInt(hex.substring(0, 2), 16);
   const g = parseInt(hex.substring(2, 4), 16);
   const b = parseInt(hex.substring(4, 6), 16);
@@ -229,7 +229,7 @@ export const getLighterColorSolid = (
   const newG = Math.round(g + (255 - g) * lightness);
   const newB = Math.round(b + (255 - b) * lightness);
 
-  return `#${newR.toString(16).padStart(2, "0")}${newG.toString(16).padStart(2, "0")}${newB.toString(16).padStart(2, "0")}`;
+  return `#${newR.toString(16).padStart(2, '0')}${newG.toString(16).padStart(2, '0')}${newB.toString(16).padStart(2, '0')}`;
 };
 
 // Helper to create a darker version of a color without opacity (for strokes)
@@ -237,7 +237,7 @@ export const getDarkerColorSolid = (
   color: string,
   darkness: number = 0.2,
 ): string => {
-  const hex = color.replace("#", "");
+  const hex = color.replace('#', '');
   const r = parseInt(hex.substring(0, 2), 16);
   const g = parseInt(hex.substring(2, 4), 16);
   const b = parseInt(hex.substring(4, 6), 16);
@@ -247,5 +247,5 @@ export const getDarkerColorSolid = (
   const newG = Math.round(g * (1 - darkness));
   const newB = Math.round(b * (1 - darkness));
 
-  return `#${newR.toString(16).padStart(2, "0")}${newG.toString(16).padStart(2, "0")}${newB.toString(16).padStart(2, "0")}`;
+  return `#${newR.toString(16).padStart(2, '0')}${newG.toString(16).padStart(2, '0')}${newB.toString(16).padStart(2, '0')}`;
 };

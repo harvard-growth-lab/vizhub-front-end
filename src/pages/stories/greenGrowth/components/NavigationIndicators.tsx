@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { Box, Typography } from "@mui/material";
-import HomeIcon from "@mui/icons-material/Home";
-import { Link } from "react-router-dom";
+import { useState } from 'react';
+import { Box, Typography } from '@mui/material';
+import HomeIcon from '@mui/icons-material/Home';
+import { Link } from 'react-router-dom';
 
 interface NavigationStep {
   id: string;
@@ -32,7 +32,7 @@ const NavigationIndicators: React.FC<NavigationIndicatorsProps> = ({
 }) => {
   const [hoveredStep, setHoveredStep] = useState<string | null>(null);
   const [hoverOverlay, setHoverOverlay] = useState<HoverOverlay>({
-    text: "",
+    text: '',
     x: 0,
     y: 0,
     visible: false,
@@ -44,54 +44,54 @@ const NavigationIndicators: React.FC<NavigationIndicatorsProps> = ({
       {/* Progress Indicators - Left Column (independently scrollable) */}
       <Box
         sx={{
-          display: "flex",
-          flexDirection: "column",
-          minWidth: "40px",
-          width: "40px",
-          height: "100%",
+          display: 'flex',
+          flexDirection: 'column',
+          minWidth: '40px',
+          width: '40px',
+          height: '100%',
           flexShrink: 0,
-          overflowY: "auto",
-          overflowX: "visible",
-          position: "relative",
+          overflowY: 'auto',
+          overflowX: 'visible',
+          position: 'relative',
           zIndex: (theme) => theme.zIndex.drawer + 2,
-          pl: "10px", // Align with the arrow icon in the button
+          pl: '10px', // Align with the arrow icon in the button
           pr: 1,
-          py: "10px",
-          "&::-webkit-scrollbar": {
-            width: "0px",
+          py: '10px',
+          '&::-webkit-scrollbar': {
+            width: '0px',
           },
         }}
       >
         {/* Inner wrapper for centering content */}
         <Box
           sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            gap: "8px",
-            margin: "auto 0", // This centers the content vertically
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '8px',
+            margin: 'auto 0', // This centers the content vertically
           }}
         >
           {/* Home Icon */}
           <Box
             component={Link}
-            to="/greenplexity"
+            to='/greenplexity'
             sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              width: "20px",
-              height: "20px",
-              cursor: "pointer",
-              color: "#2685BD",
-              transition: "all 0.2s ease",
-              "&:hover": {
-                transform: "scale(1.1)",
-                color: "#1a5f8f",
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '20px',
+              height: '20px',
+              cursor: 'pointer',
+              color: '#2685BD',
+              transition: 'all 0.2s ease',
+              '&:hover': {
+                transform: 'scale(1.1)',
+                color: '#1a5f8f',
               },
             }}
           >
-            <HomeIcon sx={{ fontSize: "1.25rem" }} />
+            <HomeIcon sx={{ fontSize: '1.25rem' }} />
           </Box>
 
           {/* Step indicators - pills */}
@@ -104,15 +104,15 @@ const NavigationIndicators: React.FC<NavigationIndicatorsProps> = ({
               <Box
                 key={step.id}
                 sx={{
-                  position: "relative",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  height: "32px", // Fixed height for consistent spacing
-                  width: "100%",
+                  position: 'relative',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  height: '32px', // Fixed height for consistent spacing
+                  width: '100%',
                   zIndex: isHovered ? 1000 : 1,
-                  overflow: "visible",
-                  boxSizing: "border-box",
+                  overflow: 'visible',
+                  boxSizing: 'border-box',
                 }}
                 onMouseEnter={(e) => {
                   setHoveredStep(step.id);
@@ -132,7 +132,7 @@ const NavigationIndicators: React.FC<NavigationIndicatorsProps> = ({
                     x: xPosition,
                     y: rect.top + rect.height / 2 - 10,
                     visible: true,
-                    isActive: isActive,
+                    isActive,
                   });
                 }}
                 onMouseLeave={() => {
@@ -147,45 +147,45 @@ const NavigationIndicators: React.FC<NavigationIndicatorsProps> = ({
                 {/* Pill indicator */}
                 <Box
                   sx={{
-                    width: "12px",
-                    height: "24px", // Fixed height instead of relative
-                    borderRadius: "12px",
+                    width: '12px',
+                    height: '24px', // Fixed height instead of relative
+                    borderRadius: '12px',
                     backgroundColor: isFuturePage
-                      ? "rgba(38, 133, 189, 0.3)"
-                      : "#2685BD",
-                    cursor: "pointer",
-                    transition: "all 0.2s ease",
-                    position: "relative",
+                      ? 'rgba(38, 133, 189, 0.3)'
+                      : '#2685BD',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease',
+                    position: 'relative',
                     zIndex: 2,
-                    boxSizing: "border-box",
+                    boxSizing: 'border-box',
                     flexShrink: 0, // Prevent shrinking
-                    "&:hover": { transform: "scale(1.05)" },
-                    "&::after": isActive
+                    '&:hover': { transform: 'scale(1.05)' },
+                    '&::after': isActive
                       ? {
                           content: '""',
-                          position: "absolute",
-                          top: "-4px",
-                          left: "-4px",
-                          width: "20px", // Explicit width: 12px + 4px on each side
-                          height: "32px", // Explicit height: 24px + 4px on each side
-                          border: "2px solid #2685BD",
-                          borderRadius: "16px",
-                          transition: "all 0.3s ease",
+                          position: 'absolute',
+                          top: '-4px',
+                          left: '-4px',
+                          width: '20px', // Explicit width: 12px + 4px on each side
+                          height: '32px', // Explicit height: 24px + 4px on each side
+                          border: '2px solid #2685BD',
+                          borderRadius: '16px',
+                          transition: 'all 0.3s ease',
                           opacity: 1,
-                          boxSizing: "border-box",
+                          boxSizing: 'border-box',
                         }
                       : {
                           content: '""',
-                          position: "absolute",
-                          top: "-4px",
-                          left: "-4px",
-                          width: "20px", // Explicit width: 12px + 4px on each side
-                          height: "32px", // Explicit height: 24px + 4px on each side
-                          border: "2px solid #2685BD",
-                          borderRadius: "16px",
-                          transition: "all 0.3s ease",
+                          position: 'absolute',
+                          top: '-4px',
+                          left: '-4px',
+                          width: '20px', // Explicit width: 12px + 4px on each side
+                          height: '32px', // Explicit height: 24px + 4px on each side
+                          border: '2px solid #2685BD',
+                          borderRadius: '16px',
+                          transition: 'all 0.3s ease',
                           opacity: 0,
-                          boxSizing: "border-box",
+                          boxSizing: 'border-box',
                         },
                   }}
                 />
@@ -199,28 +199,28 @@ const NavigationIndicators: React.FC<NavigationIndicatorsProps> = ({
       {hoverOverlay.visible && (
         <Box
           sx={{
-            position: "fixed",
+            position: 'fixed',
             left: hoverOverlay.x,
             top: hoverOverlay.y,
-            transform: "translateX(0)",
-            height: "20px",
-            backgroundColor: "#2685BD",
-            borderRadius: "4px", // Rectangle with slight rounding
-            display: "flex",
-            alignItems: "center",
+            transform: 'translateX(0)',
+            height: '20px',
+            backgroundColor: '#2685BD',
+            borderRadius: '4px', // Rectangle with slight rounding
+            display: 'flex',
+            alignItems: 'center',
             paddingLeft: 1.5,
             paddingRight: 1.5,
             paddingTop: 1,
             paddingBottom: 1,
             zIndex: (theme) => theme.zIndex.modal + 1,
-            pointerEvents: "none",
-            whiteSpace: "nowrap",
+            pointerEvents: 'none',
+            whiteSpace: 'nowrap',
           }}
         >
           <Typography
             sx={{
-              color: "white",
-              fontSize: "1rem",
+              color: 'white',
+              fontSize: '1rem',
               fontWeight: 500,
             }}
           >

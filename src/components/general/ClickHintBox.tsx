@@ -1,7 +1,7 @@
-import type React from "react";
-import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
-import PointerIcon from "../../assets/pointer.svg";
-import { CLICK_HINT_DEFAULTS } from "./clickHintDefaults";
+import type React from 'react';
+import { Box, Typography, useMediaQuery, useTheme } from '@mui/material';
+import PointerIcon from '../../assets/pointer.svg';
+import { CLICK_HINT_DEFAULTS } from './clickHintDefaults';
 
 interface ClickHintBoxProps {
   text: string;
@@ -27,27 +27,27 @@ const ClickHintBox: React.FC<ClickHintBoxProps> = ({
   sx = {},
 }) => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
     <Box
-      sx={{ display: "flex", alignItems: "center", ...sx }}
-      data-export-hide="true"
+      sx={{ display: 'flex', alignItems: 'center', ...sx }}
+      data-export-hide='true'
     >
       <img
         src={PointerIcon}
-        alt="Click pointer icon"
+        alt='Click pointer icon'
         style={{
-          width: "auto",
+          width: 'auto',
           height: iconHeight,
           marginRight: iconMarginRight,
         }}
       />
       <Typography
-        variant="body2"
+        variant='body2'
         sx={{
           fontSize: isMobile ? fontSize.mobile : fontSize.desktop,
-          fontWeight: fontWeight,
+          fontWeight,
           color: CLICK_HINT_DEFAULTS.color,
         }}
       >

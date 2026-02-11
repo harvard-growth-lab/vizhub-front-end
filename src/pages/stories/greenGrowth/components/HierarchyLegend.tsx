@@ -1,6 +1,6 @@
-import React, { memo } from "react";
-import { useTheme } from "@mui/material/styles";
-import useMediaQuery from "@mui/material/useMediaQuery";
+import React, { memo } from 'react';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 interface HierarchyLegendProps {
   layoutMode: string;
@@ -9,13 +9,13 @@ interface HierarchyLegendProps {
 const HierarchyLegend: React.FC<HierarchyLegendProps> = memo(
   ({ layoutMode }) => {
     const theme = useTheme();
-    const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
     // Responsive sizing
     const diagramWidth = 250;
     const diagramHeight = isMobile ? 100 : 120;
     const strokeWidth = isMobile ? 1.5 : 2;
-    const fontSize = isMobile ? "12px" : "14px"; // Increased from 14px to 16px
+    const fontSize = isMobile ? '12px' : '14px'; // Increased from 14px to 16px
 
     // Use the same layout structure for both modes - only difference is visibility of cluster layer
     const centerX = diagramHeight / 2;
@@ -43,11 +43,11 @@ const HierarchyLegend: React.FC<HierarchyLegendProps> = memo(
       Math.max(valueChainArrowStartX, clusterArrowStartX, productArrowStartX) +
       15;
 
-    const showCluster = layoutMode === "clustered";
-    const isClustersOnly = layoutMode === "clusters-only";
+    const showCluster = layoutMode === 'clustered';
+    const isClustersOnly = layoutMode === 'clusters-only';
 
     return (
-      <div style={{ display: "flex", alignItems: "center" }}>
+      <div style={{ display: 'flex', alignItems: 'center' }}>
         <svg
           width={diagramWidth}
           height={diagramHeight}
@@ -55,30 +55,30 @@ const HierarchyLegend: React.FC<HierarchyLegendProps> = memo(
           style={{ flexShrink: 0 }}
           aria-label={`Hierarchy diagram showing ${
             isClustersOnly
-              ? "industrial cluster and product"
+              ? 'industrial cluster and product'
               : showCluster
-                ? "value chain, industrial cluster, and product"
-                : "value chain and product"
+                ? 'value chain, industrial cluster, and product'
+                : 'value chain and product'
           } relationships`}
         >
           <title>
             {isClustersOnly
-              ? "Hierarchy diagram showing industrial cluster and product relationships"
+              ? 'Hierarchy diagram showing industrial cluster and product relationships'
               : showCluster
-                ? "Hierarchy diagram showing value chain, industrial cluster, and product relationships"
-                : "Hierarchy diagram showing value chain and product relationships"}
+                ? 'Hierarchy diagram showing value chain, industrial cluster, and product relationships'
+                : 'Hierarchy diagram showing value chain and product relationships'}
           </title>
           {/* Arrows */}
           <defs>
             <marker
-              id="arrowhead"
-              markerWidth="10"
-              markerHeight="7"
-              refX="9"
-              refY="3.5"
-              orient="auto"
+              id='arrowhead'
+              markerWidth='10'
+              markerHeight='7'
+              refX='9'
+              refY='3.5'
+              orient='auto'
             >
-              <polygon points="0 0, 10 3.5, 0 7" fill="#000" />
+              <polygon points='0 0, 10 3.5, 0 7' fill='#000' />
             </marker>
           </defs>
 
@@ -88,8 +88,8 @@ const HierarchyLegend: React.FC<HierarchyLegendProps> = memo(
               cx={centerX}
               cy={centerY}
               r={valueChainR}
-              fill="none"
-              stroke="#000"
+              fill='none'
+              stroke='#000'
               strokeWidth={strokeWidth}
             />
           )}
@@ -100,9 +100,9 @@ const HierarchyLegend: React.FC<HierarchyLegendProps> = memo(
               cx={isClustersOnly ? centerX : clusterCenterX}
               cy={isClustersOnly ? centerY : clusterCenterY}
               r={isClustersOnly ? valueChainR : clusterR}
-              fill="none"
-              stroke="#000"
-              strokeWidth={isClustersOnly ? strokeWidth : "1"}
+              fill='none'
+              stroke='#000'
+              strokeWidth={isClustersOnly ? strokeWidth : '1'}
             />
           )}
 
@@ -111,8 +111,8 @@ const HierarchyLegend: React.FC<HierarchyLegendProps> = memo(
             cx={isClustersOnly ? clusterCenterX : productCenterX}
             cy={isClustersOnly ? clusterCenterY : productCenterY}
             r={productR}
-            fill="grey"
-            stroke="grey"
+            fill='grey'
+            stroke='grey'
             strokeWidth={strokeWidth * 0.8}
           />
 
@@ -123,9 +123,9 @@ const HierarchyLegend: React.FC<HierarchyLegendProps> = memo(
               y1={valueChainArrowStartY}
               x2={labelStartX}
               y2={valueChainArrowStartY}
-              stroke="#000"
+              stroke='#000'
               strokeWidth={1}
-              markerEnd="url(#arrowhead)"
+              markerEnd='url(#arrowhead)'
             />
           )}
 
@@ -144,9 +144,9 @@ const HierarchyLegend: React.FC<HierarchyLegendProps> = memo(
                   ? centerY - valueChainR * 0.3
                   : clusterArrowStartY
               }
-              stroke="#000"
+              stroke='#000'
               strokeWidth={1}
-              markerEnd="url(#arrowhead)"
+              markerEnd='url(#arrowhead)'
             />
           )}
 
@@ -156,9 +156,9 @@ const HierarchyLegend: React.FC<HierarchyLegendProps> = memo(
             y1={isClustersOnly ? clusterCenterY : productArrowStartY}
             x2={labelStartX}
             y2={isClustersOnly ? clusterCenterY : productArrowStartY}
-            stroke="#000"
+            stroke='#000'
             strokeWidth={1}
-            markerEnd="url(#arrowhead)"
+            markerEnd='url(#arrowhead)'
           />
 
           {/* Value Chain Label - only show if not clusters-only */}
@@ -167,8 +167,8 @@ const HierarchyLegend: React.FC<HierarchyLegendProps> = memo(
               x={labelStartX + 5}
               y={valueChainArrowStartY + 4}
               fontSize={fontSize}
-              fontWeight="500" // Increased from 500 to 600
-              fill="#000"
+              fontWeight='500' // Increased from 500 to 600
+              fill='#000'
             >
               Value Chain
             </text>
@@ -184,8 +184,8 @@ const HierarchyLegend: React.FC<HierarchyLegendProps> = memo(
                   : clusterArrowStartY + 4
               }
               fontSize={fontSize}
-              fontWeight="500" // Increased from 500 to 600
-              fill="#000"
+              fontWeight='500' // Increased from 500 to 600
+              fill='#000'
             >
               Industrial Cluster
             </text>
@@ -196,8 +196,8 @@ const HierarchyLegend: React.FC<HierarchyLegendProps> = memo(
             x={labelStartX + 5}
             y={isClustersOnly ? clusterCenterY + 4 : productArrowStartY + 4}
             fontSize={fontSize}
-            fontWeight="500" // Increased from 500 to 600
-            fill="#000"
+            fontWeight='500' // Increased from 500 to 600
+            fill='#000'
           >
             Product
           </text>

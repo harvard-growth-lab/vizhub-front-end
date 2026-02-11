@@ -1,5 +1,5 @@
-import { useState, useEffect, useMemo } from "react";
-import { useQuery, gql } from "@apollo/client";
+import { useState, useEffect, useMemo } from 'react';
+import { useQuery, gql } from '@apollo/client';
 
 // OPTIMIZED: Fetch all years at once (year parameter is now optional)
 const GET_ALL_YEARS_METRICS = gql`
@@ -48,7 +48,7 @@ interface CountryYearMetric {
  * Optimized hook to fetch country metrics for ALL years at once
  * Now that the year parameter is optional in the GraphQL API,
  * we can fetch all years in a single query instead of 12+ separate queries
- * 
+ *
  * @returns Object containing metrics grouped by year and global min/max values
  */
 export const useAllYearsMetrics = () => {
@@ -58,12 +58,12 @@ export const useAllYearsMetrics = () => {
 
   // Fetch all years data at once
   const { data: allYearsData, loading: allYearsLoading, error: allYearsError } = useQuery(
-    GET_ALL_YEARS_METRICS
+    GET_ALL_YEARS_METRICS,
   );
 
   // Fetch countries for metadata
   const { data: countriesData, loading: countriesLoading, error: countriesError } = useQuery(
-    GET_COUNTRIES
+    GET_COUNTRIES,
   );
 
   // Process and group data by year
@@ -83,7 +83,7 @@ export const useAllYearsMetrics = () => {
       countriesData.gpLocationCountryList.map((country: any) => [
         country.countryId,
         country as CountryInfo,
-      ])
+      ]),
     );
 
     // Group by year and enrich with country metadata

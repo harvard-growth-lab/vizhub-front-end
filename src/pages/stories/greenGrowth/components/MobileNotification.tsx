@@ -1,6 +1,6 @@
-import styled from "@emotion/styled";
-import { Modal } from "@mui/material";
-import Logo from "../../../../assets/GL_logo_white.png";
+import styled from '@emotion/styled';
+import { Modal } from '@mui/material';
+import Logo from '../../../../assets/GL_logo_white.png';
 
 const NotificationContainer = styled.div`
   background-color: rgb(27, 31, 47);
@@ -57,26 +57,26 @@ export default function MobileNotification({
     <Modal
       open={true}
       onClose={onClose}
-      aria-labelledby="mobile-notification-title"
-      aria-describedby="mobile-notification-description"
+      aria-labelledby='mobile-notification-title'
+      aria-describedby='mobile-notification-description'
     >
       <NotificationContainer>
         <div>
           <NotificationLogo
             src={Logo}
-            alt="Growth Lab logo"
-            id="mobile-notification-title"
+            alt='Growth Lab logo'
+            id='mobile-notification-title'
           />
         </div>
-        <NotificationMessage id="mobile-notification-description">
+        <NotificationMessage id='mobile-notification-description'>
           <p>
-            <span className="bold">Greenplexity</span> is an interactive data
+            <span className='bold'>Greenplexity</span> is an interactive data
             visualization platform that reveals where countries can lead in the
             green value chains powering the energy transition and drive new
             paths to prosperity.
           </p>
           <p>
-            <span className="italicize">
+            <span className='italicize'>
               To explore the data, please open this page in a wider browser
               window.
             </span>
@@ -85,7 +85,7 @@ export default function MobileNotification({
         <NotificationCloseButton
           onClick={onClose}
           tabIndex={0}
-          aria-label="Close notification"
+          aria-label='Close notification'
         >
           &#x2715;
         </NotificationCloseButton>

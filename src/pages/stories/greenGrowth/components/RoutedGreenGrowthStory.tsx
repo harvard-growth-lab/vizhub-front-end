@@ -1,5 +1,5 @@
 // React import not required for JSX runtime
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 import {
   Routes,
   Route,
@@ -7,31 +7,31 @@ import {
   Navigate,
   useNavigate,
   useLocation,
-} from "react-router-dom";
-import { ThemeProvider } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
-import { Box } from "@mui/material";
-import StoryNavigation from "./StoryNavigation";
-import RoutedVisualization from "./visualization/RoutedVisualization";
-import ProductScatter from "./visualization/ProductScatter";
-import ProductRadar from "./visualization/ProductRadar";
-import ClusterTree from "./visualization/ClusterTree/index";
-import ValueChainsHierarchy from "./ValueChainsHierarchy";
+} from 'react-router-dom';
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import { Box } from '@mui/material';
+import StoryNavigation from './StoryNavigation';
+import RoutedVisualization from './visualization/RoutedVisualization';
+import ProductScatter from './visualization/ProductScatter';
+import ProductRadar from './visualization/ProductRadar';
+import ClusterTree from './visualization/ClusterTree/index';
+import ValueChainsHierarchy from './ValueChainsHierarchy';
 
-import SummaryPage from "./SummaryPage";
-import RankingsPage from "./rankings";
-import Attribution from "./Attribution";
-import StandardFooter from "../../../../components/text/StandardFooter";
-import Landing from "./Landing";
-import { SidebarProvider, useSidebar } from "./SidebarContext";
-import { ImageCaptureProvider } from "../hooks/useImageCaptureContext";
-import { SelectionDataModalProvider } from "../hooks/useSelectionDataModal";
-import SelectionDataModal from "./SelectionDataModal";
-import MobileNotification from "./MobileNotification";
-import greenGrowthTheme from "../theme";
-import GreenplexityHeader from "./GreenplexityHeader";
+import SummaryPage from './SummaryPage';
+import RankingsPage from './rankings';
+import Attribution from './Attribution';
+import StandardFooter from '../../../../components/text/StandardFooter';
+import Landing from './Landing';
+import { SidebarProvider, useSidebar } from './SidebarContext';
+import { ImageCaptureProvider } from '../hooks/useImageCaptureContext';
+import { SelectionDataModalProvider } from '../hooks/useSelectionDataModal';
+import SelectionDataModal from './SelectionDataModal';
+import MobileNotification from './MobileNotification';
+import greenGrowthTheme from '../theme';
+import GreenplexityHeader from './GreenplexityHeader';
 
-import "../index.css";
+import '../index.css';
 
 // Layout component for story steps with navigation
 const StoryStepLayout = () => {
@@ -40,30 +40,30 @@ const StoryStepLayout = () => {
   return (
     <Box
       sx={{
-        display: "flex",
-        height: "100vh",
-        width: "100%",
-        overflow: "hidden",
+        display: 'flex',
+        height: '100vh',
+        width: '100%',
+        overflow: 'hidden',
       }}
     >
       <StoryNavigation />
       <Box
-        component="main"
+        component='main'
         sx={{
           flexGrow: 1,
           // Adjust height to account for top bar when condensed
           height: {
-            xs: isCondensed ? "calc(100vh - 60px)" : "calc(100vh - 64px)",
-            md: isCondensed ? "calc(100vh - 60px)" : "100vh",
+            xs: isCondensed ? 'calc(100vh - 60px)' : 'calc(100vh - 64px)',
+            md: isCondensed ? 'calc(100vh - 60px)' : '100vh',
           },
-          overflow: "hidden",
+          overflow: 'hidden',
           // Adjust margin for condensed state - both mobile and desktop
           marginTop: {
-            xs: isCondensed ? "60px" : "64px",
-            md: isCondensed ? "60px" : 0,
+            xs: isCondensed ? '60px' : '64px',
+            md: isCondensed ? '60px' : 0,
           },
           transition: (theme) =>
-            theme.transitions.create(["margin", "height"], {
+            theme.transitions.create(['margin', 'height'], {
               easing: theme.transitions.easing.sharp,
               duration: theme.transitions.duration.leavingScreen,
             }),
@@ -71,10 +71,10 @@ const StoryStepLayout = () => {
       >
         <Box
           sx={{
-            height: "100%",
-            width: "100%",
-            overflow: "hidden",
-            padding: "8px", // Add consistent padding at layout level
+            height: '100%',
+            width: '100%',
+            overflow: 'hidden',
+            padding: '8px', // Add consistent padding at layout level
           }}
         >
           <Outlet />
@@ -91,29 +91,29 @@ const RadarLayout = () => {
   return (
     <Box
       sx={{
-        display: "flex",
-        height: "100vh",
-        width: "100%",
-        overflow: "hidden",
+        display: 'flex',
+        height: '100vh',
+        width: '100%',
+        overflow: 'hidden',
       }}
     >
       <StoryNavigation />
       <Box
-        component="main"
+        component='main'
         sx={{
           flexGrow: 1,
           // Adjust height to account for top bar when condensed
           height: {
-            xs: isCondensed ? "calc(100vh - 60px)" : "calc(100vh - 64px)",
-            md: isCondensed ? "calc(100vh - 60px)" : "100vh",
+            xs: isCondensed ? 'calc(100vh - 60px)' : 'calc(100vh - 64px)',
+            md: isCondensed ? 'calc(100vh - 60px)' : '100vh',
           },
-          overflow: "hidden",
+          overflow: 'hidden',
           marginTop: {
-            xs: isCondensed ? "60px" : "64px",
-            md: isCondensed ? "60px" : 0,
+            xs: isCondensed ? '60px' : '64px',
+            md: isCondensed ? '60px' : 0,
           },
           transition: (theme) =>
-            theme.transitions.create(["margin", "height"], {
+            theme.transitions.create(['margin', 'height'], {
               easing: theme.transitions.easing.sharp,
               duration: theme.transitions.duration.leavingScreen,
             }),
@@ -121,9 +121,9 @@ const RadarLayout = () => {
       >
         <Box
           sx={{
-            height: "100%",
-            width: "100%",
-            padding: "8px", // Add consistent padding for radar charts
+            height: '100%',
+            width: '100%',
+            padding: '8px', // Add consistent padding for radar charts
           }}
         >
           <Outlet />
@@ -138,20 +138,20 @@ const SummaryLayout = () => {
   return (
     <Box
       sx={{
-        display: "flex",
-        flexDirection: "column",
-        minHeight: "100vh",
-        width: "100%",
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: '100vh',
+        width: '100%',
       }}
     >
-      <GreenplexityHeader position="fixed" heightPx={60} maxWidth="lg" />
+      <GreenplexityHeader position='fixed' heightPx={60} maxWidth='lg' />
       <Box
-        component="main"
+        component='main'
         sx={{
           flexGrow: 1,
-          marginTop: "60px",
-          display: "flex",
-          flexDirection: "column",
+          marginTop: '60px',
+          display: 'flex',
+          flexDirection: 'column',
         }}
       >
         {/* Main content area that grows to fill available space */}
@@ -171,17 +171,17 @@ const ExplorePage = () => {
   return (
     <Box
       sx={{
-        height: "100%",
-        width: "100%",
-        display: "flex",
-        flexDirection: "column",
-        overflow: "auto",
+        height: '100%',
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        overflow: 'auto',
       }}
     >
-      <Box sx={{ flex: 1, minHeight: "33.33%" }}>
+      <Box sx={{ flex: 1, minHeight: '33.33%' }}>
         <ProductScatter />
       </Box>
-      <Box sx={{ flex: 1, minHeight: "33.33%" }}>
+      <Box sx={{ flex: 1, minHeight: '33.33%' }}>
         <ProductRadar />
       </Box>
 
@@ -198,7 +198,7 @@ const LandingPage = () => {
 
   const handleExplore = () => {
     // Navigate to the first step - use React Router to preserve any existing URL params
-    navigate({ pathname: "/greenplexity/tutorial", search });
+    navigate({ pathname: '/greenplexity/tutorial', search });
   };
 
   return <Landing onExplore={handleExplore} />;
@@ -217,10 +217,10 @@ const RoutedGreenGrowthStory = () => {
     };
 
     checkViewportWidth();
-    window.addEventListener("resize", checkViewportWidth);
+    window.addEventListener('resize', checkViewportWidth);
 
     return () => {
-      window.removeEventListener("resize", checkViewportWidth);
+      window.removeEventListener('resize', checkViewportWidth);
     };
   }, [hasUserDismissed]);
 
@@ -235,64 +235,64 @@ const RoutedGreenGrowthStory = () => {
         <SelectionDataModalProvider>
           <ThemeProvider theme={greenGrowthTheme}>
             <CssBaseline />
-            <div className="routed-story appRoot">
+            <div className='routed-story appRoot'>
               <Routes>
                 {/* Landing page */}
                 <Route index element={<LandingPage />} />
 
                 {/* Story steps with scrolly visualizations */}
-                <Route path="" element={<StoryStepLayout />}>
-                  <Route path="tutorial" element={<ValueChainsHierarchy />} />
+                <Route path='' element={<StoryStepLayout />}>
+                  <Route path='tutorial' element={<ValueChainsHierarchy />} />
                   <Route
-                    path="value-chains-products"
+                    path='value-chains-products'
                     element={<RoutedVisualization />}
                   />
                   <Route
-                    path="value-clusters"
+                    path='value-clusters'
                     element={<RoutedVisualization />}
                   />
                   <Route
-                    path="cluster-products"
+                    path='cluster-products'
                     element={<RoutedVisualization />}
                   />
                   <Route
-                    path="cluster-trade"
+                    path='cluster-trade'
                     element={<RoutedVisualization />}
                   />
                   <Route
-                    path="cluster-market"
+                    path='cluster-market'
                     element={<RoutedVisualization />}
                   />
-                  <Route path="strategy" element={<RoutedVisualization />} />
-                  <Route path="connections" element={<ClusterTree />} />
-                  <Route path="connections/table" element={<ClusterTree />} />
-                  <Route path="opportunities" element={<ProductScatter />} />
+                  <Route path='strategy' element={<RoutedVisualization />} />
+                  <Route path='connections' element={<ClusterTree />} />
+                  <Route path='connections/table' element={<ClusterTree />} />
+                  <Route path='opportunities' element={<ProductScatter />} />
                   <Route
-                    path="opportunities/table"
+                    path='opportunities/table'
                     element={<ProductScatter />}
                   />
                 </Route>
 
                 {/* Products with ProductRadar (needs padding) */}
-                <Route path="" element={<RadarLayout />}>
-                  <Route path="products" element={<ProductRadar />} />
-                  <Route path="products/table" element={<ProductRadar />} />
+                <Route path='' element={<RadarLayout />}>
+                  <Route path='products' element={<ProductRadar />} />
+                  <Route path='products/table' element={<ProductRadar />} />
                 </Route>
 
                 {/* Summary (no sidebar) with footer */}
-                <Route path="" element={<SummaryLayout />}>
-                  <Route path="summary" element={<SummaryPage />} />
-                  <Route path="rankings" element={<RankingsPage />} />
-                  <Route path="rankings/map" element={<RankingsPage />} />
+                <Route path='' element={<SummaryLayout />}>
+                  <Route path='summary' element={<SummaryPage />} />
+                  <Route path='rankings' element={<RankingsPage />} />
+                  <Route path='rankings/map' element={<RankingsPage />} />
                 </Route>
 
                 {/* Explore page */}
-                <Route path="explore" element={<ExplorePage />} />
+                <Route path='explore' element={<ExplorePage />} />
 
                 {/* Fallback redirect */}
                 <Route
-                  path="*"
-                  element={<Navigate to="/greenplexity" replace />}
+                  path='*'
+                  element={<Navigate to='/greenplexity' replace />}
                 />
               </Routes>
             </div>

@@ -74,7 +74,7 @@ export interface ProductClusterRow {
 export interface HierarchyNodeData {
   id: string;
   name: string;
-  type: "value_chain" | "manufacturing_cluster" | "product";
+  type: 'value_chain' | 'manufacturing_cluster' | 'product';
   color: string;
   visible: boolean;
   rca?: number; // Optional RCA value for opacity calculations
@@ -111,7 +111,7 @@ export interface TreeHierarchy {
 export interface TreeNode {
   name: string;
   id: string;
-  type: "value_chain" | "manufacturing_cluster" | "product";
+  type: 'value_chain' | 'manufacturing_cluster' | 'product';
   color: string;
   radius?: number; // Dynamic radius for proper spacing
   children?: TreeNode[];
@@ -126,7 +126,7 @@ export interface NodePosition {
   height: number;
   color: string;
   label: string;
-  type: "value_chain" | "manufacturing_cluster" | "product";
+  type: 'value_chain' | 'manufacturing_cluster' | 'product';
 }
 
 // Link position type for animations
@@ -147,7 +147,7 @@ export interface LinkPosition {
 
 export interface SankeyNodeExtra {
   name: string;
-  type: "value_chain" | "manufacturing_cluster";
+  type: 'value_chain' | 'manufacturing_cluster';
 }
 
 // Link position type for animations
@@ -168,4 +168,4 @@ export interface NodeStyles {
 }
 
 // Sankey coloring mode type
-export type SankeyColoringMode = "Country Specific" | "Global";
+export type SankeyColoringMode = 'Country Specific' | 'Global';

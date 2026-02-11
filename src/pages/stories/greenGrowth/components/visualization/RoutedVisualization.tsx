@@ -1,18 +1,18 @@
-import { useMemo, useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
-import { TooltipWithBounds, useTooltip } from "@visx/tooltip";
-import CirclePack from "./CirclePack";
-import { SharedTooltip } from "../shared";
-import StrategicPositionChart from "./StrategicPositionChart";
-import StackedBarsChart from "./StackedBarsChart";
+import { useMemo, useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import { TooltipWithBounds, useTooltip } from '@visx/tooltip';
+import CirclePack from './CirclePack';
+import { SharedTooltip } from '../shared';
+import StrategicPositionChart from './StrategicPositionChart';
+import StackedBarsChart from './StackedBarsChart';
 // no-op
 
 import {
   useCountrySelection,
   useYearSelection,
-} from "../../hooks/useUrlParams";
-import { Routes } from "../../../../../metadata";
-import { useCountryName } from "../../queries/useCountryName";
+} from '../../hooks/useUrlParams';
+import { Routes } from '../../../../../metadata';
+import { useCountryName } from '../../queries/useCountryName';
 
 const RoutedVisualization = () => {
   const yearSelection = useYearSelection();
@@ -34,63 +34,63 @@ const RoutedVisualization = () => {
     () => [
       {
         route: Routes.GreenGrowthValueChainsProducts,
-        title: "Green Value Chains and Products",
-        base: "bubbles",
-        tooltip: [{ field: "rca", title: "Revealed Comparative Advantage" }],
-        fill: "rca",
-        layoutMode: "flat",
+        title: 'Green Value Chains and Products',
+        base: 'bubbles',
+        tooltip: [{ field: 'rca', title: 'Revealed Comparative Advantage' }],
+        fill: 'rca',
+        layoutMode: 'flat',
         modalContent: `This visualization reveals where ${countryName} is already active within green industrial clusters – including their component products and overarching green value chains. These existing strengths can unlock green growth opportunities by entering related production that requires similar knowhow.`,
-        legend: "rca",
+        legend: 'rca',
         legendHeight: 50,
       },
       {
         route: Routes.GreenGrowthValueClusters,
-        title: "Green Manufacturing Communities",
-        base: "bubbles",
-        tooltip: [{ field: "rca", title: "Revealed Comparative Advantage" }],
-        fill: "rca",
-        layoutMode: "clustered",
+        title: 'Green Manufacturing Communities',
+        base: 'bubbles',
+        tooltip: [{ field: 'rca', title: 'Revealed Comparative Advantage' }],
+        fill: 'rca',
+        layoutMode: 'clustered',
         modalContent: `Manufacturing communities represent clusters of related products that tend to be produced in the same place. This clustered view shows how green products group together based on shared productive capabilities. Each cluster represents a distinct set of knowhow and industrial capabilities.`,
-        legend: "rca",
+        legend: 'rca',
         legendHeight: 50,
       },
       {
         route: Routes.GreenGrowthClusterProducts,
-        title: "Industrial Clusters & Products",
-        base: "bubbles",
-        tooltip: [{ field: "rca", title: "Revealed Comparative Advantage" }],
-        fill: "rca",
-        layoutMode: "clusters-only",
+        title: 'Industrial Clusters & Products',
+        base: 'bubbles',
+        tooltip: [{ field: 'rca', title: 'Revealed Comparative Advantage' }],
+        fill: 'rca',
+        layoutMode: 'clusters-only',
         modalContent: `Industrial clusters represent groups of related products that require similar productive capabilities and tend to be produced in the same places. This view shows all green industrial clusters and their component products, revealing the manufacturing communities that drive the green economy.`,
-        legend: "rca",
+        legend: 'rca',
         legendHeight: 50,
       },
       {
         route: Routes.GreenGrowthClusterTrade,
-        title: "Cluster Trade Performance",
-        base: "bars",
+        title: 'Cluster Trade Performance',
+        base: 'bars',
         tooltip: [],
         modalContent: `This shows ${countryName}'s actual presence (colored bar) in each green value chain versus the level if ${countryName} had average competitiveness in all value chain components (black line). This reveals ${countryName}'s areas of strength and concentration.`,
-        legend: "",
+        legend: '',
         legendHeight: 0,
       },
       {
         route: Routes.GreenGrowthClusterMarket,
-        title: "Cluster Market Share",
-        base: "bars",
+        title: 'Cluster Market Share',
+        base: 'bars',
         tooltip: [],
         modalContent: `This shows ${countryName}'s market share in each green industrial cluster, revealing areas where ${countryName} has the strongest competitive position globally.`,
-        legend: "",
+        legend: '',
         legendHeight: 0,
       },
       {
         route: Routes.GreenGrowthStrategy,
-        title: "Strategic Position in Green Growth",
-        base: "strategicPosition",
+        title: 'Strategic Position in Green Growth',
+        base: 'strategicPosition',
         tooltip: [],
         modalContent:
           "This scatter plot shows each country's strategic position in green growth opportunities, revealing areas of strength and potential for development across different economic contexts.",
-        legend: "",
+        legend: '',
         legendHeight: 0,
       },
     ],
@@ -106,7 +106,7 @@ const RoutedVisualization = () => {
     const prefixIndex = steps.findIndex(
       (step) =>
         location.pathname === step.route ||
-        location.pathname.startsWith(step.route + "/"),
+        location.pathname.startsWith(step.route + '/'),
     );
     return prefixIndex >= 0 ? prefixIndex : 0;
   }, [location.pathname, steps]);
@@ -145,13 +145,13 @@ const RoutedVisualization = () => {
   }, [animationState.currentStep, steps]);
 
   // Render Strategic Position Chart for strategic base type
-  if (currentView?.base === "strategicPosition") {
+  if (currentView?.base === 'strategicPosition') {
     return (
       <div
         style={{
-          height: "100%",
-          width: "100%",
-          position: "relative",
+          height: '100%',
+          width: '100%',
+          position: 'relative',
         }}
       >
         <StrategicPositionChart />
@@ -160,24 +160,24 @@ const RoutedVisualization = () => {
   }
 
   // Render Stacked Bars Chart for bars base type
-  if (currentView?.base === "bars") {
+  if (currentView?.base === 'bars') {
     // Determine mode based on route
     const isComparisonMode =
       location.pathname === Routes.GreenGrowthClusterMarket ||
-      location.pathname.startsWith(Routes.GreenGrowthClusterMarket + "/");
+      location.pathname.startsWith(Routes.GreenGrowthClusterMarket + '/');
     return (
       <div
         style={{
-          width: "100%",
-          height: "100%",
-          display: "flex",
-          flexDirection: "column",
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
         }}
       >
         <StackedBarsChart
           year={yearSelection}
           countryId={countrySelection}
-          mode={isComparisonMode ? "comparison" : "presence"}
+          mode={isComparisonMode ? 'comparison' : 'presence'}
         />
       </div>
     );
@@ -186,15 +186,15 @@ const RoutedVisualization = () => {
   return (
     <div
       style={{
-        width: "100%",
-        height: "100%",
-        display: "flex",
-        flexDirection: "column",
-        overflow: "hidden",
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        overflow: 'hidden',
       }}
     >
       <CirclePack
-        key="routed-visualization" // Stable key to prevent remounting
+        key='routed-visualization' // Stable key to prevent remounting
         view={currentView}
         showTooltip={showTooltip}
         hideTooltip={hideTooltip}
@@ -203,7 +203,7 @@ const RoutedVisualization = () => {
         <TooltipWithBounds
           left={(tooltipLeft || 0) + 14}
           top={(tooltipTop || 0) + 14}
-          className="gg-unskinned-tooltip"
+          className='gg-unskinned-tooltip'
         >
           <SharedTooltip payload={tooltipData as never} />
         </TooltipWithBounds>

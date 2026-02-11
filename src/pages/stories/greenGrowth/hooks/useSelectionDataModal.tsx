@@ -4,9 +4,9 @@ import React, {
   useContext,
   useMemo,
   useState,
-} from "react";
+} from 'react';
 
-export type SelectionType = "product" | "cluster" | "supplyChain";
+export type SelectionType = 'product' | 'cluster' | 'supplyChain';
 
 export interface SelectionPayload {
   type: SelectionType;
@@ -18,12 +18,12 @@ export interface SelectionPayload {
   title?: string;
   // Context for progressive reveal and source-specific behavior
   source?:
-    | "circle-pack"
-    | "cluster-tree"
-    | "product-scatter"
-    | "product-radar"
-    | "other";
-  detailLevel?: "basic" | "full";
+    | 'circle-pack'
+    | 'cluster-tree'
+    | 'product-scatter'
+    | 'product-radar'
+    | 'other';
+  detailLevel?: 'basic' | 'full';
 }
 
 interface SelectionModalState {
@@ -73,7 +73,7 @@ export const useSelectionDataModal = (): SelectionDataModalContextType => {
   const ctx = useContext(SelectionDataModalContext);
   if (!ctx) {
     throw new Error(
-      "useSelectionDataModal must be used within a SelectionDataModalProvider",
+      'useSelectionDataModal must be used within a SelectionDataModalProvider',
     );
   }
   return ctx;

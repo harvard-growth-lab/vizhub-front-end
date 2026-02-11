@@ -1,4 +1,4 @@
-import { gql } from "@apollo/client";
+import { gql } from '@apollo/client';
 
 // Shared GraphQL queries used across multiple components
 // Using comprehensive versions for maximum caching efficiency - overfetching is OK for better cache reuse

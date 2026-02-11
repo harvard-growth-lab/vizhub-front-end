@@ -1,5 +1,5 @@
-import { scaleSequential } from "d3-scale";
-import { interpolateBlues } from "d3-scale-chromatic";
+import { scaleSequential } from 'd3-scale';
+import { interpolateBlues } from 'd3-scale-chromatic';
 
 // Shared 3-tier RCA range definitions (consistent across all components)
 // Simplified 2-tier RCA ranges: >1 and ≤1
@@ -7,16 +7,16 @@ export const RCA_RANGES = [
   {
     min: 1.0,
     max: Infinity,
-    label: "High (RCA>1)",
-    description: "Strong Capability",
+    label: 'High (RCA>1)',
+    description: 'Strong Capability',
     opacity: 1.0,
     colorPosition: 0.9,
   },
   {
     min: -Infinity,
     max: 1.0,
-    label: "Low (RCA≤1)",
-    description: "Limited Capability",
+    label: 'Low (RCA≤1)',
+    description: 'Limited Capability',
     opacity: 0.35,
     colorPosition: 0.3,
   },
@@ -31,7 +31,7 @@ export function getRCARange(rca: number, threshold: number = 1.0) {
     min: threshold,
     max: Infinity,
     label: `High (RCA>${threshold})`,
-    description: "Strong Capability",
+    description: 'Strong Capability',
     opacity: 1.0,
     colorPosition: 0.9,
   };
@@ -39,7 +39,7 @@ export function getRCARange(rca: number, threshold: number = 1.0) {
     min: -Infinity,
     max: threshold,
     label: `Low (RCA≤${threshold})`,
-    description: "Limited Capability",
+    description: 'Limited Capability',
     opacity: 0.35,
     colorPosition: 0.3,
   };
@@ -73,7 +73,7 @@ export function getRCALegendItems(threshold: number = 1.0) {
       min: threshold,
       max: Infinity,
       label: `High (RCA>${threshold})`,
-      description: "Strong Capability",
+      description: 'Strong Capability',
       opacity: 1.0,
       colorPosition: 0.9,
     },
@@ -81,7 +81,7 @@ export function getRCALegendItems(threshold: number = 1.0) {
       min: -Infinity,
       max: threshold,
       label: `Low (RCA≤${threshold})`,
-      description: "Limited Capability",
+      description: 'Limited Capability',
       opacity: 0.35,
       colorPosition: 0.3,
     },

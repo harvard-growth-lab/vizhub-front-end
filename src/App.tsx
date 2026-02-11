@@ -1,30 +1,30 @@
-import { Suspense, createContext, lazy, useState, useEffect } from "react";
+import { Suspense, createContext, lazy, useState, useEffect } from 'react';
 import {
   createBrowserRouter,
   RouterProvider,
   Outlet,
   useLocation,
   Navigate,
-} from "react-router-dom";
-import GlobalStyles from "./styling/GlobalStyles";
-import Helmet from "react-helmet";
-import { Root } from "./styling/Grid";
-import { Routes as routingRoutes } from "./routing/routes";
-import debounce from "lodash/debounce";
-import "./styling/fonts/fonts.css";
-import Loading from "./components/general/Loading";
+} from 'react-router-dom';
+import GlobalStyles from './styling/GlobalStyles';
+import Helmet from 'react-helmet';
+import { Root } from './styling/Grid';
+import { Routes as routingRoutes } from './routing/routes';
+import debounce from 'lodash/debounce';
+import './styling/fonts/fonts.css';
+import Loading from './components/general/Loading';
 import {
   ApolloClient,
   InMemoryCache,
   ApolloProvider,
   HttpLink,
-} from "@apollo/client";
-import ReactGA from "react-ga4";
-import { overlayPortalContainerId } from "./Utils";
-import styled from "styled-components";
-import { loader as spaceVisualizerLoader } from "./pages/spaceVisualizer/loader";
-import DataSelection from "./pages/spaceVisualizer/DataSelection";
-import SpaceVisualizer from "./pages/spaceVisualizer";
+} from '@apollo/client';
+import ReactGA from 'react-ga4';
+import { overlayPortalContainerId } from './Utils';
+import styled from 'styled-components';
+import { loader as spaceVisualizerLoader } from './pages/spaceVisualizer/loader';
+import DataSelection from './pages/spaceVisualizer/DataSelection';
+import SpaceVisualizer from './pages/spaceVisualizer';
 
 if (process.env.REACT_APP_GOOGLE_ANALYTICS_GA4_ID) {
   ReactGA.initialize([
@@ -38,7 +38,7 @@ const useTrackPageView = () => {
   const routerLocation = useLocation();
   useEffect(() => {
     const page = routerLocation.pathname + window.location.search;
-    ReactGA.send({ hitType: "pageview", page });
+    ReactGA.send({ hitType: 'pageview', page });
   }, [routerLocation]);
 };
 
@@ -54,34 +54,34 @@ const OverlayPortal = styled.div`
   z-index: ${overlayPortalZIndex};
 `;
 
-const LandingPage = lazy(() => import("./pages/landingPage"));
-const AboutPage = lazy(() => import("./pages/landingPage/About"));
-const CommunityPage = lazy(() => import("./pages/landingPage/Community"));
-const AlbaniaTool = lazy(() => import("./pages/albaniaTool"));
-const AlbaniaStory = lazy(() => import("./pages/stories/albania"));
+const LandingPage = lazy(() => import('./pages/landingPage'));
+const AboutPage = lazy(() => import('./pages/landingPage/About'));
+const CommunityPage = lazy(() => import('./pages/landingPage/Community'));
+const AlbaniaTool = lazy(() => import('./pages/albaniaTool'));
+const AlbaniaStory = lazy(() => import('./pages/stories/albania'));
 const NamibiaWalvisBayStory = lazy(
-  () => import("./pages/stories/namibiaWalvisBay"),
+  () => import('./pages/stories/namibiaWalvisBay'),
 );
 const PortEcosystemsStory = lazy(
-  () => import("./pages/stories/portEcosystems"),
+  () => import('./pages/stories/portEcosystems'),
 );
-const JordanTool = lazy(() => import("./pages/jordanTool"));
-const JordanOverview = lazy(() => import("./pages/jordanTool/overviewPage"));
-const BestOf2020 = lazy(() => import("./pages/stories/bestOf/2020"));
-const BestOf2021 = lazy(() => import("./pages/stories/bestOf/2021"));
-const BestOf2022 = lazy(() => import("./pages/stories/bestOf/2022"));
-const BestOf2024 = lazy(() => import("./pages/stories/bestOf/2024"));
-const BestOf2025 = lazy(() => import("./pages/stories/bestOf/2025"));
-const NamibiaTool = lazy(() => import("./pages/namibiaTool"));
+const JordanTool = lazy(() => import('./pages/jordanTool'));
+const JordanOverview = lazy(() => import('./pages/jordanTool/overviewPage'));
+const BestOf2020 = lazy(() => import('./pages/stories/bestOf/2020'));
+const BestOf2021 = lazy(() => import('./pages/stories/bestOf/2021'));
+const BestOf2022 = lazy(() => import('./pages/stories/bestOf/2022'));
+const BestOf2024 = lazy(() => import('./pages/stories/bestOf/2024'));
+const BestOf2025 = lazy(() => import('./pages/stories/bestOf/2025'));
+const NamibiaTool = lazy(() => import('./pages/namibiaTool'));
 const CustomProductSpaceTool = lazy(
-  () => import("./pages/iframeTools/CreateYourProductSpace"),
+  () => import('./pages/iframeTools/CreateYourProductSpace'),
 );
 const CustomIndustrySpaceTool = lazy(
-  () => import("./pages/iframeTools/CreateYourIndustrySpace"),
+  () => import('./pages/iframeTools/CreateYourIndustrySpace'),
 );
-const PageNotFound = lazy(() => import("./pages/pageNotFound"));
+const PageNotFound = lazy(() => import('./pages/pageNotFound'));
 const RoutedGreenGrowthStory = lazy(
-  () => import("./pages/stories/greenGrowth/components/RoutedGreenGrowthStory"),
+  () => import('./pages/stories/greenGrowth/components/RoutedGreenGrowthStory'),
 );
 
 export interface IAppContext {
@@ -92,7 +92,7 @@ export const AppContext = createContext<IAppContext>({
   windowWidth: window.innerWidth,
 });
 
-const apiUri = process.env.REACT_APP_API_URL || "/graphql";
+const apiUri = process.env.REACT_APP_API_URL || '/graphql';
 
 const client = new ApolloClient({
   link: new HttpLink({
@@ -101,9 +101,9 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-const defaultMetaTitle = "Harvard Growth Lab Viz Hub";
+const defaultMetaTitle = 'Harvard Growth Lab Viz Hub';
 const defaultMetaDescription =
-  "Translating Growth Lab research into powerful online tools and interactive storytelling";
+  'Translating Growth Lab research into powerful online tools and interactive storytelling';
 
 const AppWrapper = () => {
   const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
@@ -118,9 +118,9 @@ const AppWrapper = () => {
     const updateWindowWidth = debounce(() => {
       setWindowWidth(window.innerWidth);
     }, 500);
-    window.addEventListener("resize", updateWindowWidth);
+    window.addEventListener('resize', updateWindowWidth);
     return () => {
-      window.removeEventListener("resize", updateWindowWidth);
+      window.removeEventListener('resize', updateWindowWidth);
     };
   }, []);
 
@@ -128,9 +128,9 @@ const AppWrapper = () => {
     <AppContext.Provider value={appContext}>
       <Helmet>
         <title>{defaultMetaTitle}</title>
-        <meta name="description" content={defaultMetaDescription} />
-        <meta property="og:title" content={defaultMetaTitle} />
-        <meta property="og:description" content={defaultMetaDescription} />
+        <meta name='description' content={defaultMetaDescription} />
+        <meta property='og:title' content={defaultMetaTitle} />
+        <meta property='og:description' content={defaultMetaDescription} />
       </Helmet>
       <ApolloProvider client={client}>
         <Root>
@@ -141,7 +141,7 @@ const AppWrapper = () => {
           </Suspense>
           <OverlayPortal
             id={overlayPortalContainerId}
-            style={isSpaceVisualizerRoute ? { display: "none" } : undefined}
+            style={isSpaceVisualizerRoute ? { display: 'none' } : undefined}
           />
         </Root>
       </ApolloProvider>
@@ -151,7 +151,7 @@ const AppWrapper = () => {
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <AppWrapper />,
     children: [
       {
@@ -223,7 +223,7 @@ const router = createBrowserRouter([
         element: <PortEcosystemsStory />,
       },
       {
-        path: "greenplexity/*",
+        path: 'greenplexity/*',
         element: <RoutedGreenGrowthStory />,
       },
       {
@@ -236,11 +236,11 @@ const router = createBrowserRouter([
         loader: spaceVisualizerLoader,
       },
       {
-        path: "green-growth",
-        element: <Navigate to="/greenplexity" replace />,
+        path: 'green-growth',
+        element: <Navigate to='/greenplexity' replace />,
       },
       {
-        path: "*",
+        path: '*',
         element: <PageNotFound />,
       },
     ],

@@ -2,30 +2,30 @@ import {
   ScatterPlotDatum,
   RadarChartDatum,
   BarChartDatum,
-} from "react-fast-charts";
-import { useQuery } from "@apollo/client";
-import gql from "graphql-tag";
+} from 'react-fast-charts';
+import { useQuery } from '@apollo/client';
+import gql from 'graphql-tag';
 import {
   Datum as DynamicTableDatum,
   Column as DynamicTableColumn,
-} from "../../components/text/DynamicTable";
-import { JordanIndustry, Text } from "./graphql/graphQLTypes";
+} from '../../components/text/DynamicTable';
+import { JordanIndustry, Text } from './graphql/graphQLTypes';
 import generateScatterPlotData, {
   CSVDatum as ScatterPlotCsvDatum,
-} from "./transformers/transformScatterplotData";
-import generateRadarChartData from "./transformers/transformRadarChartData";
-import generateIndustryNowTableData from "./transformers/transformIndustryNowTableData";
-import generateGeoJsonData from "./transformers/transformGeoJsonData";
-import generateWageHistogramData from "./transformers/transformWageHistogramData";
-import generateOverTimeHistogramData from "./transformers/transformOverTimeHistogramData";
-import { TreeNode } from "react-dropdown-tree-select";
+} from './transformers/transformScatterplotData';
+import generateRadarChartData from './transformers/transformRadarChartData';
+import generateIndustryNowTableData from './transformers/transformIndustryNowTableData';
+import generateGeoJsonData from './transformers/transformGeoJsonData';
+import generateWageHistogramData from './transformers/transformWageHistogramData';
+import generateOverTimeHistogramData from './transformers/transformOverTimeHistogramData';
+import { TreeNode } from 'react-dropdown-tree-select';
 
 export const colorScheme = {
-  primary: "#46899F",
-  secondary: "#E0B04E",
-  teriary: "#9ac5d3",
-  quaternary: "#ecf0f2",
-  lightGray: "#E0E0E0",
+  primary: '#46899F',
+  secondary: '#E0B04E',
+  teriary: '#9ac5d3',
+  quaternary: '#ecf0f2',
+  lightGray: '#E0E0E0',
 };
 
 const GET_JORDAN_INDUSTRY_DATA = gql`
@@ -149,19 +149,19 @@ const GET_JORDAN_INDUSTRY_DATA = gql`
 
 interface SuccessResponse {
   jordanIndustry: {
-    industryCode: JordanIndustry["industryCode"];
-    title: JordanIndustry["title"];
-    description: JordanIndustry["description"];
-    keywords: JordanIndustry["keywords"];
-    factors: JordanIndustry["factors"];
-    nationality: JordanIndustry["nationality"];
-    schooling: JordanIndustry["schooling"];
-    occupation: JordanIndustry["occupation"];
-    mapLocation: JordanIndustry["mapLocation"];
-    wageHistogram: JordanIndustry["wageHistogram"];
-    overTime: JordanIndustry["overTime"];
-    text: JordanIndustry["text"];
-    control: JordanIndustry["control"];
+    industryCode: JordanIndustry['industryCode'];
+    title: JordanIndustry['title'];
+    description: JordanIndustry['description'];
+    keywords: JordanIndustry['keywords'];
+    factors: JordanIndustry['factors'];
+    nationality: JordanIndustry['nationality'];
+    schooling: JordanIndustry['schooling'];
+    occupation: JordanIndustry['occupation'];
+    mapLocation: JordanIndustry['mapLocation'];
+    wageHistogram: JordanIndustry['wageHistogram'];
+    overTime: JordanIndustry['overTime'];
+    text: JordanIndustry['text'];
+    control: JordanIndustry['control'];
   };
 }
 
@@ -226,7 +226,7 @@ export default ({
   } = useQuery<SuccessResponse, Variables>(GET_JORDAN_INDUSTRY_DATA, {
     variables: { industryCode: parseInt(id, 10) },
   });
-  let data: undefined | ReturnValue["data"];
+  let data: undefined | ReturnValue['data'];
   if (rawDatum !== undefined) {
     const {
       jordanIndustry: {
@@ -270,7 +270,7 @@ export default ({
       Transform Viability and Attractiveness Factors
     ******/
     const basicCsvDatum = {
-      "Industry Code": industryCode,
+      'Industry Code': industryCode,
       Theme: description,
       SubTheme: keywords,
       Description: title,

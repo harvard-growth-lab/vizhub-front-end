@@ -1,5 +1,5 @@
-import { calculateClusterExportValue } from "./calculations";
-import { getPotentialColor } from "./colors";
+import { calculateClusterExportValue } from './calculations';
+import { getPotentialColor } from './colors';
 import {
   CLUSTER_RANKING_NODE_RADIUS,
   CLUSTER_RANKING_NODE_RADIUS_MOBILE,
@@ -7,7 +7,7 @@ import {
   CLUSTER_RANKING_EDGE_PADDING_MOBILE,
   CLUSTER_RANKING_SPACING,
   CLUSTER_RANKING_SPACING_MOBILE,
-} from "../config";
+} from '../config';
 
 // Create ordered row layout for clusters based on rank
 export const createOrderedRowLayout = (

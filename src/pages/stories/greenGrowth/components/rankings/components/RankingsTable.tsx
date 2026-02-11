@@ -1,18 +1,18 @@
-import { useMemo, useRef, useCallback, useEffect } from "react";
-import { Box, TextField, Autocomplete, Select, MenuItem } from "@mui/material";
-import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import { createContinuousColorScale } from "../../../utils/colors";
-import { getFlagSrc } from "../utils/flagLoader";
-import { YAxisAnnotation } from "./YAxisAnnotation";
-import { TableCard, TableEl, Controls } from "../styles";
+import { useMemo, useRef, useCallback, useEffect } from 'react';
+import { Box, TextField, Autocomplete, Select, MenuItem } from '@mui/material';
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { createContinuousColorScale } from '../../../utils/colors';
+import { getFlagSrc } from '../utils/flagLoader';
+import { YAxisAnnotation } from './YAxisAnnotation';
+import { TableCard, TableEl, Controls } from '../styles';
 import type {
   CountryYearMetric,
   RankedRow,
   SortColumn,
   SortDirection,
-} from "../types";
+} from '../types';
 
 type RankingsTableProps = {
   allCountriesMetrics: CountryYearMetric[] | null;
@@ -47,23 +47,23 @@ const SortIndicator = ({
   return (
     <Box
       sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
         ml: 0.5,
       }}
     >
       <ArrowDropUpIcon
         sx={{
           fontSize: 32,
-          color: isActive && currentDirection === "asc" ? "#000" : "#ccc",
-          marginBottom: "-12px",
+          color: isActive && currentDirection === 'asc' ? '#000' : '#ccc',
+          marginBottom: '-12px',
         }}
       />
       <ArrowDropDownIcon
         sx={{
           fontSize: 32,
-          color: isActive && currentDirection === "desc" ? "#000" : "#ccc",
+          color: isActive && currentDirection === 'desc' ? '#000' : '#ccc',
         }}
       />
     </Box>
@@ -94,7 +94,7 @@ export const RankingsTable = ({
   const ranked = useMemo(() => {
     const valid: CountryYearMetric[] = (allCountriesMetrics || []).filter(
       (d: unknown): d is CountryYearMetric =>
-        typeof (d as CountryYearMetric)?.rank === "number" &&
+        typeof (d as CountryYearMetric)?.rank === 'number' &&
         (d as CountryYearMetric)?.rank !== null &&
         !!(d as CountryYearMetric)?.rankingMetric &&
         (d as CountryYearMetric)?.rankingMetric !== null &&
@@ -105,8 +105,8 @@ export const RankingsTable = ({
       .sort((a, b) => (a.rank || 0) - (b.rank || 0))
       .map((d) => ({
         rank: d.rank || 0,
-        name: String(d.nameEn || "Unknown"),
-        iso3: String(d.iso3Code || ""),
+        name: String(d.nameEn || 'Unknown'),
+        iso3: String(d.iso3Code || ''),
         rankingMetric: d.rankingMetric ? parseFloat(d.rankingMetric) : 0,
       }));
 
@@ -119,12 +119,12 @@ export const RankingsTable = ({
       prevAllCountriesMetrics || []
     ).filter(
       (d: unknown): d is CountryYearMetric =>
-        typeof (d as CountryYearMetric)?.rank === "number" &&
+        typeof (d as CountryYearMetric)?.rank === 'number' &&
         (d as CountryYearMetric)?.rank !== null &&
         !!(d as CountryYearMetric)?.iso3Code,
     );
     return new Map<string, number>(
-      validPrev.map((d) => [String(d.iso3Code || ""), d.rank || 0]),
+      validPrev.map((d) => [String(d.iso3Code || ''), d.rank || 0]),
     );
   }, [prevAllCountriesMetrics]);
 
@@ -134,25 +134,25 @@ export const RankingsTable = ({
     sorted.sort((a, b) => {
       let compareValue = 0;
       switch (sortColumn) {
-        case "rank":
+        case 'rank':
           compareValue = a.rank - b.rank;
           break;
-        case "country":
+        case 'country':
           compareValue = a.name.localeCompare(b.name);
           break;
-        case "greenplexity":
+        case 'greenplexity':
           compareValue = a.rankingMetric - b.rankingMetric;
           break;
-        case "change": {
+        case 'change': {
           const prevA = prevRankByIso3.get(a.iso3);
           const prevB = prevRankByIso3.get(b.iso3);
-          const deltaA = typeof prevA === "number" ? prevA - a.rank : -Infinity;
-          const deltaB = typeof prevB === "number" ? prevB - b.rank : -Infinity;
+          const deltaA = typeof prevA === 'number' ? prevA - a.rank : -Infinity;
+          const deltaB = typeof prevB === 'number' ? prevB - b.rank : -Infinity;
           compareValue = deltaA - deltaB;
           break;
         }
       }
-      return sortDirection === "asc" ? compareValue : -compareValue;
+      return sortDirection === 'asc' ? compareValue : -compareValue;
     });
     return sorted;
   }, [ranked, sortColumn, sortDirection, prevRankByIso3]);
@@ -175,22 +175,22 @@ export const RankingsTable = ({
   const handleSort = useCallback(
     (column: SortColumn) => {
       if (sortColumn === column) {
-        setSortDirection(sortDirection === "asc" ? "desc" : "asc");
+        setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
       } else {
         setSortColumn(column);
         // Set default sort direction based on column type
         switch (column) {
-          case "country":
-            setSortDirection("asc"); // A-Z
+          case 'country':
+            setSortDirection('asc'); // A-Z
             break;
-          case "greenplexity":
-            setSortDirection("desc"); // High to low
+          case 'greenplexity':
+            setSortDirection('desc'); // High to low
             break;
-          case "rank":
-            setSortDirection("asc"); // Low rank (1) to high rank
+          case 'rank':
+            setSortDirection('asc'); // Low rank (1) to high rank
             break;
-          case "change":
-            setSortDirection("desc"); // Biggest positive change first
+          case 'change':
+            setSortDirection('desc'); // Biggest positive change first
             break;
         }
       }
@@ -201,7 +201,7 @@ export const RankingsTable = ({
   // Keep the table search input in sync with external selections
   useEffect(() => {
     const label =
-      countryOptions.find((o) => o.iso3 === selectedIso3)?.label || "";
+      countryOptions.find((o) => o.iso3 === selectedIso3)?.label || '';
     setInputValue(label);
   }, [selectedIso3, countryOptions, setInputValue]);
 
@@ -209,11 +209,11 @@ export const RankingsTable = ({
     <TableCard>
       <Box
         sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
           gap: 2,
-          flexWrap: "wrap",
+          flexWrap: 'wrap',
           marginBottom: 0,
           marginTop: 10,
         }}
@@ -223,15 +223,15 @@ export const RankingsTable = ({
             blurOnSelect
             sx={{
               width: 300,
-              "& .MuiAutocomplete-popupIndicator": {
-                transform: "rotate(0deg)",
-                transition: "transform 150ms ease",
+              '& .MuiAutocomplete-popupIndicator': {
+                transform: 'rotate(0deg)',
+                transition: 'transform 150ms ease',
               },
-              "& .MuiAutocomplete-popupIndicatorOpen": {
-                transform: "rotate(180deg)",
+              '& .MuiAutocomplete-popupIndicatorOpen': {
+                transform: 'rotate(180deg)',
               },
-              "& .MuiAutocomplete-clearIndicator": {
-                visibility: "visible",
+              '& .MuiAutocomplete-clearIndicator': {
+                visibility: 'visible',
               },
             }}
             popupIcon={<KeyboardArrowDownIcon />}
@@ -240,7 +240,7 @@ export const RankingsTable = ({
             inputValue={inputValue}
             onInputChange={(_e, v) => setInputValue(v)}
             onChange={(_e, option) => {
-              const iso = option?.iso3 || "";
+              const iso = option?.iso3 || '';
               setSelectedIso3(iso);
               if (iso) {
                 const container = tableContainerRef.current;
@@ -250,7 +250,7 @@ export const RankingsTable = ({
                     row.offsetTop -
                     container.clientHeight / 2 +
                     row.clientHeight / 2;
-                  container.scrollTo({ top, behavior: "smooth" });
+                  container.scrollTo({ top, behavior: 'smooth' });
                 }
               }
             }}
@@ -260,11 +260,11 @@ export const RankingsTable = ({
               const src = getFlagSrc(option.iso3);
               return (
                 <li {...props}>
-                  <Box display="flex" alignItems="center" gap={1}>
+                  <Box display='flex' alignItems='center' gap={1}>
                     {src && (
                       <img
                         src={src}
-                        alt=""
+                        alt=''
                         width={20}
                         height={14}
                         style={{ borderRadius: 2 }}
@@ -278,16 +278,16 @@ export const RankingsTable = ({
             renderInput={(params) => (
               <TextField
                 {...params}
-                size="small"
-                placeholder="Search for a country"
+                size='small'
+                placeholder='Search for a country'
                 sx={{
-                  "& .MuiOutlinedInput-root": {
-                    fontSize: "1rem",
-                    "& fieldset": { borderColor: "#000" },
-                    "&:hover fieldset": { borderColor: "#000" },
-                    "&.Mui-focused fieldset": {
-                      borderColor: "#000",
-                      borderWidth: "2px",
+                  '& .MuiOutlinedInput-root': {
+                    fontSize: '1rem',
+                    '& fieldset': { borderColor: '#000' },
+                    '&:hover fieldset': { borderColor: '#000' },
+                    '&.Mui-focused fieldset': {
+                      borderColor: '#000',
+                      borderWidth: '2px',
                     },
                   },
                 }}
@@ -303,7 +303,7 @@ export const RankingsTable = ({
                         {src && (
                           <img
                             src={src}
-                            alt=""
+                            alt=''
                             width={20}
                             height={14}
                             style={{ marginRight: 8, borderRadius: 2 }}
@@ -319,37 +319,37 @@ export const RankingsTable = ({
           />
 
           <Select
-            size="small"
+            size='small'
             IconComponent={KeyboardArrowDownIcon}
             value={year}
             onChange={(e) => setYear(Number(e.target.value))}
             sx={{
               minWidth: 100,
-              fontSize: "1rem",
-              height: "40px",
-              "& .MuiOutlinedInput-notchedOutline": {
-                borderColor: "#000",
+              fontSize: '1rem',
+              height: '40px',
+              '& .MuiOutlinedInput-notchedOutline': {
+                borderColor: '#000',
               },
-              "&:hover .MuiOutlinedInput-notchedOutline": {
-                borderColor: "#000",
+              '&:hover .MuiOutlinedInput-notchedOutline': {
+                borderColor: '#000',
               },
-              "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                borderColor: "#000",
-                borderWidth: "2px",
+              '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                borderColor: '#000',
+                borderWidth: '2px',
               },
-              "& .MuiSelect-select": {
-                display: "flex",
-                alignItems: "center",
-                height: "40px",
-                padding: "0 14px",
+              '& .MuiSelect-select': {
+                display: 'flex',
+                alignItems: 'center',
+                height: '40px',
+                padding: '0 14px',
               },
-              "& .MuiSelect-icon": {
-                top: "50%",
-                transform: "translateY(-50%) rotate(0deg)",
-                transition: "transform 150ms ease",
+              '& .MuiSelect-icon': {
+                top: '50%',
+                transform: 'translateY(-50%) rotate(0deg)',
+                transition: 'transform 150ms ease',
               },
-              "& .MuiSelect-icon.MuiSelect-iconOpen": {
-                transform: "translateY(-50%) rotate(180deg)",
+              '& .MuiSelect-icon.MuiSelect-iconOpen': {
+                transform: 'translateY(-50%) rotate(180deg)',
               },
             }}
           >
@@ -361,38 +361,38 @@ export const RankingsTable = ({
           </Select>
         </Controls>
       </Box>
-      <Box sx={{ display: "flex", alignItems: "center", gap: 1, pb: 4 }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, pb: 4 }}>
         <YAxisAnnotation />
         <div
           ref={tableContainerRef}
           style={{
             maxHeight: 420,
-            overflow: "auto",
+            overflow: 'auto',
             flex: 1,
           }}
         >
           <TableEl>
             <thead>
               <tr>
-                <th style={{ width: 10, cursor: "default" }} />
+                <th style={{ width: 10, cursor: 'default' }} />
                 <th
                   style={{
-                    textTransform: "uppercase",
+                    textTransform: 'uppercase',
                     fontWeight: 600,
                     fontSize: 20,
                   }}
-                  onClick={() => handleSort("rank")}
+                  onClick={() => handleSort('rank')}
                 >
                   <Box
                     sx={{
-                      display: "flex",
-                      alignItems: "center",
+                      display: 'flex',
+                      alignItems: 'center',
                       gap: 0.5,
                     }}
                   >
                     RANK
                     <SortIndicator
-                      column="rank"
+                      column='rank'
                       currentColumn={sortColumn}
                       currentDirection={sortDirection}
                     />
@@ -400,22 +400,22 @@ export const RankingsTable = ({
                 </th>
                 <th
                   style={{
-                    textTransform: "uppercase",
+                    textTransform: 'uppercase',
                     fontWeight: 600,
                     fontSize: 20,
                   }}
-                  onClick={() => handleSort("country")}
+                  onClick={() => handleSort('country')}
                 >
                   <Box
                     sx={{
-                      display: "flex",
-                      alignItems: "center",
+                      display: 'flex',
+                      alignItems: 'center',
                       gap: 0.5,
                     }}
                   >
                     COUNTRY
                     <SortIndicator
-                      column="country"
+                      column='country'
                       currentColumn={sortColumn}
                       currentDirection={sortDirection}
                     />
@@ -423,24 +423,24 @@ export const RankingsTable = ({
                 </th>
                 <th
                   style={{
-                    textAlign: "center",
-                    textTransform: "uppercase",
+                    textAlign: 'center',
+                    textTransform: 'uppercase',
                     fontWeight: 600,
                     fontSize: 20,
                   }}
-                  onClick={() => handleSort("greenplexity")}
+                  onClick={() => handleSort('greenplexity')}
                 >
                   <Box
                     sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
                       gap: 0.5,
                     }}
                   >
                     GREENPLEXITY INDEX
                     <SortIndicator
-                      column="greenplexity"
+                      column='greenplexity'
                       currentColumn={sortColumn}
                       currentDirection={sortDirection}
                     />
@@ -448,32 +448,32 @@ export const RankingsTable = ({
                 </th>
                 <th
                   style={{
-                    textAlign: "center",
-                    textTransform: "uppercase",
+                    textAlign: 'center',
+                    textTransform: 'uppercase',
                     fontWeight: 600,
                     fontSize: 20,
                   }}
-                  onClick={() => handleSort("change")}
+                  onClick={() => handleSort('change')}
                 >
                   <Box
                     sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
                       gap: 0.5,
-                      flexDirection: "column",
+                      flexDirection: 'column',
                     }}
                   >
                     <Box
                       sx={{
-                        display: "flex",
-                        alignItems: "center",
+                        display: 'flex',
+                        alignItems: 'center',
                         gap: 0.5,
                       }}
                     >
                       CHANGE IN 5YRS
                       <SortIndicator
-                        column="change"
+                        column='change'
                         currentColumn={sortColumn}
                         currentDirection={sortDirection}
                       />
@@ -490,61 +490,61 @@ export const RankingsTable = ({
                 const swatchColor = rankColor(row.rankingMetric);
                 const prevRank = prevRankByIso3.get(row.iso3);
                 const delta =
-                  typeof prevRank === "number" ? prevRank - row.rank : null;
+                  typeof prevRank === 'number' ? prevRank - row.rank : null;
                 const deltaColor =
                   delta === null
-                    ? "#9e9e9e"
+                    ? '#9e9e9e'
                     : delta > 0
-                      ? "#1d8968"
+                      ? '#1d8968'
                       : delta < 0
-                        ? "#dd6852"
-                        : "#9e9e9e";
+                        ? '#dd6852'
+                        : '#9e9e9e';
 
                 // SVG arrow or equals sign
                 const deltaDisplay =
                   delta === null ? (
                     <span>? N/A</span>
                   ) : delta === 0 ? (
-                    <span style={{ fontSize: "1.5rem", fontWeight: 600 }}>
+                    <span style={{ fontSize: '1.5rem', fontWeight: 600 }}>
                       =
                     </span>
                   ) : (
                     <span
                       style={{
-                        display: "inline-flex",
-                        alignItems: "center",
-                        gap: "4px",
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '4px',
                       }}
                     >
                       <svg
-                        width="12"
-                        height="16"
-                        viewBox="0 0 12 16"
-                        style={{ display: "inline-block" }}
+                        width='12'
+                        height='16'
+                        viewBox='0 0 12 16'
+                        style={{ display: 'inline-block' }}
                         aria-label={
-                          delta > 0 ? "Rank increased" : "Rank decreased"
+                          delta > 0 ? 'Rank increased' : 'Rank decreased'
                         }
                       >
                         <title>
-                          {delta > 0 ? "Rank increased" : "Rank decreased"}
+                          {delta > 0 ? 'Rank increased' : 'Rank decreased'}
                         </title>
                         {delta > 0 ? (
                           <path
-                            d="M6 2 L6 14 M2 6 Q3 4, 6 2 Q9 4, 10 6"
-                            fill="none"
+                            d='M6 2 L6 14 M2 6 Q3 4, 6 2 Q9 4, 10 6'
+                            fill='none'
                             stroke={deltaColor}
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
+                            strokeWidth='2'
+                            strokeLinecap='round'
+                            strokeLinejoin='round'
                           />
                         ) : (
                           <path
-                            d="M6 14 L6 2 M2 10 Q3 12, 6 14 Q9 12, 10 10"
-                            fill="none"
+                            d='M6 14 L6 2 M2 10 Q3 12, 6 14 Q9 12, 10 10'
+                            fill='none'
                             stroke={deltaColor}
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
+                            strokeWidth='2'
+                            strokeLinecap='round'
+                            strokeLinejoin='round'
                           />
                         )}
                       </svg>
@@ -561,9 +561,9 @@ export const RankingsTable = ({
                     onClick={() => setSelectedIso3(row.iso3)}
                     style={{
                       background:
-                        selectedIso3 === row.iso3 ? "#f0f6ff" : undefined,
+                        selectedIso3 === row.iso3 ? '#f0f6ff' : undefined,
                       fontWeight: selectedIso3 === row.iso3 ? 600 : 400,
-                      cursor: "pointer",
+                      cursor: 'pointer',
                       fontSize: 16,
                     }}
                   >
@@ -580,10 +580,10 @@ export const RankingsTable = ({
                     </td>
                     <td style={{ fontWeight: 800 }}>{row.rank}</td>
                     <td>{row.name}</td>
-                    <td style={{ textAlign: "center" }}>
+                    <td style={{ textAlign: 'center' }}>
                       {row.rankingMetric.toFixed(2)}
                     </td>
-                    <td style={{ textAlign: "center", color: deltaColor }}>
+                    <td style={{ textAlign: 'center', color: deltaColor }}>
                       {deltaDisplay}
                     </td>
                   </tr>

@@ -6,21 +6,21 @@ import {
   HierarchyNodeData,
   HierarchyLinkData,
   TreeNode,
-} from "./types";
-import { getValueChainColor } from "./constants";
+} from './types';
+import { getValueChainColor } from './constants';
 
 // Canonical display order for value chains (0-9 for consistent sorting)
 const valueChainNameToSortOrder: Record<string, number> = {
-  "Electric Vehicles": 0,
-  "Heat Pumps": 1,
-  "Fuel Cells And Green Hydrogen": 2,
-  "Wind Power": 3,
-  "Solar Power": 4,
-  "Hydroelectric Power": 5,
-  "Nuclear Power": 6,
+  'Electric Vehicles': 0,
+  'Heat Pumps': 1,
+  'Fuel Cells And Green Hydrogen': 2,
+  'Wind Power': 3,
+  'Solar Power': 4,
+  'Hydroelectric Power': 5,
+  'Nuclear Power': 6,
   Batteries: 7,
-  "Electric Grid": 8,
-  "Critical Metals and Minerals": 9,
+  'Electric Grid': 8,
+  'Critical Metals and Minerals': 9,
 };
 
 // Function to build hierarchical data with value chain coloring and RCA opacity
@@ -121,7 +121,7 @@ export function buildHierarchicalData(
       return {
         id: name,
         name,
-        type: "value_chain" as const,
+        type: 'value_chain' as const,
         color,
         visible: true,
         // Store RCA for opacity calculation later if needed
@@ -130,12 +130,12 @@ export function buildHierarchicalData(
     }),
     ...clusters.map((name) => {
       // Clusters are always grey in the main view
-      const color = "#333333";
+      const color = '#333333';
 
       return {
         id: name,
         name,
-        type: "manufacturing_cluster" as const,
+        type: 'manufacturing_cluster' as const,
         color,
         visible: true,
         // Store RCA for opacity calculation later if needed
@@ -198,7 +198,7 @@ export function buildHierarchicalData(
     for (const product of uniqueProducts) {
       if (!nodes.find((n) => n.id === product.id)) {
         // Products are always grey
-        const productColor = "#808080";
+        const productColor = '#808080';
         let productRca = 0;
 
         // If country data is available, get RCA for opacity calculation
@@ -215,7 +215,7 @@ export function buildHierarchicalData(
         nodes.push({
           id: product.id,
           name: product.name,
-          type: "product",
+          type: 'product',
           color: productColor,
           visible: false, // Initially hidden
           rca: productRca,
@@ -241,7 +241,7 @@ export function buildHierarchicalData(
           source: cluster,
           target: product.id,
           value: linkValue,
-          color: "#808080", // Grey links for cluster to product
+          color: '#808080', // Grey links for cluster to product
           visible: false, // Initially hidden
           rca: productRca,
           supplyChains: [product.supply_chain],
@@ -261,11 +261,11 @@ export function filterHierarchyByProductRCA(
     productData: CountryProductData[];
   },
   rcaThreshold: number = 0,
-  coloringMode: string = "Global",
+  coloringMode: string = 'Global',
 ): TreeHierarchy {
   // If not in Country Specific mode or no threshold, return original hierarchy
   if (
-    coloringMode !== "Country Specific" ||
+    coloringMode !== 'Country Specific' ||
     rcaThreshold <= 0 ||
     !countryData?.productData
   ) {
@@ -301,11 +301,11 @@ export function filterHierarchyByProductRCA(
 
   // Filter nodes to only include those that are valid or contain valid children
   const filteredNodes = hierarchy.nodes.filter((node) => {
-    if (node.type === "product") {
+    if (node.type === 'product') {
       return validProductIds.has(node.id);
-    } else if (node.type === "manufacturing_cluster") {
+    } else if (node.type === 'manufacturing_cluster') {
       return validClusterIds.has(node.id);
-    } else if (node.type === "value_chain") {
+    } else if (node.type === 'value_chain') {
       return validValueChainIds.has(node.id);
     }
     return false;

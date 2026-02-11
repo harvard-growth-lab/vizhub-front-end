@@ -1,13 +1,13 @@
-import React, { useEffect, useRef } from "react";
-import BestOfTemplate, { type SectionDatum } from "./Template";
-import { get, Routes } from "../../../../metadata";
-import data from "./bestviz_2025-Sheet1.json";
-import { scrollToAnchor } from "../../../../hooks/useScrollBehavior";
-import { useLocation } from "react-router";
-import { storyMobileWidth } from "../../../../styling/Grid";
+import React, { useEffect, useRef } from 'react';
+import BestOfTemplate, { type SectionDatum } from './Template';
+import { get, Routes } from '../../../../metadata';
+import data from './bestviz_2025-Sheet1.json';
+import { scrollToAnchor } from '../../../../hooks/useScrollBehavior';
+import { useLocation } from 'react-router';
+import { storyMobileWidth } from '../../../../styling/Grid';
 
-import CoverPhotoImage from "./images/header_image_2025.png";
-import CoverPhotoImageLowRes from "./images/header_image_2025.png";
+import CoverPhotoImage from './images/header_image_2025.png';
+import CoverPhotoImageLowRes from './images/header_image_2025.png';
 
 const BestOf2025 = () => {
   const sections = useRef<React.RefObject<HTMLParagraphElement>[]>(
@@ -63,7 +63,7 @@ const BestOf2025 = () => {
       metaDescription={metadata.description}
       coverPhotoSrc={{ low: CoverPhotoImageLowRes, high: CoverPhotoImage }}
       pageTitle={"Visual Insights from the Growth Lab's 2025 Research"}
-      dateLine={"December 16, 2025"}
+      dateLine={'December 16, 2025'}
       byLine={null}
       introText={
         <p>

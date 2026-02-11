@@ -1,14 +1,14 @@
-import React, { useRef, useState } from "react";
-import * as d3 from "d3";
-import { useLoaderData } from "react-router-dom";
-import { Box } from "@mui/material";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
-import SpaceVisualization from "./SpaceVisualization";
-import Configurator from "./Configurator";
-import "./visualizer.css";
-import type { Node, Link, MetaData } from "./loader";
-import { inferFieldNames } from "./Configurator";
+import React, { useRef, useState } from 'react';
+import * as d3 from 'd3';
+import { useLoaderData } from 'react-router-dom';
+import { Box } from '@mui/material';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import SpaceVisualization from './SpaceVisualization';
+import Configurator from './Configurator';
+import './visualizer.css';
+import type { Node, Link, MetaData } from './loader';
+import { inferFieldNames } from './Configurator';
 
 export const theme = createTheme({
   typography: {
@@ -20,12 +20,12 @@ interface LoaderData {
   nodes: Node[];
   links: Link[];
   metadata: MetaData[];
-  clusters?: import("./loader").ClusterData;
-  defaultMetadata?: Array<{
+  clusters?: import('./loader').ClusterData;
+  defaultMetadata?: {
     cluster_name: string;
     cluster_name_short: string;
     cluster_col: string;
-  }>;
+  }[];
   categoryMetaMap?: Record<string, { name: string; color: string }>;
 }
 
@@ -70,30 +70,30 @@ export default function Visualization() {
   const nodeKeys =
     nodes.length > 0
       ? Object.keys(nodes[0]).filter((key) =>
-          nodes.some((node) => node[key] !== undefined && node[key] !== ""),
+          nodes.some((node) => node[key] !== undefined && node[key] !== ''),
         )
       : [];
   const linkKeys =
     links.length > 0
       ? Object.keys(links[0]).filter((key) =>
-          links.some((link) => link[key] !== undefined && link[key] !== ""),
+          links.some((link) => link[key] !== undefined && link[key] !== ''),
         )
       : [];
   const metaKeys =
     metadata && metadata.length > 0
       ? Object.keys(metadata[0]).filter((key) =>
-          metadata.some((meta) => meta[key] !== undefined && meta[key] !== ""),
+          metadata.some((meta) => meta[key] !== undefined && meta[key] !== ''),
         )
       : [];
 
   // Use simple inference for initial state
   const inferred = inferFieldNames(nodeKeys, linkKeys, metaKeys);
   const [fieldNames, setFieldNames] = useState<FieldNames>(() => ({
-    id: inferred.id ?? "",
-    x: inferred.x ?? "",
-    y: inferred.y ?? "",
-    source: inferred.source ?? "",
-    target: inferred.target ?? "",
+    id: inferred.id ?? '',
+    x: inferred.x ?? '',
+    y: inferred.y ?? '',
+    source: inferred.source ?? '',
+    target: inferred.target ?? '',
     radius: inferred.radius,
     tooltip: inferred.tooltip ?? [],
     category: inferred.category,
@@ -105,7 +105,7 @@ export default function Visualization() {
   const [radiusConfig, setRadiusConfig] = useState({
     min: 2,
     max: 40,
-    scale: "sqrt",
+    scale: 'sqrt',
     fixedSize: 6,
   });
 
@@ -142,7 +142,7 @@ export default function Visualization() {
         const category = node[fieldNames.category] as string | undefined;
         if (category) {
           const color = metaMap.get(String(category));
-          result.set(String(category), color || "#999"); // Fallback color if not found
+          result.set(String(category), color || '#999'); // Fallback color if not found
         }
       }
       return result;
@@ -217,32 +217,32 @@ export default function Visualization() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Box
-        className="space-visualizer"
+        className='space-visualizer'
         sx={{
-          position: "fixed",
+          position: 'fixed',
           top: 0,
           left: 0,
-          width: "100vw",
-          height: "100vh",
-          overflow: "hidden",
+          width: '100vw',
+          height: '100vh',
+          overflow: 'hidden',
           m: 0,
           p: 0,
-          boxSizing: "border-box",
+          boxSizing: 'border-box',
           zIndex: 0,
         }}
       >
         {/* Main Visualization Area */}
         <Box
           sx={{
-            position: "absolute",
+            position: 'absolute',
             top: 0,
             left: 0,
-            width: "100%",
-            height: "100%",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "flex-start",
+            width: '100%',
+            height: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'flex-start',
             minWidth: 0,
             m: 0,
             p: 0,
@@ -265,10 +265,10 @@ export default function Visualization() {
           />
           <Box
             sx={{
-              width: "100%",
-              height: "100%",
+              width: '100%',
+              height: '100%',
               flex: 1,
-              position: "relative",
+              position: 'relative',
             }}
           >
             <SpaceVisualization

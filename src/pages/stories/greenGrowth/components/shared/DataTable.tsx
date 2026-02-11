@@ -1,5 +1,5 @@
 /* eslint-disable react/no-array-index-key */
-import React, { useMemo, useState, useCallback, useEffect } from "react";
+import React, { useMemo, useState, useCallback, useEffect } from 'react';
 import {
   Table,
   TableBody,
@@ -17,22 +17,22 @@ import {
   TableSortLabel,
   Tooltip,
   IconButton,
-} from "@mui/material";
-import GGTooltip from "./GGTooltip";
-import { useProductLookup } from "../../queries/products";
-import { useSupplyChainProductLookup } from "../../queries/supplyChainProducts";
-import { useSupplyChainLookup } from "../../queries/supplyChains";
+} from '@mui/material';
+import GGTooltip from './GGTooltip';
+import { useProductLookup } from '../../queries/products';
+import { useSupplyChainProductLookup } from '../../queries/supplyChainProducts';
+import { useSupplyChainLookup } from '../../queries/supplyChains';
 import {
   useCountrySelection,
   useYearSelection,
-} from "../../hooks/useUrlParams";
-import { useGreenGrowthData } from "../../hooks/useGreenGrowthData";
-import VisualizationLoading from "./VisualizationLoading";
-import DisplayAsSwitch from "./DisplayAsSwitch";
-import { columnTooltips } from "../shared/columnTooltips";
-import AtlasIcon from "../../../../../assets/GL_Atlas_favicon.png";
+} from '../../hooks/useUrlParams';
+import { useGreenGrowthData } from '../../hooks/useGreenGrowthData';
+import VisualizationLoading from './VisualizationLoading';
+import DisplayAsSwitch from './DisplayAsSwitch';
+import { columnTooltips } from '../shared/columnTooltips';
+import AtlasIcon from '../../../../../assets/GL_Atlas_favicon.png';
 
-export type DataTableType = "products" | "nested";
+export type DataTableType = 'products' | 'nested';
 
 interface DataTableProps {
   defaultDataType: DataTableType;
@@ -47,9 +47,9 @@ const formatNumber = (
   if (
     value === null ||
     value === undefined ||
-    Number.isNaN(typeof value === "number" ? value : Number(value))
+    Number.isNaN(typeof value === 'number' ? value : Number(value))
   )
-    return "N/A";
+    return 'N/A';
   return Number(value).toFixed(decimals);
 };
 
@@ -57,12 +57,12 @@ const formatPercent = (value: number | null | undefined): string => {
   if (
     value === null ||
     value === undefined ||
-    Number.isNaN(typeof value === "number" ? value : Number(value))
+    Number.isNaN(typeof value === 'number' ? value : Number(value))
   )
-    return "N/A";
+    return 'N/A';
 
   const percentage = Number(value) * 100;
-  if (percentage === 0) return "0%";
+  if (percentage === 0) return '0%';
   if (percentage < 0.01) {
     // For very small values, use more decimal places or scientific notation
     return percentage < 0.001
@@ -79,9 +79,9 @@ const formatMarketGrowth = (value: number | null | undefined): string => {
   if (
     value === null ||
     value === undefined ||
-    Number.isNaN(typeof value === "number" ? value : Number(value))
+    Number.isNaN(typeof value === 'number' ? value : Number(value))
   )
-    return "N/A";
+    return 'N/A';
 
   const numValue = Number(value);
   const absValue = Math.abs(numValue);
@@ -99,13 +99,13 @@ const formatCurrency = (value: number | null | undefined): string => {
   if (
     value === null ||
     value === undefined ||
-    Number.isNaN(typeof value === "number" ? value : Number(value))
+    Number.isNaN(typeof value === 'number' ? value : Number(value))
   )
-    return "N/A";
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    notation: value >= 1e6 ? "compact" : "standard",
+    return 'N/A';
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    notation: value >= 1e6 ? 'compact' : 'standard',
     maximumFractionDigits: 0,
   }).format(Number(value));
 };
@@ -119,7 +119,7 @@ interface ColumnDef {
   tooltip?: React.ReactNode;
   sortable?: boolean;
   sortValue?: (row: any) => any;
-  defaultOrder?: "asc" | "desc";
+  defaultOrder?: 'asc' | 'desc';
 }
 
 const ProductsTable = ({
@@ -133,51 +133,51 @@ const ProductsTable = ({
   selectedYear?: string | number;
 }) => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const productLookup = useProductLookup();
   const supplyChainProductLookup = useSupplyChainProductLookup();
   const supplyChainLookup = useSupplyChainLookup();
   const selectedCountry = useCountrySelection();
 
-  const [order, setOrder] = useState<"asc" | "desc">("desc");
-  const [orderBy, setOrderBy] = useState<string>("defaultComposite");
+  const [order, setOrder] = useState<'asc' | 'desc'>('desc');
+  const [orderBy, setOrderBy] = useState<string>('defaultComposite');
   const defaultOrderByField = useMemo(
     () =>
       ({
-        productCode: "asc",
-        productName: "asc",
-        clusterName: "asc",
-        supplyChainName: "asc",
-        exportValue: "desc",
-        marketSize: "desc",
-        marketGrowth: "desc",
-        exportRca: "desc",
-        normalizedCog: "desc",
-        normalizedPci: "desc",
-        density: "desc",
-        defaultComposite: "desc",
-      }) as Record<string, "asc" | "desc">,
+        productCode: 'asc',
+        productName: 'asc',
+        clusterName: 'asc',
+        supplyChainName: 'asc',
+        exportValue: 'desc',
+        marketSize: 'desc',
+        marketGrowth: 'desc',
+        exportRca: 'desc',
+        normalizedCog: 'desc',
+        normalizedPci: 'desc',
+        density: 'desc',
+        defaultComposite: 'desc',
+      }) as Record<string, 'asc' | 'desc'>,
     [],
   );
 
   const handleRequestSort = useCallback(
     (property: string) => {
       if (orderBy !== property) {
-        const firstOrder = defaultOrderByField[property] ?? "desc";
+        const firstOrder = defaultOrderByField[property] ?? 'desc';
         setOrder(firstOrder);
         setOrderBy(property);
         return;
       }
-      setOrder((prev) => (prev === "desc" ? "asc" : "desc"));
+      setOrder((prev) => (prev === 'desc' ? 'asc' : 'desc'));
     },
     [orderBy, defaultOrderByField],
   );
 
   // Helper: compute 1-5 diamond rating based on deciles
   const computeDiamondRatings = useCallback(
-    (values: Array<number | null | undefined>) => {
+    (values: (number | null | undefined)[]) => {
       const valid = values
-        .filter((v) => typeof v === "number" && !Number.isNaN(Number(v)))
+        .filter((v) => typeof v === 'number' && !Number.isNaN(Number(v)))
         .map((v) => Number(v as number))
         .sort((a, b) => a - b);
       if (valid.length === 0) {
@@ -215,27 +215,27 @@ const ProductsTable = ({
       const total = 5;
       const size = isMobile ? 10 : 12;
       const gap = isMobile ? 6 : 8;
-      const diamondIds = ["d1", "d2", "d3", "d4", "d5"];
+      const diamondIds = ['d1', 'd2', 'd3', 'd4', 'd5'];
       return (
-        <Box sx={{ display: "flex", alignItems: "center", gap: `${gap}px` }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: `${gap}px` }}>
           {diamondIds.slice(0, total).map((id, idx) => {
             const filled = idx < count;
             // eslint-disable-next-line react/no-array-index-key
             return (
               <Box
                 key={id}
-                component="span"
+                component='span'
                 sx={{
                   width: `${size}px`,
                   height: `${size}px`,
-                  transform: "rotate(45deg)",
-                  borderRadius: "2px",
+                  transform: 'rotate(45deg)',
+                  borderRadius: '2px',
                   border: `2px solid ${theme.palette.grey[500]}`,
                   backgroundColor: filled
                     ? theme.palette.grey[600]
-                    : "transparent",
-                  boxSizing: "border-box",
-                  display: "inline-block",
+                    : 'transparent',
+                  boxSizing: 'border-box',
+                  display: 'inline-block',
                 }}
               />
             );
@@ -248,17 +248,17 @@ const ProductsTable = ({
 
   const buildDiamondLegend = useCallback(
     (content: React.ReactNode): React.ReactNode => (
-      <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
-        <Typography sx={{ fontSize: isMobile ? "0.75rem" : "0.875rem" }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+        <Typography sx={{ fontSize: isMobile ? '0.75rem' : '0.875rem' }}>
           {content}
         </Typography>
-        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
           <DiamondRow count={5} />
-          <Typography variant="caption">Strong</Typography>
+          <Typography variant='caption'>Strong</Typography>
         </Box>
-        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
           <DiamondRow count={0} />
-          <Typography variant="caption">Weak</Typography>
+          <Typography variant='caption'>Weak</Typography>
         </Box>
       </Box>
     ),
@@ -306,16 +306,16 @@ const ProductsTable = ({
         : null;
 
       const marketSize =
-        item && typeof item.worldShareProduct === "number"
+        item && typeof item.worldShareProduct === 'number'
           ? item.worldShareProduct
           : null;
 
       return {
         ...item,
-        productName: product?.nameShortEn || "Unknown Product",
-        productCode: product?.code || "N/A",
-        supplyChainName: supplyChain?.supplyChain || "N/A",
-        clusterName: cluster?.clusterName || "N/A",
+        productName: product?.nameShortEn || 'Unknown Product',
+        productCode: product?.code || 'N/A',
+        supplyChainName: supplyChain?.supplyChain || 'N/A',
+        clusterName: cluster?.clusterName || 'N/A',
         marketSize,
         // Ensure table uses a consistent key for growth
         marketGrowth: item.worldShareProductRelativepct,
@@ -330,12 +330,12 @@ const ProductsTable = ({
   ]);
 
   const computeCompositeScore = useCallback((row: any) => {
-    if (typeof row?.pciCogFeasibilityComposite === "number") {
+    if (typeof row?.pciCogFeasibilityComposite === 'number') {
       return row.pciCogFeasibilityComposite as number;
     }
     const parts = [row?.normalizedPci, row?.normalizedCog, row?.density];
     return parts
-      .map((v) => (typeof v === "number" ? (v as number) : 0))
+      .map((v) => (typeof v === 'number' ? (v as number) : 0))
       .reduce((s, v) => s + v, 0);
   }, []);
 
@@ -355,8 +355,8 @@ const ProductsTable = ({
 
   const buildAtlasUrl = useCallback(
     (productId: number | string | undefined | null) => {
-      const pid = String(productId ?? "").replace(/\D/g, "");
-      const countryId = String(selectedCountry || "");
+      const pid = String(productId ?? '').replace(/\D/g, '');
+      const countryId = String(selectedCountry || '');
       if (!pid || !countryId) return null;
       return `https://atlas.hks.harvard.edu/explore/treemap?exporter=country-${countryId}&view=markets&product=product-HS12-${pid}&productClass=HS12`;
     },
@@ -367,74 +367,74 @@ const ProductsTable = ({
     () => [
       // Basic Product Information
       {
-        field: "productCode",
-        header: "HS Code",
+        field: 'productCode',
+        header: 'HS Code',
         width: isMobile ? 90 : 110,
-        format: (value: any) => (value ? `HS ${value}` : "N/A"),
+        format: (value: any) => (value ? `HS ${value}` : 'N/A'),
         sortable: true,
-        sortValue: (row: any) => String(row.productCode ?? ""),
-        defaultOrder: "asc",
+        sortValue: (row: any) => String(row.productCode ?? ''),
+        defaultOrder: 'asc',
       },
       {
-        field: "productName",
-        header: "Product",
+        field: 'productName',
+        header: 'Product',
         width: isMobile ? 150 : 220,
         sortable: true,
-        sortValue: (row: any) => String(row.productName ?? ""),
-        defaultOrder: "asc",
+        sortValue: (row: any) => String(row.productName ?? ''),
+        defaultOrder: 'asc',
         render: (row: any) => {
           const atlasUrl = buildAtlasUrl(row.productId);
           return (
-            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
               {atlasUrl && (
                 <Tooltip
-                  title="View in Atlas"
-                  placement="top"
+                  title='View in Atlas'
+                  placement='top'
                   slotProps={{
                     tooltip: {
                       sx: {
-                        backgroundColor: "#fff",
-                        color: "#000",
-                        border: "1px solid #ccc",
-                        boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
+                        backgroundColor: '#fff',
+                        color: '#000',
+                        border: '1px solid #ccc',
+                        boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
                       },
                     },
                     arrow: {
                       sx: {
-                        color: "#fff",
-                        "&::before": {
-                          border: "1px solid #ccc",
+                        color: '#fff',
+                        '&::before': {
+                          border: '1px solid #ccc',
                         },
                       },
                     },
                   }}
                 >
                   <IconButton
-                    component="a"
+                    component='a'
                     href={atlasUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Open in Atlas treemap (markets view)"
-                    size="small"
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    aria-label='Open in Atlas treemap (markets view)'
+                    size='small'
                     sx={{
                       width: 28,
                       height: 28,
                       p: 0,
                       borderRadius: 1,
                       backgroundColor: (t) => t.palette.grey[200],
-                      "&:hover": {
+                      '&:hover': {
                         backgroundColor: (t) => t.palette.grey[300],
                       },
-                      display: "inline-flex",
-                      alignItems: "center",
-                      justifyContent: "center",
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
                     }}
                   >
                     <Box
-                      component="img"
+                      component='img'
                       src={AtlasIcon as any}
-                      alt="Atlas"
-                      sx={{ width: 16, height: 16, display: "block" }}
+                      alt='Atlas'
+                      sx={{ width: 16, height: 16, display: 'block' }}
                     />
                   </IconButton>
                 </Tooltip>
@@ -447,101 +447,101 @@ const ProductsTable = ({
 
       // Relationships
       {
-        field: "clusterName",
-        header: "Green Industrial Cluster",
+        field: 'clusterName',
+        header: 'Green Industrial Cluster',
         width: isMobile ? 160 : 220,
-        tooltip: columnTooltips["Green Industrial Cluster"],
+        tooltip: columnTooltips['Green Industrial Cluster'],
         sortable: true,
-        sortValue: (row: any) => String(row.clusterName ?? ""),
-        defaultOrder: "asc",
+        sortValue: (row: any) => String(row.clusterName ?? ''),
+        defaultOrder: 'asc',
       },
       {
-        field: "supplyChainName",
-        header: "Green Value Chain",
+        field: 'supplyChainName',
+        header: 'Green Value Chain',
         width: isMobile ? 150 : 200,
-        tooltip: columnTooltips["Green Value Chain"],
+        tooltip: columnTooltips['Green Value Chain'],
         sortable: true,
-        sortValue: (row: any) => String(row.supplyChainName ?? ""),
-        defaultOrder: "asc",
+        sortValue: (row: any) => String(row.supplyChainName ?? ''),
+        defaultOrder: 'asc',
       },
 
       // Export performance and market size
       {
-        field: "exportValue",
-        header: `Product Export Value (USD, ${selectedYear ?? "year"})`,
+        field: 'exportValue',
+        header: `Product Export Value (USD, ${selectedYear ?? 'year'})`,
         width: 160,
         format: formatCurrency,
         sortable: true,
         sortValue: (row: any) => row.exportValue ?? null,
-        defaultOrder: "desc",
+        defaultOrder: 'desc',
       },
       {
-        field: "marketSize",
-        header: "Product Market Size (%)",
+        field: 'marketSize',
+        header: 'Product Market Size (%)',
         width: 170,
         format: formatPercent,
         sortable: true,
         sortValue: (row: any) => row.marketSize ?? null,
-        defaultOrder: "desc",
+        defaultOrder: 'desc',
       },
       {
-        field: "marketGrowth",
-        header: "Product Market Growth",
+        field: 'marketGrowth',
+        header: 'Product Market Growth',
         tooltip:
           "Relative percentage change in a product's global market share compared to its average market share over the previous 3 years.",
         width: 210,
         format: formatMarketGrowth,
         sortable: true,
         sortValue: (row: any) => row.marketGrowth ?? null,
-        defaultOrder: "desc",
+        defaultOrder: 'desc',
       },
 
       // Capability dimensions
       {
-        field: "exportRca",
-        header: "Export RCA",
+        field: 'exportRca',
+        header: 'Export RCA',
         width: 120,
         format: formatNumber,
-        tooltip: columnTooltips["Export RCA"],
+        tooltip: columnTooltips['Export RCA'],
         sortable: true,
         sortValue: (row: any) => row.exportRca ?? null,
-        defaultOrder: "desc",
+        defaultOrder: 'desc',
       },
       {
-        field: "normalizedCog",
-        header: "Opportunity Gain",
+        field: 'normalizedCog',
+        header: 'Opportunity Gain',
         width: 160,
         render: (row: any) => (
           <DiamondRow count={getCogRating(row.normalizedCog)} />
         ),
-        tooltip: buildDiamondLegend(columnTooltips["Opportunity Gain"]),
+        tooltip: buildDiamondLegend(columnTooltips['Opportunity Gain']),
         sortable: true,
         sortValue: (row: any) => row.normalizedCog ?? null,
-        defaultOrder: "desc",
+        defaultOrder: 'desc',
       },
       {
-        field: "normalizedPci",
-        header: "Product Complexity",
+        field: 'normalizedPci',
+        header: 'Product Complexity',
         width: 160,
         render: (row: any) => (
           <DiamondRow count={getPciRating(row.normalizedPci)} />
         ),
-        tooltip: buildDiamondLegend(columnTooltips["Product Complexity"]),
+        tooltip: buildDiamondLegend(columnTooltips['Product Complexity']),
         sortable: true,
         sortValue: (row: any) => row.normalizedPci ?? null,
-        defaultOrder: "desc",
+        defaultOrder: 'desc',
       },
       {
-        field: "density",
-        header: "Product Feasibility",
+        field: 'density',
+        header: 'Product Feasibility',
         width: 160,
         render: (row: any) => (
           <DiamondRow count={getDensityRating(row.density)} />
         ),
-        tooltip: buildDiamondLegend(columnTooltips["Product Feasibility"]),
+        tooltip: buildDiamondLegend(columnTooltips['Product Feasibility']),
         sortable: true,
         sortValue: (row: any) => row.density ?? null,
-        defaultOrder: "desc",
+        defaultOrder: 'desc',
       },
     ],
     [
@@ -558,7 +558,7 @@ const ProductsTable = ({
 
   const getSortValueForField = useCallback(
     (row: any, field: string) => {
-      if (field === "defaultComposite") return computeCompositeScore(row);
+      if (field === 'defaultComposite') return computeCompositeScore(row);
       const col = columns.find((c) => c.field === field);
       if (!col) return null;
       if (col.sortValue) return col.sortValue(row);
@@ -575,22 +575,22 @@ const ProductsTable = ({
       const aNull =
         va === null ||
         va === undefined ||
-        (typeof va === "number" && Number.isNaN(va));
+        (typeof va === 'number' && Number.isNaN(va));
       const bNull =
         vb === null ||
         vb === undefined ||
-        (typeof vb === "number" && Number.isNaN(vb));
+        (typeof vb === 'number' && Number.isNaN(vb));
       if (aNull && bNull) return 0;
       if (aNull) return 1;
       if (bNull) return -1;
-      if (typeof va === "string" || typeof vb === "string") {
+      if (typeof va === 'string' || typeof vb === 'string') {
         const res = String(va).localeCompare(String(vb));
-        return order === "asc" ? res : -res;
+        return order === 'asc' ? res : -res;
       }
       const na = Number(va);
       const nb = Number(vb);
       const res = na < nb ? -1 : na > nb ? 1 : 0;
-      return order === "asc" ? res : -res;
+      return order === 'asc' ? res : -res;
     };
     return arr.sort(comparator);
   }, [processedData, order, orderBy, getSortValueForField]);
@@ -600,9 +600,9 @@ const ProductsTable = ({
       component={Paper}
       sx={{
         flex: 1,
-        overflow: "auto",
-        display: "flex",
-        flexDirection: "column",
+        overflow: 'auto',
+        display: 'flex',
+        flexDirection: 'column',
         minHeight: 0,
         mr: 2,
         mb: 2,
@@ -610,7 +610,7 @@ const ProductsTable = ({
         border: `1px solid ${theme.palette.divider}`,
       }}
     >
-      <Table stickyHeader size={isMobile ? "small" : "medium"} sx={{ flex: 1 }}>
+      <Table stickyHeader size={isMobile ? 'small' : 'medium'} sx={{ flex: 1 }}>
         <TableHead>
           <TableRow>
             {columns.map((col) => (
@@ -627,13 +627,13 @@ const ProductsTable = ({
               >
                 {col.sortable ? (
                   col.tooltip ? (
-                    <GGTooltip title={col.tooltip} placement="top">
+                    <GGTooltip title={col.tooltip} placement='top'>
                       <TableSortLabel
                         active={orderBy === col.field}
                         direction={
                           orderBy === col.field
                             ? order
-                            : (defaultOrderByField[col.field] ?? "desc")
+                            : (defaultOrderByField[col.field] ?? 'desc')
                         }
                         onClick={() => handleRequestSort(col.field)}
                       >
@@ -646,7 +646,7 @@ const ProductsTable = ({
                       direction={
                         orderBy === col.field
                           ? order
-                          : (defaultOrderByField[col.field] ?? "desc")
+                          : (defaultOrderByField[col.field] ?? 'desc')
                       }
                       onClick={() => handleRequestSort(col.field)}
                     >
@@ -654,9 +654,9 @@ const ProductsTable = ({
                     </TableSortLabel>
                   )
                 ) : col.tooltip ? (
-                  <GGTooltip title={col.tooltip} placement="top">
+                  <GGTooltip title={col.tooltip} placement='top'>
                     <span
-                      style={{ cursor: "help", textDecoration: "underline" }}
+                      style={{ cursor: 'help', textDecoration: 'underline' }}
                     >
                       {col.header}
                     </span>
@@ -707,44 +707,44 @@ const NestedProductsTable = ({
   selectedCountry?: number;
 }) => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const productLookup = useProductLookup();
-  const [order, setOrder] = useState<"asc" | "desc">("desc");
-  const [orderBy, setOrderBy] = useState<string>("defaultComposite");
+  const [order, setOrder] = useState<'asc' | 'desc'>('desc');
+  const [orderBy, setOrderBy] = useState<string>('defaultComposite');
   const defaultOrderByField = useMemo(
     () =>
       ({
-        productCode: "asc",
-        productName: "asc",
-        exportRca: "desc",
-        exportValue: "desc",
-        marketSize: "desc",
-        marketGrowth: "desc",
-        normalizedPci: "desc",
-        normalizedCog: "desc",
-        density: "desc",
-        defaultComposite: "desc",
-      }) as Record<string, "asc" | "desc">,
+        productCode: 'asc',
+        productName: 'asc',
+        exportRca: 'desc',
+        exportValue: 'desc',
+        marketSize: 'desc',
+        marketGrowth: 'desc',
+        normalizedPci: 'desc',
+        normalizedCog: 'desc',
+        density: 'desc',
+        defaultComposite: 'desc',
+      }) as Record<string, 'asc' | 'desc'>,
     [],
   );
   const handleRequestSort = useCallback(
     (property: string) => {
       if (orderBy !== property) {
-        const firstOrder = defaultOrderByField[property] ?? "desc";
+        const firstOrder = defaultOrderByField[property] ?? 'desc';
         setOrder(firstOrder);
         setOrderBy(property);
         return;
       }
-      setOrder((prev) => (prev === "desc" ? "asc" : "desc"));
+      setOrder((prev) => (prev === 'desc' ? 'asc' : 'desc'));
     },
     [orderBy, defaultOrderByField],
   );
 
   // Helper: compute 1-5 diamond rating based on deciles (nested scope)
   const computeDiamondRatings = useCallback(
-    (values: Array<number | null | undefined>) => {
+    (values: (number | null | undefined)[]) => {
       const valid = values
-        .filter((v) => typeof v === "number" && !Number.isNaN(Number(v)))
+        .filter((v) => typeof v === 'number' && !Number.isNaN(Number(v)))
         .map((v) => Number(v as number))
         .sort((a, b) => a - b);
       if (valid.length === 0) {
@@ -781,27 +781,27 @@ const NestedProductsTable = ({
       const total = 5;
       const size = isMobile ? 10 : 12;
       const gap = isMobile ? 6 : 8;
-      const diamondIds = ["d1", "d2", "d3", "d4", "d5"];
+      const diamondIds = ['d1', 'd2', 'd3', 'd4', 'd5'];
       return (
-        <Box sx={{ display: "flex", alignItems: "center", gap: `${gap}px` }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: `${gap}px` }}>
           {diamondIds.slice(0, total).map((id, idx) => {
             const filled = idx < count;
             // eslint-disable-next-line react/no-array-index-key
             return (
               <Box
                 key={id}
-                component="span"
+                component='span'
                 sx={{
                   width: `${size}px`,
                   height: `${size}px`,
-                  transform: "rotate(45deg)",
-                  borderRadius: "2px",
+                  transform: 'rotate(45deg)',
+                  borderRadius: '2px',
                   border: `2px solid ${theme.palette.grey[500]}`,
                   backgroundColor: filled
                     ? theme.palette.grey[600]
-                    : "transparent",
-                  boxSizing: "border-box",
-                  display: "inline-block",
+                    : 'transparent',
+                  boxSizing: 'border-box',
+                  display: 'inline-block',
                 }}
               />
             );
@@ -814,17 +814,17 @@ const NestedProductsTable = ({
 
   const buildDiamondLegend = useCallback(
     (content: React.ReactNode): React.ReactNode => (
-      <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
-        <Typography sx={{ fontSize: isMobile ? "0.75rem" : "0.875rem" }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+        <Typography sx={{ fontSize: isMobile ? '0.75rem' : '0.875rem' }}>
           {content}
         </Typography>
-        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
           <DiamondRow count={5} />
-          <Typography variant="caption">Strong</Typography>
+          <Typography variant='caption'>Strong</Typography>
         </Box>
-        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
           <DiamondRow count={0} />
-          <Typography variant="caption">Weak</Typography>
+          <Typography variant='caption'>Weak</Typography>
         </Box>
       </Box>
     ),
@@ -840,16 +840,16 @@ const NestedProductsTable = ({
     if (!productClusterRows || !productClusterRows.length) return [];
 
     const valueChainNameToSortOrder: Record<string, number> = {
-      "Electric Vehicles": 0,
-      "Heat Pumps": 1,
-      "Fuel Cells And Green Hydrogen": 2,
-      "Wind Power": 3,
-      "Solar Power": 4,
-      "Hydroelectric Power": 5,
-      "Nuclear Power": 6,
+      'Electric Vehicles': 0,
+      'Heat Pumps': 1,
+      'Fuel Cells And Green Hydrogen': 2,
+      'Wind Power': 3,
+      'Solar Power': 4,
+      'Hydroelectric Power': 5,
+      'Nuclear Power': 6,
       Batteries: 7,
-      "Electric Grid": 8,
-      "Critical Metals and Minerals": 9,
+      'Electric Grid': 8,
+      'Critical Metals and Minerals': 9,
     };
 
     const completeHierarchy: any = {};
@@ -896,7 +896,7 @@ const NestedProductsTable = ({
           supplyChainId,
         };
 
-        if (typeof processedProduct.worldShareProduct === "number") {
+        if (typeof processedProduct.worldShareProduct === 'number') {
           processedProduct.marketSize = processedProduct.worldShareProduct;
         } else {
           processedProduct.marketSize = null;
@@ -954,8 +954,8 @@ const NestedProductsTable = ({
   const selectedCountry = useCountrySelection();
   const buildAtlasUrl = useCallback(
     (productId: number | string | undefined | null) => {
-      const pid = String(productId ?? "").replace(/\D/g, "");
-      const countryId = String(selectedCountry || "");
+      const pid = String(productId ?? '').replace(/\D/g, '');
+      const countryId = String(selectedCountry || '');
       if (!pid || !countryId) return null;
       return `https://atlas.hks.harvard.edu/explore/treemap?exporter=country-${countryId}&view=markets&product=product-HS12-${pid}&productClass=HS12`;
     },
@@ -965,72 +965,72 @@ const NestedProductsTable = ({
   const productColumns: ColumnDef[] = useMemo(
     () => [
       {
-        field: "productCode",
-        header: "HS Code",
+        field: 'productCode',
+        header: 'HS Code',
         width: isMobile ? 90 : 110,
-        format: (value: any) => (value ? `HS ${value}` : "N/A"),
+        format: (value: any) => (value ? `HS ${value}` : 'N/A'),
         sortable: true,
-        sortValue: (row: any) => String(row.productCode ?? ""),
+        sortValue: (row: any) => String(row.productCode ?? ''),
       },
       {
-        field: "productName",
-        header: "Product",
+        field: 'productName',
+        header: 'Product',
         width: isMobile ? 150 : 220,
         sortable: true,
-        sortValue: (row: any) => String(row.productName ?? ""),
+        sortValue: (row: any) => String(row.productName ?? ''),
         render: (row: any) => {
           const atlasUrl = buildAtlasUrl(row.productId);
           return (
-            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
               {atlasUrl && (
                 <Tooltip
-                  title="View in Atlas"
-                  placement="top"
+                  title='View in Atlas'
+                  placement='top'
                   slotProps={{
                     tooltip: {
                       sx: {
-                        backgroundColor: "#fff",
-                        color: "#000",
-                        border: "1px solid #ccc",
-                        boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
+                        backgroundColor: '#fff',
+                        color: '#000',
+                        border: '1px solid #ccc',
+                        boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
                       },
                     },
                     arrow: {
                       sx: {
-                        color: "#fff",
-                        "&::before": {
-                          border: "1px solid #ccc",
+                        color: '#fff',
+                        '&::before': {
+                          border: '1px solid #ccc',
                         },
                       },
                     },
                   }}
                 >
                   <IconButton
-                    component="a"
+                    component='a'
                     href={atlasUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Open in Atlas treemap (markets view)"
-                    size="small"
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    aria-label='Open in Atlas treemap (markets view)'
+                    size='small'
                     sx={{
                       width: 28,
                       height: 28,
                       p: 0,
                       borderRadius: 1,
                       backgroundColor: (t) => t.palette.grey[200],
-                      "&:hover": {
+                      '&:hover': {
                         backgroundColor: (t) => t.palette.grey[300],
                       },
-                      display: "inline-flex",
-                      alignItems: "center",
-                      justifyContent: "center",
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
                     }}
                   >
                     <Box
-                      component="img"
+                      component='img'
                       src={AtlasIcon as any}
-                      alt="Atlas"
-                      sx={{ width: 16, height: 16, display: "block" }}
+                      alt='Atlas'
+                      sx={{ width: 16, height: 16, display: 'block' }}
                     />
                   </IconButton>
                 </Tooltip>
@@ -1041,33 +1041,33 @@ const NestedProductsTable = ({
         },
       },
       {
-        field: "exportRca",
-        header: "Export RCA",
+        field: 'exportRca',
+        header: 'Export RCA',
         width: 120,
         format: formatNumber,
-        tooltip: columnTooltips["Export RCA"],
+        tooltip: columnTooltips['Export RCA'],
         sortable: true,
         sortValue: (row: any) => row.exportRca ?? null,
       },
       {
-        field: "exportValue",
-        header: `Product Export Value (USD, ${selectedYear ?? "year"})`,
+        field: 'exportValue',
+        header: `Product Export Value (USD, ${selectedYear ?? 'year'})`,
         width: 160,
         format: formatCurrency,
         sortable: true,
         sortValue: (row: any) => row.exportValue ?? null,
       },
       {
-        field: "marketSize",
-        header: "Product Market Size (%)",
+        field: 'marketSize',
+        header: 'Product Market Size (%)',
         width: 170,
         format: formatPercent,
         sortable: true,
         sortValue: (row: any) => row.marketSize ?? null,
       },
       {
-        field: "marketGrowth",
-        header: "Product Market Growth",
+        field: 'marketGrowth',
+        header: 'Product Market Growth',
         tooltip:
           "Relative percentage change in a product's global market share compared to its average market share over the previous 3 years.",
         width: 160,
@@ -1076,35 +1076,35 @@ const NestedProductsTable = ({
         sortValue: (row: any) => row.marketGrowth ?? null,
       },
       {
-        field: "normalizedPci",
-        header: "Product Complexity",
+        field: 'normalizedPci',
+        header: 'Product Complexity',
         width: 160,
         render: (row: any) => (
           <DiamondRow count={getNestedPciRating(row.normalizedPci)} />
         ),
-        tooltip: buildDiamondLegend(columnTooltips["Product Complexity"]),
+        tooltip: buildDiamondLegend(columnTooltips['Product Complexity']),
         sortable: true,
         sortValue: (row: any) => row.normalizedPci ?? null,
       },
       {
-        field: "normalizedCog",
-        header: "Opportunity Gain",
+        field: 'normalizedCog',
+        header: 'Opportunity Gain',
         width: 160,
         render: (row: any) => (
           <DiamondRow count={getNestedCogRating(row.normalizedCog)} />
         ),
-        tooltip: buildDiamondLegend(columnTooltips["Opportunity Gain"]),
+        tooltip: buildDiamondLegend(columnTooltips['Opportunity Gain']),
         sortable: true,
         sortValue: (row: any) => row.normalizedCog ?? null,
       },
       {
-        field: "density",
-        header: "Product Feasibility",
+        field: 'density',
+        header: 'Product Feasibility',
         width: 160,
         render: (row: any) => (
           <DiamondRow count={getNestedDensityRating(row.density)} />
         ),
-        tooltip: buildDiamondLegend(columnTooltips["Product Feasibility"]),
+        tooltip: buildDiamondLegend(columnTooltips['Product Feasibility']),
         sortable: true,
         sortValue: (row: any) => row.density ?? null,
       },
@@ -1122,18 +1122,18 @@ const NestedProductsTable = ({
   );
 
   const computeCompositeScore = useCallback((row: any) => {
-    if (typeof row?.pciCogFeasibilityComposite === "number") {
+    if (typeof row?.pciCogFeasibilityComposite === 'number') {
       return row.pciCogFeasibilityComposite as number;
     }
     const parts = [row?.normalizedPci, row?.normalizedCog, row?.density];
     return parts
-      .map((v) => (typeof v === "number" ? (v as number) : 0))
+      .map((v) => (typeof v === 'number' ? (v as number) : 0))
       .reduce((s, v) => s + v, 0);
   }, []);
 
   const getSortValueForField = useCallback(
     (row: any, field: string) => {
-      if (field === "defaultComposite") return computeCompositeScore(row);
+      if (field === 'defaultComposite') return computeCompositeScore(row);
       const col = (productColumns as any[]).find((c: any) => c.field === field);
       if (!col) return null;
       if (col.sortValue) return col.sortValue(row);
@@ -1149,22 +1149,22 @@ const NestedProductsTable = ({
       const aNull =
         va === null ||
         va === undefined ||
-        (typeof va === "number" && Number.isNaN(va));
+        (typeof va === 'number' && Number.isNaN(va));
       const bNull =
         vb === null ||
         vb === undefined ||
-        (typeof vb === "number" && Number.isNaN(vb));
+        (typeof vb === 'number' && Number.isNaN(vb));
       if (aNull && bNull) return 0;
       if (aNull) return 1;
       if (bNull) return -1;
-      if (typeof va === "string" || typeof vb === "string") {
+      if (typeof va === 'string' || typeof vb === 'string') {
         const res = String(va).localeCompare(String(vb));
-        return order === "asc" ? res : -res;
+        return order === 'asc' ? res : -res;
       }
       const na = Number(va);
       const nb = Number(vb);
       const res = na < nb ? -1 : na > nb ? 1 : 0;
-      return order === "asc" ? res : -res;
+      return order === 'asc' ? res : -res;
     },
     [order, orderBy, getSortValueForField],
   );
@@ -1186,10 +1186,10 @@ const NestedProductsTable = ({
     update();
     const ro = new (window as any).ResizeObserver(() => update());
     if (ro) ro.observe(target);
-    window.addEventListener("resize", update);
+    window.addEventListener('resize', update);
     return () => {
       if (ro) ro.disconnect();
-      window.removeEventListener("resize", update);
+      window.removeEventListener('resize', update);
     };
   }, []);
 
@@ -1198,9 +1198,9 @@ const NestedProductsTable = ({
       component={Paper}
       sx={{
         flex: 1,
-        overflow: "auto",
-        display: "flex",
-        flexDirection: "column",
+        overflow: 'auto',
+        display: 'flex',
+        flexDirection: 'column',
         minHeight: 0,
         mr: 2,
         mb: 2,
@@ -1208,7 +1208,7 @@ const NestedProductsTable = ({
         border: `1px solid ${theme.palette.divider}`,
       }}
     >
-      <Table stickyHeader size={isMobile ? "small" : "medium"} sx={{ flex: 1 }}>
+      <Table stickyHeader size={isMobile ? 'small' : 'medium'} sx={{ flex: 1 }}>
         <TableHead ref={tableHeadRef}>
           <TableRow>
             {productColumns.map((col) => (
@@ -1221,17 +1221,17 @@ const NestedProductsTable = ({
                   fontSize: isMobile
                     ? theme.typography.caption.fontSize
                     : theme.typography.body2.fontSize,
-                  position: "sticky",
+                  position: 'sticky',
                   top: 0,
                   zIndex: 50,
                 }}
               >
                 {col.sortable ? (
                   col.tooltip ? (
-                    <GGTooltip title={col.tooltip} placement="top">
+                    <GGTooltip title={col.tooltip} placement='top'>
                       <TableSortLabel
                         active={orderBy === col.field}
-                        direction={orderBy === col.field ? order : "desc"}
+                        direction={orderBy === col.field ? order : 'desc'}
                         onClick={() => handleRequestSort(col.field)}
                       >
                         {col.header}
@@ -1240,16 +1240,16 @@ const NestedProductsTable = ({
                   ) : (
                     <TableSortLabel
                       active={orderBy === col.field}
-                      direction={orderBy === col.field ? order : "desc"}
+                      direction={orderBy === col.field ? order : 'desc'}
                       onClick={() => handleRequestSort(col.field)}
                     >
                       {col.header}
                     </TableSortLabel>
                   )
                 ) : col.tooltip ? (
-                  <GGTooltip title={col.tooltip} placement="top">
+                  <GGTooltip title={col.tooltip} placement='top'>
                     <span
-                      style={{ cursor: "help", textDecoration: "underline" }}
+                      style={{ cursor: 'help', textDecoration: 'underline' }}
                     >
                       {col.header}
                     </span>
@@ -1267,12 +1267,12 @@ const NestedProductsTable = ({
               {/* Supply Chain Header Row */}
               <TableRow
                 sx={{
-                  fontWeight: "bold",
-                  position: "sticky",
+                  fontWeight: 'bold',
+                  position: 'sticky',
                   top: measuredHeaderHeight,
                   zIndex: 40,
                   backgroundColor: theme.palette.grey[50],
-                  "& .MuiTableCell-root": {
+                  '& .MuiTableCell-root': {
                     backgroundColor: theme.palette.grey[50],
                     color: theme.palette.text.primary,
                     borderBottom: `2px solid ${theme.palette.grey[300]}`,
@@ -1283,19 +1283,19 @@ const NestedProductsTable = ({
                   colSpan={productColumns.length}
                   sx={{
                     height: supplyChainHeaderHeight,
-                    backgroundColor: "inherit",
-                    color: "inherit",
-                    position: "sticky",
+                    backgroundColor: 'inherit',
+                    color: 'inherit',
+                    position: 'sticky',
                     top: measuredHeaderHeight,
                     zIndex: 40,
                     borderBottom: `2px solid ${theme.palette.grey[300]}`,
-                    boxShadow: "0 1px 0 rgba(0,0,0,0.04)",
+                    boxShadow: '0 1px 0 rgba(0,0,0,0.04)',
                   }}
                 >
                   <Typography
-                    variant="subtitle2"
-                    fontWeight="700"
-                    sx={{ color: "inherit" }}
+                    variant='subtitle2'
+                    fontWeight='700'
+                    sx={{ color: 'inherit' }}
                   >
                     Value Chain: {supplyChain.supplyChainName}
                   </Typography>
@@ -1310,11 +1310,11 @@ const NestedProductsTable = ({
                     <TableRow
                       sx={{
                         backgroundColor: theme.palette.grey[100],
-                        fontWeight: "600",
-                        position: "sticky",
+                        fontWeight: '600',
+                        position: 'sticky',
                         top: measuredHeaderHeight + supplyChainHeaderHeight,
                         zIndex: 30,
-                        "& .MuiTableCell-root": {
+                        '& .MuiTableCell-root': {
                           backgroundColor: theme.palette.grey[100],
                           borderBottom: `1px solid ${theme.palette.grey[300]}`,
                         },
@@ -1324,16 +1324,16 @@ const NestedProductsTable = ({
                         colSpan={productColumns.length}
                         sx={{
                           height: clusterHeaderHeight,
-                          backgroundColor: "inherit",
-                          position: "sticky",
+                          backgroundColor: 'inherit',
+                          position: 'sticky',
                           top: measuredHeaderHeight + supplyChainHeaderHeight,
                           zIndex: 30,
-                          boxShadow: "0 1px 0 rgba(0,0,0,0.03)",
+                          boxShadow: '0 1px 0 rgba(0,0,0,0.03)',
                         }}
                       >
                         <Typography
-                          variant="subtitle2"
-                          fontWeight="600"
+                          variant='subtitle2'
+                          fontWeight='600'
                           sx={{ pl: 2 }}
                         >
                           Cluster: {cluster.clusterName}
@@ -1351,7 +1351,7 @@ const NestedProductsTable = ({
                           hover
                           sx={{
                             pl: 4,
-                            "& .MuiTableCell-root": {
+                            '& .MuiTableCell-root': {
                               backgroundColor: theme.palette.background.paper,
                             },
                           }}
@@ -1366,7 +1366,7 @@ const NestedProductsTable = ({
                                 minWidth: col.width,
                                 pl:
                                   col.field === productColumns[0].field ? 4 : 2,
-                                backgroundColor: "inherit",
+                                backgroundColor: 'inherit',
                               }}
                             >
                               {col.render
@@ -1398,7 +1398,7 @@ const DataTable: React.FC<DataTableProps> = ({
   const selectedCountry = useCountrySelection();
 
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   // State for currently selected data type
   const [currentDataType, setCurrentDataType] =
@@ -1446,13 +1446,13 @@ const DataTable: React.FC<DataTableProps> = ({
     return (
       <Box
         sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
           height,
         }}
       >
-        <Typography color="error">
+        <Typography color='error'>
           Error loading data: {error.message}
         </Typography>
       </Box>
@@ -1464,45 +1464,45 @@ const DataTable: React.FC<DataTableProps> = ({
       sx={{
         height: height !== 600 ? height : undefined,
         flex: height === 600 ? 1 : undefined,
-        display: "flex",
-        flexDirection: "column",
+        display: 'flex',
+        flexDirection: 'column',
         minHeight: height === 600 ? 0 : undefined,
       }}
     >
-      <Box sx={{ p: 2, borderBottom: 1, borderColor: "grey.200" }}>
+      <Box sx={{ p: 2, borderBottom: 1, borderColor: 'grey.200' }}>
         <Box
           sx={{
-            display: "flex",
+            display: 'flex',
             gap: 3,
-            alignItems: "flex-start",
-            flexWrap: "wrap",
+            alignItems: 'flex-start',
+            flexWrap: 'wrap',
           }}
         >
           {/* Match visualization controls: DisplayAs leftmost */}
           <DisplayAsSwitch />
 
           {/* Table Type control */}
-          <Box sx={{ display: "flex", flexDirection: "column", gap: 0.5 }}>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
             <Typography
               sx={{
-                fontSize: isMobile ? "0.75rem" : "0.875rem",
-                color: "#000",
+                fontSize: isMobile ? '0.75rem' : '0.875rem',
+                color: '#000',
               }}
             >
               Table Type
             </Typography>
-            <ButtonGroup size={isMobile ? "small" : "medium"}>
+            <ButtonGroup size={isMobile ? 'small' : 'medium'}>
               <Button
-                aria-pressed={currentDataType === "products"}
-                onClick={() => setCurrentDataType("products")}
+                aria-pressed={currentDataType === 'products'}
+                onClick={() => setCurrentDataType('products')}
               >
                 Product List
               </Button>
               <Button
-                aria-pressed={currentDataType === "nested"}
-                onClick={() => setCurrentDataType("nested")}
+                aria-pressed={currentDataType === 'nested'}
+                onClick={() => setCurrentDataType('nested')}
               >
-                {isMobile ? "Nested" : "Nested Products"}
+                {isMobile ? 'Nested' : 'Nested Products'}
               </Button>
             </ButtonGroup>
           </Box>
@@ -1511,13 +1511,13 @@ const DataTable: React.FC<DataTableProps> = ({
       <Box
         sx={{
           flex: 1,
-          overflow: "hidden",
-          display: "flex",
-          flexDirection: "column",
+          overflow: 'hidden',
+          display: 'flex',
+          flexDirection: 'column',
           minHeight: 0,
         }}
       >
-        {currentDataType === "products" && (
+        {currentDataType === 'products' && (
           <ProductsTable
             data={tableData}
             clustersData={clustersData}
@@ -1525,7 +1525,7 @@ const DataTable: React.FC<DataTableProps> = ({
             selectedYear={selectedYear}
           />
         )}
-        {currentDataType === "nested" && (
+        {currentDataType === 'nested' && (
           <NestedProductsTable
             data={tableData}
             selectedProducts={selectedProducts}

@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Dialog,
   DialogTitle,
@@ -6,12 +6,12 @@ import {
   IconButton,
   Box,
   Typography,
-} from "@mui/material";
+} from '@mui/material';
 import {
   Close as CloseIcon,
   AccountTree as AccountTreeIcon,
-} from "@mui/icons-material";
-import SankeyTree from "./visualization/SankeyTree/index";
+} from '@mui/icons-material';
+import SankeyTree from './visualization/SankeyTree/index';
 
 interface LearningModalProps {
   open: boolean;
@@ -26,39 +26,39 @@ const LearningModal: React.FC<LearningModalProps> = ({ open, onClose }) => {
       maxWidth={false}
       fullWidth
       sx={{
-        "& .MuiDialog-paper": {
-          width: "95vw",
-          height: "95vh",
-          maxWidth: "none",
-          maxHeight: "none",
-          margin: "2.5vh auto",
+        '& .MuiDialog-paper': {
+          width: '95vw',
+          height: '95vh',
+          maxWidth: 'none',
+          maxHeight: 'none',
+          margin: '2.5vh auto',
         },
       }}
     >
       <DialogTitle
         sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
           borderBottom: 1,
-          borderColor: "divider",
+          borderColor: 'divider',
           pr: 1,
         }}
       >
-        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-          <AccountTreeIcon color="primary" />
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+          <AccountTreeIcon color='primary' />
           <Box>
-            <Typography variant="h6" component="div">
+            <Typography variant='h6' component='div'>
               Green Value Chain Connections
             </Typography>
-            <Typography variant="body2" color="text.secondary">
+            <Typography variant='body2' color='text.secondary'>
               Hover to explore the relationships between value chains, clusters
               and products
             </Typography>
           </Box>
         </Box>
         <IconButton
-          aria-label="close"
+          aria-label='close'
           onClick={onClose}
           sx={{
             color: (theme) => theme.palette.grey[500],
@@ -70,14 +70,14 @@ const LearningModal: React.FC<LearningModalProps> = ({ open, onClose }) => {
       <DialogContent
         sx={{
           p: 0,
-          height: "100%",
-          overflow: "hidden",
+          height: '100%',
+          overflow: 'hidden',
         }}
       >
         <Box
           sx={{
-            height: "100%",
-            width: "100%",
+            height: '100%',
+            width: '100%',
           }}
         >
           <SankeyTree />

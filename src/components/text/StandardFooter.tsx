@@ -1,17 +1,17 @@
-import React from "react";
-import { FullWidthFooter, FullWidthFooterContent } from "../../styling/Grid";
-import { primaryFont } from "../../styling/styleUtils";
-import styled from "styled-components";
-import GrowthLabLogoPNG from "../../assets/growth-lab-new-logo-2022.png";
-import FacebookIconSVG from "./assets/facebook.svg";
-import InstagramIconSVG from "./assets/instagram.svg";
-import TwitterIconSVG from "./assets/x.svg";
-import LinkedinIconSVG from "./assets/linkedin.svg";
-import YouTubeIconSVG from "./assets/youtube.svg";
-import ApplePodcastSVG from "./assets/applepodcast.svg";
-import { Routes, hubId } from "../../routing/routes";
-import { triggerGoogleAnalyticsEvent } from "../../routing/tracking";
-import GitHubIconSVG from "./assets/githubicon.svg";
+import React from 'react';
+import { FullWidthFooter, FullWidthFooterContent } from '../../styling/Grid';
+import { primaryFont } from '../../styling/styleUtils';
+import styled from 'styled-components';
+import GrowthLabLogoPNG from '../../assets/growth-lab-new-logo-2022.png';
+import FacebookIconSVG from './assets/facebook.svg';
+import InstagramIconSVG from './assets/instagram.svg';
+import TwitterIconSVG from './assets/x.svg';
+import LinkedinIconSVG from './assets/linkedin.svg';
+import YouTubeIconSVG from './assets/youtube.svg';
+import ApplePodcastSVG from './assets/applepodcast.svg';
+import { Routes, hubId } from '../../routing/routes';
+import { triggerGoogleAnalyticsEvent } from '../../routing/tracking';
+import GitHubIconSVG from './assets/githubicon.svg';
 
 export const Root = styled(FullWidthFooter)`
   color: #333;
@@ -172,47 +172,47 @@ export const LicenseAndReadme = styled.div`
 `;
 
 export enum SocialType {
-  facebook = "facebook",
-  instagram = "instagram",
-  twitter = "twitter",
-  linkedin = "linkedin",
-  youtube = "youtube",
-  applepodcast = "applepodcast",
+  facebook = 'facebook',
+  instagram = 'instagram',
+  twitter = 'twitter',
+  linkedin = 'linkedin',
+  youtube = 'youtube',
+  applepodcast = 'applepodcast',
 }
 
 export const defaultSocialIcons = [
   {
-    target: "https://www.linkedin.com/company/harvard-growth-lab/",
+    target: 'https://www.linkedin.com/company/harvard-growth-lab/',
     type: SocialType.linkedin,
-    alt: "linkedin",
+    alt: 'linkedin',
   },
   {
-    target: "https://www.instagram.com/harvardgrowthlab/",
+    target: 'https://www.instagram.com/harvardgrowthlab/',
     type: SocialType.instagram,
-    alt: "instagram",
+    alt: 'instagram',
   },
   {
-    target: "https://www.facebook.com/harvardgrowthlab/",
+    target: 'https://www.facebook.com/harvardgrowthlab/',
     type: SocialType.facebook,
-    alt: "facebook",
+    alt: 'facebook',
   },
 
   {
-    target: "https://x.com/HarvardGrwthLab",
+    target: 'https://x.com/HarvardGrwthLab',
     type: SocialType.twitter,
-    alt: "twitter",
+    alt: 'twitter',
   },
   {
     target:
-      "https://youtube.com/playlist?list=PLVJQsjaKb-4SNl2obPcBFtIbjKoyi4e5z",
+      'https://youtube.com/playlist?list=PLVJQsjaKb-4SNl2obPcBFtIbjKoyi4e5z',
     type: SocialType.youtube,
-    alt: "youtube",
+    alt: 'youtube',
   },
   {
     target:
-      "https://podcasts.apple.com/us/podcast/growth-lab-podcast-series/id1486218164",
+      'https://podcasts.apple.com/us/podcast/growth-lab-podcast-series/id1486218164',
     type: SocialType.applepodcast,
-    alt: "apple podcast",
+    alt: 'apple podcast',
   },
 ];
 
@@ -240,16 +240,16 @@ const StandardFooter = (props: Props) => {
       <SocialLink
         href={target}
         onClick={() =>
-          triggerGoogleAnalyticsEvent("FOOTER SOCIAL ICONS", "click -" + type)
+          triggerGoogleAnalyticsEvent('FOOTER SOCIAL ICONS', 'click -' + type)
         }
-        target="_blank"
-        rel="noopener noreferrer"
+        target='_blank'
+        rel='noopener noreferrer'
         key={target + type}
       >
         <Icon
           src={socialIcon[type]}
-          title={alt ? alt : ""}
-          alt={alt ? alt : ""}
+          title={alt ? alt : ''}
+          alt={alt ? alt : ''}
         />
       </SocialLink>
     );
@@ -261,9 +261,9 @@ const StandardFooter = (props: Props) => {
         <Content>
           <LogoColumn>
             <a
-              href="https://growthlab.hks.harvard.edu/"
-              target="_blank"
-              rel="noopener noreferrer"
+              href='https://growthlab.hks.harvard.edu/'
+              target='_blank'
+              rel='noopener noreferrer'
             >
               <GrowthLabLogo
                 src={GrowthLabLogoPNG}
@@ -277,37 +277,37 @@ const StandardFooter = (props: Props) => {
               <br />
               79 JFK St. | Cambridge, MA 02138
               <br />
-              <a href="mailto:growthlab@hks.harvard.edu">
+              <a href='mailto:growthlab@hks.harvard.edu'>
                 growthlab@hks.harvard.edu
               </a>
             </GrowthLabInfo>
           </LogoColumn>
           <RepoColumn>
-            <StyledLink href={Routes.Landing + "#" + hubId}>Hub</StyledLink>
+            <StyledLink href={Routes.Landing + '#' + hubId}>Hub</StyledLink>
             <StyledLink href={Routes.Community}>Community</StyledLink>
             <StyledLink href={Routes.About}>About</StyledLink>
             <StyledLink
               href={
-                "https://hksexeced.tfaforms.net/f/subscribe?s=a1n6g000000nJnxAAE"
+                'https://hksexeced.tfaforms.net/f/subscribe?s=a1n6g000000nJnxAAE'
               }
             >
               Newsletter
             </StyledLink>
             <StyledLink
-              href="https://growthlab.hks.harvard.edu/"
-              target="_blank"
-              rel="noopener noreferrer"
+              href='https://growthlab.hks.harvard.edu/'
+              target='_blank'
+              rel='noopener noreferrer'
             >
               Growth Lab
             </StyledLink>
             {showGithubLink && (
               <GitHubLink
-                href="https://github.com/cid-harvard/growth-lab-app-front-end"
-                target="_blank"
-                rel="noopener noreferrer"
-                color={"#333"}
+                href='https://github.com/cid-harvard/growth-lab-app-front-end'
+                target='_blank'
+                rel='noopener noreferrer'
+                color={'#333'}
               >
-                <GitHubIcon src={GitHubIconSVG} alt="" title="" />
+                <GitHubIcon src={GitHubIconSVG} alt='' title='' />
                 GitHub Repo
               </GitHubLink>
             )}
@@ -317,49 +317,49 @@ const StandardFooter = (props: Props) => {
       </Container>
       <LicenseAndReadme>
         <div>
-          Harvard Growth Lab’s digital tools are licensed under{" "}
+          Harvard Growth Lab’s digital tools are licensed under{' '}
           <a
-            href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
-            target="_blank"
-            rel="noopener noreferrer"
+            href='https://creativecommons.org/licenses/by-nc-sa/4.0/'
+            target='_blank'
+            rel='noopener noreferrer'
           >
             Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA
             4.0)
           </a>
           .
         </div>
-        <div style={{ marginTop: "0.4rem" }}>
+        <div style={{ marginTop: '0.4rem' }}>
           Copyright © {new Date().getFullYear()} The President and Fellows of
           Harvard College
-          {" | "}
+          {' | '}
           <a
-            href="https://gdpr.harvard.edu/eeaprivacydisclosures"
-            target="_blank"
-            rel="noopener noreferrer"
+            href='https://gdpr.harvard.edu/eeaprivacydisclosures'
+            target='_blank'
+            rel='noopener noreferrer'
           >
             Privacy
           </a>
-          {" | "}
+          {' | '}
           <a
-            href="http://accessibility.harvard.edu/"
-            target="_blank"
-            rel="noopener noreferrer"
+            href='http://accessibility.harvard.edu/'
+            target='_blank'
+            rel='noopener noreferrer'
           >
             Accessibility
           </a>
-          {" | "}
+          {' | '}
           <a
-            href="https://accessibility.huit.harvard.edu/digital-accessibility-policy"
-            target="_blank"
-            rel="noopener noreferrer"
+            href='https://accessibility.huit.harvard.edu/digital-accessibility-policy'
+            target='_blank'
+            rel='noopener noreferrer'
           >
             Digital Accessibility
           </a>
-          {" | "}
+          {' | '}
           <a
-            href="http://www.harvard.edu/reporting-copyright-infringements"
-            target="_blank"
-            rel="noopener noreferrer"
+            href='http://www.harvard.edu/reporting-copyright-infringements'
+            target='_blank'
+            rel='noopener noreferrer'
           >
             Report Copyright
           </a>

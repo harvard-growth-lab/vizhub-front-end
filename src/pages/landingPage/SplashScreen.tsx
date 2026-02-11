@@ -1,14 +1,14 @@
-import React from "react";
-import styled, { keyframes } from "styled-components";
-import raw from "raw.macro";
-import LogoIMG from "./GL_logo_white.png";
-import { secondaryFont } from "../../styling/styleUtils";
-import { useLocation, useNavigate } from "react-router";
-import { scrollToAnchor } from "../../hooks/useScrollBehavior";
-import { activeLinkColor, backgroundGray, backgroundPattern } from "./Utils";
-import { triggerGoogleAnalyticsEvent } from "../../routing/tracking";
+import React from 'react';
+import styled, { keyframes } from 'styled-components';
+import raw from 'raw.macro';
+import LogoIMG from './GL_logo_white.png';
+import { secondaryFont } from '../../styling/styleUtils';
+import { useLocation, useNavigate } from 'react-router';
+import { scrollToAnchor } from '../../hooks/useScrollBehavior';
+import { activeLinkColor, backgroundGray, backgroundPattern } from './Utils';
+import { triggerGoogleAnalyticsEvent } from '../../routing/tracking';
 
-const arrowSVG = raw("./images/arrow.svg");
+const arrowSVG = raw('./images/arrow.svg');
 
 const slidein = keyframes`
   from {background-position: top;}
@@ -432,32 +432,32 @@ export default () => {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     e.preventDefault();
-    navigate(pathname + search + "#hub");
-    scrollToAnchor({ anchor: "#hub" });
+    navigate(pathname + search + '#hub');
+    scrollToAnchor({ anchor: '#hub' });
   };
 
   return (
     <Root>
       <Grid>
         <LogoCell
-          href={"https://growthlab.hks.harvard.edu/"}
+          href={'https://growthlab.hks.harvard.edu/'}
           onClick={() =>
             triggerGoogleAnalyticsEvent(
-              "HUB SPLASH SCREEN",
-              "go-to-gl-homepage",
-              "logo",
+              'HUB SPLASH SCREEN',
+              'go-to-gl-homepage',
+              'logo',
             )
           }
-          target={"_blank"}
-          rel={"noopener noreferrer"}
+          target={'_blank'}
+          rel={'noopener noreferrer'}
         >
           <Logo
             src={LogoIMG}
             title={
-              "The Growth Lab at the Center for International Development at Harvard University"
+              'The Growth Lab at the Center for International Development at Harvard University'
             }
             alt={
-              "The Growth Lab at the Center for International Development at Harvard University"
+              'The Growth Lab at the Center for International Development at Harvard University'
             }
           />
         </LogoCell>
@@ -465,33 +465,33 @@ export default () => {
           <TitleRoot>
             <ColorBlock />
             <Title>
-              <div dangerouslySetInnerHTML={{ __html: raw("./title.svg") }} />
+              <div dangerouslySetInnerHTML={{ __html: raw('./title.svg') }} />
               Harvard Growth Lab Viz Hub
             </Title>
             <TitleIcon
-              dangerouslySetInnerHTML={{ __html: raw("./titleIcon.svg") }}
+              dangerouslySetInnerHTML={{ __html: raw('./titleIcon.svg') }}
             />
           </TitleRoot>
         </TitleCell>
         <SubtitleCell>
           <Subtitle>
-            <div dangerouslySetInnerHTML={{ __html: raw("./subtitle.svg") }} />
+            <div dangerouslySetInnerHTML={{ __html: raw('./subtitle.svg') }} />
             Translating Growth Lab research into powerful visualization tools
             and interactive storytelling
           </Subtitle>
         </SubtitleCell>
         <GrowthLabButtonCell>
           <GrowthLabButton
-            href={"https://growthlab.hks.harvard.edu/"}
+            href={'https://growthlab.hks.harvard.edu/'}
             onClick={() =>
               triggerGoogleAnalyticsEvent(
-                "HUB SPLASH SCREEN",
-                "go-to-gl-homepage",
-                "button",
+                'HUB SPLASH SCREEN',
+                'go-to-gl-homepage',
+                'button',
               )
             }
-            target={"_blank"}
-            rel={"noopener noreferrer"}
+            target={'_blank'}
+            rel={'noopener noreferrer'}
           >
             Growth Lab Home Page
             <Arrow dangerouslySetInnerHTML={{ __html: arrowSVG }} />
@@ -499,88 +499,88 @@ export default () => {
         </GrowthLabButtonCell>
         <SocialCell>
           <SocialLink
-            href={"https://x.com/HarvardGrwthLab"}
-            target="_blank"
-            rel="noopener noreferrer"
+            href={'https://x.com/HarvardGrwthLab'}
+            target='_blank'
+            rel='noopener noreferrer'
           >
             Twitter
             <Icon
               dangerouslySetInnerHTML={{
-                __html: raw("../../components/text/assets/x.svg"),
+                __html: raw('../../components/text/assets/x.svg'),
               }}
             />
           </SocialLink>
           <SocialLink
-            href={"https://www.facebook.com/harvardgrowthlab/"}
-            target="_blank"
-            rel="noopener noreferrer"
+            href={'https://www.facebook.com/harvardgrowthlab/'}
+            target='_blank'
+            rel='noopener noreferrer'
           >
             Facebook
             <Icon
               dangerouslySetInnerHTML={{
-                __html: raw("../../components/text/assets/facebook.svg"),
+                __html: raw('../../components/text/assets/facebook.svg'),
               }}
             />
           </SocialLink>
           <SocialLink
-            href={"https://www.instagram.com/harvardgrowthlab/"}
-            target="_blank"
-            rel="noopener noreferrer"
+            href={'https://www.instagram.com/harvardgrowthlab/'}
+            target='_blank'
+            rel='noopener noreferrer'
           >
             Instagram
             <Icon
               dangerouslySetInnerHTML={{
-                __html: raw("../../components/text/assets/instagram.svg"),
+                __html: raw('../../components/text/assets/instagram.svg'),
               }}
             />
           </SocialLink>
           <SocialLink
-            href={"https://www.linkedin.com/company/harvard-growth-lab/"}
-            target="_blank"
-            rel="noopener noreferrer"
+            href={'https://www.linkedin.com/company/harvard-growth-lab/'}
+            target='_blank'
+            rel='noopener noreferrer'
           >
             LinkedIn
             <Icon
               dangerouslySetInnerHTML={{
-                __html: raw("../../components/text/assets/linkedin.svg"),
+                __html: raw('../../components/text/assets/linkedin.svg'),
               }}
             />
           </SocialLink>
           <SocialLink
-            href={"https://www.youtube.com/@HarvardGrowthLab/videos"}
-            target="_blank"
-            rel="noopener noreferrer"
+            href={'https://www.youtube.com/@HarvardGrowthLab/videos'}
+            target='_blank'
+            rel='noopener noreferrer'
           >
             YouTube
             <Icon
               dangerouslySetInnerHTML={{
-                __html: raw("../../components/text/assets/youtube.svg"),
+                __html: raw('../../components/text/assets/youtube.svg'),
               }}
             />
           </SocialLink>
           <SocialLink
             href={
-              "https://podcasts.apple.com/us/podcast/growth-lab-podcast-series/id1486218164"
+              'https://podcasts.apple.com/us/podcast/growth-lab-podcast-series/id1486218164'
             }
-            target="_blank"
-            rel="noopener noreferrer"
+            target='_blank'
+            rel='noopener noreferrer'
           >
             Apple Podcast
             <Icon
               dangerouslySetInnerHTML={{
-                __html: raw("../../components/text/assets/applepodcast.svg"),
+                __html: raw('../../components/text/assets/applepodcast.svg'),
               }}
             />
           </SocialLink>
           <SocialLink
-            href={"https://github.com/harvard-growth-lab"}
-            target="_blank"
-            rel="noopener noreferrer"
+            href={'https://github.com/harvard-growth-lab'}
+            target='_blank'
+            rel='noopener noreferrer'
           >
             GitHub
             <Icon
               dangerouslySetInnerHTML={{
-                __html: raw("../../components/text/assets/githubicon.svg"),
+                __html: raw('../../components/text/assets/githubicon.svg'),
               }}
             />
           </SocialLink>

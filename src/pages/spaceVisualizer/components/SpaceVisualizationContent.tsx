@@ -1,6 +1,6 @@
-import React from "react";
-import type * as d3 from "d3";
-import type { Node } from "../loader";
+import React from 'react';
+import type * as d3 from 'd3';
+import type { Node } from '../loader';
 
 interface SpaceVisualizationContentProps {
   nodes: Node[];
@@ -22,9 +22,9 @@ interface SpaceVisualizationContentProps {
   radiusScale: (value: number) => number;
   onNodeMouseEnter: (node: Node, event: React.MouseEvent) => void;
   onNodeMouseLeave: () => void;
-  metadata?: Array<{
+  metadata?: {
     [key: string]: string | number | undefined;
-  }>;
+  }[];
   categoryColorScale: d3.ScaleOrdinal<string, string>;
 }
 
@@ -47,7 +47,7 @@ export const SpaceVisualizationContent: React.FC<SpaceVisualizationContentProps>
     }) => {
       // Get list of selected node IDs
       const selectedNodeIdList = selectedNodeIds
-        .split(",")
+        .split(',')
         .map((id) => id.trim())
         .filter(Boolean);
 
@@ -73,7 +73,7 @@ export const SpaceVisualizationContent: React.FC<SpaceVisualizationContentProps>
           const category = node[fieldNames.category];
           if (category) {
             const meta = metadata.find(
-              (m) => String(m[fieldNames.metaId || ""]) === String(category),
+              (m) => String(m[fieldNames.metaId || '']) === String(category),
             );
             if (meta && fieldNames.metaColor) {
               return String(meta[fieldNames.metaColor]);
@@ -87,7 +87,7 @@ export const SpaceVisualizationContent: React.FC<SpaceVisualizationContentProps>
         }
 
         // Default fallback
-        return "#999999";
+        return '#999999';
       };
 
       return (
@@ -101,10 +101,10 @@ export const SpaceVisualizationContent: React.FC<SpaceVisualizationContentProps>
                   y1={yScale(link.y1)}
                   x2={xScale(link.x2)}
                   y2={yScale(link.y2)}
-                  stroke="grey"
+                  stroke='grey'
                   strokeOpacity={0.2}
                   strokeWidth={1}
-                  style={{ pointerEvents: "none" }}
+                  style={{ pointerEvents: 'none' }}
                 />
               ))
             : null}
@@ -119,7 +119,7 @@ export const SpaceVisualizationContent: React.FC<SpaceVisualizationContentProps>
             const radius = fieldNames.radius
               ? (() => {
                   const radiusValue = node[fieldNames.radius];
-                  return typeof radiusValue === "number"
+                  return typeof radiusValue === 'number'
                     ? radiusScale(radiusValue)
                     : radiusScale(Number.parseFloat(String(radiusValue)));
                 })()
@@ -137,11 +137,11 @@ export const SpaceVisualizationContent: React.FC<SpaceVisualizationContentProps>
                 cy={yScale(y)}
                 r={radius}
                 fill={getNodeColor(node)}
-                stroke="grey"
+                stroke='grey'
                 strokeWidth={1}
                 style={{
-                  cursor: "pointer",
-                  pointerEvents: "auto",
+                  cursor: 'pointer',
+                  pointerEvents: 'auto',
                   opacity: isSelected ? 1 : 0.2,
                 }}
                 onMouseEnter={(e) => onNodeMouseEnter(node, e)}

@@ -1,36 +1,36 @@
-import React, { createRef, useState, useEffect } from "react";
-import { FullWidthHeader } from "../../styling/Grid";
-import SplashScreen from "./SplashScreen";
-import styled from "styled-components";
-import TopLevelNav from "./TopLevelNav";
-import useScrollBehavior from "../../hooks/useScrollBehavior";
+import React, { createRef, useState, useEffect } from 'react';
+import { FullWidthHeader } from '../../styling/Grid';
+import SplashScreen from './SplashScreen';
+import styled from 'styled-components';
+import TopLevelNav from './TopLevelNav';
+import useScrollBehavior from '../../hooks/useScrollBehavior';
 import {
   activeLinkColor,
   HubContentContainer,
   queryStringToCategory,
   navBackgroundColor as baseNavBackgroundColor,
   backgroundPattern,
-} from "./Utils";
-import { Grid, NavColumn, ContentColumn } from "./Grid";
-import StandardFooter from "../../components/text/StandardFooter";
-import { hubId } from "../../routing/routes";
-import { navHeight } from "../../components/navigation/TopLevelStickyNav";
-import StickySideNav, { View } from "./components/StickySideNav";
-import GridView from "./hubViews/GridView";
-import ListView from "./hubViews/ListView";
-import SearchView from "./hubViews/SearchView";
-import { useLocation } from "react-router";
-import queryString from "query-string";
-import { useQuery } from "@apollo/client";
-import gql from "graphql-tag";
+} from './Utils';
+import { Grid, NavColumn, ContentColumn } from './Grid';
+import StandardFooter from '../../components/text/StandardFooter';
+import { hubId } from '../../routing/routes';
+import { navHeight } from '../../components/navigation/TopLevelStickyNav';
+import StickySideNav, { View } from './components/StickySideNav';
+import GridView from './hubViews/GridView';
+import ListView from './hubViews/ListView';
+import SearchView from './hubViews/SearchView';
+import { useLocation } from 'react-router';
+import queryString from 'query-string';
+import { useQuery } from '@apollo/client';
+import gql from 'graphql-tag';
 import {
   HubProject,
   HubKeyword,
   ProjectCategories,
-} from "./graphql/graphQLTypes";
-import Loading from "../../components/general/Loading";
-import FullPageError from "../../components/general/FullPageError";
-import orderBy from "lodash/orderBy";
+} from './graphql/graphQLTypes';
+import Loading from '../../components/general/Loading';
+import FullPageError from '../../components/general/FullPageError';
+import orderBy from 'lodash/orderBy';
 
 const GET_ALL_PROJECTS_AND_KEYWORDS = gql`
   query GetAllIndustries {
@@ -81,7 +81,7 @@ export interface QueryString {
 const LandingPage = () => {
   const { search } = useLocation();
   const parsedQuery: QueryString | undefined = queryString.parse(search, {
-    arrayFormat: "comma",
+    arrayFormat: 'comma',
   });
 
   const containerNodeRef = createRef<HTMLDivElement>();
@@ -113,14 +113,14 @@ const LandingPage = () => {
     return () => observer.unobserve(cachedRef);
   }, [containerNodeRef]);
 
-  const linkColor = "#fff";
+  const linkColor = '#fff';
   const activeColor = activeLinkColor;
   const navBackgroundColor = isNavOverContent
     ? baseNavBackgroundColor
-    : "rgba(255, 255, 255, 0.2)";
+    : 'rgba(255, 255, 255, 0.2)';
   const navBackgroundImage = isNavOverContent ? backgroundPattern : undefined;
   useScrollBehavior({
-    navAnchors: ["#" + hubId],
+    navAnchors: ['#' + hubId],
     smooth: false,
   });
 
@@ -142,7 +142,7 @@ const LandingPage = () => {
       contentView = <ListView projects={hubProjectsList} />;
     } else if (activeView === View.search) {
       const initialQuery =
-        parsedQuery && parsedQuery.query !== undefined ? parsedQuery.query : "";
+        parsedQuery && parsedQuery.query !== undefined ? parsedQuery.query : '';
       const initialSelectedKeywords =
         parsedQuery && parsedQuery.keywords !== undefined
           ? parsedQuery.keywords
@@ -163,7 +163,7 @@ const LandingPage = () => {
       const sortedKeywords = orderBy(
         hubKeywordsList,
         ({ keyword }) => keyword.toLowerCase(),
-        ["asc"],
+        ['asc'],
       );
       const allCategories: ProjectCategories[] = [];
       const allStatuses: string[] = [];
@@ -209,7 +209,7 @@ const LandingPage = () => {
         contentView = null;
       }
     } else {
-      console.error("Invalid view type " + activeView);
+      console.error('Invalid view type ' + activeView);
       contentView = null;
     }
   } else {

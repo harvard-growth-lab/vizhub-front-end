@@ -1,7 +1,7 @@
-import { useState } from "react";
-import styled from "@emotion/styled";
-import CloseIcon from "@mui/icons-material/Close";
-import IconButton from "@mui/material/IconButton";
+import { useState } from 'react';
+import styled from '@emotion/styled';
+import CloseIcon from '@mui/icons-material/Close';
+import IconButton from '@mui/material/IconButton';
 
 const BannerContainer = styled.div`
   position: absolute;
@@ -35,7 +35,7 @@ export default function Banner() {
         for green growth analysis 🌿🌐
       </span>
 
-      <IconButton onClick={dismissBanner} size="small" aria-label="dismiss">
+      <IconButton onClick={dismissBanner} size='small' aria-label='dismiss'>
         <CloseIcon />
       </IconButton>
     </BannerContainer>

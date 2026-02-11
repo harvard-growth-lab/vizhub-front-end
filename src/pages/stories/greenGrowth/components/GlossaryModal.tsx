@@ -1,22 +1,22 @@
-import { Modal, Box, Typography, IconButton, Divider } from "@mui/material";
-import { Close as CloseIcon } from "@mui/icons-material";
-import { GG_GLOSSARY_ENTRIES } from "../utils/terms";
+import { Modal, Box, Typography, IconButton, Divider } from '@mui/material';
+import { Close as CloseIcon } from '@mui/icons-material';
+import { GG_GLOSSARY_ENTRIES } from '../utils/terms';
 
 const modalStyle = {
-  position: "absolute" as "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: { xs: "90%", sm: "600px" },
-  maxWidth: "95vw",
-  maxHeight: "90vh",
-  bgcolor: "background.paper",
-  border: "none",
-  borderRadius: "8px",
+  position: 'absolute' as 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: { xs: '90%', sm: '600px' },
+  maxWidth: '95vw',
+  maxHeight: '90vh',
+  bgcolor: 'background.paper',
+  border: 'none',
+  borderRadius: '8px',
   boxShadow: 24,
   p: 4,
-  outline: "none",
-  overflow: "hidden",
+  outline: 'none',
+  overflow: 'hidden',
 };
 
 interface GlossaryModalProps {
@@ -34,15 +34,15 @@ const GlossaryModal = ({ open, onClose }: GlossaryModalProps) => {
         {/* Header with close button */}
         <Box
           sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
             mb: 3,
           }}
         >
           <Typography
-            variant="h2"
-            component="h2"
+            variant='h2'
+            component='h2'
             sx={{
               fontWeight: 600,
             }}
@@ -51,10 +51,10 @@ const GlossaryModal = ({ open, onClose }: GlossaryModalProps) => {
           </Typography>
           <IconButton
             onClick={onClose}
-            size="small"
+            size='small'
             sx={{
-              color: "grey.500",
-              "&:hover": { backgroundColor: "rgba(0,0,0,0.04)" },
+              color: 'grey.500',
+              '&:hover': { backgroundColor: 'rgba(0,0,0,0.04)' },
             }}
           >
             <CloseIcon />
@@ -62,12 +62,12 @@ const GlossaryModal = ({ open, onClose }: GlossaryModalProps) => {
         </Box>
 
         {/* Glossary Terms */}
-        <Box sx={{ maxHeight: "calc(90vh - 120px)", overflow: "auto" }}>
+        <Box sx={{ maxHeight: 'calc(90vh - 120px)', overflow: 'auto' }}>
           {entries.map((term, index) => (
             <Box key={term.key} sx={{ mb: 3 }}>
               <Typography
-                variant="h3"
-                component="h3"
+                variant='h3'
+                component='h3'
                 sx={(theme) => ({
                   fontWeight: theme.typography.fontWeightMedium,
                   mb: 1.5,
@@ -82,7 +82,7 @@ const GlossaryModal = ({ open, onClose }: GlossaryModalProps) => {
                   fontSize: 16,
                   lineHeight: 1.5,
 
-                  textAlign: "justify",
+                  textAlign: 'justify',
                 }}
               >
                 {term.description}

@@ -1,5 +1,5 @@
-import { TreeNode } from "react-dropdown-tree-select";
-import { NACEIndustry, NACELevel } from "../graphql/graphQLTypes";
+import { TreeNode } from 'react-dropdown-tree-select';
+import { NACEIndustry, NACELevel } from '../graphql/graphQLTypes';
 
 const transformNaceData = (rawNaceData: NACEIndustry[]): TreeNode[] => {
   const transformedData: TreeNode[] = [];
@@ -9,19 +9,19 @@ const transformNaceData = (rawNaceData: NACEIndustry[]): TreeNode[] => {
         transformedData.push({
           label: rawDatum.name,
           value: rawDatum.naceId,
-          className: "no-select-parent",
+          className: 'no-select-parent',
           disabled: true,
           children: [],
         });
       } else if (rawDatum.level === NACELevel.division) {
         const parentIndex = transformedData.findIndex(
-          ({ value }) => value === rawDatum.parentId + "",
+          ({ value }) => value === rawDatum.parentId + '',
         );
         if (parentIndex !== -1) {
           transformedData[parentIndex].children.push({
             label: rawDatum.name,
             value: rawDatum.naceId,
-            className: "no-select-parent",
+            className: 'no-select-parent',
             disabled: true,
             children: [],
           });
@@ -32,7 +32,7 @@ const transformNaceData = (rawNaceData: NACEIndustry[]): TreeNode[] => {
           const { children } = item;
           const parentIndex = children.findIndex(
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            ({ value }: { value: any }) => value === rawDatum.parentId + "",
+            ({ value }: { value: any }) => value === rawDatum.parentId + '',
           );
           if (parentIndex !== -1) {
             children[parentIndex].children.push({

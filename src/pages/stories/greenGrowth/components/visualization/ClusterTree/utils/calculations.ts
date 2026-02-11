@@ -2,7 +2,7 @@
 import {
   calculateClusterScores as sharedCalculateClusterScores,
   calculateAttractiveness,
-} from "../../../../utils/rankings";
+} from '../../../../utils/rankings';
 
 // Re-export the shared function with wrapper for backward compatibility
 export const calculateClusterScores = (clusterData: any[]) => {

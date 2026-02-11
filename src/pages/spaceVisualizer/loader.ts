@@ -1,4 +1,4 @@
-import * as d3 from "d3";
+import * as d3 from 'd3';
 
 // Updated interfaces for default dataset
 export interface Node {
@@ -31,7 +31,7 @@ export interface MetaData {
 // New interfaces for cluster boundaries
 export interface ClusterBoundary {
   center: [number, number];
-  polygon: Array<[number, number]>;
+  polygon: [number, number][];
   color: string;
   clusterId: string;
   clusterCode: number;
@@ -48,44 +48,44 @@ export interface ClusterData {
 // Predefined metadata for default dataset
 const defaultMetadata = [
   {
-    cluster_name: "Agriculture",
-    cluster_name_short: "Agricultural Goods",
-    cluster_col: "#EAC218",
+    cluster_name: 'Agriculture',
+    cluster_name_short: 'Agricultural Goods',
+    cluster_col: '#EAC218',
   },
   {
-    cluster_name: "Construction, Building, and Home Supplies",
-    cluster_name_short: "Construction Goods",
-    cluster_col: "#D1852A",
+    cluster_name: 'Construction, Building, and Home Supplies',
+    cluster_name_short: 'Construction Goods',
+    cluster_col: '#D1852A',
   },
   {
-    cluster_name: "Electronic and Electrical Goods",
-    cluster_name_short: "Electronics",
-    cluster_col: "#52E2DE",
+    cluster_name: 'Electronic and Electrical Goods',
+    cluster_name_short: 'Electronics',
+    cluster_col: '#52E2DE',
   },
   {
-    cluster_name: "Industrial Chemicals and Metals",
-    cluster_name_short: "Chemicals and Basic Metals",
-    cluster_col: "#A42DE2",
+    cluster_name: 'Industrial Chemicals and Metals',
+    cluster_name_short: 'Chemicals and Basic Metals',
+    cluster_col: '#A42DE2',
   },
   {
-    cluster_name: "Metalworking and Electrical Machinery and Parts",
-    cluster_name_short: "Metalworking and Machinery",
-    cluster_col: "#C64646",
+    cluster_name: 'Metalworking and Electrical Machinery and Parts',
+    cluster_name_short: 'Metalworking and Machinery',
+    cluster_col: '#C64646',
   },
   {
-    cluster_name: "Minerals",
-    cluster_name_short: "Minerals",
-    cluster_col: "#7C6760",
+    cluster_name: 'Minerals',
+    cluster_name_short: 'Minerals',
+    cluster_col: '#7C6760',
   },
   {
-    cluster_name: "Textile and Home Goods",
-    cluster_name_short: "Textile and Home Goods",
-    cluster_col: "#757777",
+    cluster_name: 'Textile and Home Goods',
+    cluster_name_short: 'Textile and Home Goods',
+    cluster_col: '#757777',
   },
   {
-    cluster_name: "Textile Apparel and Accessories",
-    cluster_name_short: "Apparel",
-    cluster_col: "#36B250",
+    cluster_name: 'Textile Apparel and Accessories',
+    cluster_name_short: 'Apparel',
+    cluster_col: '#36B250',
   },
 ];
 
@@ -101,19 +101,19 @@ export interface LoaderData {
 const datasetSources = {
   // Use static files for the default Product Space dataset
   product: {
-    nodes: "/static/product_space_nodes.csv",
-    links: "/static/product_space_links.csv",
-    metadata: "/static/product_space_metadata.csv",
+    nodes: '/static/product_space_nodes.csv',
+    links: '/static/product_space_links.csv',
+    metadata: '/static/product_space_metadata.csv',
   },
   industry: {
-    nodes: "https://dataverse.harvard.edu/api/access/datafile/11037601",
-    links: "https://dataverse.harvard.edu/api/access/datafile/11037602",
-    metadata: "https://dataverse.harvard.edu/api/access/datafile/11064008",
+    nodes: 'https://dataverse.harvard.edu/api/access/datafile/11037601',
+    links: 'https://dataverse.harvard.edu/api/access/datafile/11037602',
+    metadata: 'https://dataverse.harvard.edu/api/access/datafile/11064008',
   },
   technology: {
-    nodes: "https://dataverse.harvard.edu/api/access/datafile/11037601",
-    links: "https://dataverse.harvard.edu/api/access/datafile/11037602",
-    metadata: "https://dataverse.harvard.edu/api/access/datafile/11064008",
+    nodes: 'https://dataverse.harvard.edu/api/access/datafile/11037601',
+    links: 'https://dataverse.harvard.edu/api/access/datafile/11037602',
+    metadata: 'https://dataverse.harvard.edu/api/access/datafile/11064008',
   },
 };
 
@@ -126,25 +126,25 @@ export async function loader({
 }): Promise<LoaderData> {
   try {
     const url = new URL(request.url);
-    const datasetKey = url.searchParams.get("dataset") as DatasetKey;
-    const isCustom = url.searchParams.get("custom") === "true";
-    const isRemote = url.searchParams.get("remote") === "true";
+    const datasetKey = url.searchParams.get('dataset') as DatasetKey;
+    const isCustom = url.searchParams.get('custom') === 'true';
+    const isRemote = url.searchParams.get('remote') === 'true';
 
     if (!datasetKey && !isCustom && !isRemote) {
-      throw new Error("No dataset specified");
+      throw new Error('No dataset specified');
     }
 
     let clusters: ClusterData | undefined;
 
     if (isRemote) {
-      const nodesUrl = url.searchParams.get("nodesUrl");
-      const linksUrl = url.searchParams.get("linksUrl");
+      const nodesUrl = url.searchParams.get('nodesUrl');
+      const linksUrl = url.searchParams.get('linksUrl');
       const metaUrl =
-        url.searchParams.get("metaUrl") || url.searchParams.get("metadataUrl");
-      const clustersUrl = url.searchParams.get("clustersUrl");
+        url.searchParams.get('metaUrl') || url.searchParams.get('metadataUrl');
+      const clustersUrl = url.searchParams.get('clustersUrl');
 
       if (!nodesUrl || !linksUrl) {
-        throw new Error("Nodes and links URLs are required");
+        throw new Error('Nodes and links URLs are required');
       }
 
       const [nodesResponse, linksResponse, metadataResponse, clustersResponse] =
@@ -163,7 +163,7 @@ export async function loader({
         (metaUrl && !metadataResponse?.ok) ||
         (clustersUrl && !clustersResponse?.ok)
       ) {
-        throw new Error("Failed to fetch remote dataset files");
+        throw new Error('Failed to fetch remote dataset files');
       }
 
       const [nodesText, linksText, metadataText, clustersText] =
@@ -185,9 +185,9 @@ export async function loader({
       if (metadataText) {
         try {
           metadata = d3.csvParse(metadataText) as MetaData[];
-          console.log("Loaded remote metadata:", metadata);
+          console.log('Loaded remote metadata:', metadata);
         } catch (error) {
-          console.error("Failed to parse remote metadata:", error);
+          console.error('Failed to parse remote metadata:', error);
           // Continue with empty metadata rather than failing
         }
       }
@@ -196,9 +196,9 @@ export async function loader({
       if (clustersText) {
         try {
           clusters = JSON.parse(clustersText).clusters as ClusterData;
-          console.log("Loaded remote clusters:", clusters);
+          console.log('Loaded remote clusters:', clusters);
         } catch (error) {
-          console.error("Failed to parse remote clusters:", error);
+          console.error('Failed to parse remote clusters:', error);
           // Continue without clusters rather than failing
         }
       }
@@ -208,12 +208,12 @@ export async function loader({
 
     if (isCustom) {
       // Get the uploaded files from localStorage
-      const nodesText = localStorage.getItem("custom_nodes");
-      const linksText = localStorage.getItem("custom_links");
-      const metadataText = localStorage.getItem("custom_meta");
+      const nodesText = localStorage.getItem('custom_nodes');
+      const linksText = localStorage.getItem('custom_links');
+      const metadataText = localStorage.getItem('custom_meta');
 
       if (!nodesText || !linksText) {
-        throw new Error("Nodes and links files are required");
+        throw new Error('Nodes and links files are required');
       }
 
       const nodes = d3.csvParse(nodesText) as any[];
@@ -227,9 +227,9 @@ export async function loader({
       if (metadataText) {
         try {
           metadata = d3.csvParse(metadataText) as MetaData[];
-          console.log("Loaded custom metadata:", metadata);
+          console.log('Loaded custom metadata:', metadata);
         } catch (error) {
-          console.error("Failed to parse metadata:", error);
+          console.error('Failed to parse metadata:', error);
           // Continue with empty metadata rather than failing
         }
       }
@@ -250,7 +250,7 @@ export async function loader({
     ]);
 
     if (!nodesResponse.ok || !linksResponse.ok || !metadataResponse.ok) {
-      throw new Error("Failed to fetch dataset files");
+      throw new Error('Failed to fetch dataset files');
     }
 
     const [nodesText, linksText, metadataText] = await Promise.all([
@@ -312,19 +312,19 @@ export async function loader({
     }
 
     // Load default cluster boundaries for industry space
-    if (datasetKey === "industry") {
+    if (datasetKey === 'industry') {
       try {
         // For now, we'll load from a static JSON file. In production, this could be a URL.
         const clustersResponse = await fetch(
-          "/static/industry_space_clusters.json",
+          '/static/industry_space_clusters.json',
         );
         if (clustersResponse.ok) {
           const clustersData = await clustersResponse.json();
           clusters = clustersData.clusters as ClusterData;
-          console.log("Loaded default industry clusters:", clusters);
+          console.log('Loaded default industry clusters:', clusters);
         }
       } catch (error) {
-        console.warn("Could not load default cluster boundaries:", error);
+        console.warn('Could not load default cluster boundaries:', error);
         // Continue without clusters
       }
     }
@@ -338,8 +338,8 @@ export async function loader({
       categoryMetaMap,
     };
   } catch (err: unknown) {
-    const error = err instanceof Error ? err.message : "Unknown error occurred";
-    console.error("Error loading data:", error);
-    throw new Response("Failed to load visualization data", { status: 500 });
+    const error = err instanceof Error ? err.message : 'Unknown error occurred';
+    console.error('Error loading data:', error);
+    throw new Response('Failed to load visualization data', { status: 500 });
   }
 }

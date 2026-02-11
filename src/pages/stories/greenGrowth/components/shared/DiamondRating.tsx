@@ -1,11 +1,11 @@
-import React from "react";
-import { Box, useMediaQuery, useTheme } from "@mui/material";
+import React from 'react';
+import { Box, useMediaQuery, useTheme } from '@mui/material';
 
 export const computeDiamondRatings = (
-  values: Array<number | null | undefined>,
+  values: (number | null | undefined)[],
 ) => {
   const valid = values
-    .filter((v) => typeof v === "number" && !Number.isNaN(Number(v)))
+    .filter((v) => typeof v === 'number' && !Number.isNaN(Number(v)))
     .map((v) => Number(v as number))
     .sort((a, b) => a - b);
   if (valid.length === 0) {
@@ -36,31 +36,31 @@ export const computeDiamondRatings = (
 
 export const DiamondRow: React.FC<{
   count: number;
-  size?: "small" | "medium";
+  size?: 'small' | 'medium';
 }> = ({ count, size }) => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const total = 5;
-  const pixelSize = size === "small" ? 10 : isMobile ? 10 : 12;
-  const gap = size === "small" ? 6 : isMobile ? 6 : 8;
+  const pixelSize = size === 'small' ? 10 : isMobile ? 10 : 12;
+  const gap = size === 'small' ? 6 : isMobile ? 6 : 8;
   return (
-    <Box sx={{ display: "flex", alignItems: "center", gap: `${gap}px` }}>
+    <Box sx={{ display: 'flex', alignItems: 'center', gap: `${gap}px` }}>
       {Array.from({ length: total }).map((_, idx) => {
         const filled = idx < count;
         // eslint-disable-next-line react/no-array-index-key
         return (
           <Box
             key={idx}
-            component="span"
+            component='span'
             sx={{
               width: `${pixelSize}px`,
               height: `${pixelSize}px`,
-              transform: "rotate(45deg)",
-              borderRadius: "2px",
+              transform: 'rotate(45deg)',
+              borderRadius: '2px',
               border: `2px solid ${theme.palette.grey[500]}`,
-              backgroundColor: filled ? theme.palette.grey[600] : "transparent",
-              boxSizing: "border-box",
-              display: "inline-block",
+              backgroundColor: filled ? theme.palette.grey[600] : 'transparent',
+              boxSizing: 'border-box',
+              display: 'inline-block',
             }}
           />
         );

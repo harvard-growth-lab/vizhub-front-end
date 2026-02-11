@@ -1,6 +1,6 @@
-import React from "react";
-import styled from "styled-components";
-import { secondaryFont } from "../../styling/styleUtils";
+import React from 'react';
+import styled from 'styled-components';
+import { secondaryFont } from '../../styling/styleUtils';
 
 const Root = styled.ul`
   position: sticky;
@@ -30,7 +30,7 @@ const ListButton = styled.button<{
   border: none;
   text-transform: uppercase;
   margin-bottom: 1rem;
-  ${({ $wrap }) => ($wrap ? "max-width: min-content;" : "")}
+  ${({ $wrap }) => ($wrap ? 'max-width: min-content;' : '')}
 
   &:hover {
     span {
@@ -78,7 +78,7 @@ const HubStickyNav = (props: Props) => {
         {label}
         <Underline
           style={{
-            width: isActive ? "100%" : undefined,
+            width: isActive ? '100%' : undefined,
             background: primaryColor,
           }}
         />

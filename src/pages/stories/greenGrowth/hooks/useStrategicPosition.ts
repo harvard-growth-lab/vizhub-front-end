@@ -1,10 +1,10 @@
-import { useMemo } from "react";
-import { useGreenGrowthData } from "./useGreenGrowthData";
+import { useMemo } from 'react';
+import { useGreenGrowthData } from './useGreenGrowthData';
 import {
   STRATEGIC_POSITION_DESCRIPTIONS,
   QuadrantType,
   mapPolicyRecommendationToPosition,
-} from "../utils/strategicPositionConstants";
+} from '../utils/strategicPositionConstants';
 
 export interface StrategicPosition {
   quadrant: QuadrantType | null;
@@ -35,9 +35,9 @@ export const useStrategicPosition = (
     if (isLoading || !countryId || !allCountriesMetrics.length) {
       return {
         quadrant: null,
-        label: "Loading...",
-        color: "#ccc",
-        description: "Determining strategic position...",
+        label: 'Loading...',
+        color: '#ccc',
+        description: 'Determining strategic position...',
       };
     }
 
@@ -49,9 +49,9 @@ export const useStrategicPosition = (
     if (!selectedCountryData) {
       return {
         quadrant: null,
-        label: "No Data Available",
-        color: "#ccc",
-        description: "Strategic position data not available for this country",
+        label: 'No Data Available',
+        color: '#ccc',
+        description: 'Strategic position data not available for this country',
       };
     }
 

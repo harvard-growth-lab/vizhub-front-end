@@ -4,24 +4,24 @@ const getShareWindowParams = (width: number, height: number) =>
 const getShareFunctions = (url: string) => {
   return {
     shareFacebook: () => {
-      const baseURL = "https://www.facebook.com/sharer.php";
+      const baseURL = 'https://www.facebook.com/sharer.php';
       const shareURL = `${baseURL}?u=${encodeURIComponent(url)}`;
-      window.open(shareURL, "", getShareWindowParams(360, 600));
+      window.open(shareURL, '', getShareWindowParams(360, 600));
     },
 
     shareTwitter: (text: string) => {
-      const baseURL = "https://x.com/intent/tweet";
+      const baseURL = 'https://x.com/intent/tweet';
       const shareURL = `${baseURL}?
 url=${encodeURIComponent(url)}&
 text=${encodeURIComponent(text)}&
 via=HarvardGrwthLab`;
-      window.open(shareURL, "", getShareWindowParams(420, 550));
+      window.open(shareURL, '', getShareWindowParams(420, 550));
     },
 
     shareLinkedIn: (title: string, summary: string) => {
       // Reference:
       // https://developer.linkedin.com/docs/share-on-linkedin (under "customized URL")
-      const baseURL = "https://www.linkedin.com/shareArticle";
+      const baseURL = 'https://www.linkedin.com/shareArticle';
       // const source = 'https://atlas.hks.harvard.edu/';
       const source = encodeURIComponent(url);
       const shareURL = `${baseURL}
@@ -30,7 +30,7 @@ url=${encodeURIComponent(url)}&
 title=${encodeURIComponent(title)}&
 summary=${encodeURIComponent(summary)}&
 source=${encodeURIComponent(source)}`;
-      window.open(shareURL, "", getShareWindowParams(570, 520));
+      window.open(shareURL, '', getShareWindowParams(570, 520));
     },
 
     shareEmail: (

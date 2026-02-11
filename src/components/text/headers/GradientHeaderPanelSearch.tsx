@@ -1,10 +1,10 @@
-import React from "react";
-import { StandardH1, secondaryFont, Label } from "../../../styling/styleUtils";
-import { FullWidthHeader, FullWidthHeaderContent } from "../../../styling/Grid";
-import styled from "styled-components";
-import PanelSearch, { Datum } from "react-panel-search";
-import { triggerGoogleAnalyticsEvent } from "../../../routing/tracking";
-import DefaultHubHeader from "../../navigation/DefaultHubHeader";
+import React from 'react';
+import { StandardH1, secondaryFont, Label } from '../../../styling/styleUtils';
+import { FullWidthHeader, FullWidthHeaderContent } from '../../../styling/Grid';
+import styled from 'styled-components';
+import PanelSearch, { Datum } from 'react-panel-search';
+import { triggerGoogleAnalyticsEvent } from '../../../routing/tracking';
+import DefaultHubHeader from '../../navigation/DefaultHubHeader';
 
 const Root = styled(FullWidthHeader)`
   grid-template-rows: auto auto;
@@ -50,8 +50,8 @@ interface ImageProps {
 }
 
 const Logo = styled.img<ImageProps>`
-  width: ${({ imgWidth }) => (imgWidth ? imgWidth : "100%")};
-  height: ${({ imgHeight }) => (imgHeight ? imgHeight : "auto")};
+  width: ${({ imgWidth }) => (imgWidth ? imgWidth : '100%')};
+  height: ${({ imgHeight }) => (imgHeight ? imgHeight : 'auto')};
 
   @media (max-width: ${mediumMediaWidth}px) {
     max-width: 100%;
@@ -142,8 +142,8 @@ interface LinkDatum {
 }
 
 export enum IntroTextPosition {
-  Top = "Top",
-  Bottom = "Bottom",
+  Top = 'Top',
+  Bottom = 'Bottom',
 }
 
 interface BaseProps {
@@ -187,7 +187,7 @@ const HeaderWithSearch = (props: Props) => {
     introTextPosition,
   } = props;
 
-  const gaEventCategory = "HEADER: " + title;
+  const gaEventCategory = 'HEADER: ' + title;
 
   const linkElms =
     links && links.length
@@ -196,10 +196,10 @@ const HeaderWithSearch = (props: Props) => {
             primaryColor={linkColor}
             secondaryColor={linkColor === textColor ? primaryColor : textColor}
             onClick={() =>
-              triggerGoogleAnalyticsEvent(gaEventCategory, "click-link", label)
+              triggerGoogleAnalyticsEvent(gaEventCategory, 'click-link', label)
             }
             href={target}
-            target={!internal ? "_blank" : undefined}
+            target={!internal ? '_blank' : undefined}
             key={target + label}
           >
             {label}
@@ -219,7 +219,7 @@ const HeaderWithSearch = (props: Props) => {
           <SearchLabel>{props.searchLabelText}</SearchLabel>
           <PanelSearch
             data={props.data}
-            topLevelTitle={"Classifications"}
+            topLevelTitle={'Classifications'}
             disallowSelectionLevels={[1]}
             onSelect={props.onChange}
             selectedValue={props.selectedValue}
@@ -275,7 +275,7 @@ const HeaderWithSearch = (props: Props) => {
         <ContentGrid>
           {img}
           <TitleContainer
-            style={{ gridColumn: imageSrc ? undefined : "1 / 3" }}
+            style={{ gridColumn: imageSrc ? undefined : '1 / 3' }}
           >
             <Title style={{ color: textColor }}>{title}</Title>
             {buttons}

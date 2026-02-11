@@ -1,12 +1,12 @@
-import { sankey } from "d3-sankey";
-import { tree, hierarchy } from "d3-hierarchy";
+import { sankey } from 'd3-sankey';
+import { tree, hierarchy } from 'd3-hierarchy';
 import {
   TreeHierarchy,
   TreeNode,
   SankeyNodeExtra,
   NodePosition,
   LinkPosition,
-} from "./types";
+} from './types';
 
 // Function to apply sankey layout
 export function applySankeyLayout(
@@ -21,7 +21,7 @@ export function applySankeyLayout(
   // Do not impose a fixed order; let the sankey algorithm determine ordering
   const sankeyNodes = visibleNodes.map((node, index) => ({
     name: node.id,
-    type: node.type === "product" ? "manufacturing_cluster" : node.type,
+    type: node.type === 'product' ? 'manufacturing_cluster' : node.type,
     originalIndex: index, // Store original index for sorting
     nodeType: node.type, // Store the actual node type for sorting logic
   }));
@@ -150,7 +150,7 @@ export function convertToPositions(
 
         // Always use value chain color for value chain → cluster links, grey for everything else
         const linkColor =
-          sourceNode.type === "value_chain" ? sourceNode.color : "#808080";
+          sourceNode.type === 'value_chain' ? sourceNode.color : '#808080';
 
         return {
           id: link.id,
@@ -245,7 +245,7 @@ export function convertToPositions(
 
         // Always use value chain color for value chain → cluster links, grey for everything else
         const linkColor =
-          sourceNode.type === "value_chain" ? sourceNode.color : "#808080";
+          sourceNode.type === 'value_chain' ? sourceNode.color : '#808080';
 
         return {
           id: link.id,

@@ -1,26 +1,26 @@
-import React from "react";
-import { Typography, Box } from "@mui/material";
-import { lighten } from "@mui/material/styles";
-import { Bookmark as BookmarkIcon } from "@mui/icons-material";
+import React from 'react';
+import { Typography, Box } from '@mui/material';
+import { lighten } from '@mui/material/styles';
+import { Bookmark as BookmarkIcon } from '@mui/icons-material';
 
 // Utility function to replace country placeholder in text
 export const replaceCountryPlaceholder = (
   text: string,
-  countryName: string = "your country",
+  countryName: string = 'your country',
 ): string => {
   return text.replace(/\[country\]/gi, countryName);
 };
 
 // Policy approach descriptions for strategic position
 const POLICY_APPROACH_DESCRIPTIONS: { [key: string]: string } = {
-  "Strategic Bets Approach":
-    "Few nearby opportunities call for coordinated long jumps into strategic areas with future diversification potential.",
-  "Parsimonious Industrial Policy Approach":
-    "Limited opportunities requires addressing bottlenecks, to help jump short distances, into related products.",
-  "Light Touch Approach":
-    "Ample space to diversify calls for leveraging existing successes to enter more complex production.",
-  "Technological Frontier Approach":
-    "Having exploited virtually all, major existing products, gains come from developing new products.",
+  'Strategic Bets Approach':
+    'Few nearby opportunities call for coordinated long jumps into strategic areas with future diversification potential.',
+  'Parsimonious Industrial Policy Approach':
+    'Limited opportunities requires addressing bottlenecks, to help jump short distances, into related products.',
+  'Light Touch Approach':
+    'Ample space to diversify calls for leveraging existing successes to enter more complex production.',
+  'Technological Frontier Approach':
+    'Having exploited virtually all, major existing products, gains come from developing new products.',
 };
 
 // Type for strategic position - flexible to handle different implementations
@@ -37,7 +37,7 @@ const STRATEGIC_POSITION_TEMPLATE = {
 
   getPolicyDescription: (label: string) =>
     POLICY_APPROACH_DESCRIPTIONS[label] ||
-    "Strategic approach information is loading...",
+    'Strategic approach information is loading...',
 
   loading: (countryName: string) =>
     `Analyzing ${countryName}'s strategic position in green growth opportunities...`,
@@ -46,25 +46,25 @@ const STRATEGIC_POSITION_TEMPLATE = {
 // Component for rendering formatted text with proper styling
 interface FormattedTextProps {
   children: string;
-  variant?: "h6" | "body1";
+  variant?: 'h6' | 'body1';
   sx?: any;
 }
 
 export const FormattedText: React.FC<FormattedTextProps> = ({
   children,
-  variant = "body1",
+  variant = 'body1',
   sx = {},
 }) => {
   // Allow simple rich text: convert newlines to <br/> and preserve <b> tags
-  const html = (children || "").replace(/\n/g, "<br/>");
+  const html = (children || '').replace(/\n/g, '<br/>');
   return (
     <Typography
       variant={variant}
       sx={{
-        textAlign: "left",
-        fontSize: "1.125rem",
+        textAlign: 'left',
+        fontSize: '1.125rem',
         lineHeight: 1.4,
-        color: "#000000",
+        color: '#000000',
         ...sx,
       }}
       dangerouslySetInnerHTML={{ __html: html }}
@@ -88,24 +88,24 @@ const StrategicPositionBadge: React.FC<StrategicPositionBadgeProps> = ({
     <Box
       sx={{
         mb: 0.5,
-        display: "flex",
-        alignItems: "center",
+        display: 'flex',
+        alignItems: 'center',
         gap: 1,
       }}
     >
       <div
         style={{
           color: strategicPosition.color,
-          fontSize: "1.25rem",
+          fontSize: '1.25rem',
           fontWeight: 700,
-          display: "flex",
-          alignItems: "center",
-          gap: "8px",
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
           lineHeight: 1,
         }}
       >
         <BookmarkIcon
-          sx={{ fontSize: "20px", color: strategicPosition.color }}
+          sx={{ fontSize: '20px', color: strategicPosition.color }}
         />
         <span>{strategicPosition.label}</span>
       </div>
@@ -140,8 +140,8 @@ export const StrategicPositionContent: React.FC<
       <Box
         sx={{
           mt: 0.5,
-          backgroundColor: lighten(strategicPosition.color || "#2685BD", 0.85),
-          borderTop: `4px solid ${strategicPosition.color || "#2685BD"}`,
+          backgroundColor: lighten(strategicPosition.color || '#2685BD', 0.85),
+          borderTop: `4px solid ${strategicPosition.color || '#2685BD'}`,
           p: 2,
         }}
       >

@@ -1,12 +1,12 @@
-import React from "react";
-import Content from "./Content";
-import { useQuery } from "@apollo/client";
-import gql from "graphql-tag";
-import { Factors, Script, NACEIndustry } from "./graphql/graphQLTypes";
-import Loading from "../../components/general/Loading";
-import FullPageError from "../../components/general/FullPageError";
-import transformNaceData from "./transformers/transformNaceData";
-import transformScatterplotData from "./transformers/transformScatterplotData";
+import React from 'react';
+import Content from './Content';
+import { useQuery } from '@apollo/client';
+import gql from 'graphql-tag';
+import { Factors, Script, NACEIndustry } from './graphql/graphQLTypes';
+import Loading from '../../components/general/Loading';
+import FullPageError from '../../components/general/FullPageError';
+import transformNaceData from './transformers/transformNaceData';
+import transformScatterplotData from './transformers/transformScatterplotData';
 
 const GET_ALL_INDUSTRIES = gql`
   query GetAllIndustries {

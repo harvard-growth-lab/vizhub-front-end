@@ -1,12 +1,12 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect, useMemo } from "react";
-import { useQuery, useApolloClient, gql } from "@apollo/client";
-import styled from "styled-components";
-import orderBy from "lodash/orderBy";
-import { ParentSize } from "@visx/responsive";
-import { RANKING_COLORS, createDiscreteColorScale } from "../utils/colors";
-import { Box } from "@mui/material";
+import { useState, useEffect, useMemo } from 'react';
+import { useQuery, useApolloClient, gql } from '@apollo/client';
+import styled from 'styled-components';
+import orderBy from 'lodash/orderBy';
+import { ParentSize } from '@visx/responsive';
+import { RANKING_COLORS, createDiscreteColorScale } from '../utils/colors';
+import { Box } from '@mui/material';
 
 // GraphQL queries
 const GET_COUNTRIES = gql`
@@ -35,8 +35,8 @@ const AXIS_MARGIN = {
 // Use shared color scale from utils/colors.ts
 const COLORS = RANKING_COLORS;
 
-const STROKE_COLOR = "rgb(76, 76, 76)";
-const GRID_COLOR = "rgba(76, 76, 76, 0.3)";
+const STROKE_COLOR = 'rgb(76, 76, 76)';
+const GRID_COLOR = 'rgba(76, 76, 76, 0.3)';
 const FONT_FAMILY = '"Source Sans Pro", "Arial", sans-serif';
 
 // Styled components
@@ -104,10 +104,10 @@ interface CountryYearData {
 
 // Simple map of background colors to text colors for contrast
 const BACKGROUND_TO_TEXT_COLOR: Record<string, string> = {
-  "#1d8968": "#FFFFFF", // dark green -> white
-  "#7db89a": STROKE_COLOR, // light green -> dark
-  "#F9E9C4": STROKE_COLOR, // cream -> dark
-  "#F0A486": STROKE_COLOR, // light orange -> dark
+  '#1d8968': '#FFFFFF', // dark green -> white
+  '#7db89a': STROKE_COLOR, // light green -> dark
+  '#F9E9C4': STROKE_COLOR, // cream -> dark
+  '#F0A486': STROKE_COLOR, // light orange -> dark
 };
 
 // Country name formatting
@@ -165,9 +165,9 @@ const Datapoint = (props: DatapointProps) => {
     const stroke = hovered || highlighted || spotlighted ? STROKE_COLOR : fill;
     let strokeWidth: string;
     if (spotlightOn && !spotlighted && !hovered) {
-      strokeWidth = "0";
+      strokeWidth = '0';
     } else {
-      strokeWidth = hovered || highlighted || spotlighted ? "1" : "1.25";
+      strokeWidth = hovered || highlighted || spotlighted ? '1' : '1.25';
     }
     const textX = x + xMultiplier / 2;
     const metricYPos = xMultiplier > 42 ? textY + 6 : textY + 5;
@@ -195,11 +195,11 @@ const Datapoint = (props: DatapointProps) => {
         <text
           x={textX}
           y={metricYPos}
-          textAnchor="middle"
+          textAnchor='middle'
           style={{
             fill: textColor,
             fontSize: 10,
-            pointerEvents: "none",
+            pointerEvents: 'none',
             fontFamily: FONT_FAMILY,
           }}
         >
@@ -213,11 +213,11 @@ const Datapoint = (props: DatapointProps) => {
           <text
             x={textX}
             y={y - 4}
-            textAnchor="middle"
+            textAnchor='middle'
             style={{
               fill: textColor,
               fontSize: 12,
-              pointerEvents: "none",
+              pointerEvents: 'none',
               fontFamily: FONT_FAMILY,
             }}
           >
@@ -246,7 +246,7 @@ const Datapoint = (props: DatapointProps) => {
             x2={x2}
             y2={y2}
             stroke={STROKE_COLOR}
-            strokeWidth="1"
+            strokeWidth='1'
           />
         );
       }
@@ -277,7 +277,7 @@ const Datapoint = (props: DatapointProps) => {
           fill={fill}
           stroke={stroke}
           strokeWidth={strokeWidth}
-          style={{ cursor: "pointer" }}
+          style={{ cursor: 'pointer' }}
         />
         {text}
       </g>
@@ -295,9 +295,9 @@ const Datapoint = (props: DatapointProps) => {
       const x =
         xMultiplier * (LATEST_YEAR - minYear) + xMultiplier + leftBuffer + 4;
       let fontSize = hovered ? 16 : 13;
-      const nameParts = name.split(" ");
+      const nameParts = name.split(' ');
       const tspans = nameParts.map((part, i) => {
-        const text = i === 0 ? rank + ". " + part : part;
+        const text = i === 0 ? rank + '. ' + part : part;
         if (!hovered) {
           if (part.length > 13) {
             fontSize = 10;
@@ -344,8 +344,8 @@ const Datapoint = (props: DatapointProps) => {
           style={{
             fill: STROKE_COLOR,
             fontSize,
-            fontWeight: hovered ? "bold" : "normal",
-            pointerEvents: "none",
+            fontWeight: hovered ? 'bold' : 'normal',
+            pointerEvents: 'none',
             fontFamily: FONT_FAMILY,
           }}
         >
@@ -355,9 +355,9 @@ const Datapoint = (props: DatapointProps) => {
     }
   }
 
-  const hoveredClassName = hovered ? "hovered" : "";
-  const highlightedClassName = highlighted ? " highlighted" : "";
-  const spotlightedClassName = spotlightOn && spotlighted ? " spotlighted" : "";
+  const hoveredClassName = hovered ? 'hovered' : '';
+  const highlightedClassName = highlighted ? ' highlighted' : '';
+  const spotlightedClassName = spotlightOn && spotlighted ? ' spotlighted' : '';
 
   return (
     <g
@@ -396,7 +396,7 @@ const Axis = (props: AxisProps) => {
     width,
   } = props;
 
-  const yAxisLines: Array<React.ReactElement> = [];
+  const yAxisLines: React.ReactElement[] = [];
   const yAxisInterval = 10;
   const yAxisX1 = margins.left * 0.75;
   const yAxisX2 = margins.left;
@@ -413,7 +413,7 @@ const Axis = (props: AxisProps) => {
         <text
           x={yAxisX1 - 7}
           y={y + 3}
-          textAnchor="end"
+          textAnchor='end'
           style={{
             fill: STROKE_COLOR,
             fontSize: 13,
@@ -428,15 +428,15 @@ const Axis = (props: AxisProps) => {
           x2={endPoint}
           y2={y}
           stroke={GRID_COLOR}
-          strokeWidth="1"
-          strokeDasharray="5 3"
+          strokeWidth='1'
+          strokeDasharray='5 3'
         />
       </g>,
     );
     yAxisLineCount += yAxisInterval;
   }
 
-  const xAxisLines: Array<React.ReactElement> = [];
+  const xAxisLines: React.ReactElement[] = [];
   const xAxisInterval = 1;
   const xAxisY1 = 0;
   const xAxisY2 = margins.top;
@@ -449,7 +449,7 @@ const Axis = (props: AxisProps) => {
     let fontSize: number = 13;
     if (yearSpacing < 25) {
       fontSize = 10;
-      value = value.toString().replace("20", "'");
+      value = value.toString().replace('20', "'");
     } else if (yearSpacing < 30) {
       fontSize = 11;
     } else if (yearSpacing < 35) {
@@ -465,8 +465,8 @@ const Axis = (props: AxisProps) => {
             x2={x + yearSpacing}
             y2={xAxisY3}
             stroke={GRID_COLOR}
-            strokeWidth="1"
-            strokeDasharray="5 3"
+            strokeWidth='1'
+            strokeDasharray='5 3'
           />
           <line
             x1={x + yearSpacing}
@@ -474,8 +474,8 @@ const Axis = (props: AxisProps) => {
             x2={x + yearSpacing}
             y2={xAxisY4}
             stroke={GRID_COLOR}
-            strokeWidth="1"
-            strokeDasharray="5 3"
+            strokeWidth='1'
+            strokeDasharray='5 3'
           />
         </>
       ) : null;
@@ -484,7 +484,7 @@ const Axis = (props: AxisProps) => {
         <text
           x={x + yearSpacing / 2}
           y={xAxisY2 * 0.3}
-          textAnchor="middle"
+          textAnchor='middle'
           style={{
             fill: STROKE_COLOR,
             fontSize,
@@ -499,8 +499,8 @@ const Axis = (props: AxisProps) => {
           x2={x}
           y2={xAxisY2}
           stroke={GRID_COLOR}
-          strokeWidth="1"
-          strokeDasharray="5 3"
+          strokeWidth='1'
+          strokeDasharray='5 3'
         />
         <line
           x1={x}
@@ -508,9 +508,9 @@ const Axis = (props: AxisProps) => {
           x2={x}
           y2={xAxisY3 - buttomBuffer}
           stroke={GRID_COLOR}
-          strokeWidth="1"
-          strokeDasharray="5 3"
-          className="svg-grid-line"
+          strokeWidth='1'
+          strokeDasharray='5 3'
+          className='svg-grid-line'
         />
         <line
           x1={x}
@@ -518,13 +518,13 @@ const Axis = (props: AxisProps) => {
           x2={x}
           y2={xAxisY4}
           stroke={GRID_COLOR}
-          strokeWidth="1"
-          strokeDasharray="5 3"
+          strokeWidth='1'
+          strokeDasharray='5 3'
         />
         <text
           x={x + yearSpacing / 2}
           y={xAxisY4}
-          textAnchor="middle"
+          textAnchor='middle'
           style={{
             fill: STROKE_COLOR,
             fontSize,
@@ -540,7 +540,7 @@ const Axis = (props: AxisProps) => {
   }
 
   return (
-    <g style={{ pointerEvents: "none" }}>
+    <g style={{ pointerEvents: 'none' }}>
       {yAxisLines}
       {xAxisLines}
       <ColorLegend height={height} margins={margins} />
@@ -591,8 +591,8 @@ const ColorLegend = (props: ColorLegendProps) => {
   const arrowDownBottom = arrowInitialTop + arrowSpacing * 5;
 
   const textLeft = arrowLeft;
-  const textUpTranslate = "translate(-306, -254)";
-  const textDownTranslate = "translate(-440, -521)";
+  const textUpTranslate = 'translate(-306, -254)';
+  const textDownTranslate = 'translate(-440, -521)';
 
   return (
     <>
@@ -603,18 +603,18 @@ const ColorLegend = (props: ColorLegendProps) => {
         x2={arrowLeft}
         y2={arrowUpTop}
         stroke={STROKE_COLOR}
-        strokeWidth="2"
-        markerEnd="url(#arrowhead)"
+        strokeWidth='2'
+        markerEnd='url(#arrowhead)'
       />
       <text
         x={textLeft}
         y={arrowUpBottom}
-        textAnchor="start"
+        textAnchor='start'
         transform={`rotate(-90 0 0) ${textUpTranslate}`}
         style={{
           fill: STROKE_COLOR,
           fontSize: 16,
-          textTransform: "uppercase",
+          textTransform: 'uppercase',
           fontFamily: FONT_FAMILY,
         }}
       >
@@ -631,18 +631,18 @@ const ColorLegend = (props: ColorLegendProps) => {
         x2={arrowLeft}
         y2={arrowDownTop}
         stroke={STROKE_COLOR}
-        strokeWidth="2"
-        markerEnd="url(#arrowhead)"
+        strokeWidth='2'
+        markerEnd='url(#arrowhead)'
       />
       <text
         x={textLeft}
         y={arrowDownTop}
-        textAnchor="end"
+        textAnchor='end'
         transform={`rotate(-90 0 0) ${textDownTranslate}`}
         style={{
           fill: STROKE_COLOR,
           fontSize: 16,
-          textTransform: "uppercase",
+          textTransform: 'uppercase',
           fontFamily: FONT_FAMILY,
         }}
       >
@@ -658,17 +658,17 @@ const ColorLegend = (props: ColorLegendProps) => {
 };
 
 // Preselected countries that show when no country is selected
-const PRESELECTED_COUNTRIES = ["CHN", "IND", "IDN", "MAR", "BOL"]; // China, India, Indonesia, Morocco, Bolivia
+const PRESELECTED_COUNTRIES = ['CHN', 'IND', 'IDN', 'MAR', 'BOL']; // China, India, Indonesia, Morocco, Bolivia
 
 // Main component props
 interface GreenEciBumpChartProps {
   selectedIso3?: string;
   setSelectedIso3?: (iso3: string) => void;
-  countryOptions?: Array<{ label: string; iso3: string }>;
+  countryOptions?: { label: string; iso3: string }[];
 }
 
 const GreenEciBumpChart: React.FC<GreenEciBumpChartProps> = ({
-  selectedIso3 = "",
+  selectedIso3 = '',
 }) => {
   // const [selectedCountries] = useState<number[]>([]); // Reserved for future filtering
   const [countriesData, setCountriesData] = useState<CountryYearData[]>([]);
@@ -756,7 +756,7 @@ const GreenEciBumpChart: React.FC<GreenEciBumpChartProps> = ({
           if (!country) return;
 
           // Sort by year descending (most recent first, like in overtimeViz)
-          const sortedYears = orderBy(years, ["year"], ["desc"]);
+          const sortedYears = orderBy(years, ['year'], ['desc']);
 
           allCountriesData.push({
             country,
@@ -766,7 +766,7 @@ const GreenEciBumpChart: React.FC<GreenEciBumpChartProps> = ({
 
         setCountriesData(allCountriesData);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error('Error fetching data:', error);
       }
     };
 
@@ -904,21 +904,21 @@ const GreenEciBumpChart: React.FC<GreenEciBumpChartProps> = ({
         width={width}
         height={height}
         viewBox={`0 0 ${width} ${height}`}
-        style={{ backgroundColor: "#fff" }}
+        style={{ backgroundColor: '#fff' }}
       >
         <defs>
           <marker
-            id="arrowhead"
-            markerWidth="4"
-            markerHeight="4"
-            orient="auto"
-            refY="2"
+            id='arrowhead'
+            markerWidth='4'
+            markerHeight='4'
+            orient='auto'
+            refY='2'
           >
-            <path d="M0,0 L4,2 0,4" fill={STROKE_COLOR} stroke="none" />
+            <path d='M0,0 L4,2 0,4' fill={STROKE_COLOR} stroke='none' />
           </marker>
         </defs>
         <CountriesGroup
-          className={spotlightOn ? "spotlight-on" : undefined}
+          className={spotlightOn ? 'spotlight-on' : undefined}
           onMouseEnter={() => setIsHovering(true)}
           onMouseLeave={() => setIsHovering(false)}
         >
@@ -940,15 +940,15 @@ const GreenEciBumpChart: React.FC<GreenEciBumpChartProps> = ({
 
   if (countriesLoading) {
     return (
-      <div style={{ textAlign: "center", padding: "40px" }}>
+      <div style={{ textAlign: 'center', padding: '40px' }}>
         Loading countries...
       </div>
     );
   }
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-      <div style={{ width: "100%", height: CHART_HEIGHT }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+      <div style={{ width: '100%', height: CHART_HEIGHT }}>
         <ParentSize>
           {({ width, height }) => renderChart(width, height)}
         </ParentSize>

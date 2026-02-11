@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useEffect } from "react";
+import React, { useMemo, useRef, useEffect } from 'react';
 import {
   Box,
   Dialog,
@@ -15,30 +15,30 @@ import {
   TableBody,
   Paper,
   Tooltip,
-} from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
-import { useSelectionDataModal } from "../hooks/useSelectionDataModal";
-import { useGreenGrowthData } from "../hooks/useGreenGrowthData";
-import { useCountrySelection, useYearSelection } from "../hooks/useUrlParams";
-import { useProductLookup } from "../queries/products";
-import { columnTooltips } from "./shared/columnTooltips";
-import { computeDiamondRatings, DiamondRow } from "./shared/DiamondRating";
-import GGTooltip from "./shared/GGTooltip";
-import AtlasIcon from "../../../../assets/GL_Atlas_favicon.png";
+} from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+import { useSelectionDataModal } from '../hooks/useSelectionDataModal';
+import { useGreenGrowthData } from '../hooks/useGreenGrowthData';
+import { useCountrySelection, useYearSelection } from '../hooks/useUrlParams';
+import { useProductLookup } from '../queries/products';
+import { columnTooltips } from './shared/columnTooltips';
+import { computeDiamondRatings, DiamondRow } from './shared/DiamondRating';
+import GGTooltip from './shared/GGTooltip';
+import AtlasIcon from '../../../../assets/GL_Atlas_favicon.png';
 
 const formatCurrency = (value?: number | null) => {
-  if (value == null || Number.isNaN(value)) return "N/A";
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    notation: value >= 1e6 ? "compact" : "standard",
+  if (value == null || Number.isNaN(value)) return 'N/A';
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    notation: value >= 1e6 ? 'compact' : 'standard',
     maximumFractionDigits: 0,
   }).format(value);
 };
 
 const SelectionDataModal: React.FC = () => {
   const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
+  const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
   const { state, closeSelectionModal } = useSelectionDataModal();
 
   const selectedCountry = useCountrySelection();
@@ -48,13 +48,13 @@ const SelectionDataModal: React.FC = () => {
   // Auto-scroll support for highlighted product rows
   const highlightedRowRef = useRef<HTMLTableRowElement | null>(null);
   useEffect(() => {
-    if (state.payload?.type === "product") {
+    if (state.payload?.type === 'product') {
       // Wait for table to render
       const t = setTimeout(() => {
         try {
           highlightedRowRef.current?.scrollIntoView({
-            behavior: "smooth",
-            block: "center",
+            behavior: 'smooth',
+            block: 'center',
           });
         } catch (_) {}
       }, 60);
@@ -67,17 +67,17 @@ const SelectionDataModal: React.FC = () => {
     useGreenGrowthData(selectedCountry, parseInt(selectedYear));
 
   const title = useMemo(() => {
-    if (!state.payload) return "Details";
+    if (!state.payload) return 'Details';
     if (state.payload.title) return state.payload.title;
     switch (state.payload.type) {
-      case "product":
-        return "Product Details";
-      case "cluster":
-        return "Industrial Cluster";
-      case "supplyChain":
-        return "Green Value Chain";
+      case 'product':
+        return 'Product Details';
+      case 'cluster':
+        return 'Industrial Cluster';
+      case 'supplyChain':
+        return 'Green Value Chain';
       default:
-        return "Details";
+        return 'Details';
     }
   }, [state.payload]);
 
@@ -111,50 +111,50 @@ const SelectionDataModal: React.FC = () => {
 
     // Consistent headers with main table
     const baseHeaders = [
-      { key: "productCode", label: "HS Code", width: 100 },
-      { key: "productName", label: "Product", width: 240 },
+      { key: 'productCode', label: 'HS Code', width: 100 },
+      { key: 'productName', label: 'Product', width: 240 },
       {
-        key: "exportRca",
-        label: "Export RCA",
+        key: 'exportRca',
+        label: 'Export RCA',
         width: 120,
-        tooltip: columnTooltips["Export RCA"],
+        tooltip: columnTooltips['Export RCA'],
       },
       {
-        key: "exportValue",
+        key: 'exportValue',
         label: `Product Export Value (USD, ${selectedYear})`,
         width: 150,
       },
     ];
     const ratingHeaders = [
       {
-        key: "normalizedCog",
-        label: "Opportunity Gain",
+        key: 'normalizedCog',
+        label: 'Opportunity Gain',
         width: 160,
-        tooltip: columnTooltips["Opportunity Gain"],
+        tooltip: columnTooltips['Opportunity Gain'],
       },
       {
-        key: "normalizedPci",
-        label: "Product Complexity",
+        key: 'normalizedPci',
+        label: 'Product Complexity',
         width: 160,
-        tooltip: columnTooltips["Product Complexity"],
+        tooltip: columnTooltips['Product Complexity'],
       },
       {
-        key: "density",
-        label: "Product Feasibility",
+        key: 'density',
+        label: 'Product Feasibility',
         width: 160,
-        tooltip: columnTooltips["Product Feasibility"],
+        tooltip: columnTooltips['Product Feasibility'],
       },
     ];
     const headers = [...baseHeaders, ...ratingHeaders];
 
     // Sticky header heights - using rem for better scaling
-    const mainHeaderHeight = fullScreen ? "3rem" : "3.5rem"; // 48px : 56px
-    const supplyChainHeaderHeight = fullScreen ? "2.5rem" : "3rem"; // 40px : 48px
-    const clusterHeaderHeight = fullScreen ? "2.25rem" : "2.5rem"; // 36px : 40px
+    const mainHeaderHeight = fullScreen ? '3rem' : '3.5rem'; // 48px : 56px
+    const supplyChainHeaderHeight = fullScreen ? '2.5rem' : '3rem'; // 40px : 48px
+    const clusterHeaderHeight = fullScreen ? '2.25rem' : '2.5rem'; // 36px : 40px
 
     const buildAtlasUrl = (productId: number | string | null | undefined) => {
-      const pid = String(productId ?? "").replace(/\D/g, "");
-      const countryId = String(selectedCountry || "");
+      const pid = String(productId ?? '').replace(/\D/g, '');
+      const countryId = String(selectedCountry || '');
       if (!pid || !countryId) return null;
       return `https://atlas.hks.harvard.edu/explore/treemap?exporter=country-${countryId}&view=markets&product=product-HS12-${pid}&productClass=HS12`;
     };
@@ -201,7 +201,7 @@ const SelectionDataModal: React.FC = () => {
       ) => {
         const p = productById.get(pid) || { productId: pid };
         const meta = productLookup.get(pid);
-        const productName = meta?.nameShortEn || p.nameShortEn || "N/A";
+        const productName = meta?.nameShortEn || p.nameShortEn || 'N/A';
         const productCode = meta?.code || p.code || pid;
         const isHighlighted = highlightId != null && pid === highlightId;
         const attachRef = isHighlighted && !firstHighlightAttached;
@@ -216,9 +216,9 @@ const SelectionDataModal: React.FC = () => {
             sx={
               isHighlighted
                 ? {
-                    backgroundColor: "rgba(38,133,189,0.12)",
-                    "& td": { fontWeight: 700 },
-                    borderLeft: "3px solid #2685BD",
+                    backgroundColor: 'rgba(38,133,189,0.12)',
+                    '& td': { fontWeight: 700 },
+                    borderLeft: '3px solid #2685BD',
                   }
                 : undefined
             }
@@ -231,35 +231,35 @@ const SelectionDataModal: React.FC = () => {
             <TableCell
               sx={{ pl: 6, fontWeight: isHighlighted ? 700 : undefined }}
             >
-              <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                 {atlasUrl && (
-                  <Tooltip title="View in Atlas" placement="top">
+                  <Tooltip title='View in Atlas' placement='top'>
                     <IconButton
-                      component="a"
+                      component='a'
                       href={atlasUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label="Open in Atlas treemap (markets view)"
-                      size="small"
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      aria-label='Open in Atlas treemap (markets view)'
+                      size='small'
                       sx={{
-                        width: "1.75rem", // 28px in rem
-                        height: "1.75rem", // 28px in rem
+                        width: '1.75rem', // 28px in rem
+                        height: '1.75rem', // 28px in rem
                         p: 0,
                         borderRadius: 1,
                         backgroundColor: (t) => t.palette.grey[200],
-                        "&:hover": {
+                        '&:hover': {
                           backgroundColor: (t) => t.palette.grey[300],
                         },
-                        display: "inline-flex",
-                        alignItems: "center",
-                        justifyContent: "center",
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
                       }}
                     >
                       <Box
-                        component="img"
+                        component='img'
                         src={AtlasIcon as any}
-                        alt="Atlas"
-                        sx={{ width: "1rem", height: "1rem", display: "block" }} // 16px in rem
+                        alt='Atlas'
+                        sx={{ width: '1rem', height: '1rem', display: 'block' }} // 16px in rem
                       />
                     </IconButton>
                   </Tooltip>
@@ -268,18 +268,18 @@ const SelectionDataModal: React.FC = () => {
               </Box>
             </TableCell>
             <TableCell>
-              {p.exportRca != null ? p.exportRca.toFixed?.(2) : "N/A"}
+              {p.exportRca != null ? p.exportRca.toFixed?.(2) : 'N/A'}
             </TableCell>
             <TableCell>{formatCurrency(Number(p.exportValue))}</TableCell>
             {/* Diamond ratings consistent with main table */}
             <TableCell>
-              <DiamondRow count={getCog(p?.normalizedCog)} size="small" />
+              <DiamondRow count={getCog(p?.normalizedCog)} size='small' />
             </TableCell>
             <TableCell>
-              <DiamondRow count={getPci(p?.normalizedPci)} size="small" />
+              <DiamondRow count={getPci(p?.normalizedPci)} size='small' />
             </TableCell>
             <TableCell>
-              <DiamondRow count={getDen(p?.density)} size="small" />
+              <DiamondRow count={getDen(p?.density)} size='small' />
             </TableCell>
           </TableRow>
         );
@@ -287,23 +287,23 @@ const SelectionDataModal: React.FC = () => {
 
       return (
         <Paper
-          variant="outlined"
+          variant='outlined'
           sx={{
-            width: "100%",
-            maxHeight: "60vh",
-            overflow: "auto",
-            position: "relative",
+            width: '100%',
+            maxHeight: '60vh',
+            overflow: 'auto',
+            position: 'relative',
           }}
         >
-          <Table size="small" stickyHeader>
+          <Table size='small' stickyHeader>
             <TableHead
               sx={{
-                position: "sticky",
+                position: 'sticky',
                 top: 0,
                 zIndex: 4,
-                backgroundColor: "white",
-                "& .MuiTableCell-root": {
-                  backgroundColor: "white",
+                backgroundColor: 'white',
+                '& .MuiTableCell-root': {
+                  backgroundColor: 'white',
                   borderBottom: (themeArg) =>
                     `2px solid ${themeArg.palette.grey[300]}`,
                   fontWeight: 700,
@@ -315,44 +315,44 @@ const SelectionDataModal: React.FC = () => {
                   <TableCell key={h.key} sx={{ minWidth: h.width }}>
                     {(() => {
                       const diamondKeys = new Set([
-                        "normalizedCog",
-                        "normalizedPci",
-                        "density",
+                        'normalizedCog',
+                        'normalizedPci',
+                        'density',
                       ]);
                       const buildDiamondLegend = (content: React.ReactNode) => (
                         <Box
                           sx={{
-                            display: "flex",
-                            flexDirection: "column",
+                            display: 'flex',
+                            flexDirection: 'column',
                             gap: 1,
                           }}
                         >
                           <Typography
                             sx={{
-                              fontSize: fullScreen ? "0.75rem" : "0.875rem",
+                              fontSize: fullScreen ? '0.75rem' : '0.875rem',
                             }}
                           >
                             {content}
                           </Typography>
                           <Box
                             sx={{
-                              display: "flex",
-                              alignItems: "center",
+                              display: 'flex',
+                              alignItems: 'center',
                               gap: 1,
                             }}
                           >
                             <DiamondRow count={5} />
-                            <Typography variant="caption">Strong</Typography>
+                            <Typography variant='caption'>Strong</Typography>
                           </Box>
                           <Box
                             sx={{
-                              display: "flex",
-                              alignItems: "center",
+                              display: 'flex',
+                              alignItems: 'center',
                               gap: 1,
                             }}
                           >
                             <DiamondRow count={0} />
-                            <Typography variant="caption">Weak</Typography>
+                            <Typography variant='caption'>Weak</Typography>
                           </Box>
                         </Box>
                       );
@@ -361,11 +361,11 @@ const SelectionDataModal: React.FC = () => {
                           ? buildDiamondLegend(h.tooltip as any)
                           : (h.tooltip as any);
                         return (
-                          <GGTooltip title={title} placement="top">
+                          <GGTooltip title={title} placement='top'>
                             <span
                               style={{
-                                cursor: "help",
-                                textDecoration: "underline",
+                                cursor: 'help',
+                                textDecoration: 'underline',
                               }}
                             >
                               {h.label}
@@ -385,12 +385,12 @@ const SelectionDataModal: React.FC = () => {
                   <TableRow
                     sx={{
                       backgroundColor: theme.palette.grey[100],
-                      position: "sticky",
+                      position: 'sticky',
                       top: mainHeaderHeight,
                       zIndex: 3,
                       height: supplyChainHeaderHeight,
-                      boxShadow: "inset 0 -1px 0 rgba(0,0,0,0.08)",
-                      "& .MuiTableCell-root": {
+                      boxShadow: 'inset 0 -1px 0 rgba(0,0,0,0.08)',
+                      '& .MuiTableCell-root': {
                         backgroundColor: theme.palette.grey[100],
                         borderBottom: `2px solid ${theme.palette.grey[300]}`,
                         fontWeight: 700,
@@ -406,12 +406,12 @@ const SelectionDataModal: React.FC = () => {
                       <TableRow
                         sx={{
                           backgroundColor: theme.palette.grey[50],
-                          position: "sticky",
+                          position: 'sticky',
                           top: mainHeaderHeight + supplyChainHeaderHeight,
                           zIndex: 2,
                           height: clusterHeaderHeight,
-                          boxShadow: "inset 0 -1px 0 rgba(0,0,0,0.06)",
-                          "& .MuiTableCell-root": {
+                          boxShadow: 'inset 0 -1px 0 rgba(0,0,0,0.06)',
+                          '& .MuiTableCell-root': {
                             backgroundColor: theme.palette.grey[50],
                             borderBottom: `1px solid ${theme.palette.grey[300]}`,
                             fontWeight: 600,
@@ -426,7 +426,7 @@ const SelectionDataModal: React.FC = () => {
                         renderProductRow(
                           pid,
                           i,
-                          state.payload?.type === "product"
+                          state.payload?.type === 'product'
                             ? (state.payload.productId as number)
                             : undefined,
                         ),
@@ -440,7 +440,7 @@ const SelectionDataModal: React.FC = () => {
         </Paper>
       );
     };
-    if (state.payload.type === "product" && state.payload.productId) {
+    if (state.payload.type === 'product' && state.payload.productId) {
       const pid = state.payload.productId as number;
       // Use full product->(cluster,value chain) mappings, not taxonomy rows which dedupe to one
       const mappingsForProduct = (productMappings || []).filter(
@@ -475,7 +475,7 @@ const SelectionDataModal: React.FC = () => {
                 return {
                   supply_chain:
                     supplyChainIdToName.get(Number(m.supplyChainId)) ||
-                    "Unknown",
+                    'Unknown',
                   cluster_name:
                     clusterIdToName.get(Number(m.clusterId)) ||
                     String(m.clusterId),
@@ -495,7 +495,7 @@ const SelectionDataModal: React.FC = () => {
               const country = productById.get(pid);
               return {
                 supply_chain:
-                  supplyChainIdToName.get(Number(m.supplyChainId)) || "Unknown",
+                  supplyChainIdToName.get(Number(m.supplyChainId)) || 'Unknown',
                 cluster_name:
                   clusterIdToName.get(Number(m.clusterId)) ||
                   String(m.clusterId),
@@ -513,7 +513,7 @@ const SelectionDataModal: React.FC = () => {
       return <Box>{renderNested(fullRows)}</Box>;
     }
 
-    if (state.payload.type === "cluster" && state.payload.clusterId != null) {
+    if (state.payload.type === 'cluster' && state.payload.clusterId != null) {
       const clusterId = state.payload.clusterId;
       const name = (() => {
         if (!clustersData?.gpClusterList) return String(clusterId);
@@ -544,7 +544,7 @@ const SelectionDataModal: React.FC = () => {
         : mappingsForCluster;
       const taxonomyRows = filteredMappingsForCluster.map((m: any) => ({
         supply_chain:
-          supplyChainIdToName.get(Number(m.supplyChainId)) || "Unknown",
+          supplyChainIdToName.get(Number(m.supplyChainId)) || 'Unknown',
         cluster_name: name,
         product_id: m.productId,
       }));
@@ -572,7 +572,7 @@ const SelectionDataModal: React.FC = () => {
     }
 
     if (
-      state.payload.type === "supplyChain" &&
+      state.payload.type === 'supplyChain' &&
       state.payload.supplyChainId != null
     ) {
       const chainId = Number(state.payload.supplyChainId);
@@ -583,7 +583,7 @@ const SelectionDataModal: React.FC = () => {
         (m: any) => Number(m.supplyChainId) === chainId,
       );
       const filtered = mappingsForChain.map((m: any) => ({
-        supply_chain: chainName || "",
+        supply_chain: chainName || '',
         cluster_name:
           clusterIdToName.get(Number(m.clusterId)) || String(m.clusterId),
         product_id: m.productId,
@@ -622,29 +622,29 @@ const SelectionDataModal: React.FC = () => {
       maxWidth={false}
       PaperProps={{
         sx: fullScreen
-          ? { width: "100%", maxWidth: "100%" }
+          ? { width: '100%', maxWidth: '100%' }
           : {
               // Responsive wide dialog that avoids unnecessary horizontal scroll
               width: {
-                xs: "100%",
-                sm: "95vw",
-                md: "92vw",
-                lg: "88vw",
-                xl: "min(1600px, 85vw)",
+                xs: '100%',
+                sm: '95vw',
+                md: '92vw',
+                lg: '88vw',
+                xl: 'min(1600px, 85vw)',
               },
-              maxWidth: "none",
+              maxWidth: 'none',
             },
       }}
     >
       <DialogTitle sx={{ pr: 6 }}>
         {title}
         <IconButton
-          aria-label="close"
+          aria-label='close'
           onClick={closeSelectionModal}
           sx={{
-            position: "absolute",
-            right: "0.5rem", // 8px in rem
-            top: "0.5rem", // 8px in rem
+            position: 'absolute',
+            right: '0.5rem', // 8px in rem
+            top: '0.5rem', // 8px in rem
           }}
         >
           <CloseIcon />

@@ -1,11 +1,11 @@
-import type React from "react";
-import { useMemo, useCallback, useRef, useEffect } from "react";
-import { Box, Tooltip, Typography } from "@mui/material";
+import type React from 'react';
+import { useMemo, useCallback, useRef, useEffect } from 'react';
+import { Box, Tooltip, Typography } from '@mui/material';
 import {
   calculateClusterScores,
   createOrderedRowLayout,
   getPotentialColor,
-} from "./utils";
+} from './utils';
 import {
   CLUSTER_RANKING_MAX_LABEL_CHARS,
   CLUSTER_RANKING_MAX_LABEL_CHARS_MOBILE,
@@ -14,7 +14,7 @@ import {
   CLUSTER_RANKING_AXIS_SPACE,
   CLUSTER_RANKING_NODE_RADIUS,
   CLUSTER_RANKING_NODE_RADIUS_MOBILE,
-} from "./config";
+} from './config';
 
 interface ClusterRankingProps {
   width: number;
@@ -183,7 +183,7 @@ const ClusterRanking: React.FC<ClusterRankingProps> = ({
       try {
         container.scrollTo({
           left: Math.round(desiredLeft),
-          behavior: "smooth",
+          behavior: 'smooth',
         });
       } catch {
         container.scrollLeft = Math.round(desiredLeft);
@@ -210,8 +210,8 @@ const ClusterRanking: React.FC<ClusterRankingProps> = ({
     <>
       <Box
         sx={{
-          display: "flex",
-          alignItems: "center",
+          display: 'flex',
+          alignItems: 'center',
           gap: 3,
           mb: 1,
           pt: 1,
@@ -219,7 +219,7 @@ const ClusterRanking: React.FC<ClusterRankingProps> = ({
         }}
       >
         <Typography
-          variant="h6"
+          variant='h6'
           sx={{ fontWeight: 600, fontSize: _isMobile ? 16 : 20 }}
         >
           Industrial Clusters
@@ -239,17 +239,17 @@ const ClusterRanking: React.FC<ClusterRankingProps> = ({
                 width={scaleWidth + marginX * 2 + sideLabelPadding * 2}
                 height={svgHeight}
                 viewBox={`0 0 ${scaleWidth + marginX * 2 + sideLabelPadding * 2} ${svgHeight}`}
-                role="img"
-                aria-label="Potential color legend"
-                style={{ display: "block", marginLeft: 10 }}
+                role='img'
+                aria-label='Potential color legend'
+                style={{ display: 'block', marginLeft: 10 }}
               >
                 <defs>
                   <linearGradient
-                    id="potential-gradient-legend"
-                    x1="0%"
-                    y1="0%"
-                    x2="100%"
-                    y2="0%"
+                    id='potential-gradient-legend'
+                    x1='0%'
+                    y1='0%'
+                    x2='100%'
+                    y2='0%'
                   >
                     {(() => {
                       const stops = [0, 0.25, 0.5, 0.75, 1];
@@ -273,8 +273,8 @@ const ClusterRanking: React.FC<ClusterRankingProps> = ({
                   y={gradientY}
                   width={scaleWidth}
                   height={scaleHeight}
-                  fill="url(#potential-gradient-legend)"
-                  stroke="#ccc"
+                  fill='url(#potential-gradient-legend)'
+                  stroke='#ccc'
                   rx={3}
                   ry={3}
                 />
@@ -282,9 +282,9 @@ const ClusterRanking: React.FC<ClusterRankingProps> = ({
                   x={marginX + sideLabelPadding - 6}
                   y={labelsY}
                   fontSize={_isMobile ? 12 : 14}
-                  fill="#000"
-                  textAnchor="end"
-                  fontFamily="Source Sans Pro, sans-serif"
+                  fill='#000'
+                  textAnchor='end'
+                  fontFamily='Source Sans Pro, sans-serif'
                   fontWeight={600}
                 >
                   High Potential
@@ -293,9 +293,9 @@ const ClusterRanking: React.FC<ClusterRankingProps> = ({
                   x={marginX + sideLabelPadding + scaleWidth + 8}
                   y={labelsY}
                   fontSize={_isMobile ? 12 : 14}
-                  fill="#000"
-                  textAnchor="start"
-                  fontFamily="Source Sans Pro, sans-serif"
+                  fill='#000'
+                  textAnchor='start'
+                  fontFamily='Source Sans Pro, sans-serif'
                   fontWeight={600}
                 >
                   Low Potential
@@ -307,30 +307,30 @@ const ClusterRanking: React.FC<ClusterRankingProps> = ({
       <Box
         ref={scrollRef}
         sx={{
-          width: "100%",
+          width: '100%',
           height: beeswarmHeight,
-          overflowX: "scroll",
-          overflowY: "hidden",
-          scrollbarGutter: "stable",
+          overflowX: 'scroll',
+          overflowY: 'hidden',
+          scrollbarGutter: 'stable',
           pb: 2, // space for horizontal scrollbar
           pl: 2,
         }}
       >
         <svg
           width={contentWidth}
-          height="100%"
+          height='100%'
           viewBox={`0 0 ${contentWidth} ${beeswarmHeight}`}
-          preserveAspectRatio="xMinYMid meet"
-          role="img"
-          aria-label="Cluster ranking visualization"
-          style={{ display: "block" }}
+          preserveAspectRatio='xMinYMid meet'
+          role='img'
+          aria-label='Cluster ranking visualization'
+          style={{ display: 'block' }}
         >
           <defs>
-            <filter id="cluster-glow">
-              <feGaussianBlur stdDeviation="3" result="coloredBlur" />
+            <filter id='cluster-glow'>
+              <feGaussianBlur stdDeviation='3' result='coloredBlur' />
               <feMerge>
-                <feMergeNode in="coloredBlur" />
-                <feMergeNode in="SourceGraphic" />
+                <feMergeNode in='coloredBlur' />
+                <feMergeNode in='SourceGraphic' />
               </feMerge>
             </filter>
           </defs>
@@ -338,11 +338,11 @@ const ClusterRanking: React.FC<ClusterRankingProps> = ({
           <defs>
             {/* Linear gradient for potential color scale (red → white → blue) */}
             <linearGradient
-              id="potential-gradient"
-              x1="0%"
-              y1="0%"
-              x2="100%"
-              y2="0%"
+              id='potential-gradient'
+              x1='0%'
+              y1='0%'
+              x2='100%'
+              y2='0%'
             >
               {(() => {
                 const stops = [0, 0.25, 0.5, 0.75, 1];
@@ -374,16 +374,16 @@ const ClusterRanking: React.FC<ClusterRankingProps> = ({
               slotProps={{
                 tooltip: {
                   sx: {
-                    bgcolor: "#FFFFFF",
-                    color: "#000000",
-                    fontSize: { xs: "12px", sm: "14px" },
+                    bgcolor: '#FFFFFF',
+                    color: '#000000',
+                    fontSize: { xs: '12px', sm: '14px' },
                     maxWidth: 320,
                     p: 1.5,
-                    border: "1px solid #DBDBDB",
-                    boxShadow: "0 0 4px 1px rgba(0, 0, 0, 0.10)",
+                    border: '1px solid #DBDBDB',
+                    boxShadow: '0 0 4px 1px rgba(0, 0, 0, 0.10)',
                   },
                 },
-                arrow: { sx: { color: "#ffffff" } },
+                arrow: { sx: { color: '#ffffff' } },
               }}
             >
               <g>
@@ -393,21 +393,21 @@ const ClusterRanking: React.FC<ClusterRankingProps> = ({
                   y1={axisBaselineY}
                   x2={item.x}
                   y2={axisBaselineY + 7}
-                  stroke="#666"
-                  strokeWidth="1"
+                  stroke='#666'
+                  strokeWidth='1'
                 />
                 {/* Cluster name (truncated) */}
                 <text
                   x={item.x}
                   y={axisBaselineY + 20}
                   fontSize={_isMobile ? 11 : 14}
-                  fill="#000"
-                  textAnchor="middle"
-                  fontFamily="Source Sans Pro, sans-serif"
+                  fill='#000'
+                  textAnchor='middle'
+                  fontFamily='Source Sans Pro, sans-serif'
                   fontWeight={400}
                 >
                   {(() => {
-                    const name = item.name || "";
+                    const name = item.name || '';
                     if (name.length <= maxLabelChars) return name;
                     return `${name.slice(0, Math.max(0, maxLabelChars - 1))}\u2026`;
                   })()}
@@ -430,16 +430,16 @@ const ClusterRanking: React.FC<ClusterRankingProps> = ({
                 slotProps={{
                   tooltip: {
                     sx: {
-                      bgcolor: "#FFFFFF",
-                      color: "#000000",
-                      fontSize: { xs: "12px", sm: "14px" },
+                      bgcolor: '#FFFFFF',
+                      color: '#000000',
+                      fontSize: { xs: '12px', sm: '14px' },
                       maxWidth: 320,
                       p: 1.5,
-                      border: "1px solid #DBDBDB",
-                      boxShadow: "0 0 4px 1px rgba(0, 0, 0, 0.10)",
+                      border: '1px solid #DBDBDB',
+                      boxShadow: '0 0 4px 1px rgba(0, 0, 0, 0.10)',
                     },
                   },
-                  arrow: { sx: { color: "#ffffff" } },
+                  arrow: { sx: { color: '#ffffff' } },
                 }}
               >
                 <g>
@@ -449,18 +449,18 @@ const ClusterRanking: React.FC<ClusterRankingProps> = ({
                     cy={item.y}
                     r={item.radius}
                     fill={item.color}
-                    stroke={isSelected ? "#000000" : "rgba(0, 0, 0, 0.3)"}
+                    stroke={isSelected ? '#000000' : 'rgba(0, 0, 0, 0.3)'}
                     strokeWidth={isSelected ? 2.5 : 1}
-                    filter={isSelected ? "url(#cluster-glow)" : undefined}
+                    filter={isSelected ? 'url(#cluster-glow)' : undefined}
                     style={{
-                      cursor: "pointer",
+                      cursor: 'pointer',
                       opacity: 0.8,
                     }}
                     onClick={() => handleClusterClick(item.name)}
-                    role="button"
+                    role='button'
                     tabIndex={0}
                     onKeyDown={(e) => {
-                      if (e.key === "Enter" || e.key === " ") {
+                      if (e.key === 'Enter' || e.key === ' ') {
                         e.preventDefault();
                         handleClusterClick(item.name);
                       }

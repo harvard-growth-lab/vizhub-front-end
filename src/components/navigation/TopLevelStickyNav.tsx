@@ -1,11 +1,11 @@
-import React from "react";
-import styled from "styled-components";
-import { useLocation, useNavigate } from "react-router";
-import { Link } from "react-router-dom";
-import { scrollToAnchor } from "../../hooks/useScrollBehavior";
-import { FullWidthHeaderContent } from "../../styling/Grid";
-import HarvardLogo from "../../assets/harvard-logo.png";
-import { secondaryFont } from "../../styling/styleUtils";
+import React from 'react';
+import styled from 'styled-components';
+import { useLocation, useNavigate } from 'react-router';
+import { Link } from 'react-router-dom';
+import { scrollToAnchor } from '../../hooks/useScrollBehavior';
+import { FullWidthHeaderContent } from '../../styling/Grid';
+import HarvardLogo from '../../assets/harvard-logo.png';
+import { secondaryFont } from '../../styling/styleUtils';
 
 export const navHeight = 3.375; // in rem
 
@@ -19,7 +19,7 @@ const Root = styled.nav<{ $backgroundImage?: string }>`
   transition: background 0.25s ease;
 
   &:after {
-    ${({ $backgroundImage }) => ($backgroundImage ? "content: '';" : "")}
+    ${({ $backgroundImage }) => ($backgroundImage ? "content: '';" : '')}
     display: block;
     position: absolute;
     top: 0;
@@ -28,13 +28,13 @@ const Root = styled.nav<{ $backgroundImage?: string }>`
     width: 100%;
     ${({ $backgroundImage }) =>
       $backgroundImage
-        ? "background-image: url(" + $backgroundImage + ");"
-        : ""}
+        ? 'background-image: url(' + $backgroundImage + ');'
+        : ''}
     z-index: -2;
     background-size: cover;
   }
   &:before {
-    ${({ $backgroundImage }) => ($backgroundImage ? "content: '';" : "")}
+    ${({ $backgroundImage }) => ($backgroundImage ? "content: '';" : '')}
     display: block;
     position: absolute;
     top: 0;
@@ -158,7 +158,7 @@ const TopLevelStickyNav = (props: Props) => {
         {label}
         <Underline
           style={{
-            width: active ? "100%" : undefined,
+            width: active ? '100%' : undefined,
             background: activeColor,
           }}
         />
@@ -168,7 +168,7 @@ const TopLevelStickyNav = (props: Props) => {
         {label}
         <Underline
           style={{
-            width: active ? "100%" : undefined,
+            width: active ? '100%' : undefined,
             background: activeColor,
           }}
         />
@@ -179,13 +179,13 @@ const TopLevelStickyNav = (props: Props) => {
 
   // Add Harvard Logo link to top-level nav, link externally to Harvard website
   linkList.push(
-    <ListItem key="harvard-logo">
+    <ListItem key='harvard-logo'>
       <a
-        href="http://www.harvard.edu/"
-        target="_blank"
-        rel="noopener noreferrer"
+        href='http://www.harvard.edu/'
+        target='_blank'
+        rel='noopener noreferrer'
       >
-        <HarvardLogoImg src={HarvardLogo} alt="Harvard University" />
+        <HarvardLogoImg src={HarvardLogo} alt='Harvard University' />
       </a>
     </ListItem>,
   );

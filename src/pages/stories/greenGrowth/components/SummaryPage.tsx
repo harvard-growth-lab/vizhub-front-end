@@ -1,66 +1,66 @@
-import { useMemo } from "react";
-import { Box, Button, Container, Typography, Fab } from "@mui/material";
-import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
-import BookmarkIcon from "@mui/icons-material/Bookmark";
-import { useNavigate } from "react-router-dom";
-import { styled } from "@mui/system";
-import { useYearSelection, useCountrySelection } from "../hooks/useUrlParams";
-import { useCountryName } from "../queries/useCountryName";
-import { useGreenGrowthData } from "../hooks/useGreenGrowthData";
-import { useStrategicPosition } from "../hooks/useStrategicPosition";
-import IndustryIcon from "../../../../assets/Industry-icon.svg";
-import RankingsPlotIcon from "../../../../assets/greenGrowth/Greenplexity-rankings-plot.svg";
-import ArrowIcon from "../../../../assets/greenGrowth/Greenplexity-arrow.svg";
+import { useMemo } from 'react';
+import { Box, Button, Container, Typography, Fab } from '@mui/material';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
+import { useNavigate } from 'react-router-dom';
+import { styled } from '@mui/system';
+import { useYearSelection, useCountrySelection } from '../hooks/useUrlParams';
+import { useCountryName } from '../queries/useCountryName';
+import { useGreenGrowthData } from '../hooks/useGreenGrowthData';
+import { useStrategicPosition } from '../hooks/useStrategicPosition';
+import IndustryIcon from '../../../../assets/Industry-icon.svg';
+import RankingsPlotIcon from '../../../../assets/greenGrowth/Greenplexity-rankings-plot.svg';
+import ArrowIcon from '../../../../assets/greenGrowth/Greenplexity-arrow.svg';
 import {
   calculateClusterScores,
   calculateAttractiveness,
-} from "../utils/rankings";
+} from '../utils/rankings';
 
 // White background for entire page
 const PageBackground = styled(Box)(() => ({
-  background: "#ffffff",
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  justifyContent: "flex-start",
-  padding: "0",
-  boxSizing: "border-box",
-  minHeight: "100%",
-  width: "100%",
+  background: '#ffffff',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'flex-start',
+  padding: '0',
+  boxSizing: 'border-box',
+  minHeight: '100%',
+  width: '100%',
 }));
 
 // Title section with white background
 const TitleSection = styled(Box)(() => ({
-  background: "#ffffff",
-  width: "100%",
-  padding: "40px 16px 0px",
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  color: "#333333",
+  background: '#ffffff',
+  width: '100%',
+  padding: '40px 16px 0px',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  color: '#333333',
 }));
 
 // Main content section (kept white); figures area below will have its own light background
 const ContentSection = styled(Box)(() => ({
-  background: "#ffffff",
-  width: "100%",
-  padding: "0px 0px 0px",
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  color: "#333333",
+  background: '#ffffff',
+  width: '100%',
+  padding: '0px 0px 0px',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  color: '#333333',
 }));
 
 const ActionButton = styled(Button)(() => ({
-  backgroundColor: "#2E97BF",
-  color: "white",
-  padding: "12px 24px",
+  backgroundColor: '#2E97BF',
+  color: 'white',
+  padding: '12px 24px',
   minWidth: 220,
   fontSize: 26,
   fontWeight: 600,
-  textTransform: "none",
-  borderRadius: "4px",
-  "&:hover": { backgroundColor: "#4A90E2" },
+  textTransform: 'none',
+  borderRadius: '4px',
+  '&:hover': { backgroundColor: '#4A90E2' },
 }));
 
 // (Scoring logic now implemented inline in topClusters to mirror ProductRadar.jsx)
@@ -143,11 +143,11 @@ const SummaryPage: React.FC = () => {
     const countryId = Number.parseInt(String(selectedCountry));
     type SimpleMetric = { countryId: number; rank: number | null };
     const isSimpleMetric = (d: unknown): d is SimpleMetric => {
-      if (typeof d !== "object" || d === null) return false;
+      if (typeof d !== 'object' || d === null) return false;
       const obj = d as { countryId?: unknown; rank?: unknown };
       return (
-        typeof obj.countryId === "number" &&
-        (typeof obj.rank === "number" || obj.rank === null)
+        typeof obj.countryId === 'number' &&
+        (typeof obj.rank === 'number' || obj.rank === null)
       );
     };
 
@@ -172,8 +172,8 @@ const SummaryPage: React.FC = () => {
       rankNow !== null && rankPrev !== null ? rankPrev - rankNow : null; // positive = improved
 
     const ordinal = (n: number | null) => {
-      if (n === null) return "-";
-      const s = ["th", "st", "nd", "rd"];
+      if (n === null) return '-';
+      const s = ['th', 'st', 'nd', 'rd'];
       const v = n % 100;
       return `${n}${s[(v - 20) % 10] || s[v] || s[0]}`;
     };
@@ -185,48 +185,48 @@ const SummaryPage: React.FC = () => {
     <PageBackground>
       {/* Title Section with White Background */}
       <TitleSection>
-        <Container maxWidth="lg" sx={{ mb: 0 }}>
+        <Container maxWidth='lg' sx={{ mb: 0 }}>
           <Box
             sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              position: "relative",
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              position: 'relative',
               mb: 4,
             }}
           >
             <Fab
-              color="primary"
-              size="medium"
-              aria-label="Back to dimensions"
+              color='primary'
+              size='medium'
+              aria-label='Back to dimensions'
               onClick={() => {
                 const params = new URLSearchParams();
                 if (selectedCountry)
-                  params.set("country", String(selectedCountry));
+                  params.set('country', String(selectedCountry));
                 if (!Number.isNaN(selectedYear))
-                  params.set("year", String(selectedYear));
+                  params.set('year', String(selectedYear));
                 navigate(
-                  `/greenplexity/products${params.toString() ? `?${params.toString()}` : ""}`,
+                  `/greenplexity/products${params.toString() ? `?${params.toString()}` : ''}`,
                 );
               }}
               sx={{
-                position: "absolute",
+                position: 'absolute',
                 left: 0,
                 boxShadow: 3,
-                backgroundColor: "white",
-                color: "black",
+                backgroundColor: 'white',
+                color: 'black',
               }}
             >
               <ArrowUpwardIcon sx={{ fontSize: 36 }} />
             </Fab>
             <Typography
-              variant="h4"
-              align="center"
+              variant='h4'
+              align='center'
               sx={{
                 fontWeight: 600,
-                textTransform: "uppercase",
-                color: "#127DB9",
-                letterSpacing: "0.5px",
+                textTransform: 'uppercase',
+                color: '#127DB9',
+                letterSpacing: '0.5px',
                 fontSize: 28,
               }}
             >
@@ -235,15 +235,15 @@ const SummaryPage: React.FC = () => {
           </Box>
 
           <Typography
-            align="center"
+            align='center'
             paragraph
             sx={{
               mb: 0,
-              fontSize: "1.375rem",
+              fontSize: '1.375rem',
               lineHeight: 1.6,
-              color: "black",
-              maxWidth: "800px",
-              mx: "auto",
+              color: 'black',
+              maxWidth: '800px',
+              mx: 'auto',
               fontWeight: 600,
             }}
           >
@@ -256,83 +256,83 @@ const SummaryPage: React.FC = () => {
 
       {/* Main Content Section */}
       <ContentSection>
-        <Container maxWidth="lg">
+        <Container maxWidth='lg'>
           {/* Figures area wrapper with light blue background (spec-like) */}
           <Box
             sx={{
-              background: "rgba(92, 126, 145, 0.1)",
+              background: 'rgba(92, 126, 145, 0.1)',
               borderRadius: 0,
               px: { xs: 2, md: 4 },
               py: { xs: 4, md: 6 },
-              display: "flex",
-              flexDirection: "column",
+              display: 'flex',
+              flexDirection: 'column',
               gap: 10,
               mb: 6,
-              maxWidth: "1400px",
-              mx: "auto",
+              maxWidth: '1400px',
+              mx: 'auto',
             }}
           >
             {/* Green Growth Approach - Left title, Right content */}
             <Box
               sx={{
-                display: "grid",
-                gridTemplateColumns: { xs: "1fr", md: "280px 1fr" },
+                display: 'grid',
+                gridTemplateColumns: { xs: '1fr', md: '280px 1fr' },
                 gap: 4,
-                alignItems: "start",
+                alignItems: 'start',
               }}
             >
               <Typography
                 sx={{
                   fontSize: 22,
                   fontWeight: 400,
-                  textTransform: "uppercase",
+                  textTransform: 'uppercase',
                 }}
               >
                 Green Growth Approach
               </Typography>
               <Box
                 sx={{
-                  display: "flex",
-                  flexDirection: "column",
+                  display: 'flex',
+                  flexDirection: 'column',
                   gap: 0,
                 }}
               >
                 <Box
                   sx={{
-                    display: "flex",
-                    alignItems: "center",
+                    display: 'flex',
+                    alignItems: 'center',
                     gap: 1,
                   }}
                 >
                   <BookmarkIcon
                     sx={{
-                      color: strategic?.color || "#127DB9",
+                      color: strategic?.color || '#127DB9',
                       fontSize: 28,
                     }}
                   />
                   <Typography
                     sx={{
                       fontWeight: 700,
-                      color: strategic?.color || "#127DB9",
-                      fontSize: "1.75rem",
+                      color: strategic?.color || '#127DB9',
+                      fontSize: '1.75rem',
                       lineHeight: 1.2,
-                      textTransform: "uppercase",
+                      textTransform: 'uppercase',
                     }}
                   >
-                    {strategic?.label || "Light Touch Approach"}
+                    {strategic?.label || 'Light Touch Approach'}
                   </Typography>
                 </Box>
                 <Typography
                   sx={{
-                    color: "#333333",
+                    color: '#333333',
                     lineHeight: 1.6,
-                    fontSize: "1.125rem",
+                    fontSize: '1.125rem',
                     fontWeight: 600,
                     marginLeft: 4,
                   }}
                 >
                   {strategic?.description ||
-                    "Ample space to diversify calls for leveraging existing successes to enter more complex production"}
+                    'Ample space to diversify calls for leveraging existing successes to enter more complex production'}
                 </Typography>
               </Box>
             </Box>
@@ -340,17 +340,17 @@ const SummaryPage: React.FC = () => {
             {/* High Potential Clusters - Left title, Right content */}
             <Box
               sx={{
-                display: "grid",
-                gridTemplateColumns: { xs: "1fr", md: "280px 1fr" },
+                display: 'grid',
+                gridTemplateColumns: { xs: '1fr', md: '280px 1fr' },
                 gap: 4,
-                alignItems: "start",
+                alignItems: 'start',
               }}
             >
               <Typography
                 sx={{
                   fontSize: 22,
                   fontWeight: 400,
-                  textTransform: "uppercase",
+                  textTransform: 'uppercase',
                   lineHeight: 1.3,
                 }}
               >
@@ -361,42 +361,42 @@ const SummaryPage: React.FC = () => {
               {topClusters.length > 0 && (
                 <Box
                   sx={{
-                    display: "grid",
-                    gridTemplateColumns: { xs: "1fr", sm: "auto auto" },
+                    display: 'grid',
+                    gridTemplateColumns: { xs: '1fr', sm: 'auto auto' },
                     gap: { xs: 3, sm: 6 },
-                    alignItems: "start",
+                    alignItems: 'start',
                   }}
                 >
                   {topClusters.map((c) => (
                     <Box
                       key={c.id}
                       sx={{
-                        display: "flex",
-                        alignItems: "center",
+                        display: 'flex',
+                        alignItems: 'center',
                         gap: 1.5,
                       }}
                     >
                       <Box
                         sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
                           flexShrink: 0,
                         }}
                       >
                         <Box
-                          component="img"
+                          component='img'
                           src={IndustryIcon}
-                          alt="Industry icon"
-                          sx={{ height: "50px" }}
+                          alt='Industry icon'
+                          sx={{ height: '50px' }}
                         />
                       </Box>
                       <Typography
                         sx={{
                           fontWeight: 600,
-                          color: "#333333",
-                          fontSize: "1.375rem",
-                          textTransform: "uppercase",
+                          color: '#333333',
+                          fontSize: '1.375rem',
+                          textTransform: 'uppercase',
                         }}
                       >
                         {c.name}
@@ -410,97 +410,97 @@ const SummaryPage: React.FC = () => {
             {/* Green Complexity Ranking - Left title, Right content */}
             <Box
               sx={{
-                display: "grid",
-                gridTemplateColumns: { xs: "1fr", md: "280px 1fr" },
+                display: 'grid',
+                gridTemplateColumns: { xs: '1fr', md: '280px 1fr' },
                 gap: 4,
-                alignItems: "start",
+                alignItems: 'start',
               }}
             >
               <Typography
                 sx={{
                   fontSize: 22,
                   fontWeight: 400,
-                  textTransform: "uppercase",
+                  textTransform: 'uppercase',
                 }}
               >
                 Green Complexity Ranking
               </Typography>
               <Box
                 sx={{
-                  display: "grid",
-                  gridTemplateColumns: { xs: "1fr", sm: "auto auto" },
+                  display: 'grid',
+                  gridTemplateColumns: { xs: '1fr', sm: 'auto auto' },
                   gap: { xs: 3, sm: 6 },
-                  alignItems: "start",
+                  alignItems: 'start',
                 }}
               >
                 <Box
                   sx={{
-                    display: "flex",
-                    alignItems: "center",
+                    display: 'flex',
+                    alignItems: 'center',
                     gap: 1.5,
                   }}
                 >
                   <Box
-                    component="img"
+                    component='img'
                     src={RankingsPlotIcon}
-                    alt="Rankings chart"
-                    sx={{ height: "44px", width: "51px", flexShrink: 0 }}
+                    alt='Rankings chart'
+                    sx={{ height: '44px', width: '51px', flexShrink: 0 }}
                   />
                   <Box>
                     <Typography
                       sx={{
                         fontWeight: 600,
-                        color: "#333333",
-                        fontSize: "1.75rem",
+                        color: '#333333',
+                        fontSize: '1.75rem',
                         lineHeight: 1.2,
-                        whiteSpace: "nowrap",
+                        whiteSpace: 'nowrap',
                       }}
                     >
                       {ranking.rankNow !== null
                         ? ranking.ordinal(ranking.rankNow)
-                        : "-"}
+                        : '-'}
                     </Typography>
                     <Typography
                       sx={{
                         fontWeight: 600,
-                        color: "#333333",
-                        fontSize: "1.125rem",
-                        whiteSpace: "nowrap",
+                        color: '#333333',
+                        fontSize: '1.125rem',
+                        whiteSpace: 'nowrap',
                       }}
                     >
                       {ranking.total
                         ? `Out of ${ranking.total} Countries`
-                        : "Data unavailable"}
+                        : 'Data unavailable'}
                     </Typography>
                   </Box>
                 </Box>
                 <Box
                   sx={{
-                    display: "flex",
-                    alignItems: "center",
+                    display: 'flex',
+                    alignItems: 'center',
                     gap: 1.5,
                   }}
                 >
                   {ranking.delta === null ? (
                     <Box
-                      sx={{ width: "31px", height: "43px", flexShrink: 0 }}
+                      sx={{ width: '31px', height: '43px', flexShrink: 0 }}
                     />
                   ) : ranking.delta === 0 ? (
                     <Box
                       sx={{
-                        width: "31px",
-                        height: "43px",
+                        width: '31px',
+                        height: '43px',
                         flexShrink: 0,
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
                       }}
                     >
                       <Typography
                         sx={{
-                          fontSize: "2.5rem",
+                          fontSize: '2.5rem',
                           fontWeight: 700,
-                          color: "#333333",
+                          color: '#333333',
                           lineHeight: 1,
                         }}
                       >
@@ -509,15 +509,15 @@ const SummaryPage: React.FC = () => {
                     </Box>
                   ) : (
                     <Box
-                      component="img"
+                      component='img'
                       src={ArrowIcon}
-                      alt="Ranking change"
+                      alt='Ranking change'
                       sx={{
-                        height: "43px",
-                        width: "31px",
+                        height: '43px',
+                        width: '31px',
                         flexShrink: 0,
                         transform:
-                          ranking.delta > 0 ? "rotate(0deg)" : "rotate(180deg)",
+                          ranking.delta > 0 ? 'rotate(0deg)' : 'rotate(180deg)',
                       }}
                     />
                   )}
@@ -525,23 +525,23 @@ const SummaryPage: React.FC = () => {
                     <Typography
                       sx={{
                         fontWeight: 600,
-                        color: "#333333",
-                        fontSize: "1.75rem",
+                        color: '#333333',
+                        fontSize: '1.75rem',
                         lineHeight: 1.2,
-                        whiteSpace: "nowrap",
+                        whiteSpace: 'nowrap',
                       }}
                     >
                       {ranking.delta !== null && ranking.delta !== 0
-                        ? `${Math.abs(ranking.delta)} position${Math.abs(ranking.delta) === 1 ? "" : "s"}`
+                        ? `${Math.abs(ranking.delta)} position${Math.abs(ranking.delta) === 1 ? '' : 's'}`
                         : ranking.delta === 0
-                          ? "No change"
-                          : "-"}
+                          ? 'No change'
+                          : '-'}
                     </Typography>
                     <Typography
                       sx={{
                         fontWeight: 600,
-                        color: "#333333",
-                        fontSize: "1.125rem",
+                        color: '#333333',
+                        fontSize: '1.125rem',
                       }}
                     >
                       {(() => {
@@ -549,9 +549,9 @@ const SummaryPage: React.FC = () => {
                         if (ranking.delta === null)
                           return `Change over ${years} years unavailable`;
                         if (ranking.delta > 0)
-                          return `${countryName}'s ranking has improved ${Math.abs(ranking.delta)} position${Math.abs(ranking.delta) === 1 ? "" : "s"} in ${years} years.`;
+                          return `${countryName}'s ranking has improved ${Math.abs(ranking.delta)} position${Math.abs(ranking.delta) === 1 ? '' : 's'} in ${years} years.`;
                         if (ranking.delta < 0)
-                          return `${countryName}'s ranking has worsened ${Math.abs(ranking.delta)} position${Math.abs(ranking.delta) === 1 ? "" : "s"} in ${years} years.`;
+                          return `${countryName}'s ranking has worsened ${Math.abs(ranking.delta)} position${Math.abs(ranking.delta) === 1 ? '' : 's'} in ${years} years.`;
                         return `No change in ${years} years`;
                       })()}
                     </Typography>
@@ -564,35 +564,35 @@ const SummaryPage: React.FC = () => {
           {/* Actions row with bottom margin for footer space */}
           <Box
             sx={{
-              display: "grid",
+              display: 'grid',
               gridTemplateColumns: {
-                xs: "1fr",
-                sm: "1fr 1fr",
-                md: "repeat(4, 1fr)",
+                xs: '1fr',
+                sm: '1fr 1fr',
+                md: 'repeat(4, 1fr)',
               },
               gap: 2,
-              justifyItems: "center",
+              justifyItems: 'center',
               mb: 8,
             }}
           >
             <ActionButton
               onClick={() => {
-                window.location.href = "/greenplexity";
+                window.location.href = '/greenplexity';
               }}
             >
               Search a New Country
             </ActionButton>
             <ActionButton
               onClick={() => {
-                const countryId = String(selectedCountry || "").replace(
+                const countryId = String(selectedCountry || '').replace(
                   /\D/g,
-                  "",
+                  '',
                 );
-                const base = "https://atlas.hks.harvard.edu/explore/treemap";
+                const base = 'https://atlas.hks.harvard.edu/explore/treemap';
                 const url = countryId
                   ? `${base}?exporter=country-${countryId}`
                   : base;
-                window.open(url, "_blank", "noopener,noreferrer");
+                window.open(url, '_blank', 'noopener,noreferrer');
               }}
             >
               Explore Further with Atlas
@@ -600,8 +600,8 @@ const SummaryPage: React.FC = () => {
             <ActionButton
               onClick={() =>
                 window.open(
-                  "https://growthlab.hks.harvard.edu/green-growth",
-                  "_blank",
+                  'https://growthlab.hks.harvard.edu/green-growth',
+                  '_blank',
                 )
               }
             >
@@ -610,8 +610,8 @@ const SummaryPage: React.FC = () => {
             <ActionButton
               onClick={() =>
                 window.open(
-                  "https://growthlab.hks.harvard.edu/subscribe",
-                  "_blank",
+                  'https://growthlab.hks.harvard.edu/subscribe',
+                  '_blank',
                 )
               }
             >

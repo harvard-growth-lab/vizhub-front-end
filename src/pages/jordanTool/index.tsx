@@ -1,11 +1,11 @@
-import React from "react";
-import Content from "./Content";
-import { JordanIndustry } from "./graphql/graphQLTypes";
-import { useQuery } from "@apollo/client";
-import gql from "graphql-tag";
-import { TreeNode } from "react-dropdown-tree-select";
-import Loading from "../../components/general/Loading";
-import FullPageError from "../../components/general/FullPageError";
+import React from 'react';
+import Content from './Content';
+import { JordanIndustry } from './graphql/graphQLTypes';
+import { useQuery } from '@apollo/client';
+import gql from 'graphql-tag';
+import { TreeNode } from 'react-dropdown-tree-select';
+import Loading from '../../components/general/Loading';
+import FullPageError from '../../components/general/FullPageError';
 
 const GET_ALL_JORDAN_INDUSTRIES_DATA = gql`
   query GetAllJordanIndustries {
@@ -53,7 +53,7 @@ const JordanToolEntry = () => {
           industryData.push({
             label: description,
             value: description,
-            className: "no-select-parent",
+            className: 'no-select-parent',
             disabled: true,
             children: [
               {

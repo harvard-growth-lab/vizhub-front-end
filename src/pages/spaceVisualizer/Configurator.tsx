@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 import {
   Box,
   Typography,
@@ -31,16 +31,16 @@ import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
-} from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import DownloadIcon from "@mui/icons-material/Download";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { useLoaderData } from "react-router-dom";
-import type { LoaderData } from "./loader";
-import { Link } from "react-router-dom";
-import GrowthLabLogo from "../../assets/GL_logo_black.png";
+} from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import DownloadIcon from '@mui/icons-material/Download';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { useLoaderData } from 'react-router-dom';
+import type { LoaderData } from './loader';
+import { Link } from 'react-router-dom';
+import GrowthLabLogo from '../../assets/GL_logo_black.png';
 
 interface FieldNames {
   id: string;
@@ -90,32 +90,32 @@ interface ConfiguratorProps {
   setRadiusConfig: React.Dispatch<React.SetStateAction<RadiusConfig>>;
   showAllLinks: boolean;
   setShowAllLinks: React.Dispatch<React.SetStateAction<boolean>>;
-  clusters?: import("./loader").ClusterData;
+  clusters?: import('./loader').ClusterData;
   clusterConfig: ClusterConfig;
   setClusterConfig: React.Dispatch<React.SetStateAction<ClusterConfig>>;
 }
 
-const SCALE_TYPES = ["linear", "log", "sqrt", "pow"];
+const SCALE_TYPES = ['linear', 'log', 'sqrt', 'pow'];
 
 // Utility function to convert JSON array to CSV
 const convertToCSV = (data: Record<string, unknown>[]): string => {
-  if (!data || data.length === 0) return "";
+  if (!data || data.length === 0) return '';
 
   const headers = Object.keys(data[0]);
   const csvContent = [
-    headers.join(","),
+    headers.join(','),
     ...data.map((row) =>
       headers
         .map((header) => {
           const rawValue = row[header];
           // Handle values that contain commas, newlines, or quotes
           if (rawValue === null || rawValue === undefined) {
-            return "";
+            return '';
           }
           let value = String(rawValue);
           if (
-            value.includes(",") ||
-            value.includes("\n") ||
+            value.includes(',') ||
+            value.includes('\n') ||
             value.includes('"')
           ) {
             // Escape quotes and wrap in quotes
@@ -123,9 +123,9 @@ const convertToCSV = (data: Record<string, unknown>[]): string => {
           }
           return value;
         })
-        .join(","),
+        .join(','),
     ),
-  ].join("\n");
+  ].join('\n');
 
   return csvContent;
 };
@@ -137,27 +137,27 @@ export function inferFieldNames(
 ): Partial<FieldNames> {
   const id = nodeKeys.find(
     (k) =>
-      k.toLowerCase().includes("id") ||
-      k.toLowerCase().includes("code") ||
-      k.toLowerCase().includes("uuid") ||
-      k.toLowerCase().includes("name"),
+      k.toLowerCase().includes('id') ||
+      k.toLowerCase().includes('code') ||
+      k.toLowerCase().includes('uuid') ||
+      k.toLowerCase().includes('name'),
   );
 
-  const x = nodeKeys.find((k) => k.toLowerCase().includes("x"));
+  const x = nodeKeys.find((k) => k.toLowerCase().includes('x'));
 
-  const y = nodeKeys.find((k) => k.toLowerCase().includes("y"));
+  const y = nodeKeys.find((k) => k.toLowerCase().includes('y'));
 
   const radius = nodeKeys.find(
     (k) =>
-      k.toLowerCase().includes("radius") ||
-      k.toLowerCase().includes("size") ||
-      k.toLowerCase().includes("value") ||
-      k.toLowerCase().includes("weight"),
+      k.toLowerCase().includes('radius') ||
+      k.toLowerCase().includes('size') ||
+      k.toLowerCase().includes('value') ||
+      k.toLowerCase().includes('weight'),
   );
 
   const tooltip = nodeKeys.filter(
     (k) =>
-      k.toLowerCase().includes("label") || k.toLowerCase().includes("name"),
+      k.toLowerCase().includes('label') || k.toLowerCase().includes('name'),
   );
 
   let source: string | undefined;
@@ -165,20 +165,20 @@ export function inferFieldNames(
   if (linkKeys) {
     source = linkKeys.find(
       (k) =>
-        k.toLowerCase().includes("from") || k.toLowerCase().includes("source"),
+        k.toLowerCase().includes('from') || k.toLowerCase().includes('source'),
     );
     target = linkKeys.find(
       (k) =>
-        k.toLowerCase().includes("to") || k.toLowerCase().includes("target"),
+        k.toLowerCase().includes('to') || k.toLowerCase().includes('target'),
     );
   }
 
   const category = nodeKeys.find(
     (k) =>
-      k.toLowerCase().includes("category") ||
-      k.toLowerCase().includes("type") ||
-      k.toLowerCase().includes("group") ||
-      k.toLowerCase().includes("cluster"),
+      k.toLowerCase().includes('category') ||
+      k.toLowerCase().includes('type') ||
+      k.toLowerCase().includes('group') ||
+      k.toLowerCase().includes('cluster'),
   );
 
   let metaId: string | undefined;
@@ -188,26 +188,26 @@ export function inferFieldNames(
   if (metaKeys && metaKeys.length > 0) {
     metaId = metaKeys.find(
       (k) =>
-        k.toLowerCase().includes("id") ||
-        k.toLowerCase().includes("code") ||
-        k.toLowerCase() === "category" ||
-        k.toLowerCase() === "key",
+        k.toLowerCase().includes('id') ||
+        k.toLowerCase().includes('code') ||
+        k.toLowerCase() === 'category' ||
+        k.toLowerCase() === 'key',
     );
 
     metaName = metaKeys.find(
       (k) =>
-        k.toLowerCase().includes("name") ||
-        k.toLowerCase().includes("label") ||
-        k.toLowerCase().includes("title") ||
-        k.toLowerCase() === "category",
+        k.toLowerCase().includes('name') ||
+        k.toLowerCase().includes('label') ||
+        k.toLowerCase().includes('title') ||
+        k.toLowerCase() === 'category',
     );
 
     metaColor = metaKeys.find(
       (k) =>
-        k.toLowerCase().includes("color") ||
-        k.toLowerCase().includes("fill") ||
-        k.toLowerCase().includes("rgb") ||
-        k.toLowerCase().includes("col"),
+        k.toLowerCase().includes('color') ||
+        k.toLowerCase().includes('fill') ||
+        k.toLowerCase().includes('rgb') ||
+        k.toLowerCase().includes('col'),
     );
   }
 
@@ -268,12 +268,12 @@ export default function Configurator({
     // Download nodes data as CSV
     const nodesCsv = convertToCSV(nodes);
     const nodesBlob = new Blob([nodesCsv], {
-      type: "text/csv",
+      type: 'text/csv',
     });
     const nodesUrl = URL.createObjectURL(nodesBlob);
-    const nodesLink = document.createElement("a");
+    const nodesLink = document.createElement('a');
     nodesLink.href = nodesUrl;
-    nodesLink.download = "nodes.csv";
+    nodesLink.download = 'nodes.csv';
     document.body.appendChild(nodesLink);
     nodesLink.click();
     document.body.removeChild(nodesLink);
@@ -282,12 +282,12 @@ export default function Configurator({
     // Download links data as CSV
     const linksCsv = convertToCSV(links);
     const linksBlob = new Blob([linksCsv], {
-      type: "text/csv",
+      type: 'text/csv',
     });
     const linksUrl = URL.createObjectURL(linksBlob);
-    const linksLink = document.createElement("a");
+    const linksLink = document.createElement('a');
     linksLink.href = linksUrl;
-    linksLink.download = "links.csv";
+    linksLink.download = 'links.csv';
     document.body.appendChild(linksLink);
     linksLink.click();
     document.body.removeChild(linksLink);
@@ -310,12 +310,12 @@ export default function Configurator({
     if (metadataToDownload) {
       const metadataCsv = convertToCSV(metadataToDownload);
       const metadataBlob = new Blob([metadataCsv], {
-        type: "text/csv",
+        type: 'text/csv',
       });
       const metadataUrl = URL.createObjectURL(metadataBlob);
-      const metadataLink = document.createElement("a");
+      const metadataLink = document.createElement('a');
       metadataLink.href = metadataUrl;
-      metadataLink.download = "metadata.csv";
+      metadataLink.download = 'metadata.csv';
       document.body.appendChild(metadataLink);
       metadataLink.click();
       document.body.removeChild(metadataLink);
@@ -329,95 +329,95 @@ export default function Configurator({
         <IconButton
           onClick={() => setOpen(true)}
           sx={{
-            position: "fixed",
+            position: 'fixed',
             top: 24,
             left: 24,
             zIndex: 1301,
-            bgcolor: "background.paper",
+            bgcolor: 'background.paper',
             boxShadow: 2,
             borderRadius: 2,
             p: 1,
-            "&:hover": { bgcolor: "grey.800", color: "white" },
+            '&:hover': { bgcolor: 'grey.800', color: 'white' },
           }}
         >
           <MenuIcon />
         </IconButton>
       )}
       <Drawer
-        variant="persistent"
-        anchor="left"
+        variant='persistent'
+        anchor='left'
         open={open}
         PaperProps={{
           sx: {
-            width: { xs: "80vw", sm: 320, md: 340 },
+            width: { xs: '80vw', sm: 320, md: 340 },
             maxWidth: 400,
             // bgcolor: "#232733",
             // color: "grey.100",
             p: 0,
-            borderRight: "1px solid #222",
+            borderRight: '1px solid #222',
             boxShadow: 4,
             zIndex: 1300,
-            display: "flex",
-            flexDirection: "column",
-            height: "100vh",
+            display: 'flex',
+            flexDirection: 'column',
+            height: '100vh',
           },
         }}
       >
         <Box
           sx={{
-            display: "flex",
-            alignItems: "center",
+            display: 'flex',
+            alignItems: 'center',
             px: 2,
             py: 1,
-            borderBottom: "1px solid #333",
-            justifyContent: "space-between",
+            borderBottom: '1px solid #333',
+            justifyContent: 'space-between',
           }}
         >
-          <Box sx={{ display: "flex", alignItems: "center" }}>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <IconButton
               onClick={() => setOpen(false)}
-              sx={{ color: "grey.600", mr: 1 }}
+              sx={{ color: 'grey.600', mr: 1 }}
             >
               <MenuIcon />
             </IconButton>
             <Box
               sx={{
-                display: "flex",
-                alignItems: "center",
+                display: 'flex',
+                alignItems: 'center',
                 gap: { xs: 0.4, sm: 0.6 },
-                flexWrap: "nowrap",
+                flexWrap: 'nowrap',
                 minWidth: 0,
                 flex: 1,
-                maxWidth: "100%",
+                maxWidth: '100%',
               }}
             >
-              <Link to="/" style={{ display: "inline-flex" }}>
+              <Link to='/' style={{ display: 'inline-flex' }}>
                 <img
                   src={GrowthLabLogo}
-                  alt="Growth Lab Logo"
+                  alt='Growth Lab Logo'
                   style={{
-                    height: "clamp(22px, 2.5vw, 28px)",
-                    width: "auto",
+                    height: 'clamp(22px, 2.5vw, 28px)',
+                    width: 'auto',
                   }}
                 />
               </Link>
               <Link
-                to="/space-viewer"
+                to='/space-viewer'
                 style={{
-                  textDecoration: "none",
-                  color: "inherit",
+                  textDecoration: 'none',
+                  color: 'inherit',
                   minWidth: 0,
-                  flex: "1 1 auto",
+                  flex: '1 1 auto',
                 }}
               >
                 <Typography
-                  variant="h4"
-                  component="h1"
+                  variant='h4'
+                  component='h1'
                   sx={{
                     fontWeight: 400,
-                    fontSize: "clamp(0.95rem, 1.8vw, 1.2rem)",
+                    fontSize: 'clamp(0.95rem, 1.8vw, 1.2rem)',
                     lineHeight: 1.2,
-                    whiteSpace: "nowrap",
+                    whiteSpace: 'nowrap',
                     minWidth: 0,
                     flexShrink: 1,
                   }}
@@ -428,32 +428,32 @@ export default function Configurator({
             </Box>
           </Box>
         </Box>
-        <Box sx={{ p: 2, flex: 1, overflowY: "auto" }}>
+        <Box sx={{ p: 2, flex: 1, overflowY: 'auto' }}>
           <Box sx={{ mb: 2 }}>
             <Link
-              to="/space-viewer"
+              to='/space-viewer'
               style={{
-                display: "inline-flex",
-                alignItems: "center",
+                display: 'inline-flex',
+                alignItems: 'center',
                 gap: 6,
-                textDecoration: "none",
-                color: "inherit",
+                textDecoration: 'none',
+                color: 'inherit',
               }}
             >
-              <ArrowBackIcon fontSize="small" />
-              <Typography variant="body2" sx={{ fontWeight: 500 }}>
+              <ArrowBackIcon fontSize='small' />
+              <Typography variant='body2' sx={{ fontWeight: 500 }}>
                 Return to data configuration
               </Typography>
             </Link>
             <Divider sx={{ mt: 1.5 }} />
           </Box>
-          <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
               <FormLabel>
                 <b>Nodes:</b>
               </FormLabel>
-              <Tooltip title="Preview Nodes Data">
-                <IconButton onClick={() => handlePreviewClick(0)} size="small">
+              <Tooltip title='Preview Nodes Data'>
+                <IconButton onClick={() => handlePreviewClick(0)} size='small'>
                   <VisibilityIcon />
                 </IconButton>
               </Tooltip>
@@ -462,7 +462,7 @@ export default function Configurator({
               <InputLabel>ID Field</InputLabel>
               <Select
                 value={fieldNames.id}
-                label="ID Field"
+                label='ID Field'
                 onChange={(e) =>
                   setFieldNames((prev) => ({ ...prev, id: e.target.value }))
                 }
@@ -478,7 +478,7 @@ export default function Configurator({
               <InputLabel>X Field</InputLabel>
               <Select
                 value={fieldNames.x}
-                label="X Field"
+                label='X Field'
                 onChange={(e) =>
                   setFieldNames((prev) => ({ ...prev, x: e.target.value }))
                 }
@@ -494,7 +494,7 @@ export default function Configurator({
               <InputLabel>Y Field</InputLabel>
               <Select
                 value={fieldNames.y}
-                label="Y Field"
+                label='Y Field'
                 onChange={(e) =>
                   setFieldNames((prev) => ({ ...prev, y: e.target.value }))
                 }
@@ -509,8 +509,8 @@ export default function Configurator({
             <FormControl fullWidth>
               <InputLabel>Radius Field (Optional)</InputLabel>
               <Select
-                value={fieldNames.radius || ""}
-                label="Radius Field (Optional)"
+                value={fieldNames.radius || ''}
+                label='Radius Field (Optional)'
                 onChange={(e) =>
                   setFieldNames((prev) => ({
                     ...prev,
@@ -518,7 +518,7 @@ export default function Configurator({
                   }))
                 }
               >
-                <MenuItem value="">None (Fixed Size)</MenuItem>
+                <MenuItem value=''>None (Fixed Size)</MenuItem>
                 {nodeKeys.map((key) => (
                   <MenuItem key={key} value={key}>
                     {key}
@@ -530,8 +530,8 @@ export default function Configurator({
               <>
                 <FormLabel>Node Radius:</FormLabel>
                 <TextField
-                  label="Min Radius"
-                  type="number"
+                  label='Min Radius'
+                  type='number'
                   value={radiusConfig.min}
                   onChange={(e) =>
                     setRadiusConfig((prev) => ({
@@ -542,8 +542,8 @@ export default function Configurator({
                   inputProps={{ min: 0, step: 0.1 }}
                 />
                 <TextField
-                  label="Max Radius"
-                  type="number"
+                  label='Max Radius'
+                  type='number'
                   value={radiusConfig.max}
                   onChange={(e) =>
                     setRadiusConfig((prev) => ({
@@ -557,7 +557,7 @@ export default function Configurator({
                   <InputLabel>Scale Type</InputLabel>
                   <Select
                     value={radiusConfig.scale}
-                    label="Scale Type"
+                    label='Scale Type'
                     onChange={(e) =>
                       setRadiusConfig((prev) => ({
                         ...prev,
@@ -588,11 +588,11 @@ export default function Configurator({
                     min={1}
                     max={50}
                     step={1}
-                    valueLabelDisplay="auto"
+                    valueLabelDisplay='auto'
                     marks={[
-                      { value: 1, label: "1" },
-                      { value: 25, label: "25" },
-                      { value: 50, label: "50" },
+                      { value: 1, label: '1' },
+                      { value: 25, label: '25' },
+                      { value: 50, label: '50' },
                     ]}
                   />
                 </Box>
@@ -603,12 +603,12 @@ export default function Configurator({
               <Select
                 multiple
                 value={fieldNames.tooltip || []}
-                label="Tooltip Fields"
+                label='Tooltip Fields'
                 onChange={(e) => {
                   const value = e.target.value as string[];
                   setFieldNames((prev) => ({ ...prev, tooltip: value }));
                 }}
-                renderValue={(selected) => (selected as string[]).join(", ")}
+                renderValue={(selected) => (selected as string[]).join(', ')}
               >
                 {nodeKeys.map((key) => (
                   <MenuItem key={key} value={key}>
@@ -623,12 +623,12 @@ export default function Configurator({
             <Divider sx={{ my: 2 }} />
 
             {/* LINKS SECTION */}
-            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
               <FormLabel>
                 <b>Links:</b>
               </FormLabel>
-              <Tooltip title="Preview Links Data">
-                <IconButton onClick={() => handlePreviewClick(1)} size="small">
+              <Tooltip title='Preview Links Data'>
+                <IconButton onClick={() => handlePreviewClick(1)} size='small'>
                   <VisibilityIcon />
                 </IconButton>
               </Tooltip>
@@ -637,7 +637,7 @@ export default function Configurator({
               <InputLabel>Source Field</InputLabel>
               <Select
                 value={fieldNames.source}
-                label="Source Field"
+                label='Source Field'
                 onChange={(e) =>
                   setFieldNames((prev) => ({ ...prev, source: e.target.value }))
                 }
@@ -653,7 +653,7 @@ export default function Configurator({
               <InputLabel>Target Field</InputLabel>
               <Select
                 value={fieldNames.target}
-                label="Target Field"
+                label='Target Field'
                 onChange={(e) =>
                   setFieldNames((prev) => ({ ...prev, target: e.target.value }))
                 }
@@ -673,10 +673,10 @@ export default function Configurator({
                   onChange={(e) => setShowAllLinks(e.target.checked)}
                 />
               }
-              label="Show All Links"
+              label='Show All Links'
               sx={{
                 mt: 1,
-                bgcolor: "rgba(255,255,255,0.7)",
+                bgcolor: 'rgba(255,255,255,0.7)',
                 borderRadius: 1,
                 px: 1,
               }}
@@ -693,8 +693,8 @@ export default function Configurator({
                 <Accordion>
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
-                    aria-controls="continents-panel-content"
-                    id="continents-panel-header"
+                    aria-controls='continents-panel-content'
+                    id='continents-panel-header'
                   >
                     <Typography>
                       Continents ({clusters.continents.length})
@@ -713,16 +713,16 @@ export default function Configurator({
                           }
                         />
                       }
-                      label="Show Continents"
+                      label='Show Continents'
                       sx={{
                         mb: 2,
-                        bgcolor: "rgba(255,255,255,0.7)",
+                        bgcolor: 'rgba(255,255,255,0.7)',
                         borderRadius: 1,
                         px: 1,
                       }}
                     />
 
-                    <Typography variant="body2" sx={{ mt: 1, mb: 1 }}>
+                    <Typography variant='body2' sx={{ mt: 1, mb: 1 }}>
                       Stroke Width:
                     </Typography>
                     <Slider
@@ -739,15 +739,15 @@ export default function Configurator({
                       min={0.5}
                       max={5}
                       step={0.5}
-                      valueLabelDisplay="auto"
+                      valueLabelDisplay='auto'
                       sx={{
-                        bgcolor: "rgba(255,255,255,0.7)",
+                        bgcolor: 'rgba(255,255,255,0.7)',
                         borderRadius: 1,
                         px: 1,
                       }}
                     />
 
-                    <Typography variant="body2" sx={{ mt: 2, mb: 1 }}>
+                    <Typography variant='body2' sx={{ mt: 2, mb: 1 }}>
                       Fill Opacity:
                     </Typography>
                     <Slider
@@ -764,15 +764,15 @@ export default function Configurator({
                       min={0}
                       max={0.5}
                       step={0.05}
-                      valueLabelDisplay="auto"
+                      valueLabelDisplay='auto'
                       sx={{
-                        bgcolor: "rgba(255,255,255,0.7)",
+                        bgcolor: 'rgba(255,255,255,0.7)',
                         borderRadius: 1,
                         px: 1,
                       }}
                     />
 
-                    <Typography variant="body2" sx={{ mt: 2, mb: 1 }}>
+                    <Typography variant='body2' sx={{ mt: 2, mb: 1 }}>
                       Stroke Opacity:
                     </Typography>
                     <Slider
@@ -789,15 +789,15 @@ export default function Configurator({
                       min={0}
                       max={1}
                       step={0.1}
-                      valueLabelDisplay="auto"
+                      valueLabelDisplay='auto'
                       sx={{
-                        bgcolor: "rgba(255,255,255,0.7)",
+                        bgcolor: 'rgba(255,255,255,0.7)',
                         borderRadius: 1,
                         px: 1,
                       }}
                     />
 
-                    <Typography variant="body2" sx={{ mt: 2, mb: 1 }}>
+                    <Typography variant='body2' sx={{ mt: 2, mb: 1 }}>
                       Show Labels:
                     </Typography>
                     <FormControlLabel
@@ -815,10 +815,10 @@ export default function Configurator({
                           }
                         />
                       }
-                      label="Show Labels"
+                      label='Show Labels'
                       sx={{
                         mb: 2,
-                        bgcolor: "rgba(255,255,255,0.7)",
+                        bgcolor: 'rgba(255,255,255,0.7)',
                         borderRadius: 1,
                         px: 1,
                       }}
@@ -829,8 +829,8 @@ export default function Configurator({
                 <Accordion>
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
-                    aria-controls="countries-panel-content"
-                    id="countries-panel-header"
+                    aria-controls='countries-panel-content'
+                    id='countries-panel-header'
                   >
                     <Typography>
                       Countries ({clusters.countries.length})
@@ -849,16 +849,16 @@ export default function Configurator({
                           }
                         />
                       }
-                      label="Show Countries"
+                      label='Show Countries'
                       sx={{
                         mb: 2,
-                        bgcolor: "rgba(255,255,255,0.7)",
+                        bgcolor: 'rgba(255,255,255,0.7)',
                         borderRadius: 1,
                         px: 1,
                       }}
                     />
 
-                    <Typography variant="body2" sx={{ mt: 1, mb: 1 }}>
+                    <Typography variant='body2' sx={{ mt: 1, mb: 1 }}>
                       Stroke Width:
                     </Typography>
                     <Slider
@@ -875,15 +875,15 @@ export default function Configurator({
                       min={0.5}
                       max={5}
                       step={0.5}
-                      valueLabelDisplay="auto"
+                      valueLabelDisplay='auto'
                       sx={{
-                        bgcolor: "rgba(255,255,255,0.7)",
+                        bgcolor: 'rgba(255,255,255,0.7)',
                         borderRadius: 1,
                         px: 1,
                       }}
                     />
 
-                    <Typography variant="body2" sx={{ mt: 2, mb: 1 }}>
+                    <Typography variant='body2' sx={{ mt: 2, mb: 1 }}>
                       Fill Opacity:
                     </Typography>
                     <Slider
@@ -900,15 +900,15 @@ export default function Configurator({
                       min={0}
                       max={0.5}
                       step={0.05}
-                      valueLabelDisplay="auto"
+                      valueLabelDisplay='auto'
                       sx={{
-                        bgcolor: "rgba(255,255,255,0.7)",
+                        bgcolor: 'rgba(255,255,255,0.7)',
                         borderRadius: 1,
                         px: 1,
                       }}
                     />
 
-                    <Typography variant="body2" sx={{ mt: 2, mb: 1 }}>
+                    <Typography variant='body2' sx={{ mt: 2, mb: 1 }}>
                       Stroke Opacity:
                     </Typography>
                     <Slider
@@ -925,15 +925,15 @@ export default function Configurator({
                       min={0}
                       max={1}
                       step={0.1}
-                      valueLabelDisplay="auto"
+                      valueLabelDisplay='auto'
                       sx={{
-                        bgcolor: "rgba(255,255,255,0.7)",
+                        bgcolor: 'rgba(255,255,255,0.7)',
                         borderRadius: 1,
                         px: 1,
                       }}
                     />
 
-                    <Typography variant="body2" sx={{ mt: 2, mb: 1 }}>
+                    <Typography variant='body2' sx={{ mt: 2, mb: 1 }}>
                       Show Labels:
                     </Typography>
                     <FormControlLabel
@@ -951,10 +951,10 @@ export default function Configurator({
                           }
                         />
                       }
-                      label="Show Labels"
+                      label='Show Labels'
                       sx={{
                         mb: 2,
-                        bgcolor: "rgba(255,255,255,0.7)",
+                        bgcolor: 'rgba(255,255,255,0.7)',
                         borderRadius: 1,
                         px: 1,
                       }}
@@ -970,14 +970,14 @@ export default function Configurator({
             {(metadata && metadata.length > 0 && !defaultMetadata) ||
             (defaultMetadata && defaultMetadata.length > 0) ? (
               <>
-                <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                   <FormLabel>
                     <b>Metadata:</b>
                   </FormLabel>
-                  <Tooltip title="Preview Metadata">
+                  <Tooltip title='Preview Metadata'>
                     <IconButton
                       onClick={() => handlePreviewClick(2)}
-                      size="small"
+                      size='small'
                     >
                       <VisibilityIcon />
                     </IconButton>
@@ -990,8 +990,8 @@ export default function Configurator({
                     <FormControl fullWidth>
                       <InputLabel>Node Category Field</InputLabel>
                       <Select
-                        value={fieldNames.category || ""}
-                        label="Node Category Field"
+                        value={fieldNames.category || ''}
+                        label='Node Category Field'
                         onChange={(e) =>
                           setFieldNames((prev) => ({
                             ...prev,
@@ -999,7 +999,7 @@ export default function Configurator({
                           }))
                         }
                       >
-                        <MenuItem value="">None</MenuItem>
+                        <MenuItem value=''>None</MenuItem>
                         {nodeKeys.map((key) => (
                           <MenuItem key={key} value={key}>
                             {key}
@@ -1013,8 +1013,8 @@ export default function Configurator({
                         <FormControl fullWidth>
                           <InputLabel>Metadata ID Field</InputLabel>
                           <Select
-                            value={fieldNames.metaId || ""}
-                            label="Metadata ID Field"
+                            value={fieldNames.metaId || ''}
+                            label='Metadata ID Field'
                             onChange={(e) =>
                               setFieldNames((prev) => ({
                                 ...prev,
@@ -1033,8 +1033,8 @@ export default function Configurator({
                         <FormControl fullWidth>
                           <InputLabel>Metadata Name Field</InputLabel>
                           <Select
-                            value={fieldNames.metaName || ""}
-                            label="Metadata Name Field"
+                            value={fieldNames.metaName || ''}
+                            label='Metadata Name Field'
                             onChange={(e) =>
                               setFieldNames((prev) => ({
                                 ...prev,
@@ -1053,8 +1053,8 @@ export default function Configurator({
                         <FormControl fullWidth>
                           <InputLabel>Metadata Color Field</InputLabel>
                           <Select
-                            value={fieldNames.metaColor || ""}
-                            label="Metadata Color Field"
+                            value={fieldNames.metaColor || ''}
+                            label='Metadata Color Field'
                             onChange={(e) =>
                               setFieldNames((prev) => ({
                                 ...prev,
@@ -1077,27 +1077,27 @@ export default function Configurator({
                 {/* Show information about products dataset metadata */}
                 {defaultMetadata && defaultMetadata.length > 0 && (
                   <Typography
-                    variant="caption"
-                    color="text.secondary"
-                    sx={{ fontStyle: "italic", mt: 1 }}
+                    variant='caption'
+                    color='text.secondary'
+                    sx={{ fontStyle: 'italic', mt: 1 }}
                   >
-                    This dataset uses predefined category metadata with{" "}
+                    This dataset uses predefined category metadata with{' '}
                     {defaultMetadata.length} categories.
                   </Typography>
                 )}
               </>
             ) : null}
             <Typography
-              variant="caption"
-              color="text.secondary"
+              variant='caption'
+              color='text.secondary'
               sx={{ mt: 2 }}
             >
-              For help using the tool please contact:{" "}
-              <a href="mailto:growthlabtools@hks.harvard.edu">
+              For help using the tool please contact:{' '}
+              <a href='mailto:growthlabtools@hks.harvard.edu'>
                 growthlabtools@hks.harvard.edu
               </a>
-              .{" "}
-              <Link to="/" style={{ color: "inherit" }}>
+              .{' '}
+              <Link to='/' style={{ color: 'inherit' }}>
                 Explore all Growth Lab tools at growthlab.app
               </Link>
             </Typography>
@@ -1109,40 +1109,40 @@ export default function Configurator({
       <Modal
         open={previewOpen}
         onClose={() => setPreviewOpen(false)}
-        aria-labelledby="data-preview-modal"
+        aria-labelledby='data-preview-modal'
         sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
         }}
       >
         <Box
           sx={{
-            width: "90vw",
-            maxHeight: "80vh",
-            bgcolor: "background.paper",
+            width: '90vw',
+            maxHeight: '80vh',
+            bgcolor: 'background.paper',
             borderRadius: 2,
             boxShadow: 24,
             p: 2,
-            display: "flex",
-            flexDirection: "column",
+            display: 'flex',
+            flexDirection: 'column',
             gap: 2,
           }}
         >
           <Box
             sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
             }}
           >
-            <Typography variant="h6">Data Preview</Typography>
-            <Tooltip title="Download All Data">
+            <Typography variant='h6'>Data Preview</Typography>
+            <Tooltip title='Download All Data'>
               <Button
-                variant="outlined"
+                variant='outlined'
                 startIcon={<DownloadIcon />}
                 onClick={handleDownload}
-                size="small"
+                size='small'
               >
                 Download
               </Button>
@@ -1151,18 +1151,18 @@ export default function Configurator({
           <Tabs
             value={previewTab}
             onChange={(_, newValue) => setPreviewTab(newValue)}
-            sx={{ borderBottom: 1, borderColor: "divider" }}
+            sx={{ borderBottom: 1, borderColor: 'divider' }}
           >
-            <Tab label="Nodes Data" />
-            <Tab label="Links Data" />
+            <Tab label='Nodes Data' />
+            <Tab label='Links Data' />
             {((metadata && metadata.length > 0) ||
               (defaultMetadata && defaultMetadata.length > 0)) && (
-              <Tab label="Metadata" />
+              <Tab label='Metadata' />
             )}
           </Tabs>
-          <Box sx={{ overflow: "auto" }}>
+          <Box sx={{ overflow: 'auto' }}>
             <TableContainer component={Paper}>
-              <Table size="small" stickyHeader>
+              <Table size='small' stickyHeader>
                 <TableHead>
                   <TableRow>
                     {(() => {
@@ -1170,7 +1170,7 @@ export default function Configurator({
                       if (previewTab === 1) return linkKeys;
                       // For metadata tab, show appropriate keys based on data source
                       if (defaultMetadata && defaultMetadata.length > 0) {
-                        return ["category", "color"]; // Display metadata format
+                        return ['category', 'color']; // Display metadata format
                       }
                       return metaKeys; // Regular metadata format
                     })().map((key) => (
@@ -1199,7 +1199,7 @@ export default function Configurator({
                           : previewTab === 1
                             ? linkKeys
                             : defaultMetadata && defaultMetadata.length > 0
-                              ? ["category", "color"]
+                              ? ['category', 'color']
                               : metaKeys;
                       const idKey = keys[0];
                       const idValue = row[idKey as keyof typeof row];
@@ -1207,7 +1207,7 @@ export default function Configurator({
                         <TableRow key={`${String(idValue)}-${index}`}>
                           {keys.map((key) => (
                             <TableCell key={key}>
-                              {String(row[key as keyof typeof row] || "")}
+                              {String(row[key as keyof typeof row] || '')}
                             </TableCell>
                           ))}
                         </TableRow>
@@ -1217,7 +1217,7 @@ export default function Configurator({
               </Table>
               <TablePagination
                 rowsPerPageOptions={[5, 10, 25, 50]}
-                component="div"
+                component='div'
                 count={(() => {
                   if (previewTab === 0) return nodes.length;
                   if (previewTab === 1) return links.length;

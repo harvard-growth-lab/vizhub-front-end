@@ -1,7 +1,7 @@
-import React from "react";
-import { Box, Typography } from "@mui/material";
-import { Tooltip } from "@visx/tooltip";
-import type { Node } from "../loader";
+import React from 'react';
+import { Box, Typography } from '@mui/material';
+import { Tooltip } from '@visx/tooltip';
+import type { Node } from '../loader';
 
 interface SpaceVisualizationTooltipProps {
   tooltipData: Node | null;
@@ -26,17 +26,17 @@ export const SpaceVisualizationTooltip: React.FC<
       left={tooltipLeft}
       top={tooltipTop}
       style={{
-        position: "absolute",
-        backgroundColor: "white",
-        padding: "8px",
-        borderRadius: "4px",
-        boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
+        position: 'absolute',
+        backgroundColor: 'white',
+        padding: '8px',
+        borderRadius: '4px',
+        boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
         zIndex: 1000,
       }}
     >
       <Box>
         {tooltipFields.map((field) => (
-          <Typography key={field} variant="body2">
+          <Typography key={field} variant='body2'>
             {field}: {String(tooltipData[field])}
           </Typography>
         ))}

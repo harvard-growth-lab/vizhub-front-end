@@ -1,17 +1,17 @@
-import type { RefObject, FC } from "react";
-import { useMemo, useState, useRef } from "react";
-import { Box, Typography } from "@mui/material";
-import { Zoom } from "@visx/zoom";
-import { useTooltip } from "@visx/tooltip";
-import { ParentSize } from "@visx/responsive";
-import { localPoint } from "@visx/event";
-import * as d3 from "d3";
-import { SpaceVisualizationControls } from "./components/SpaceVisualizationControls";
-import { SpaceVisualizationContent } from "./components/SpaceVisualizationContent";
-import { SpaceVisualizationTooltip } from "./components/SpaceVisualizationTooltip";
-import { SpaceVisualizationHighlight } from "./components/SpaceVisualizationHighlight";
-import { SpaceVisualizationClusters } from "./components/SpaceVisualizationClusters";
-import type { Node, ClusterData } from "./loader";
+import type { RefObject, FC } from 'react';
+import { useMemo, useState, useRef } from 'react';
+import { Box, Typography } from '@mui/material';
+import { Zoom } from '@visx/zoom';
+import { useTooltip } from '@visx/tooltip';
+import { ParentSize } from '@visx/responsive';
+import { localPoint } from '@visx/event';
+import * as d3 from 'd3';
+import { SpaceVisualizationControls } from './components/SpaceVisualizationControls';
+import { SpaceVisualizationContent } from './components/SpaceVisualizationContent';
+import { SpaceVisualizationTooltip } from './components/SpaceVisualizationTooltip';
+import { SpaceVisualizationHighlight } from './components/SpaceVisualizationHighlight';
+import { SpaceVisualizationClusters } from './components/SpaceVisualizationClusters';
+import type { Node, ClusterData } from './loader';
 
 interface FieldNames {
   id: string;
@@ -61,14 +61,14 @@ interface SpaceVisualizationProps {
   radiusConfig?: RadiusConfig;
   clusters?: ClusterData;
   clusterConfig?: ClusterConfig;
-  defaultMetadata?: Array<{
+  defaultMetadata?: {
     cluster_name: string;
     cluster_name_short: string;
     cluster_col: string;
-  }>;
-  metadata?: Array<{
+  }[];
+  metadata?: {
     [key: string]: string | number | undefined;
-  }>;
+  }[];
 }
 
 const SpaceVisualizationInner: React.FC<
@@ -88,7 +88,7 @@ const SpaceVisualizationInner: React.FC<
   width,
   height,
 }) => {
-  const [selectedNodeIds, setSelectedNodeIds] = useState<string>("");
+  const [selectedNodeIds, setSelectedNodeIds] = useState<string>('');
   const [highlightedNodeId, setHighlightedNodeId] = useState<
     string | undefined
   >();
@@ -208,7 +208,7 @@ const SpaceVisualizationInner: React.FC<
       .map((node) => {
         const value = fieldNames.radius ? node[fieldNames.radius] : undefined;
         if (value === undefined) return Number.NaN;
-        return typeof value === "number"
+        return typeof value === 'number'
           ? value
           : Number.parseFloat(String(value));
       })
@@ -227,13 +227,13 @@ const SpaceVisualizationInner: React.FC<
       | d3.ScalePower<number, number>;
 
     switch (radiusConfig?.scale) {
-      case "log":
+      case 'log':
         scale = d3.scaleLog().domain([min, max]);
         break;
-      case "sqrt":
+      case 'sqrt':
         scale = d3.scaleSqrt().domain([min, max]);
         break;
-      case "pow":
+      case 'pow':
         scale = d3.scalePow().exponent(2).domain([min, max]);
         break;
       default:
@@ -251,7 +251,7 @@ const SpaceVisualizationInner: React.FC<
     const categories = Array.from(
       new Set(
         nodes
-          .map((node) => String(node[fieldNames.category || ""]))
+          .map((node) => String(node[fieldNames.category || '']))
           .filter(Boolean),
       ),
     );
@@ -268,13 +268,13 @@ const SpaceVisualizationInner: React.FC<
 
     const svg = svgRef.current;
     const svgData = new XMLSerializer().serializeToString(svg);
-    const canvas = document.createElement("canvas");
-    const ctx = canvas.getContext("2d");
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
     const img = new Image();
     const svgBlob = new Blob([svgData], {
-      type: "image/svg+xml;charset=utf-8",
+      type: 'image/svg+xml;charset=utf-8',
     });
     const url = URL.createObjectURL(svgBlob);
 
@@ -284,9 +284,9 @@ const SpaceVisualizationInner: React.FC<
       ctx.drawImage(img, 0, 0);
       URL.revokeObjectURL(url);
 
-      const link = document.createElement("a");
-      link.download = "space-visualization.png";
-      link.href = canvas.toDataURL("image/png");
+      const link = document.createElement('a');
+      link.download = 'space-visualization.png';
+      link.href = canvas.toDataURL('image/png');
       link.click();
     };
 
@@ -325,11 +325,11 @@ const SpaceVisualizationInner: React.FC<
   return (
     <Box
       sx={{
-        width: "100%",
-        height: "100%",
-        overflow: "hidden",
-        bgcolor: "#fafbfc",
-        position: "relative",
+        width: '100%',
+        height: '100%',
+        overflow: 'hidden',
+        bgcolor: '#fafbfc',
+        position: 'relative',
       }}
     >
       <SpaceVisualizationControls
@@ -363,18 +363,18 @@ const SpaceVisualizationInner: React.FC<
             return (
               <div
                 style={{
-                  position: "relative",
-                  width: "100%",
-                  height: "100%",
-                  touchAction: "none",
+                  position: 'relative',
+                  width: '100%',
+                  height: '100%',
+                  touchAction: 'none',
                 }}
               >
                 {/* biome-ignore lint/a11y/noSvgWithoutTitle: <explanation> */}
                 <svg
                   ref={svgRef}
-                  width="100%"
-                  height="100%"
-                  style={{ background: "#fff" }}
+                  width='100%'
+                  height='100%'
+                  style={{ background: '#fff' }}
                   onWheel={zoom.handleWheel}
                   onMouseDown={zoom.dragStart}
                   onMouseMove={zoom.dragMove}
@@ -383,7 +383,7 @@ const SpaceVisualizationInner: React.FC<
                   onDoubleClick={zoom.reset}
                 >
                   {/* Background rectangle for visual consistency */}
-                  <rect width="100%" height="100%" fill="#fff" />
+                  <rect width='100%' height='100%' fill='#fff' />
 
                   {/* Content group with zoom transform */}
                   <g transform={zoom.toString()}>
@@ -436,7 +436,7 @@ const SpaceVisualizationInner: React.FC<
                         fieldNames.metaName &&
                         fieldNames.metaColor)) &&
                     (() => {
-                      let legendItems: Array<{ name: string; color: string }> =
+                      let legendItems: { name: string; color: string }[] =
                         [];
 
                       if (defaultMetadata && defaultMetadata.length > 0) {
@@ -453,7 +453,7 @@ const SpaceVisualizationInner: React.FC<
                         const categories = new Set(
                           nodes
                             .map((node) =>
-                              String(node[fieldNames.category || ""]),
+                              String(node[fieldNames.category || '']),
                             )
                             .filter(Boolean),
                         );
@@ -461,12 +461,12 @@ const SpaceVisualizationInner: React.FC<
                         for (const category of Array.from(categories)) {
                           const meta = metadata?.find(
                             (m) =>
-                              String(m[fieldNames.metaId || ""]) === category,
+                              String(m[fieldNames.metaId || '']) === category,
                           );
                           if (meta) {
                             legendItems.push({
-                              name: String(meta[fieldNames.metaName || ""]),
-                              color: String(meta[fieldNames.metaColor || ""]),
+                              name: String(meta[fieldNames.metaName || '']),
+                              color: String(meta[fieldNames.metaColor || '']),
                             });
                           } else if (category) {
                             // Last-ditch fallback: use D3 color scale when no metadata exists
@@ -493,16 +493,16 @@ const SpaceVisualizationInner: React.FC<
                           <rect
                             width={legendWidth}
                             height={legendHeight}
-                            fill="white"
-                            stroke="#ccc"
+                            fill='white'
+                            stroke='#ccc'
                             rx={8}
                           />
                           <text
                             x={16}
                             y={28}
                             fontSize={12}
-                            fill="#333"
-                            style={{ fontFamily: "inherit" }}
+                            fill='#333'
+                            style={{ fontFamily: 'inherit' }}
                           >
                             Categories
                           </text>
@@ -516,8 +516,8 @@ const SpaceVisualizationInner: React.FC<
                                 x={30}
                                 y={10}
                                 fontSize={12}
-                                fill="#333"
-                                style={{ fontFamily: "inherit" }}
+                                fill='#333'
+                                style={{ fontFamily: 'inherit' }}
                               >
                                 {item.name}
                               </text>

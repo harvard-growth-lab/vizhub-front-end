@@ -1,7 +1,7 @@
-import Box from "@mui/material/Box";
-import { Typography } from "@mui/material";
+import Box from '@mui/material/Box';
+import { Typography } from '@mui/material';
 
-type TooltipKind = "product" | "cluster" | "custom";
+type TooltipKind = 'product' | 'cluster' | 'custom';
 
 type ClusterData = {
   clusterName: string;
@@ -28,11 +28,11 @@ export interface SharedTooltipPayload {
   data?: ProductData | ClusterData | CustomData;
 }
 
-const currencyFormatter = new Intl.NumberFormat("en-US", {
-  style: "currency",
-  currency: "USD",
-  notation: "compact",
-  compactDisplay: "short",
+const currencyFormatter = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+  notation: 'compact',
+  compactDisplay: 'short',
   minimumFractionDigits: 1,
   maximumFractionDigits: 1,
 });
@@ -46,19 +46,19 @@ const Row = ({
 }) => (
   <Box
     sx={{
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "space-between",
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
       gap: 2,
       py: 0.25,
     }}
   >
-    <Typography variant="chart-tooltip-content" sx={{ display: "block" }}>
+    <Typography variant='chart-tooltip-content' sx={{ display: 'block' }}>
       {label}
     </Typography>
     <Typography
-      variant="chart-tooltip-content"
-      sx={{ display: "block", fontWeight: 600 }}
+      variant='chart-tooltip-content'
+      sx={{ display: 'block', fontWeight: 600 }}
     >
       {value}
     </Typography>
@@ -67,56 +67,56 @@ const Row = ({
 
 const formatNumberOneDecimal = (value?: number | null) => {
   if (value === undefined || value === null || Number.isNaN(Number(value)))
-    return "-";
+    return '-';
   return Number(value as number).toFixed(1);
 };
 
 function SharedTooltip({ payload }: { payload: SharedTooltipPayload }) {
   const isCluster = Boolean(
     (payload?.data as ClusterData | undefined)?.clusterName &&
-      payload?.type !== "product",
+      payload?.type !== 'product',
   );
   const type: TooltipKind =
-    (payload?.type as TooltipKind) || (isCluster ? "cluster" : "product");
+    (payload?.type as TooltipKind) || (isCluster ? 'cluster' : 'product');
   const data = payload?.data as ProductData & ClusterData & CustomData;
 
   if (!data) return null;
 
-  if (type === "cluster") {
+  if (type === 'cluster') {
     return (
       <Box
         sx={{
-          border: "1px solid #DBDBDB",
-          boxShadow: "0 0 4px 1px rgba(0, 0, 0, 0.10)",
-          backgroundColor: "#FFFFFF",
+          border: '1px solid #DBDBDB',
+          boxShadow: '0 0 4px 1px rgba(0, 0, 0, 0.10)',
+          backgroundColor: '#FFFFFF',
           minWidth: 260,
         }}
       >
-        <Box sx={{ backgroundColor: "#ECECEC", px: 1, py: 0.5 }}>
-          <Typography sx={{ fontWeight: 600 }} variant="chart-tooltip-title">
+        <Box sx={{ backgroundColor: '#ECECEC', px: 1, py: 0.5 }}>
+          <Typography sx={{ fontWeight: 600 }} variant='chart-tooltip-title'>
             {data.clusterName}
           </Typography>
         </Box>
         <Box sx={{ px: 1, py: 0.5 }}>
-          <Row label="Products:" value={data.productCount ?? 0} />
+          <Row label='Products:' value={data.productCount ?? 0} />
         </Box>
       </Box>
     );
   }
 
-  if (type === "custom") {
+  if (type === 'custom') {
     const custom = data as CustomData;
     return (
       <Box
         sx={{
-          border: "1px solid #DBDBDB",
-          boxShadow: "0 0 4px 1px rgba(0, 0, 0, 0.10)",
-          backgroundColor: "#FFFFFF",
+          border: '1px solid #DBDBDB',
+          boxShadow: '0 0 4px 1px rgba(0, 0, 0, 0.10)',
+          backgroundColor: '#FFFFFF',
           minWidth: 260,
         }}
       >
-        <Box sx={{ backgroundColor: "#ECECEC", px: 1, py: 0.5 }}>
-          <Typography sx={{ fontWeight: 600 }} variant="chart-tooltip-title">
+        <Box sx={{ backgroundColor: '#ECECEC', px: 1, py: 0.5 }}>
+          <Typography sx={{ fontWeight: 600 }} variant='chart-tooltip-title'>
             {custom.title}
           </Typography>
         </Box>
@@ -131,8 +131,8 @@ function SharedTooltip({ payload }: { payload: SharedTooltipPayload }) {
 
   // product
   const productName =
-    data?.product?.nameShortEn || data?.nameShortEn || "Unknown Product";
-  const code = data?.product?.code || data?.code || "-";
+    data?.product?.nameShortEn || data?.nameShortEn || 'Unknown Product';
+  const code = data?.product?.code || data?.code || '-';
   const exportValue = currencyFormatter.format(
     (data?.exportValue as number) || 0,
   );
@@ -143,23 +143,23 @@ function SharedTooltip({ payload }: { payload: SharedTooltipPayload }) {
   return (
     <Box
       sx={{
-        border: "1px solid #DBDBDB",
-        boxShadow: "0 0 4px 1px rgba(0, 0, 0, 0.10)",
-        backgroundColor: "#FFFFFF",
+        border: '1px solid #DBDBDB',
+        boxShadow: '0 0 4px 1px rgba(0, 0, 0, 0.10)',
+        backgroundColor: '#FFFFFF',
         minWidth: 280,
       }}
     >
-      <Box sx={{ backgroundColor: "#ECECEC", px: 1, py: 0.5 }}>
-        <Typography sx={{ fontWeight: 600 }} variant="chart-tooltip-title">
+      <Box sx={{ backgroundColor: '#ECECEC', px: 1, py: 0.5 }}>
+        <Typography sx={{ fontWeight: 600 }} variant='chart-tooltip-title'>
           {productName}
         </Typography>
       </Box>
       <Box sx={{ px: 1, py: 0.5 }}>
-        {clusterName && <Row label="Cluster:" value={clusterName} />}
-        <Row label="HS Code:" value={code} />
-        <Row label="Export Value:" value={exportValue} />
-        <Row label="RCA:" value={rca} />
-        {year && <Row label="Year:" value={year} />}
+        {clusterName && <Row label='Cluster:' value={clusterName} />}
+        <Row label='HS Code:' value={code} />
+        <Row label='Export Value:' value={exportValue} />
+        <Row label='RCA:' value={rca} />
+        {year && <Row label='Year:' value={year} />}
       </Box>
     </Box>
   );

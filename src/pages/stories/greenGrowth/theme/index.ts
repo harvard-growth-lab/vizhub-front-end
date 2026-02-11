@@ -1,11 +1,11 @@
-import { createTheme } from "@mui/material/styles";
-import { typography, customTypographyVariants } from "./typography";
-import { controlColors, controlComponentOverrides } from "./controlComponents";
+import { createTheme } from '@mui/material/styles';
+import { typography, customTypographyVariants } from './typography';
+import { controlColors, controlComponentOverrides } from './controlComponents';
 import {
   chartTypographyVariants,
   chartStyles,
   chartColors,
-} from "./chartElements";
+} from './chartElements';
 
 // Color palette - matching Figma export exactly
 const palette = {
@@ -25,21 +25,21 @@ const palette = {
     disabled: controlColors.textDisabled, // #5C5C5C
   },
   background: {
-    default: "#FFFFFF",
+    default: '#FFFFFF',
     paper: controlColors.background, // #FFFFFF
   },
   divider: controlColors.border, // #777777
   grey: {
-    50: "#F5F5F5",
-    100: "#EEEEEE",
-    200: "#E0E0E0",
-    300: "#CCCCCC",
-    400: "#AAAAAA",
+    50: '#F5F5F5',
+    100: '#EEEEEE',
+    200: '#E0E0E0',
+    300: '#CCCCCC',
+    400: '#AAAAAA',
     500: controlColors.neutral, // #5C5C5C
-    600: "#555555",
+    600: '#555555',
     700: controlColors.text, // #000000
-    800: "#222222",
-    900: "#111111",
+    800: '#222222',
+    900: '#111111',
   },
   // Custom colors from Figma
   custom: {
@@ -96,42 +96,42 @@ const greenGrowthTheme = createTheme(baseTheme, {
       styleOverrides: {
         root: {
           // Original variants
-          "&.brand-title": customTypographyVariants["brand-title"],
-          "&.main-heading": customTypographyVariants["main-heading"],
-          "&.sub-heading": customTypographyVariants["sub-heading"],
-          "&.highlight-text": customTypographyVariants["highlight-text"],
-          "&.secondary-text": customTypographyVariants["secondary-text"],
-          "&.body-text": customTypographyVariants["body-text"],
-          "&.control-text": customTypographyVariants["control-text"],
-          "&.control-text-bold": customTypographyVariants["control-text-bold"],
-          "&.legend-title": customTypographyVariants["legend-title"],
-          "&.legend-item": customTypographyVariants["legend-item"],
-          "&.tab-button": customTypographyVariants["tab-button"],
-          "&.small-button": customTypographyVariants["small-button"],
-          "&.footer-button": customTypographyVariants["footer-button"],
-          "&.atlas-title": customTypographyVariants["atlas-title"],
-          "&.atlas-content": customTypographyVariants["atlas-content"],
+          '&.brand-title': customTypographyVariants['brand-title'],
+          '&.main-heading': customTypographyVariants['main-heading'],
+          '&.sub-heading': customTypographyVariants['sub-heading'],
+          '&.highlight-text': customTypographyVariants['highlight-text'],
+          '&.secondary-text': customTypographyVariants['secondary-text'],
+          '&.body-text': customTypographyVariants['body-text'],
+          '&.control-text': customTypographyVariants['control-text'],
+          '&.control-text-bold': customTypographyVariants['control-text-bold'],
+          '&.legend-title': customTypographyVariants['legend-title'],
+          '&.legend-item': customTypographyVariants['legend-item'],
+          '&.tab-button': customTypographyVariants['tab-button'],
+          '&.small-button': customTypographyVariants['small-button'],
+          '&.footer-button': customTypographyVariants['footer-button'],
+          '&.atlas-title': customTypographyVariants['atlas-title'],
+          '&.atlas-content': customTypographyVariants['atlas-content'],
 
           // Chart variants
-          "&.chart-axis-label": chartTypographyVariants["chart-axis-label"],
-          "&.chart-axis-tick": chartTypographyVariants["chart-axis-tick"],
-          "&.chart-axis-direction":
-            chartTypographyVariants["chart-axis-direction"],
-          "&.chart-tooltip-title":
-            chartTypographyVariants["chart-tooltip-title"],
-          "&.chart-tooltip-content":
-            chartTypographyVariants["chart-tooltip-content"],
-          "&.chart-legend-title": chartTypographyVariants["chart-legend-title"],
-          "&.chart-legend-item": chartTypographyVariants["chart-legend-item"],
-          "&.chart-legend-item-small":
-            chartTypographyVariants["chart-legend-item-small"],
-          "&.chart-annotation": chartTypographyVariants["chart-annotation"],
-          "&.chart-data-label": chartTypographyVariants["chart-data-label"],
-          "&.chart-column-header":
-            chartTypographyVariants["chart-column-header"],
-          "&.chart-large-label": chartTypographyVariants["chart-large-label"],
-          "&.chart-title": chartTypographyVariants["chart-title"],
-          "&.chart-attribution": chartTypographyVariants["chart-attribution"],
+          '&.chart-axis-label': chartTypographyVariants['chart-axis-label'],
+          '&.chart-axis-tick': chartTypographyVariants['chart-axis-tick'],
+          '&.chart-axis-direction':
+            chartTypographyVariants['chart-axis-direction'],
+          '&.chart-tooltip-title':
+            chartTypographyVariants['chart-tooltip-title'],
+          '&.chart-tooltip-content':
+            chartTypographyVariants['chart-tooltip-content'],
+          '&.chart-legend-title': chartTypographyVariants['chart-legend-title'],
+          '&.chart-legend-item': chartTypographyVariants['chart-legend-item'],
+          '&.chart-legend-item-small':
+            chartTypographyVariants['chart-legend-item-small'],
+          '&.chart-annotation': chartTypographyVariants['chart-annotation'],
+          '&.chart-data-label': chartTypographyVariants['chart-data-label'],
+          '&.chart-column-header':
+            chartTypographyVariants['chart-column-header'],
+          '&.chart-large-label': chartTypographyVariants['chart-large-label'],
+          '&.chart-title': chartTypographyVariants['chart-title'],
+          '&.chart-attribution': chartTypographyVariants['chart-attribution'],
         },
       },
     },
@@ -146,14 +146,14 @@ export const themeUtils = {
   // Animation helpers
   transition: (
     properties: string[],
-    duration: keyof typeof baseTheme.transitions.duration = "standard",
+    duration: keyof typeof baseTheme.transitions.duration = 'standard',
   ) =>
     properties
       .map(
         (prop) =>
           `${prop} ${baseTheme.transitions.duration[duration]}ms ${baseTheme.transitions.easing.easeInOut}`,
       )
-      .join(", "),
+      .join(', '),
 
   // Responsive helpers
   breakpoints: baseTheme.breakpoints,
@@ -175,7 +175,7 @@ export const themeUtils = {
       const mobile = mobileSize || Math.max(desktopSize - 2, 8);
       return {
         fontSize: `${desktopSize}px`,
-        "@media (max-width:600px)": {
+        '@media (max-width:600px)': {
           fontSize: `${mobile}px`,
         },
       };
@@ -208,7 +208,7 @@ export const themeUtils = {
 };
 
 // TypeScript module augmentation for custom palette
-declare module "@mui/material/styles" {
+declare module '@mui/material/styles' {
   interface Palette {
     custom: {
       highlightBlue: string;
@@ -237,12 +237,12 @@ declare module "@mui/material/styles" {
 
   interface TypographyVariants {
     fontWeightSemiBold: number;
-    "chart-title": React.CSSProperties;
+    'chart-title': React.CSSProperties;
   }
 
   interface TypographyVariantsOptions {
     fontWeightSemiBold?: number;
-    "chart-title"?: React.CSSProperties;
+    'chart-title'?: React.CSSProperties;
   }
 }
 

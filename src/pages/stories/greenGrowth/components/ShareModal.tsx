@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   Modal,
   Box,
@@ -7,29 +7,29 @@ import {
   InputAdornment,
   Button,
   IconButton,
-} from "@mui/material";
+} from '@mui/material';
 import {
   Facebook as FacebookIcon,
   LinkedIn as LinkedInIcon,
   Email as EmailIcon,
   Link as LinkIcon,
   Close as CloseIcon,
-} from "@mui/icons-material";
-import { ReactComponent as XIcon } from "../../../../assets/x.svg";
+} from '@mui/icons-material';
+import { ReactComponent as XIcon } from '../../../../assets/x.svg';
 
 const modalStyle = {
-  position: "absolute" as "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: { xs: "90%", sm: "500px" },
-  maxWidth: "95vw",
-  bgcolor: "background.paper",
-  border: "none",
-  borderRadius: "8px",
+  position: 'absolute' as 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: { xs: '90%', sm: '500px' },
+  maxWidth: '95vw',
+  bgcolor: 'background.paper',
+  border: 'none',
+  borderRadius: '8px',
   boxShadow: 24,
   p: 4,
-  outline: "none",
+  outline: 'none',
 };
 
 const getShareWindowParams = (width: number, height: number) =>
@@ -38,22 +38,22 @@ const getShareWindowParams = (width: number, height: number) =>
 const getShareFunctions = (url: string) => {
   return {
     shareFacebook: () => {
-      const baseURL = "https://www.facebook.com/sharer.php";
+      const baseURL = 'https://www.facebook.com/sharer.php';
       const shareURL = `${baseURL}?u=${encodeURIComponent(url)}`;
-      window.open(shareURL, "", getShareWindowParams(360, 600));
+      window.open(shareURL, '', getShareWindowParams(360, 600));
     },
 
     shareTwitter: (text: string) => {
-      const baseURL = "https://x.com/intent/tweet";
+      const baseURL = 'https://x.com/intent/tweet';
       const shareURL = `${baseURL}?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}&via=HarvardGrwthLab`;
-      window.open(shareURL, "", getShareWindowParams(420, 550));
+      window.open(shareURL, '', getShareWindowParams(420, 550));
     },
 
     shareLinkedIn: (title: string, summary: string) => {
-      const baseURL = "https://www.linkedin.com/shareArticle";
+      const baseURL = 'https://www.linkedin.com/shareArticle';
       const source = encodeURIComponent(url);
       const shareURL = `${baseURL}?mini=true&url=${encodeURIComponent(url)}&title=${encodeURIComponent(title)}&summary=${encodeURIComponent(summary)}&source=${encodeURIComponent(source)}`;
-      window.open(shareURL, "", getShareWindowParams(570, 520));
+      window.open(shareURL, '', getShareWindowParams(570, 520));
     },
 
     shareEmail: (
@@ -85,23 +85,23 @@ const ShareModal: React.FC<ShareModalProps> = ({ open, onClose }) => {
     setTimeout(() => setCopied(false), 3000);
   };
 
-  const shareTitle = "Check out this data visualization from Greenplexity";
+  const shareTitle = 'Check out this data visualization from Greenplexity';
   const shareDescription =
-    "Explore green value chains and strategic opportunities for sustainable economic growth";
+    'Explore green value chains and strategic opportunities for sustainable economic growth';
 
   return (
     <Modal open={open} onClose={onClose}>
       <Box sx={modalStyle}>
         {/* Close button */}
-        <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 2 }}>
+        <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 2 }}>
           <IconButton
             onClick={onClose}
-            size="small"
+            size='small'
             sx={{
-              position: "absolute",
-              right: "0.5rem", // 8px in rem
-              top: "0.5rem", // 8px in rem
-              color: "grey.500",
+              position: 'absolute',
+              right: '0.5rem', // 8px in rem
+              top: '0.5rem', // 8px in rem
+              color: 'grey.500',
             }}
           >
             <CloseIcon />
@@ -109,67 +109,67 @@ const ShareModal: React.FC<ShareModalProps> = ({ open, onClose }) => {
         </Box>
 
         {/* Direct Link Section */}
-        <Typography variant="h6" component="h2" sx={{ mb: 2, fontWeight: 600 }}>
+        <Typography variant='h6' component='h2' sx={{ mb: 2, fontWeight: 600 }}>
           Direct Link
         </Typography>
         <Box
           onClick={handleCopy}
           sx={{
-            display: "flex",
-            alignItems: "center",
+            display: 'flex',
+            alignItems: 'center',
             mb: 3,
-            cursor: "pointer",
-            width: "100%",
+            cursor: 'pointer',
+            width: '100%',
           }}
         >
           <TextField
             fullWidth
-            variant="outlined"
+            variant='outlined'
             value={window.location.href}
-            size="small"
+            size='small'
             sx={{
-              cursor: "pointer",
-              "& .MuiOutlinedInput-root": {
+              cursor: 'pointer',
+              '& .MuiOutlinedInput-root': {
                 paddingRight: 0,
               },
             }}
             InputProps={{
               startAdornment: (
-                <InputAdornment position="start" sx={{ cursor: "pointer" }}>
-                  <LinkIcon sx={{ color: "grey.600" }} />
+                <InputAdornment position='start' sx={{ cursor: 'pointer' }}>
+                  <LinkIcon sx={{ color: 'grey.600' }} />
                 </InputAdornment>
               ),
               endAdornment: (
-                <InputAdornment position="end" sx={{ cursor: "pointer" }}>
+                <InputAdornment position='end' sx={{ cursor: 'pointer' }}>
                   <Button
                     onClick={handleCopy}
-                    variant="contained"
-                    size="small"
+                    variant='contained'
+                    size='small'
                     sx={(theme) => ({
                       m: 0,
-                      cursor: "pointer",
+                      cursor: 'pointer',
                       backgroundColor: theme.palette.text.secondary,
-                      color: "white",
-                      borderRadius: "0 4px 4px 0",
-                      minWidth: "unset",
+                      color: 'white',
+                      borderRadius: '0 4px 4px 0',
+                      minWidth: 'unset',
                       px: 2,
                       py: 1,
-                      "&:hover": {
+                      '&:hover': {
                         backgroundColor: theme.palette.primary.dark,
                       },
                     })}
                   >
-                    {copied ? "Copied!" : "Copy"}
+                    {copied ? 'Copied!' : 'Copy'}
                   </Button>
                 </InputAdornment>
               ),
               readOnly: true,
               sx: {
-                cursor: "pointer",
-                "& input": {
-                  cursor: "pointer",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
+                cursor: 'pointer',
+                '& input': {
+                  cursor: 'pointer',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
                 },
               },
             }}
@@ -177,25 +177,25 @@ const ShareModal: React.FC<ShareModalProps> = ({ open, onClose }) => {
         </Box>
 
         {/* Social Media Sharing Section */}
-        <Typography variant="h6" component="h2" sx={{ mb: 2, fontWeight: 600 }}>
+        <Typography variant='h6' component='h2' sx={{ mb: 2, fontWeight: 600 }}>
           Social Media Sharing
         </Typography>
         <Box
-          display="flex"
-          justifyContent="space-around"
+          display='flex'
+          justifyContent='space-around'
           sx={{
-            maxWidth: "300px",
-            mx: "auto",
+            maxWidth: '300px',
+            mx: 'auto',
           }}
         >
           <IconButton
             onClick={() => shareFunctions.shareTwitter(shareTitle)}
             sx={{
-              color: "grey.600",
-              "&:hover": { backgroundColor: "rgba(29, 161, 242, 0.1)" },
-              "& svg": {
-                width: "2rem",
-                height: "2rem",
+              color: 'grey.600',
+              '&:hover': { backgroundColor: 'rgba(29, 161, 242, 0.1)' },
+              '& svg': {
+                width: '2rem',
+                height: '2rem',
               },
             }}
           >
@@ -206,35 +206,35 @@ const ShareModal: React.FC<ShareModalProps> = ({ open, onClose }) => {
               shareFunctions.shareLinkedIn(shareTitle, shareDescription)
             }
             sx={{
-              color: "grey.600",
-              "&:hover": { backgroundColor: "rgba(0, 119, 181, 0.1)" },
+              color: 'grey.600',
+              '&:hover': { backgroundColor: 'rgba(0, 119, 181, 0.1)' },
             }}
           >
-            <LinkedInIcon fontSize="large" />
+            <LinkedInIcon fontSize='large' />
           </IconButton>
           <IconButton
             onClick={shareFunctions.shareFacebook}
             sx={{
-              color: "grey.600",
-              "&:hover": { backgroundColor: "rgba(24, 119, 242, 0.1)" },
+              color: 'grey.600',
+              '&:hover': { backgroundColor: 'rgba(24, 119, 242, 0.1)' },
             }}
           >
-            <FacebookIcon fontSize="large" />
+            <FacebookIcon fontSize='large' />
           </IconButton>
           <IconButton
             onClick={() =>
               shareFunctions.shareEmail(
-                "Greenplexity Visualization",
+                'Greenplexity Visualization',
                 shareTitle,
                 window.location.href,
               )
             }
             sx={{
-              color: "grey.600",
-              "&:hover": { backgroundColor: "rgba(234, 67, 53, 0.1)" },
+              color: 'grey.600',
+              '&:hover': { backgroundColor: 'rgba(234, 67, 53, 0.1)' },
             }}
           >
-            <EmailIcon fontSize="large" />
+            <EmailIcon fontSize='large' />
           </IconButton>
         </Box>
       </Box>
