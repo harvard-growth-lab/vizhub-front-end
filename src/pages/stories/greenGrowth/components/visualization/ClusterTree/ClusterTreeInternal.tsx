@@ -4,9 +4,9 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/no-noninteractive-element-to-interactive-role */
 /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
-import type React from 'react';
-import { useState, useMemo, useCallback, useRef, useEffect } from 'react';
-import { useTheme, useMediaQuery } from '@mui/material';
+import type React from "react";
+import { useState, useMemo, useCallback, useRef, useEffect } from "react";
+import { useTheme, useMediaQuery } from "@mui/material";
 import {
   Typography,
   Box,
@@ -16,38 +16,37 @@ import {
   Popover,
   Slider,
   Button,
-} from '@mui/material';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import { TooltipWithBounds, useTooltip } from '@visx/tooltip';
+} from "@mui/material";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { TooltipWithBounds, useTooltip } from "@visx/tooltip";
 
-import { useGreenGrowthData } from '../../../hooks/useGreenGrowthData';
-import { buildHierarchicalData } from '.././SankeyTree/dataUtils';
-import { convertToPositions } from '../SankeyTree/layoutUtils';
-import { useSupplyChainProductLookup } from '../../../queries/supplyChainProducts';
-import { VisualizationLoading } from '../../shared';
+import { useGreenGrowthData } from "../../../hooks/useGreenGrowthData";
+import { buildHierarchicalData } from ".././SankeyTree/dataUtils";
+import { convertToPositions } from "../SankeyTree/layoutUtils";
+import { useSupplyChainProductLookup } from "../../../queries/supplyChainProducts";
+import { VisualizationLoading } from "../../shared";
 import {
   useCountrySelection,
   useYearSelection,
   useClusterSelection,
-} from '../../../hooks/useUrlParams';
-import { useImageCaptureContext } from '../../../hooks/useImageCaptureContext';
-import html2canvas from 'html2canvas';
-import { useSelectionDataModal } from '../../../hooks/useSelectionDataModal';
-import { themeUtils } from '../../../theme';
-import { SharedTooltip } from '../../shared';
-import type { SharedTooltipPayload } from '../../shared';
-import { useProductLookup } from '../../../queries/products';
-import { getRCAOpacity } from '../../../utils/rcaConfig';
-import GGTooltip from '../../shared/GGTooltip';
-import TuneIcon from '@mui/icons-material/Tune';
-import { useSidebar } from '../../SidebarContext';
+} from "../../../hooks/useUrlParams";
+import { useImageCaptureContext } from "../../../hooks/useImageCaptureContext";
+import html2canvas from "html2canvas";
+import { useSelectionDataModal } from "../../../hooks/useSelectionDataModal";
+import { SharedTooltip } from "../../shared";
+import type { SharedTooltipPayload } from "../../shared";
+import { useProductLookup } from "../../../queries/products";
+import { getRCAOpacity } from "../../../utils/rcaConfig";
+import GGTooltip from "../../shared/GGTooltip";
+import TuneIcon from "@mui/icons-material/Tune";
+import { useSidebar } from "../../SidebarContext";
 
-import ClusterRanking from './ClusterRanking';
-import { calculateClusterScores, getPotentialColor } from './utils';
+import ClusterRanking from "./ClusterRanking";
+import { calculateClusterScores, getPotentialColor } from "./utils";
 import {
   getValueChainIcon,
   getValueChainIconComponent,
-} from './valueChainIconMapping';
+} from "./valueChainIconMapping";
 
 interface ClusterTreeInternalProps {
   width: number;
@@ -108,8 +107,8 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
 
   // Responsive setup
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'));
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isTablet = useMediaQuery(theme.breakpoints.between("sm", "md"));
   const { isCondensed } = useSidebar();
 
   // Calculate responsive dimensions - reserve space for header and cluster ranking
@@ -217,11 +216,11 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
   // Local currency formatter for tooltip values
   const currencyFormatter = useMemo(
     () =>
-      new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD',
-        notation: 'compact',
-        compactDisplay: 'short',
+      new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+        notation: "compact",
+        compactDisplay: "short",
         minimumFractionDigits: 1,
         maximumFractionDigits: 1,
       }),
@@ -336,7 +335,7 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
     try {
       return buildHierarchicalData(productClusterRows, countryData);
     } catch (err) {
-      console.error('Error processing hierarchy data:', err);
+      console.error("Error processing hierarchy data:", err);
       return null;
     }
   }, [productClusterRows, countryData]);
@@ -352,13 +351,13 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
     const updatedNodes = allHierarchy.nodes.map((node) => {
       if (node.id === selectedCluster) {
         return { ...node, visible: true };
-      } else if (node.type === 'value_chain') {
+      } else if (node.type === "value_chain") {
         // Show value chains connected to this cluster
         const isConnected = allHierarchy.links.some(
           (l) => l.source === node.id && l.target === selectedCluster,
         );
         return { ...node, visible: isConnected };
-      } else if (node.type === 'product') {
+      } else if (node.type === "product") {
         // Show products connected to this cluster
         const isConnected = allHierarchy.links.some(
           (l) => l.source === selectedCluster && l.target === node.id,
@@ -394,8 +393,8 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
     const visibleNodes = hierarchyData.nodes.filter((n) => n.visible);
 
     // Get connected value chains (sources) and products (targets)
-    const valueChains = visibleNodes.filter((n) => n.type === 'value_chain');
-    const products = visibleNodes.filter((n) => n.type === 'product');
+    const valueChains = visibleNodes.filter((n) => n.type === "value_chain");
+    const products = visibleNodes.filter((n) => n.type === "product");
 
     // Sort products by country-specific RCA (descending order)
     const sortedProducts = products.sort((a, b) => {
@@ -405,8 +404,8 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
       const bProduct = countryData?.productData?.find(
         (p: any) => p.productId.toString() === b.id,
       );
-      const aRCA = aProduct ? Number.parseFloat(aProduct.exportRca || '0') : 0;
-      const bRCA = bProduct ? Number.parseFloat(bProduct.exportRca || '0') : 0;
+      const aRCA = aProduct ? Number.parseFloat(aProduct.exportRca || "0") : 0;
+      const bRCA = bProduct ? Number.parseFloat(bProduct.exportRca || "0") : 0;
 
       return bRCA - aRCA; // Descending order (high RCA at top)
     });
@@ -462,7 +461,7 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
           width: nodeWidth,
           height: nodeHeight,
         };
-      } else if (node.type === 'value_chain') {
+      } else if (node.type === "value_chain") {
         const index = valueChains.findIndex((vc) => vc.id === node.id);
         return {
           ...node,
@@ -474,7 +473,7 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
           width: nodeWidth,
           height: nodeHeight,
         };
-      } else if (node.type === 'product') {
+      } else if (node.type === "product") {
         const index = sortedProducts.findIndex((p) => p.id === node.id);
 
         // Get product data for sizing and coloring
@@ -482,10 +481,10 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
           (p: any) => p.productId.toString() === node.id,
         );
         const exportValue = productData
-          ? Number.parseFloat(productData.exportValue || '0')
+          ? Number.parseFloat(productData.exportValue || "0")
           : 0;
         const rca = productData
-          ? Number.parseFloat(productData.exportRca || '0')
+          ? Number.parseFloat(productData.exportRca || "0")
           : 0;
 
         // Use uniform node size instead of export-based sizing
@@ -570,7 +569,7 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
         );
         if (!hoveredNodeData) return;
 
-        if (hoveredNodeData.type === 'value_chain') {
+        if (hoveredNodeData.type === "value_chain") {
           // When hovering a value chain (supply chain), highlight all products in that supply chain
           const supplyChainName = hoveredNodeData.name || hoveredNodeData.id;
 
@@ -593,7 +592,7 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
               }
             });
           }
-        } else if (hoveredNodeData.type === 'product') {
+        } else if (hoveredNodeData.type === "product") {
           // When hovering a product, highlight only the product and its connected value chains
           const productId = parseInt(nodeId);
 
@@ -612,7 +611,7 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
             // Connect to the value chain node
             const valueChainNode = hierarchyData.nodes.find(
               (n) =>
-                n.type === 'value_chain' &&
+                n.type === "value_chain" &&
                 (n.name === supplyChainName || n.id === supplyChainName),
             );
             if (valueChainNode) {
@@ -632,7 +631,7 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
               }
             });
           });
-        } else if (hoveredNodeData.type === 'manufacturing_cluster') {
+        } else if (hoveredNodeData.type === "manufacturing_cluster") {
           // When hovering a cluster, highlight all connected value chains and products
           // This uses the existing hierarchical logic since clusters connect to everything
           hierarchyData.links.forEach((link) => {
@@ -647,7 +646,7 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
         }
 
         // Find corresponding links for supply chain connections
-        if (hoveredNodeData.type !== 'manufacturing_cluster') {
+        if (hoveredNodeData.type !== "manufacturing_cluster") {
           hierarchyData.links.forEach((link) => {
             const sourceConnected =
               nodeId === link.source || connectedNodes.has(link.source);
@@ -685,24 +684,24 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
   const handleNodeClick = useCallback(
     (node: any) => {
       if (isAnimating.current || !node) return;
-      if (node.type === 'product') {
+      if (node.type === "product") {
         const productIdNum = Number(node.refId ?? node.id);
         openSelectionModal({
-          type: 'product',
+          type: "product",
           productId: productIdNum,
           title: node.label,
-          source: 'cluster-tree',
-          detailLevel: 'full',
+          source: "cluster-tree",
+          detailLevel: "full",
         });
-      } else if (node.type === 'manufacturing_cluster') {
+      } else if (node.type === "manufacturing_cluster") {
         openSelectionModal({
-          type: 'cluster',
+          type: "cluster",
           clusterId: node.refId ?? node.id,
           title: node.label,
-          source: 'cluster-tree',
-          detailLevel: 'full',
+          source: "cluster-tree",
+          detailLevel: "full",
         });
-      } else if (node.type === 'value_chain') {
+      } else if (node.type === "value_chain") {
         // Resolve numeric supplyChainId by matching the node label to the supply chain name
         const targetName = node.label || node.name || String(node.id);
         let resolvedSupplyChainId: number | undefined;
@@ -713,11 +712,11 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
         });
 
         openSelectionModal({
-          type: 'supplyChain',
+          type: "supplyChain",
           supplyChainId: resolvedSupplyChainId,
           title: targetName,
-          source: 'cluster-tree',
-          detailLevel: 'full',
+          source: "cluster-tree",
+          detailLevel: "full",
         });
       }
     },
@@ -728,7 +727,7 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
   useEffect(() => {
     const captureFunction = async (): Promise<void> => {
       if (!chartContainerRef.current) {
-        throw new Error('Chart container ref not available');
+        throw new Error("Chart container ref not available");
       }
 
       try {
@@ -742,15 +741,15 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
           if (element.style) {
             hiddenElements.push(element);
             element.setAttribute(
-              'data-export-original-display',
-              element.style.display || '',
+              "data-export-original-display",
+              element.style.display || "",
             );
-            element.style.display = 'none';
+            element.style.display = "none";
           }
         });
 
         const canvas = await html2canvas(chartContainerRef.current, {
-          backgroundColor: '#ffffff',
+          backgroundColor: "#ffffff",
           scale: 2,
           logging: false,
           useCORS: true,
@@ -760,25 +759,25 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
         canvas.toBlob((blob) => {
           if (blob) {
             const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
+            const a = document.createElement("a");
             a.href = url;
-            a.download = 'cluster-tree-chart.png';
+            a.download = "cluster-tree-chart.png";
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
           }
-        }, 'image/png');
+        }, "image/png");
 
         // Restore hidden elements
         hiddenElements.forEach((el) => {
           const original =
-            el.getAttribute('data-export-original-display') || '';
+            el.getAttribute("data-export-original-display") || "";
           el.style.display = original;
-          el.removeAttribute('data-export-original-display');
+          el.removeAttribute("data-export-original-display");
         });
       } catch (error) {
-        console.error('Error capturing chart image:', error);
+        console.error("Error capturing chart image:", error);
         throw error;
       }
     };
@@ -791,27 +790,27 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
   }, [registerCaptureFunction, unregisterCaptureFunction]);
 
   if (isLoading) {
-    return <VisualizationLoading message='' />;
+    return <VisualizationLoading message="" />;
   }
 
   if (hasErrors) {
-    return <VisualizationLoading message='Error loading data' />;
+    return <VisualizationLoading message="Error loading data" />;
   }
 
   if (!hierarchyData) {
-    return <VisualizationLoading message='' />;
+    return <VisualizationLoading message="" />;
   }
 
   return (
     <Box
       ref={chartContainerRef}
       sx={{
-        height: '100%',
-        width: '100%',
-        backgroundColor: 'white',
-        display: 'flex',
-        flexDirection: 'column',
-        overflow: 'hidden',
+        height: "100%",
+        width: "100%",
+        backgroundColor: "white",
+        display: "flex",
+        flexDirection: "column",
+        overflow: "hidden",
       }}
     >
       {/* Header Section with Title and Instructions */}
@@ -824,14 +823,14 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
         <Box
           sx={{
             height: isMobile ? 40 : 60,
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'flex-end',
-            backgroundColor: 'rgba(255, 255, 255, 0.95)',
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "flex-end",
+            backgroundColor: "rgba(255, 255, 255, 0.95)",
             mb: isMobile ? 2 : 4,
           }}
         >
-          <Typography variant='chart-title'>Cluster Connections</Typography>
+          <Typography variant="chart-title">Cluster Connections</Typography>
         </Box>
       </Box>
 
@@ -839,8 +838,8 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
       <Box
         sx={{
           flex: 1,
-          display: 'flex',
-          flexDirection: 'column',
+          display: "flex",
+          flexDirection: "column",
           minHeight: 0,
           gap: isMobile ? 1 : 1.5,
           px: isMobile ? 1 : 2,
@@ -853,7 +852,7 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
             sx={{
               flexShrink: 0,
               height: dimensions.rankingHeight,
-              width: '100%',
+              width: "100%",
             }}
           >
             <ClusterRanking
@@ -879,9 +878,9 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
             mt: 1,
             flex: 1,
             minHeight: 0,
-            width: '100%',
-            position: 'relative',
-            overflow: 'visible',
+            width: "100%",
+            position: "relative",
+            overflow: "visible",
           }}
           ref={visualizationRef}
         >
@@ -889,21 +888,21 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
             width={dimensions.width}
             height={dimensions.height}
             viewBox={`0 0 ${dimensions.width} ${dimensions.height}`}
-            role='img'
-            aria-label='Cluster tree visualization'
+            role="img"
+            aria-label="Cluster tree visualization"
             style={{
-              display: 'block',
-              maxWidth: '100%',
-              maxHeight: '100%',
-              margin: '0 auto',
+              display: "block",
+              maxWidth: "100%",
+              maxHeight: "100%",
+              margin: "0 auto",
             }}
           >
             <defs>
-              <filter id='tree-cluster-glow'>
-                <feGaussianBlur stdDeviation='3' result='coloredBlur' />
+              <filter id="tree-cluster-glow">
+                <feGaussianBlur stdDeviation="3" result="coloredBlur" />
                 <feMerge>
-                  <feMergeNode in='coloredBlur' />
-                  <feMergeNode in='SourceGraphic' />
+                  <feMergeNode in="coloredBlur" />
+                  <feMergeNode in="SourceGraphic" />
                 </feMerge>
               </filter>
             </defs>
@@ -913,7 +912,7 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
               (() => {
                 // Calculate the actual bounds of the product nodes
                 const productNodes = nodePositions.filter(
-                  (item) => item.type === 'product',
+                  (item) => item.type === "product",
                 );
 
                 if (productNodes.length === 0) return null;
@@ -945,11 +944,11 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
                     <text
                       x={annotationX + 20}
                       y={topProductY}
-                      fontSize={'1.125rem'}
-                      fill='#000'
-                      textAnchor='middle'
-                      fontFamily='Source Sans Pro, sans-serif'
-                      fontWeight='600'
+                      fontSize={"1.125rem"}
+                      fill="#000"
+                      textAnchor="middle"
+                      fontFamily="Source Sans Pro, sans-serif"
+                      fontWeight="600"
                       transform={`rotate(-90, ${annotationX + 20}, ${topProductY})`}
                     >
                       High Export
@@ -957,8 +956,8 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
                     {/* Up arrow */}
                     <path
                       d={`M ${annotationX} ${topProductY - 5} L ${annotationX - 3} ${topProductY + 2} L ${annotationX + 3} ${topProductY + 2} Z`}
-                      fill='#666'
-                      stroke='none'
+                      fill="#666"
+                      stroke="none"
                     />
 
                     {/* Vertical dashed line spanning products section */}
@@ -967,20 +966,20 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
                       y1={topProductY}
                       x2={annotationX}
                       y2={bottomProductY}
-                      stroke='#666'
-                      strokeWidth='1'
-                      strokeDasharray='3,3'
+                      stroke="#666"
+                      strokeWidth="1"
+                      strokeDasharray="3,3"
                     />
 
                     {/* Low Export arrow and rotated text */}
                     <text
                       x={annotationX + 20}
                       y={bottomProductY + 30}
-                      fontSize={'1.125rem'}
-                      fill='#000'
-                      textAnchor='middle'
-                      fontFamily='Source Sans Pro, sans-serif'
-                      fontWeight='600'
+                      fontSize={"1.125rem"}
+                      fill="#000"
+                      textAnchor="middle"
+                      fontFamily="Source Sans Pro, sans-serif"
+                      fontWeight="600"
                       transform={`rotate(-90, ${annotationX + 20}, ${bottomProductY + 30})`}
                     >
                       Low Export
@@ -988,8 +987,8 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
                     {/* Down arrow */}
                     <path
                       d={`M ${annotationX} ${bottomProductY + 5} L ${annotationX - 3} ${bottomProductY - 2} L ${annotationX + 3} ${bottomProductY - 2} Z`}
-                      fill='#666'
-                      stroke='none'
+                      fill="#666"
+                      stroke="none"
                     />
                   </g>
                 );
@@ -998,7 +997,7 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
             {/* Legend positioned below products on the right with RCA controls */}
             {(() => {
               const productNodes = nodePositions.filter(
-                (item) => item.type === 'product',
+                (item) => item.type === "product",
               );
               if (productNodes.length === 0) return null;
 
@@ -1036,11 +1035,11 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
                   <text
                     x={legendCenterX - 50}
                     y={legendY}
-                    fontSize={isMobile ? '0.875rem' : '1rem'}
-                    fill='#000'
-                    textAnchor='middle'
-                    fontFamily='Source Sans Pro, sans-serif'
-                    fontWeight='600'
+                    fontSize={isMobile ? "0.875rem" : "1rem"}
+                    fill="#000"
+                    textAnchor="middle"
+                    fontFamily="Source Sans Pro, sans-serif"
+                    fontWeight="600"
                   >
                     Economic Competitiveness
                   </text>
@@ -1049,18 +1048,18 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
                   <circle
                     cx={legendCenterX - 120}
                     cy={legendY + 35}
-                    r='6'
-                    fill='#888888'
-                    stroke='#888888'
-                    strokeWidth='1'
+                    r="6"
+                    fill="#888888"
+                    stroke="#888888"
+                    strokeWidth="1"
                   />
                   <text
                     x={legendCenterX - 100}
                     y={legendY + 40}
-                    fontSize={isMobile ? '0.875rem' : '1rem'}
-                    fill='#000'
-                    fontFamily='Source Sans Pro, sans-serif'
-                    textAnchor='start'
+                    fontSize={isMobile ? "0.875rem" : "1rem"}
+                    fill="#000"
+                    fontFamily="Source Sans Pro, sans-serif"
+                    textAnchor="start"
                   >
                     {`High (RCA>${thresholdLabel})`}
                   </text>
@@ -1069,18 +1068,18 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
                   <circle
                     cx={legendCenterX - 120}
                     cy={legendY + 70}
-                    r='6'
-                    fill='#ffffff'
-                    stroke='#888888'
-                    strokeWidth='1.5'
+                    r="6"
+                    fill="#ffffff"
+                    stroke="#888888"
+                    strokeWidth="1.5"
                   />
                   <text
                     x={legendCenterX - 100}
                     y={legendY + 75}
-                    fontSize={isMobile ? '0.875rem' : '1rem'}
-                    fill='#000'
-                    fontFamily='Source Sans Pro, sans-serif'
-                    textAnchor='start'
+                    fontSize={isMobile ? "0.875rem" : "1rem"}
+                    fill="#000"
+                    fontFamily="Source Sans Pro, sans-serif"
+                    textAnchor="start"
                   >
                     {`Low (RCA≤${thresholdLabel})`}
                   </text>
@@ -1093,15 +1092,15 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
                     height={40}
                   >
                     <div>
-                      <GGTooltip title='Adjust RCA threshold' placement='top'>
+                      <GGTooltip title="Adjust RCA threshold" placement="top">
                         <IconButton
-                          size='small'
-                          aria-label='Adjust RCA threshold'
+                          size="small"
+                          aria-label="Adjust RCA threshold"
                           onClick={(e) =>
                             setRcaAnchorEl(e.currentTarget as HTMLElement)
                           }
                         >
-                          <TuneIcon fontSize='small' />
+                          <TuneIcon fontSize="small" />
                         </IconButton>
                       </GGTooltip>
                     </div>
@@ -1133,20 +1132,20 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
                 <path
                   key={item.id}
                   d={`M ${item.sourceX} ${item.sourceY} C ${controlX1} ${item.sourceY}, ${controlX2} ${item.targetY}, ${item.targetX} ${item.targetY}`}
-                  stroke='#999'
+                  stroke="#999"
                   strokeWidth={strokeWidth}
-                  fill='none'
+                  fill="none"
                   opacity={flowHighlightOpacity}
-                  style={{ strokeLinecap: 'round' }}
+                  style={{ strokeLinecap: "round" }}
                 />
               );
             })}
 
             {/* Render nodes */}
             {nodePositions.map((item) => {
-              const isValueChain = item.type === 'value_chain';
-              const isCluster = item.type === 'manufacturing_cluster';
-              const isProduct = item.type === 'product';
+              const isValueChain = item.type === "value_chain";
+              const isCluster = item.type === "manufacturing_cluster";
+              const isProduct = item.type === "product";
               const isFocused = item.id === selectedCluster;
               const isHovered = item.id === hoveredNode;
               const isConnectedToHovered = connectedNodeIds.has(item.id);
@@ -1155,12 +1154,12 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
               let nodeColor = item.color;
               let nodeRadius = 9; // Slightly larger default radius
               let fillColor = nodeColor;
-              let strokeColor = 'transparent';
+              let strokeColor = "transparent";
               let strokeWidth = 0;
               let rcaOpacity = 1.0;
 
               if (isCluster && isFocused) {
-                strokeColor = 'black';
+                strokeColor = "black";
                 strokeWidth = 2;
                 // Use pre-calculated color from the cluster color map for perfect consistency
                 const preCalculatedColor = clusterColorMap.get(selectedCluster);
@@ -1186,7 +1185,7 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
                   (p: any) => p.productId.toString() === item.id,
                 );
                 const actualRCA = productData
-                  ? Number.parseFloat(productData.exportRca || '0')
+                  ? Number.parseFloat(productData.exportRca || "0")
                   : 0;
 
                 // Use actual RCA for coloring and sizing
@@ -1198,21 +1197,21 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
 
                 if (rcaForColoring >= rcaThreshold) {
                   // High RCA (RCA > 1): filled grey
-                  fillColor = '#888888';
-                  strokeColor = '#888888';
+                  fillColor = "#888888";
+                  strokeColor = "#888888";
                   strokeWidth = 1;
                 } else {
                   // Low RCA (RCA < 1): white fill with grey stroke
-                  fillColor = '#ffffff';
-                  strokeColor = '#888888';
+                  fillColor = "#ffffff";
+                  strokeColor = "#888888";
                   strokeWidth = 1.5;
                 }
               } else if (isValueChain) {
                 // Value chain styling
-                fillColor = '#4A90E2'; // Blue for value chains
+                fillColor = "#4A90E2"; // Blue for value chains
                 nodeRadius = 8;
               } else {
-                fillColor = '#808080'; // Grey for other nodes
+                fillColor = "#808080"; // Grey for other nodes
               }
 
               const hasHoveredNode = hoveredNode !== null;
@@ -1226,7 +1225,7 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
                 <g
                   key={item.id}
                   transform={`translate(${item.x},${item.y})`}
-                  style={{ cursor: 'pointer' }}
+                  style={{ cursor: "pointer" }}
                 >
                   {/* Circular nodes - don't show circles for value chains */}
                   {!isValueChain && (
@@ -1235,7 +1234,7 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
                       cy={item.height / 2}
                       r={nodeRadius}
                       fill={fillColor}
-                      stroke={isHovered ? '#000000' : strokeColor}
+                      stroke={isHovered ? "#000000" : strokeColor}
                       strokeWidth={isHovered ? 2 : strokeWidth}
                       opacity={
                         nodeHighlightOpacity * (isProduct ? rcaOpacity : 1.0)
@@ -1281,8 +1280,8 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
                       cx={item.width / 2}
                       cy={item.height / 2}
                       r={10}
-                      fill='transparent'
-                      pointerEvents='none'
+                      fill="transparent"
+                      pointerEvents="none"
                     />
                   )}
 
@@ -1298,13 +1297,13 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
                         const width = item.width / 2 + nodeRadius - iconX;
                         return { x, y, width, height } as const;
                       })()}
-                      fill='transparent'
-                      role='button'
+                      fill="transparent"
+                      role="button"
                       aria-label={`${item.type} ${item.label}`}
                       tabIndex={0}
                       onClick={() => handleNodeClick(item)}
                       onKeyDown={(e) => {
-                        if (e.key === 'Enter' || e.key === ' ') {
+                        if (e.key === "Enter" || e.key === " ") {
                           e.preventDefault();
                           handleNodeClick(item);
                         }
@@ -1315,7 +1314,7 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
                   )}
 
                   {/* Node labels */}
-                  {item.type !== 'manufacturing_cluster' && (
+                  {item.type !== "manufacturing_cluster" && (
                     <text
                       x={(() => {
                         if (isValueChain) return isMobile ? -50 : -95; // Value chain text to right of icon, away from links
@@ -1331,27 +1330,27 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
                         return item.height / 2; // All other nodes at vertical center
                       })()}
                       textAnchor={(() => {
-                        if (isValueChain) return 'start'; // Value chain text starts to right of icon
+                        if (isValueChain) return "start"; // Value chain text starts to right of icon
                         if (isCluster && item.id === selectedCluster)
-                          return 'middle'; // Center node underneath
-                        if (isProduct) return 'start'; // Leaf nodes to right
-                        return 'middle';
+                          return "middle"; // Center node underneath
+                        if (isProduct) return "start"; // Leaf nodes to right
+                        return "middle";
                       })()}
                       fontSize={
                         isProduct ? (isMobile ? 11 : 18) : isMobile ? 10 : 16
                       }
                       fontWeight={isProduct ? 600 : 500}
                       fontFamily={'"Source Sans Pro", sans-serif'}
-                      fill={isProduct ? '#000' : '#333'}
+                      fill={isProduct ? "#000" : "#333"}
                       dominantBaseline={(() => {
                         if (isCluster && item.id === selectedCluster) {
-                          return 'hanging'; // Text below the selected cluster
+                          return "hanging"; // Text below the selected cluster
                         }
-                        return 'middle';
+                        return "middle";
                       })()}
                       opacity={nodeHighlightOpacity}
-                      pointerEvents={isValueChain ? 'none' : undefined}
-                      style={{ cursor: 'pointer' }}
+                      pointerEvents={isValueChain ? "none" : undefined}
+                      style={{ cursor: "pointer" }}
                     >
                       {(() => {
                         const maxLength = (() => {
@@ -1364,7 +1363,7 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
                         })();
 
                         return item.label.length > maxLength
-                          ? item.label.substring(0, maxLength - 3) + '...'
+                          ? item.label.substring(0, maxLength - 3) + "..."
                           : item.label;
                       })()}
                     </text>
@@ -1386,13 +1385,13 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
                         const height = Math.max(nodeRadius * 2, textH);
                         return { x, y, width, height } as const;
                       })()}
-                      fill='transparent'
-                      role='button'
+                      fill="transparent"
+                      role="button"
                       aria-label={`${item.type} ${item.label}`}
                       tabIndex={0}
                       onClick={() => handleNodeClick(item)}
                       onKeyDown={(e) => {
-                        if (e.key === 'Enter' || e.key === ' ') {
+                        if (e.key === "Enter" || e.key === " ") {
                           e.preventDefault();
                           handleNodeClick(item);
                         }
@@ -1410,18 +1409,18 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
                         const top = e.clientY - (containerRect?.top || 0);
                         showTooltip({
                           tooltipData: {
-                            type: 'custom',
+                            type: "custom",
                             data: {
                               title: productMeta?.nameShortEn || item.label,
                               rows: [
                                 {
-                                  label: 'Export Value:',
+                                  label: "Export Value:",
                                   value: currencyFormatter.format(
                                     Number(productData?.exportValue || 0),
                                   ),
                                 },
                                 {
-                                  label: 'RCA:',
+                                  label: "RCA:",
                                   value: Number(
                                     productData?.exportRca || 0,
                                   ).toFixed(1),
@@ -1468,13 +1467,13 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
                         const height = radius * 2 + belowTextExtra;
                         return { x, y, width, height } as const;
                       })()}
-                      fill='transparent'
-                      role='button'
+                      fill="transparent"
+                      role="button"
                       aria-label={`${item.type} ${item.label}`}
                       tabIndex={0}
                       onClick={() => handleNodeClick(item)}
                       onKeyDown={(e) => {
-                        if (e.key === 'Enter' || e.key === ' ') {
+                        if (e.key === "Enter" || e.key === " ") {
                           e.preventDefault();
                           handleNodeClick(item);
                         }
@@ -1489,13 +1488,13 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
             {/* Section titles above columns */}
             {(() => {
               const valueChainNodes = nodePositions.filter(
-                (item) => item.type === 'value_chain',
+                (item) => item.type === "value_chain",
               );
               const productNodes = nodePositions.filter(
-                (item) => item.type === 'product',
+                (item) => item.type === "product",
               );
               const clusterNodes = nodePositions.filter(
-                (item) => item.type === 'manufacturing_cluster',
+                (item) => item.type === "manufacturing_cluster",
               );
 
               // Topmost y per side
@@ -1534,9 +1533,9 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
                     x={valueChainX + 20}
                     y={highestTopY - labelGap}
                     fontSize={isMobile ? 14 : 20}
-                    fill='#000'
-                    textAnchor='end'
-                    fontFamily='Source Sans Pro, sans-serif'
+                    fill="#000"
+                    textAnchor="end"
+                    fontFamily="Source Sans Pro, sans-serif"
                     fontWeight={600}
                   >
                     Value Chains
@@ -1545,9 +1544,9 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
                     x={clusterX + 45}
                     y={highestTopY - labelGap}
                     fontSize={isMobile ? 14 : 20}
-                    fill='#000'
-                    textAnchor='middle'
-                    fontFamily='Source Sans Pro, sans-serif'
+                    fill="#000"
+                    textAnchor="middle"
+                    fontFamily="Source Sans Pro, sans-serif"
                     fontWeight={600}
                   >
                     Industrial Cluster
@@ -1556,9 +1555,9 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
                     x={productX}
                     y={highestTopY - labelGap}
                     fontSize={isMobile ? 14 : 20}
-                    fill='#000'
-                    textAnchor='start'
-                    fontFamily='Source Sans Pro, sans-serif'
+                    fill="#000"
+                    textAnchor="start"
+                    fontFamily="Source Sans Pro, sans-serif"
                     fontWeight={600}
                   >
                     Products
@@ -1573,7 +1572,7 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
             (() => {
               const clusterNode = nodePositions.find(
                 (item) =>
-                  item.type === 'manufacturing_cluster' &&
+                  item.type === "manufacturing_cluster" &&
                   item.id === selectedCluster,
               );
               if (!clusterNode) return null;
@@ -1586,11 +1585,11 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
               return (
                 <Box
                   sx={{
-                    position: 'absolute',
+                    position: "absolute",
                     left,
                     top,
-                    transform: 'translateX(-50%)',
-                    pointerEvents: 'auto',
+                    transform: "translateX(-50%)",
+                    pointerEvents: "auto",
                     zIndex: 10, // Ensure dropdown is above other elements
                   }}
                 >
@@ -1598,7 +1597,7 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
                     IconComponent={KeyboardArrowDownIcon}
                     value={selectedCluster}
                     onChange={(e) => handleClusterSelect(e.target.value, true)}
-                    size='small'
+                    size="small"
                     MenuProps={{
                       PaperProps: {
                         style: {
@@ -1607,56 +1606,56 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
                       },
                     }}
                     sx={{
-                      display: 'inline-flex',
-                      width: 'auto',
-                      minWidth: isMobile ? '100px' : '120px',
-                      maxWidth: isMobile ? '180px' : '240px',
-                      bgcolor: 'rgba(255, 255, 255, 0.85)',
-                      '& .MuiSelect-select': {
-                        fontSize: isMobile ? '0.875rem' : '1rem',
-                        color: '#000',
+                      display: "inline-flex",
+                      width: "auto",
+                      minWidth: isMobile ? "100px" : "120px",
+                      maxWidth: isMobile ? "180px" : "240px",
+                      bgcolor: "rgba(255, 255, 255, 0.85)",
+                      "& .MuiSelect-select": {
+                        fontSize: isMobile ? "0.875rem" : "1rem",
+                        color: "#000",
                         fontWeight: 600,
-                        whiteSpace: 'normal',
-                        wordBreak: 'break-word',
-                        paddingTop: isMobile ? '6px' : '8px',
-                        paddingLeft: isMobile ? '4px' : '6px',
-                        paddingRight: isMobile ? '24px' : '28px',
-                        paddingBottom: isMobile ? '6px' : '8px',
+                        whiteSpace: "normal",
+                        wordBreak: "break-word",
+                        paddingTop: isMobile ? "6px" : "8px",
+                        paddingLeft: isMobile ? "4px" : "6px",
+                        paddingRight: isMobile ? "24px" : "28px",
+                        paddingBottom: isMobile ? "6px" : "8px",
                         minWidth: 0,
                         lineHeight: 1.3,
-                        display: 'flex',
-                        alignItems: 'center',
+                        display: "flex",
+                        alignItems: "center",
                       },
-                      '& .MuiSelect-icon': {
-                        top: '50%',
-                        transform: 'translateY(-50%) rotate(0deg)',
-                        transition: 'transform 150ms ease',
+                      "& .MuiSelect-icon": {
+                        top: "50%",
+                        transform: "translateY(-50%) rotate(0deg)",
+                        transition: "transform 150ms ease",
                         right: isMobile ? 4 : 6,
                       },
-                      '& .MuiSelect-icon.MuiSelect-iconOpen': {
-                        transform: 'translateY(-50%) rotate(180deg)',
+                      "& .MuiSelect-icon.MuiSelect-iconOpen": {
+                        transform: "translateY(-50%) rotate(180deg)",
                       },
-                      '& .MuiOutlinedInput-root': {
-                        backgroundColor: 'rgba(255, 255, 255, 0.6)',
-                        alignItems: 'center',
-                        '& .MuiOutlinedInput-input': {
-                          height: 'auto',
-                          minHeight: isMobile ? '1.2em' : '1.4em',
-                          paddingTop: isMobile ? '6px' : '8px',
-                          paddingBottom: isMobile ? '6px' : '8px',
-                          paddingLeft: isMobile ? '4px' : '6px',
-                          paddingRight: isMobile ? '24px' : '28px',
-                          width: '100%',
-                          boxSizing: 'border-box',
+                      "& .MuiOutlinedInput-root": {
+                        backgroundColor: "rgba(255, 255, 255, 0.6)",
+                        alignItems: "center",
+                        "& .MuiOutlinedInput-input": {
+                          height: "auto",
+                          minHeight: isMobile ? "1.2em" : "1.4em",
+                          paddingTop: isMobile ? "6px" : "8px",
+                          paddingBottom: isMobile ? "6px" : "8px",
+                          paddingLeft: isMobile ? "4px" : "6px",
+                          paddingRight: isMobile ? "24px" : "28px",
+                          width: "100%",
+                          boxSizing: "border-box",
                         },
-                        '& fieldset': {
-                          borderColor: '#e0e0e0',
+                        "& fieldset": {
+                          borderColor: "#e0e0e0",
                         },
-                        '&:hover fieldset': {
-                          borderColor: '#1976d2',
+                        "&:hover fieldset": {
+                          borderColor: "#1976d2",
                         },
-                        '&.Mui-focused fieldset': {
-                          borderColor: '#1976d2',
+                        "&.Mui-focused fieldset": {
+                          borderColor: "#1976d2",
                         },
                       },
                     }}
@@ -1674,7 +1673,7 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
             <TooltipWithBounds
               left={(tooltipLeft || 0) + 12}
               top={(tooltipTop || 0) + 12}
-              className='gg-unskinned-tooltip'
+              className="gg-unskinned-tooltip"
             >
               <SharedTooltip payload={tooltipData} />
             </TooltipWithBounds>
@@ -1684,11 +1683,11 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
             open={Boolean(rcaAnchorEl)}
             anchorEl={rcaAnchorEl}
             onClose={() => setRcaAnchorEl(null)}
-            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-            transformOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+            anchorOrigin={{ vertical: "top", horizontal: "right" }}
+            transformOrigin={{ vertical: "bottom", horizontal: "right" }}
           >
             <Box sx={{ p: 2, width: 280 }}>
-              <Typography variant='subtitle2' sx={{ mb: 1, fontWeight: 600 }}>
+              <Typography variant="subtitle2" sx={{ mb: 1, fontWeight: 600 }}>
                 RCA Threshold
               </Typography>
               <Slider
@@ -1697,10 +1696,10 @@ const ClusterTreeInternal: React.FC<ClusterTreeInternalProps> = ({
                 step={0.1}
                 value={rcaThreshold}
                 onChange={(_, v) => setRcaThreshold(Number(v))}
-                valueLabelDisplay='auto'
+                valueLabelDisplay="auto"
               />
-              <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 1 }}>
-                <Button size='small' onClick={() => setRcaAnchorEl(null)}>
+              <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 1 }}>
+                <Button size="small" onClick={() => setRcaAnchorEl(null)}>
                   Close
                 </Button>
               </Box>

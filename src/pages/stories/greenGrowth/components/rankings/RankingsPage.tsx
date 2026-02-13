@@ -43,12 +43,8 @@ const RankingsPage = () => {
 
   // OPTIMIZED: Fetch ALL years at once instead of 12+ separate queries
   // Now that year is optional in the API, we can get all years in one request
-  const {
-    getMetricsForYear,
-    globalMinValue,
-    globalMaxValue,
-    loading: allYearsLoading,
-  } = useAllYearsMetrics();
+  const { getMetricsForYear, globalMinValue, globalMaxValue } =
+    useAllYearsMetrics();
 
   const [year, setYear] = useState<number>(defaultYear);
   const [inputValue, setInputValue] = useState('');

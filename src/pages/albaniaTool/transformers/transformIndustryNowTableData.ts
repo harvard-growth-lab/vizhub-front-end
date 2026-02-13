@@ -2,11 +2,11 @@ import {
   IndustryNowSchooling,
   IndustryNowOccupation,
   IndustryNowNearestIndustryEdge,
-} from '../graphql/graphQLTypes';
+} from "../graphql/graphQLTypes";
 import {
   Datum as DynamicTableDatum,
   Column as DynamicTableColumn,
-} from '../../../components/text/DynamicTable';
+} from "../../../components/text/DynamicTable";
 
 interface Input {
   schoolingNode: IndustryNowSchooling | null;
@@ -14,15 +14,13 @@ interface Input {
   nearbyIndustryEdge: (IndustryNowNearestIndustryEdge | null)[];
 }
 
-export default (input: Input) => {
-  const {
-    schoolingNode, occupationNode, nearbyIndustryEdge,
-  } = input;
+const transformIndustryNowTableData = (input: Input) => {
+  const { schoolingNode, occupationNode, nearbyIndustryEdge } = input;
 
   const schoolingColumns: DynamicTableColumn[] = [
-    {label: 'Level of Education', key: 'education'},
-    {label: 'Male', key: 'male'},
-    {label: 'Female', key: 'female'},
+    { label: "Level of Education", key: "education" },
+    { label: "Male", key: "male" },
+    { label: "Female", key: "female" },
   ];
 
   let schoolingTableData: DynamicTableDatum[];
@@ -30,45 +28,75 @@ export default (input: Input) => {
     schoolingTableData = [];
   } else {
     const {
-      esBelowMale, esBelowFemale,
-      lowerSecondaryMale, lowerSecondaryFemale,
-      technicalVocationalMale, technicalVocationalFemale,
-      hsSomeCollegeMale, hsSomeCollegeFemale,
-      universityHigherMale, universityHigherFemale,
+      esBelowMale,
+      esBelowFemale,
+      lowerSecondaryMale,
+      lowerSecondaryFemale,
+      technicalVocationalMale,
+      technicalVocationalFemale,
+      hsSomeCollegeMale,
+      hsSomeCollegeFemale,
+      universityHigherMale,
+      universityHigherFemale,
     } = schoolingNode;
     schoolingTableData = [
       {
-        education: 'Primary or below',
-        male: esBelowMale !== null ? esBelowMale.toFixed(1) + '%' : 'No data',
-        female: esBelowFemale !== null ? esBelowFemale.toFixed(1) + '%' : 'No data',
+        education: "Primary or below",
+        male: esBelowMale !== null ? esBelowMale.toFixed(1) + "%" : "No data",
+        female:
+          esBelowFemale !== null ? esBelowFemale.toFixed(1) + "%" : "No data",
       },
       {
-        education: 'Lower Secondary',
-        male: lowerSecondaryMale !== null ? lowerSecondaryMale.toFixed(1) + '%' : 'No data',
-        female: lowerSecondaryFemale !== null ? lowerSecondaryFemale.toFixed(1) + '%' : 'No data',
+        education: "Lower Secondary",
+        male:
+          lowerSecondaryMale !== null
+            ? lowerSecondaryMale.toFixed(1) + "%"
+            : "No data",
+        female:
+          lowerSecondaryFemale !== null
+            ? lowerSecondaryFemale.toFixed(1) + "%"
+            : "No data",
       },
       {
-        education: 'Vocational or Technical',
-        male: technicalVocationalMale !== null ? technicalVocationalMale.toFixed(1) + '%' : 'No data',
-        female: technicalVocationalFemale !== null ? technicalVocationalFemale.toFixed(1) + '%' : 'No data',
+        education: "Vocational or Technical",
+        male:
+          technicalVocationalMale !== null
+            ? technicalVocationalMale.toFixed(1) + "%"
+            : "No data",
+        female:
+          technicalVocationalFemale !== null
+            ? technicalVocationalFemale.toFixed(1) + "%"
+            : "No data",
       },
       {
-        education: 'Secondary and Some College',
-        male: hsSomeCollegeMale !== null ? hsSomeCollegeMale.toFixed(1) + '%' : 'No data',
-        female: hsSomeCollegeFemale !== null ? hsSomeCollegeFemale.toFixed(1) + '%' : 'No data',
+        education: "Secondary and Some College",
+        male:
+          hsSomeCollegeMale !== null
+            ? hsSomeCollegeMale.toFixed(1) + "%"
+            : "No data",
+        female:
+          hsSomeCollegeFemale !== null
+            ? hsSomeCollegeFemale.toFixed(1) + "%"
+            : "No data",
       },
       {
-        education: 'University and above',
-        male: universityHigherMale !== null ? universityHigherMale.toFixed(1) + '%' : 'No data',
-        female: universityHigherFemale !== null ? universityHigherFemale.toFixed(1) + '%' : 'No data',
+        education: "University and above",
+        male:
+          universityHigherMale !== null
+            ? universityHigherMale.toFixed(1) + "%"
+            : "No data",
+        female:
+          universityHigherFemale !== null
+            ? universityHigherFemale.toFixed(1) + "%"
+            : "No data",
       },
     ];
   }
 
   const occupationColumns: DynamicTableColumn[] = [
-    {label: 'Occupation', key: 'occupation'},
-    {label: 'Male', key: 'male'},
-    {label: 'Female', key: 'female'},
+    { label: "Occupation", key: "occupation" },
+    { label: "Male", key: "male" },
+    { label: "Female", key: "female" },
   ];
 
   let occupationTableData: DynamicTableDatum[];
@@ -76,98 +104,132 @@ export default (input: Input) => {
     occupationTableData = [];
   } else {
     const {
-      managersMale, managersFemale,
-      professionalsMale, professionalsFemale,
-      techniciansMale, techniciansFemale,
-      clericalMale, clericalFemale,
-      servicesMale, servicesFemale,
-      craftMale, craftFemale,
-      assemblyMale, assemblyFemale,
-      primaryMale, primaryFemale,
-      elementaryMale, elementaryFemale,
-      otherMale, otherFemale,
+      managersMale,
+      managersFemale,
+      professionalsMale,
+      professionalsFemale,
+      techniciansMale,
+      techniciansFemale,
+      clericalMale,
+      clericalFemale,
+      servicesMale,
+      servicesFemale,
+      craftMale,
+      craftFemale,
+      assemblyMale,
+      assemblyFemale,
+      primaryMale,
+      primaryFemale,
+      elementaryMale,
+      elementaryFemale,
+      otherMale,
+      otherFemale,
     } = occupationNode;
     occupationTableData = [
       {
-        occupation: 'Managers',
-        male: managersMale !== null ? managersMale.toFixed(1) + '%' : 'No data',
-        female: managersFemale !== null ? managersFemale.toFixed(1) + '%' : 'No data',
+        occupation: "Managers",
+        male: managersMale !== null ? managersMale.toFixed(1) + "%" : "No data",
+        female:
+          managersFemale !== null ? managersFemale.toFixed(1) + "%" : "No data",
       },
       {
-        occupation: 'Professionals',
-        male: professionalsMale !== null ? professionalsMale.toFixed(1) + '%' : 'No data',
-        female: professionalsFemale !== null ? professionalsFemale.toFixed(1) + '%' : 'No data',
+        occupation: "Professionals",
+        male:
+          professionalsMale !== null
+            ? professionalsMale.toFixed(1) + "%"
+            : "No data",
+        female:
+          professionalsFemale !== null
+            ? professionalsFemale.toFixed(1) + "%"
+            : "No data",
       },
       {
-        occupation: 'Technicians and Associate Professionals',
-        male: techniciansMale !== null ? techniciansMale.toFixed(1) + '%' : 'No data',
-        female: techniciansFemale !== null ? techniciansFemale.toFixed(1) + '%' : 'No data',
+        occupation: "Technicians and Associate Professionals",
+        male:
+          techniciansMale !== null
+            ? techniciansMale.toFixed(1) + "%"
+            : "No data",
+        female:
+          techniciansFemale !== null
+            ? techniciansFemale.toFixed(1) + "%"
+            : "No data",
       },
       {
-        occupation: 'Clerical Support Workers',
-        male: clericalMale !== null ? clericalMale.toFixed(1) + '%' : 'No data',
-        female: clericalFemale !== null ? clericalFemale.toFixed(1) + '%' : 'No data',
+        occupation: "Clerical Support Workers",
+        male: clericalMale !== null ? clericalMale.toFixed(1) + "%" : "No data",
+        female:
+          clericalFemale !== null ? clericalFemale.toFixed(1) + "%" : "No data",
       },
       {
-        occupation: 'Service and Sales Workers',
-        male: servicesMale !== null ? servicesMale.toFixed(1) + '%' : 'No data',
-        female: servicesFemale !== null ? servicesFemale.toFixed(1) + '%' : 'No data',
+        occupation: "Service and Sales Workers",
+        male: servicesMale !== null ? servicesMale.toFixed(1) + "%" : "No data",
+        female:
+          servicesFemale !== null ? servicesFemale.toFixed(1) + "%" : "No data",
       },
       {
-        occupation: 'Craft and Related Trade Workers',
-        male: craftMale !== null ? craftMale.toFixed(1) + '%' : 'No data',
-        female: craftFemale !== null ? craftFemale.toFixed(1) + '%' : 'No data',
+        occupation: "Craft and Related Trade Workers",
+        male: craftMale !== null ? craftMale.toFixed(1) + "%" : "No data",
+        female: craftFemale !== null ? craftFemale.toFixed(1) + "%" : "No data",
       },
       {
-        occupation: 'Machine Operators and Assemblers',
-        male: assemblyMale !== null ? assemblyMale.toFixed(1) + '%' : 'No data',
-        female: assemblyFemale !== null ? assemblyFemale.toFixed(1) + '%' : 'No data',
+        occupation: "Machine Operators and Assemblers",
+        male: assemblyMale !== null ? assemblyMale.toFixed(1) + "%" : "No data",
+        female:
+          assemblyFemale !== null ? assemblyFemale.toFixed(1) + "%" : "No data",
       },
       {
-        occupation: 'Skilled Agriculture and Fishery Workers',
-        male: primaryMale !== null ? primaryMale.toFixed(1) + '%' : 'No data',
-        female: primaryFemale !== null ? primaryFemale.toFixed(1) + '%' : 'No data',
+        occupation: "Skilled Agriculture and Fishery Workers",
+        male: primaryMale !== null ? primaryMale.toFixed(1) + "%" : "No data",
+        female:
+          primaryFemale !== null ? primaryFemale.toFixed(1) + "%" : "No data",
       },
       {
-        occupation: 'Elementary Occupations',
-        male: elementaryMale !== null ? elementaryMale.toFixed(1) + '%' : 'No data',
-        female: elementaryFemale !== null ? elementaryFemale.toFixed(1) + '%' : 'No data',
+        occupation: "Elementary Occupations",
+        male:
+          elementaryMale !== null ? elementaryMale.toFixed(1) + "%" : "No data",
+        female:
+          elementaryFemale !== null
+            ? elementaryFemale.toFixed(1) + "%"
+            : "No data",
       },
       {
-        occupation: 'Other',
-        male: otherMale !== null ? otherMale.toFixed(1) + '%' : 'No data',
-        female: otherFemale !== null ? otherFemale.toFixed(1) + '%' : 'No data',
+        occupation: "Other",
+        male: otherMale !== null ? otherMale.toFixed(1) + "%" : "No data",
+        female: otherFemale !== null ? otherFemale.toFixed(1) + "%" : "No data",
       },
     ];
   }
 
   const nearbyIndustryColumns: DynamicTableColumn[] = [
-    {label: 'Industry Name', key: 'industryName'},
-    {label: 'RCA > 1', key: 'rcaGreaterThan1'},
+    { label: "Industry Name", key: "industryName" },
+    { label: "RCA > 1", key: "rcaGreaterThan1" },
   ];
 
   const nearbyIndustryTableData: DynamicTableDatum[] = [];
-  nearbyIndustryEdge.forEach(edge => {
+  nearbyIndustryEdge.forEach((edge) => {
     if (edge !== null && edge.node !== null) {
-      const {
-        neighborName, neighborRcaGte1,
-      } = edge.node;
+      const { neighborName, neighborRcaGte1 } = edge.node;
       let rcaGreaterThan1: string;
       if (neighborRcaGte1 === null) {
-        rcaGreaterThan1 = 'No data';
+        rcaGreaterThan1 = "No data";
       } else {
-        rcaGreaterThan1 = neighborRcaGte1 === true ? 'Yes' : 'No';
+        rcaGreaterThan1 = neighborRcaGte1 === true ? "Yes" : "No";
       }
       nearbyIndustryTableData.push({
-        industryName: neighborName !== null ? neighborName : 'Unknown',
+        industryName: neighborName !== null ? neighborName : "Unknown",
         rcaGreaterThan1,
       });
     }
   });
 
   return {
-    schooling: {columns: schoolingColumns, data: schoolingTableData},
-    occupation: {columns: occupationColumns, data: occupationTableData},
-    nearbyIndustry: {columns: nearbyIndustryColumns, data: nearbyIndustryTableData},
+    schooling: { columns: schoolingColumns, data: schoolingTableData },
+    occupation: { columns: occupationColumns, data: occupationTableData },
+    nearbyIndustry: {
+      columns: nearbyIndustryColumns,
+      data: nearbyIndustryTableData,
+    },
   };
 };
+
+export default transformIndustryNowTableData;

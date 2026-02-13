@@ -1,10 +1,10 @@
-import React from 'react';
-import styled from 'styled-components';
-import {Link} from 'react-router-dom';
-import {Routes} from '../../routing/routes';
-import CloudIconSvgPath from '../../assets/cloud-icon.svg';
-import {activeLinkColor} from '../../pages/landingPage/Utils';
-import GrowthLabWhiteLogo from '../../assets/GL_logo_white.png';
+import React from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+import { Routes } from "../../routing/routes";
+import CloudIconSvgPath from "../../assets/cloud-icon.svg";
+import { activeLinkColor } from "../../pages/landingPage/Utils";
+import GrowthLabWhiteLogo from "../../assets/GL_logo_white.png";
 
 const Root = styled.div`
   left: 0;
@@ -41,7 +41,7 @@ const LogoLine = styled.div`
   z-index: 10;
 
   &:before {
-    content: '';
+    content: "";
     position: absolute;
     z-index: -1;
     bottom: 0;
@@ -75,29 +75,36 @@ interface Props {
   backgroundColor?: string;
 }
 
-export default (props: Props) => {
-  const {staticPosition, growthLabLinkColor, appLinkColor, backgroundColor} = props;
+const DefaultHubHeader = (props: Props) => {
+  const { staticPosition, growthLabLinkColor, appLinkColor, backgroundColor } =
+    props;
   return (
-    <Root style={{
-      position: staticPosition ? 'static' : 'absolute',
-      marginBottom: staticPosition ? '2rem' : undefined,
-      backgroundColor,
-    }}>
+    <Root
+      style={{
+        position: staticPosition ? "static" : "absolute",
+        marginBottom: staticPosition ? "2rem" : undefined,
+        backgroundColor,
+      }}
+    >
       <AppLink
         to={Routes.Landing}
-        style={{color: appLinkColor ? appLinkColor : '#fff'}}
+        style={{ color: appLinkColor ? appLinkColor : "#fff" }}
       >
         {/* <HarvardLine>Harvard Growth Lab</HarvardLine> */}
-        <LogoLine><Icon src={CloudIconSvgPath} /> Viz Hub</LogoLine>
+        <LogoLine>
+          <Icon src={CloudIconSvgPath} /> Viz Hub
+        </LogoLine>
       </AppLink>
       <GrowthLabLink
-        href='https://growthlab.hks.harvard.edu/'
-        target='_blank'
-        style={{color: growthLabLinkColor ? growthLabLinkColor : '#000'}}
+        href="https://growthlab.hks.harvard.edu/"
+        target="_blank"
+        style={{ color: growthLabLinkColor ? growthLabLinkColor : "#000" }}
       >
         {/* Harvard Growth Lab */}
-      <GrowthLabLogo src={GrowthLabWhiteLogo} />
+        <GrowthLabLogo src={GrowthLabWhiteLogo} />
       </GrowthLabLink>
     </Root>
   );
 };
+
+export default DefaultHubHeader;

@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 const Root = styled.h2`
   position: relative;
@@ -25,13 +25,21 @@ const AnchorLink = styled.span`
   }
 `;
 
-export default ({id, children}: {id: string | undefined, children: React.ReactNode}) => {
+const HashLinkTitle = ({
+  id,
+  children,
+}: {
+  id: string | undefined;
+  children: React.ReactNode;
+}) => {
   return (
     <Root>
-      <AnchorLink className={'anchor-link'}>
-        <a href={'#' + id}>#</a>
+      <AnchorLink className={"anchor-link"}>
+        <a href={"#" + id}>#</a>
       </AnchorLink>
       {children}
     </Root>
   );
 };
+
+export default HashLinkTitle;

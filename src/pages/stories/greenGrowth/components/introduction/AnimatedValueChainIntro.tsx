@@ -84,16 +84,6 @@ interface ValueChainRenderItem {
   fillOpacity: number;
 }
 
-// Type for react-spring animated style
-interface AnimatedStyle {
-  x: any;
-  y: any;
-  r: any;
-  opacity: any;
-  fillColor?: any;
-  fillOpacity?: any;
-}
-
 // Type for cluster transition data
 interface ClusterTransitionData {
   id: string;

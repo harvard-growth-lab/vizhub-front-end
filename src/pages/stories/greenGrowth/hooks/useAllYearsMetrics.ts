@@ -1,5 +1,5 @@
-import { useState, useEffect, useMemo } from 'react';
-import { useQuery, gql } from '@apollo/client';
+import { useState, useEffect } from "react";
+import { useQuery, gql } from "@apollo/client";
 
 // OPTIMIZED: Fetch all years at once (year parameter is now optional)
 const GET_ALL_YEARS_METRICS = gql`
@@ -52,23 +52,33 @@ interface CountryYearMetric {
  * @returns Object containing metrics grouped by year and global min/max values
  */
 export const useAllYearsMetrics = () => {
-  const [metricsByYear, setMetricsByYear] = useState<Map<number, CountryYearMetric[]>>(new Map());
+  const [metricsByYear, setMetricsByYear] = useState<
+    Map<number, CountryYearMetric[]>
+  >(new Map());
   const [globalMinValue, setGlobalMinValue] = useState<number>(0);
   const [globalMaxValue, setGlobalMaxValue] = useState<number>(1);
 
   // Fetch all years data at once
-  const { data: allYearsData, loading: allYearsLoading, error: allYearsError } = useQuery(
-    GET_ALL_YEARS_METRICS,
-  );
+  const {
+    data: allYearsData,
+    loading: allYearsLoading,
+    error: allYearsError,
+  } = useQuery(GET_ALL_YEARS_METRICS);
 
   // Fetch countries for metadata
-  const { data: countriesData, loading: countriesLoading, error: countriesError } = useQuery(
-    GET_COUNTRIES,
-  );
+  const {
+    data: countriesData,
+    loading: countriesLoading,
+    error: countriesError,
+  } = useQuery(GET_COUNTRIES);
 
   // Process and group data by year
   useEffect(() => {
-    if (!allYearsData?.gpCountryYearList || !countriesData?.gpLocationCountryList) return;
+    if (
+      !allYearsData?.gpCountryYearList ||
+      !countriesData?.gpLocationCountryList
+    )
+      return;
 
     // Define country type for lookup
     interface CountryInfo {
@@ -137,4 +147,3 @@ export const useAllYearsMetrics = () => {
     error: allYearsError || countriesError,
   };
 };
-

@@ -424,7 +424,7 @@ const ScrollText = styled.div`
   transform: translate(75%, 25%);
 `;
 
-export default () => {
+const SplashScreen = () => {
   const { search, pathname } = useLocation();
   const navigate = useNavigate();
 
@@ -597,3 +597,4 @@ export default () => {
     </Root>
   );
 };
+export default SplashScreen;

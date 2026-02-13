@@ -122,7 +122,7 @@ interface Props {
   useTitle: string;
 }
 
-export default (props: Props) => {
+const ShareModal = (props: Props) => {
   const { onClose, useTitle } = props;
   // const getString = useFluent();
   const [copied, setCopied] = useState<boolean>(false);
@@ -177,3 +177,5 @@ export default (props: Props) => {
     </Modal>
   );
 };
+
+export default ShareModal;
