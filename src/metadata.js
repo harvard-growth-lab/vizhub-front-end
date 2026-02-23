@@ -17,6 +17,7 @@ const Routes = {
   PortEcosystemsStory: "/port-ecosystems",
   NamibiaWalvisBay: "/namibia-walvis-bay",
   GreenGrowth: "/greenplexity",
+  DesignLibrary: "/design-library",
   // Green Growth sub-routes
   GreenGrowthTutorial: "/greenplexity/tutorial",
   GreenGrowthValueChainsProducts: "/greenplexity/value-chains-products",
@@ -287,6 +288,14 @@ const metadata = [
     title: "Growth LabSpace Viewer",
     description:
       "Interactive visualization of product space and industry relationships",
+    og_image: defaultOgImage,
+    favicon: defaultFavicon,
+  },
+  {
+    url: Routes.DesignLibrary,
+    title: "Design Library | " + defaultTitle,
+    description:
+      "A collection of design guidelines and assets used in the Growth Lab's visualizations",
     og_image: defaultOgImage,
     favicon: defaultFavicon,
   },

@@ -83,6 +83,7 @@ const PageNotFound = lazy(() => import("./pages/pageNotFound"));
 const RoutedGreenGrowthStory = lazy(
   () => import("./pages/stories/greenGrowth/components/RoutedGreenGrowthStory"),
 );
+const DesignLibraryPage = lazy(() => import("./pages/designLibrary"));
 
 export interface IAppContext {
   windowWidth: number;
@@ -229,6 +230,10 @@ const router = createBrowserRouter([
       {
         path: routingRoutes.SpaceVisualizer,
         element: <DataSelection />,
+      },
+      {
+        path: routingRoutes.DesignLibrary,
+        element: <DesignLibraryPage />,
       },
       {
         path: `${routingRoutes.SpaceVisualizer}/visualization`,
