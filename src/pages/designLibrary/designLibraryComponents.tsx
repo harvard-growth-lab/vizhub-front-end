@@ -61,19 +61,23 @@ const CardContent = styled.div`
 
 const Label = styled.label`
   font-family: ${secondaryFont};
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: ${backgroundGray};
+  font-size: 1rem;
+  //   font-weight: 600;
+  //   color: ${backgroundGray};
+  color: oklch(14.5% 0 0);
   text-transform: uppercase;
   margin: 0;
 `;
 
 const HexButton = styled.button`
-  border: 1px solid ${lightBorderColor};
+  //   border: 1px solid ${lightBorderColor};
+  border: none;
   border-radius: 6px;
   padding: 0.5rem;
-  background-color: ${backgroundColor};
+  //   background-color: ${backgroundColor};
   color: ${activeLinkColor};
+  background-color: oklch(96.7% 0.003 264.542);
+  //   color: oklch(14.5% 0 0);
   font-family: ${secondaryFont};
   font-size: 0.8rem;
   cursor: pointer;
@@ -85,7 +89,8 @@ const HexButton = styled.button`
   gap: 0.5rem;
 
   &:hover {
-    background-color: #f5f5f5;
+    // background-color: #f5f5f5;
+    background-color: oklch(92.8% 0.006 264.531);
   }
 `;
 

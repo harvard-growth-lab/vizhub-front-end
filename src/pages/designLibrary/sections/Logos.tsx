@@ -62,10 +62,12 @@ const ImageAssetCardFooter = styled.div`
 
 const ImageAssetLabel = styled.span`
   font-family: ${secondaryFont};
-  color: ${backgroundGray};
-  text-transform: uppercase;
-  font-size: 0.9rem;
-  font-weight: 600;
+  // color: ${backgroundGray};
+  color: oklch(14.5% 0 0);
+  // text-transform: uppercase;
+  font-size: 1rem;
+  line-height: 1.5;
+  font-weight: 500;
 `;
 
 const FormatButtonGroup = styled.div`
@@ -77,13 +79,12 @@ const FormatButtonGroup = styled.div`
 
 const ImageDownloadButton = styled.button`
   border: none;
-  background-color: #1976d2;
-  color: white;
+  background-color: oklch(96.7% 0.003 264.542);
+  color: oklch(14.5% 0 0);
   border-radius: 6px;
   padding: 0.4rem 0.6rem;
   font-family: ${secondaryFont};
-  font-size: 0.75rem;
-  font-weight: 600;
+  font-size: 0.875rem;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
@@ -92,7 +93,7 @@ const ImageDownloadButton = styled.button`
   flex: 1;
 
   &:hover {
-    background-color: #1565c0;
+    background-color: oklch(92.8% 0.006 264.531);
   }
 `;
 
@@ -109,8 +110,9 @@ const GuidelinesTitle = styled.h3`
   margin: 0 0 0.6rem 0;
   font-family: ${secondaryFont};
   font-size: 0.95rem;
-  font-weight: 700;
+  font-weight: 600;
   text-transform: uppercase;
+  color: oklch(14.5% 0 0);
 `;
 
 const GuidelinesList = styled.ul`
@@ -121,9 +123,10 @@ const GuidelinesList = styled.ul`
 `;
 
 const GuidelinesItem = styled.li`
-  font-family: ${secondaryFont};
-  font-size: 0.85rem;
+  // font-family: ${secondaryFont};
+  font-size: 0.875rem;
   line-height: 1.5;
+  color: oklch(37.3% 0.034 259.733);
 `;
 
 const DownloadIcon = () => (

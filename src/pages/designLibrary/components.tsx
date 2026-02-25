@@ -22,7 +22,7 @@ export const Banner = styled.header`
   border: 1px solid ${lightBorderColor};
   border-radius: 16px;
   padding: 1.25rem 1.5rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2.5rem;
 `;
 
 export const Layout = styled.div`
@@ -53,7 +53,7 @@ export const SidebarButton = styled.button<{ $active: boolean }>`
   font-family: ${secondaryFont};
   background-color: ${({ $active }) =>
     $active ? tertiaryColor : backgroundColor};
-  color: ${({ $active }) => ($active ? activeLinkColor : backgroundGray)};
+  color: ${({ $active }) => ($active ? activeLinkColor : "oklch(14.5% 0 0);")};
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -78,14 +78,15 @@ export const SidebarIcon = styled.span<{ $src: string }>`
 
 export const SidebarLabel = styled.span`
   line-height: 1.2;
+  font-size: 1rem;
 `;
 
 export const MainSection = styled.main`
-  border: 1px solid ${lightBorderColor};
+  //   border: 1px solid ${lightBorderColor};
   border-radius: 18px;
   background-color: ${backgroundColor};
   min-height: 420px;
-  padding: 1.5rem;
+  padding: 0 1.5rem;
 `;
 
 export const Heading1 = styled.h1`
@@ -100,20 +101,22 @@ export const Heading1 = styled.h1`
 export const Heading2 = styled.h2`
   margin-top: 0;
   margin-bottom: 1rem;
-  color: ${backgroundGray};
+  //   color: ${backgroundGray};
+  color: oklch(14.5% 0 0);
   font-family: ${secondaryFont};
   text-transform: uppercase;
-  font-size: 1.1rem;
+  font-size: 1.875rem;
   font-weight: 600;
 `;
 
 export const Heading3 = styled.h3`
-  margin-top: 1.25rem;
+  margin-top: 1.5rem;
   margin-bottom: 0.5rem;
-  color: ${backgroundGray};
+  //   color: ${backgroundGray};
+  color: oklch(14.5% 0 0);
   font-family: ${secondaryFont};
   text-transform: uppercase;
-  font-size: 0.95rem;
+  font-size: 1.25rem;
   font-weight: 600;
 `;
 
@@ -121,11 +124,13 @@ export const BodyLarge = styled.p`
   line-height: 1.7;
   margin: 0;
   font-size: 1rem;
+  color: oklch(44.6% 0.03 256.802);
 `;
 
 export const BodySmall = styled.p`
   line-height: 1.6;
   margin: 0;
-  font-size: 0.9rem;
-  color: ${backgroundGray};
+  font-size: 0.875rem;
+  //   color: ${backgroundGray};
+  color: oklch(44.6% 0.03 256.802);
 `;

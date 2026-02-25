@@ -10,6 +10,7 @@ import {
 } from "../../landingPage/Utils";
 import { lightBorderColor, secondaryFont } from "../../../styling/styleUtils";
 import downloadIcon from "../assets/download.svg";
+import copyIcon from "../assets/copy.svg";
 import { downloadGradientAsCSV, downloadPaletteAsCSV } from "./downloadUtils";
 
 const DownloadableHeaderWrapper = styled.div`
@@ -54,10 +55,10 @@ const Heading3Wrapper = styled.div`
 `;
 
 const SectionLabel = styled.div`
-  color: ${backgroundGray};
+  color: oklch(14.5% 0 0);
   font-family: ${secondaryFont};
   text-transform: uppercase;
-  font-size: 0.95rem;
+  font-size: 1.5rem;
   font-weight: 600;
 `;
 
@@ -92,25 +93,58 @@ const GradientSwatch = styled.div<{ gradient: string }>`
   background: ${({ gradient }) => gradient};
 `;
 
-const GradientCodeButton = styled.button<{ $copied?: boolean }>`
+const GradientCodeButton = styled.button`
   width: 100%;
-  border: 1px solid ${lightBorderColor};
+  // border: 1px solid ${lightBorderColor};
+  border: none;
   border-radius: 6px;
   padding: 0.75rem;
-  background-color: ${({ $copied }) => ($copied ? "#e8f5e9" : backgroundColor)};
-  color: ${({ $copied }) => ($copied ? "#2e7d32" : activeLinkColor)};
+  // background-color: ${backgroundColor};
+  background-color: oklch(96.7% 0.003 264.542);
+  color: ${activeLinkColor};
   font-family: ${secondaryFont};
   font-size: 0.75rem;
   cursor: pointer;
   transition: all 0.2s ease;
   font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+
+  &:hover {
+    background-color: oklch(92.8% 0.006 264.531);
+  }
+`;
+
+const GradientText = styled.span`
+  min-width: 0;
+  flex: 1;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-align: left;
+`;
 
-  &:hover {
-    background-color: ${({ $copied }) => ($copied ? "#e8f5e9" : "#f5f5f5")};
-  }
+const CopyIcon = styled.span`
+  width: 0.85rem;
+  height: 0.85rem;
+  flex-shrink: 0;
+  background-color: oklch(55.1% 0.027 264.364);
+  mask-image: url(${copyIcon});
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+  -webkit-mask-image: url(${copyIcon});
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+`;
+
+const ThinCheckIcon = styled.svg`
+  width: 0.85rem;
+  height: 0.85rem;
+  flex-shrink: 0;
 `;
 
 const FullWidthCard = styled.div`
@@ -152,8 +186,21 @@ const GradientCard = ({ gradient }: GradientCardProps) => {
     <FullWidthCard>
       <GradientSwatch gradient={gradient} />
       <GradientCardContent>
-        <GradientCodeButton $copied={copied} onClick={handleCopyGradient}>
-          {copied ? "✓ Copied" : gradient}
+        <GradientCodeButton onClick={handleCopyGradient}>
+          <GradientText>{gradient}</GradientText>
+          {copied ? (
+            <ThinCheckIcon viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path
+                d="M3 8.5L6.5 12L13 5"
+                stroke="green"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </ThinCheckIcon>
+          ) : (
+            <CopyIcon aria-hidden="true" />
+          )}
         </GradientCodeButton>
       </GradientCardContent>
     </FullWidthCard>

@@ -24,15 +24,17 @@ const FontName = styled.p`
   font-size: 3rem;
   margin: 0;
   padding: 0;
+  color: oklch(14.5% 0 0);
 `;
 
 const FontTitle = styled.h3`
   margin: 0;
-  color: ${backgroundGray};
+  // color: ${backgroundGray};
+  color: oklch(44.6% 0.03 256.802);
   font-family: ${secondaryFont};
   text-transform: uppercase;
-  font-size: 1rem;
-  font-weight: 600;
+  font-size: 1.125rem;
+  // font-weight: 600;
   padding: 1rem 0;
 `;
 
@@ -40,7 +42,7 @@ const FontLink = styled.a`
   color: ${activeLinkColor};
   text-decoration: none;
   font-family: ${secondaryFont};
-  font-size: 0.85rem;
+  font-size: 0.875rem;
   font-weight: 600;
 
   &:hover {
@@ -66,9 +68,10 @@ const FontSampleItem = styled.div`
 
 const WeightLabel = styled.span`
   font-family: ${secondaryFont};
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: ${backgroundGray};
+  font-size: 0.875rem;
+  // font-weight: 600;
+  // color: ${backgroundGray};
+  color: oklch(55.1% 0.027 264.364);
   text-transform: uppercase;
 `;
 

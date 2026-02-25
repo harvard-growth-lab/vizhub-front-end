@@ -15,6 +15,7 @@ const DownloadableHeaderWrapper = styled.div`
 
 const InlineHeading3 = styled(Heading3)`
   margin: 0;
+  font-size: 1.5rem;
 `;
 
 const DownloadButtonStyled = styled.button`

@@ -23,7 +23,7 @@ const FlagColorCardGrid = styled.div`
 `;
 
 const FlagColorCardWrapper = styled.div`
-  border: 1px solid ${lightBorderColor};
+  border: 1px solid oklch(92.8% 0.006 264.531);
   border-radius: 12px;
   overflow: hidden;
   background-color: ${backgroundColor};
@@ -40,7 +40,7 @@ const FlagColorTop = styled.div<{ color: string }>`
 const FlagLetters = styled.span`
   color: #ffffff;
   font-family: ${secondaryFont};
-  font-size: 1.2rem;
+  font-size: 1.875rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -54,15 +54,15 @@ const FlagColorBottom = styled.div`
 `;
 
 const FlagColorLabel = styled.span`
-  color: ${backgroundGray};
+  // color: ${backgroundGray};
+  color: oklch(14.5% 0 0);
   font-family: ${secondaryFont};
   text-transform: uppercase;
-  font-size: 0.8rem;
-  font-weight: 600;
+  font-size: 0.875rem;
 `;
 
 const FlagHexText = styled.span`
-  color: #333;
+  color: oklch(44.6% 0.03 256.802);
   font-family: ${secondaryFont};
   font-size: 0.8rem;
 `;
@@ -110,7 +110,7 @@ const BottomInfoGrid = styled.div`
 `;
 
 const InfoCard = styled.div`
-  border: 1px solid ${lightBorderColor};
+  border: 1px solid oklch(92.8% 0.006 264.531);
   border-radius: 12px;
   background-color: ${backgroundColor};
   padding: 1rem;
@@ -118,18 +118,18 @@ const InfoCard = styled.div`
 
 const InfoTitle = styled.h4`
   margin: 0 0 0.55rem 0;
-  color: ${backgroundGray};
+  color: oklch(14.5% 0 0);
   font-family: ${secondaryFont};
   text-transform: uppercase;
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-weight: 600;
 `;
 
 const InfoText = styled.p`
   margin: 0;
-  color: #333;
-  font-family: ${secondaryFont};
-  font-size: 0.85rem;
+  color: oklch(44.6% 0.03 256.802);
+  // font-family: ${secondaryFont};
+  font-size: 0.875rem;
   line-height: 1.55;
 `;
 
@@ -167,14 +167,14 @@ const GuidelinesList = styled.ul`
 `;
 
 const GuidelinesItem = styled.li`
-  color: #333;
-  font-family: ${secondaryFont};
-  font-size: 0.84rem;
+  color: oklch(44.6% 0.03 256.802);
+  // font-family: ${secondaryFont};
+  font-size: 0.875rem;
   line-height: 1.5;
 `;
 
 const CountryFlagCardWrapper = styled.div`
-  border: 1px solid ${lightBorderColor};
+  border: 1px solid oklch(92.8% 0.006 264.531);
   border-radius: 12px;
   overflow: hidden;
   background-color: ${backgroundColor};
@@ -203,31 +203,33 @@ const CountryFlagBottom = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
-  align-items: center;
+  align-items: stretch;
   border-top: 1px solid ${lightBorderColor};
 `;
 
 const CountryName = styled.span`
-  color: ${backgroundGray};
+  color: oklch(14.5% 0 0);
   font-family: ${secondaryFont};
   text-transform: uppercase;
-  font-size: 0.8rem;
-  font-weight: 600;
-  text-align: center;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-align: left;
 `;
 
 const CountryCode = styled.span`
-  color: #444;
+  color: oklch(55.1% 0.027 264.364);
   font-family: ${secondaryFont};
-  font-size: 0.78rem;
+  font-size: 0.75rem;
+  text-align: left;
 `;
 
 const SvgDownloadButton = styled.button`
+  width: 100%;
   border: none;
   background-color: oklch(96.7% 0.003 264.542);
-  color: #0a0a0a;
+  color: oklch(14.5% 0 0);
   border-radius: 6px;
-  padding: 0.38rem 0.7rem;
+  padding: 0.38rem 0.75rem;
   font-family: ${secondaryFont};
   font-size: 0.75rem;
   font-weight: 600;
