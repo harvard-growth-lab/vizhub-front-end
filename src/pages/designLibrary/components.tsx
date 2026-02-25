@@ -43,7 +43,7 @@ export const Sidebar = styled.aside`
   padding: 0.5rem;
 `;
 
-export const SidebarButton = styled.button<{ active: boolean }>`
+export const SidebarButton = styled.button<{ $active: boolean }>`
   width: 100%;
   border: 0;
   border-radius: 12px;
@@ -51,10 +51,33 @@ export const SidebarButton = styled.button<{ active: boolean }>`
   margin: 0.2rem 0;
   text-align: left;
   font-family: ${secondaryFont};
-  background-color: ${({ active }) =>
-    active ? tertiaryColor : backgroundColor};
-  color: ${({ active }) => (active ? activeLinkColor : backgroundGray)};
+  background-color: ${({ $active }) =>
+    $active ? tertiaryColor : backgroundColor};
+  color: ${({ $active }) => ($active ? activeLinkColor : backgroundGray)};
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+`;
+
+export const SidebarIcon = styled.span<{ $src: string }>`
+  width: 0.95rem;
+  height: 0.95rem;
+  display: inline-block;
+  flex-shrink: 0;
+  background-color: currentColor;
+  mask-image: url(${({ $src }) => $src});
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+  -webkit-mask-image: url(${({ $src }) => $src});
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+`;
+
+export const SidebarLabel = styled.span`
+  line-height: 1.2;
 `;
 
 export const MainSection = styled.main`

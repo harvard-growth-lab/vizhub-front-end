@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import Helmet from "react-helmet";
 import TopLevelNav from "../landingPage/TopLevelNav";
 import { scrollToTop } from "../../hooks/useScrollBehavior";
@@ -12,22 +12,77 @@ import {
 import StandardFooter from "../../components/text/StandardFooter";
 import meta from "../../metadata";
 import {
+  BodySmall,
   Banner,
+  Heading2,
   Heading1,
   Layout,
   MainSection,
   PageShell,
   Sidebar,
   SidebarButton,
+  SidebarIcon,
+  SidebarLabel,
 } from "./components";
-import {
-  FallbackSection,
-  libraryItems,
-  LibraryItemId,
-  sectionRegistry,
-} from "./sections";
+import { FlagsSection } from "./sections/Flags";
+import { LogoColorsSection } from "./sections/LogoColors";
+import { LogosSection } from "./sections/Logos";
+import { TypographySection } from "./sections/Typography";
+import { VisualizationColorPalettesSection } from "./sections/VisualizationColorPalettes";
+import visualizationColorPalettesIcon from "./assets/visualization_color_palettes_icon.svg";
+import typographyIcon from "./assets/typography_icon.svg";
+import logosIcon from "./assets/logos_icon.svg";
+import logoColorsIcon from "./assets/logo_colors_icon.svg";
+import flagsIcon from "./assets/flags_icon.svg";
 
 const metadata = meta.get(meta.Routes.DesignLibrary);
+
+const libraryItems = [
+  {
+    id: "visualization-color-palettes",
+    label: "Visualization Color Palettes",
+    icon: visualizationColorPalettesIcon,
+  },
+  {
+    id: "typography",
+    label: "Typography",
+    icon: typographyIcon,
+  },
+  {
+    id: "logos",
+    label: "Logos",
+    icon: logosIcon,
+  },
+  {
+    id: "logo-colors",
+    label: "Logo Colors",
+    icon: logoColorsIcon,
+  },
+  {
+    id: "flags",
+    label: "Flags",
+    icon: flagsIcon,
+  },
+] as const;
+
+type LibraryItemId = (typeof libraryItems)[number]["id"];
+
+type SectionRenderer = () => ReactNode;
+
+const sectionRegistry: Record<LibraryItemId, SectionRenderer> = {
+  "visualization-color-palettes": VisualizationColorPalettesSection,
+  typography: TypographySection,
+  logos: LogosSection,
+  "logo-colors": LogoColorsSection,
+  flags: FlagsSection,
+};
+
+const FallbackSection: SectionRenderer = () => (
+  <>
+    <Heading2>Design Library</Heading2>
+    <BodySmall>Select a section from the left menu.</BodySmall>
+  </>
+);
 
 const DesignLibraryPage = () => {
   const [selectedItemId, setSelectedItemId] = useState<LibraryItemId>(
@@ -64,10 +119,11 @@ const DesignLibraryPage = () => {
                 <SidebarButton
                   key={item.id}
                   type="button"
-                  active={item.id === selectedItemId}
+                  $active={item.id === selectedItemId}
                   onClick={() => setSelectedItemId(item.id)}
                 >
-                  {item.label}
+                  <SidebarIcon $src={item.icon} aria-hidden="true" />
+                  <SidebarLabel>{item.label}</SidebarLabel>
                 </SidebarButton>
               ))}
             </Sidebar>
