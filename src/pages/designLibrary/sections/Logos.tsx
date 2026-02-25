@@ -17,6 +17,7 @@ import logoDownloadAtlasPng from "../../../assets/GL_Atlas_favicon.png";
 import logoDownloadGuideA from "../../landingPage/internalContent/how-we-build-digital-tools.pdf";
 import logoDownloadGuideB from "../../landingPage/internalContent/how-we-build-digital-prototypes.pdf";
 import logoDownloadGuideC from "../../landingPage/internalContent/communicating-topics.pdf";
+import downloadIcon from "../assets/download.svg";
 
 const ImageAssetCardWrapper = styled.div`
   border: 1px solid ${lightBorderColor};
@@ -67,7 +68,7 @@ const ImageAssetLabel = styled.span`
   // text-transform: uppercase;
   font-size: 1rem;
   line-height: 1.5;
-  font-weight: 500;
+  font-weight: 600;
 `;
 
 const FormatButtonGroup = styled.div`
@@ -129,23 +130,21 @@ const GuidelinesItem = styled.li`
   color: oklch(37.3% 0.034 259.733);
 `;
 
-const DownloadIcon = () => (
-  <svg
-    width="12"
-    height="12"
-    viewBox="0 0 24 24"
-    fill="none"
-    aria-hidden="true"
-  >
-    <path
-      d="M12 3V14M12 14L8 10M12 14L16 10M5 18H19"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
+const DownloadIcon = styled.span`
+  width: 0.75rem;
+  height: 0.75rem;
+  display: inline-block;
+  flex-shrink: 0;
+  background-color: currentColor;
+  mask-image: url(${downloadIcon});
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+  -webkit-mask-image: url(${downloadIcon});
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+`;
 
 interface ImageAssetDownloads {
   svg: string;
