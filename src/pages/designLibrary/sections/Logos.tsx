@@ -6,17 +6,12 @@ import growthLabFullLogoBlack from "../../../assets/GL_logo_black.png";
 import growthLabFaviconBlack from "../../../assets/GL_Atlas_favicon_black.png";
 import growthLabFaviconWhite from "../../../assets/GL_Atlas_favicon.png";
 import growthLabFullLogoWhite from "../../../assets/GL_logo_white.png";
-import logoDownloadGrowthLabSvg from "../../../assets/hks-logo.svg";
-import logoDownloadHarvardSvg from "../../landingPage/title.svg";
-import logoDownloadGrowthLabNewSvg from "../../landingPage/titleIcon.svg";
-import logoDownloadAtlasSvg from "../../landingPage/subtitle.svg";
-import logoDownloadGrowthLabPng from "../../../assets/GL_logo_black.png";
-import logoDownloadHarvardPng from "../../../assets/harvard-logo.png";
-import logoDownloadGrowthLabNewPng from "../../../assets/growth-lab-new-logo-2022.png";
-import logoDownloadAtlasPng from "../../../assets/GL_Atlas_favicon.png";
-import logoDownloadGuideA from "../../landingPage/internalContent/how-we-build-digital-tools.pdf";
-import logoDownloadGuideB from "../../landingPage/internalContent/how-we-build-digital-prototypes.pdf";
-import logoDownloadGuideC from "../../landingPage/internalContent/communicating-topics.pdf";
+
+import growthLabFullLogoBlackPDF from "../assets/GL_logo_black.pdf";
+import growthLabFaviconBlackPDF from "../assets/GL_favicon_black.pdf";
+import growthLabFaviconWhitePDF from "../assets/GL_favicon_white.pdf";
+import growthLabFullLogoWhitePDF from "../assets/GL_logo_white.pdf";
+
 import downloadIcon from "../assets/download.svg";
 
 const ImageAssetCardWrapper = styled.div`
@@ -24,13 +19,14 @@ const ImageAssetCardWrapper = styled.div`
   border-radius: 12px;
   overflow: hidden;
   background-color: ${backgroundColor};
-  margin: 1rem 0;
+  margin: 0;
 `;
 
 const ImageAssetCardGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1rem;
+  margin-top: 1.25rem;
 
   @media (max-width: 900px) {
     grid-template-columns: 1fr;
@@ -147,7 +143,6 @@ const DownloadIcon = styled.span`
 `;
 
 interface ImageAssetDownloads {
-  svg: string;
   png: string;
   pdf: string;
 }
@@ -169,10 +164,7 @@ const ImageAssetCard = ({
 }: ImageAssetCardProps) => {
   const baseName = fileBaseName || label.replace(/\s+/g, "_").toLowerCase();
 
-  const triggerDownload = async (
-    url: string,
-    extension: "svg" | "png" | "pdf",
-  ) => {
+  const triggerDownload = async (url: string, extension: "png" | "pdf") => {
     try {
       const response = await fetch(url);
       const blob = await response.blob();
@@ -204,12 +196,6 @@ const ImageAssetCard = ({
         <FormatButtonGroup>
           <ImageDownloadButton
             type="button"
-            onClick={() => triggerDownload(downloads.svg, "svg")}
-          >
-            <DownloadIcon /> SVG
-          </ImageDownloadButton>
-          <ImageDownloadButton
-            type="button"
             onClick={() => triggerDownload(downloads.png, "png")}
           >
             <DownloadIcon /> PNG
@@ -237,44 +223,40 @@ export const LogosSection = () => (
         previewSrc={growthLabFullLogoBlack}
         previewBackground="#ffffff"
         label="Growth Lab Full Logo Black"
-        fileBaseName="growth_lab_logo"
+        fileBaseName="growth_lab_logo_black"
         downloads={{
-          svg: logoDownloadGrowthLabSvg,
-          png: logoDownloadGrowthLabPng,
-          pdf: logoDownloadGuideA,
+          png: growthLabFullLogoBlack,
+          pdf: growthLabFullLogoBlackPDF,
         }}
       />
       <ImageAssetCard
         previewSrc={growthLabFaviconBlack}
         previewBackground="#ffffff"
         label="Favicon Black"
-        fileBaseName="harvard_logo"
+        fileBaseName="growth_lab_favicon_black"
         downloads={{
-          svg: logoDownloadHarvardSvg,
-          png: logoDownloadHarvardPng,
-          pdf: logoDownloadGuideB,
+          png: growthLabFaviconBlack,
+          pdf: growthLabFaviconBlackPDF,
         }}
       />
       <ImageAssetCard
         previewSrc={growthLabFaviconWhite}
         previewBackground="#000000"
         label="Favicon White"
-        fileBaseName="growth_lab_logo_2022"
+        fileBaseName="growth_lab_favicon_white"
         downloads={{
-          svg: logoDownloadGrowthLabNewSvg,
-          png: logoDownloadGrowthLabNewPng,
-          pdf: logoDownloadGuideC,
+          png: growthLabFaviconWhite,
+          pdf: growthLabFaviconWhitePDF,
         }}
       />
       <ImageAssetCard
         previewSrc={growthLabFullLogoWhite}
         previewBackground="#000000"
         label="Growth Lab Full Logo White"
-        fileBaseName="atlas_mark"
+        fileBaseName="growth_lab_full_logo_white"
         downloads={{
-          svg: logoDownloadAtlasSvg,
-          png: logoDownloadAtlasPng,
-          pdf: logoDownloadGuideA,
+          png: growthLabFullLogoWhite,
+          pdf: growthLabFullLogoWhitePDF,
         }}
       />
     </ImageAssetCardGrid>
