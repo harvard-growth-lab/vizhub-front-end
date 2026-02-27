@@ -1,5 +1,11 @@
 import { useMemo, useState } from "react";
-import { gql, useQuery } from "@apollo/client";
+import {
+  ApolloClient,
+  HttpLink,
+  InMemoryCache,
+  gql,
+  useQuery,
+} from "@apollo/client";
 import { BodyLarge, Heading2, Heading3 } from "../components";
 import styled from "styled-components";
 import { backgroundColor, backgroundGray } from "../../landingPage/Utils";
@@ -9,28 +15,39 @@ import downloadIcon from "../assets/download.svg";
 
 const GET_DESIGN_LIBRARY_COUNTRIES = gql`
   query GetDesignLibraryCountries {
-    ggLocationCountryList {
+    countries: locationCountry {
       iso3Code
       nameEn
     }
   }
 `;
 
-const FlagColorCardGrid = styled.div`
+const atlasApiUri = process.env.REACT_APP_ATLAS_API_URL || "/graphql";
+
+const atlasClient = new ApolloClient({
+  link: new HttpLink({
+    uri: atlasApiUri,
+  }),
+  cache: new InMemoryCache(),
+});
+
+const excludedCountryCode = "ANS";
+
+const RegionCardGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   gap: 1rem;
   margin: 1rem 0 2rem;
 `;
 
-const FlagColorCardWrapper = styled.div`
+const RegionCardWrapper = styled.div`
   border: 1px solid oklch(92.8% 0.006 264.531);
   border-radius: 12px;
   overflow: hidden;
   background-color: ${backgroundColor};
 `;
 
-const FlagColorTop = styled.div<{ color: string }>`
+const RegionCardTop = styled.div<{ color: string }>`
   background-color: ${({ color }) => color};
   height: 90px;
   display: flex;
@@ -38,7 +55,7 @@ const FlagColorTop = styled.div<{ color: string }>`
   justify-content: center;
 `;
 
-const FlagLetters = styled.span`
+const RegionCardLetters = styled.span`
   color: #ffffff;
   font-family: ${secondaryFont};
   font-size: 1.875rem;
@@ -47,22 +64,21 @@ const FlagLetters = styled.span`
   letter-spacing: 1px;
 `;
 
-const FlagColorBottom = styled.div`
+const RegionCardBottom = styled.div`
   padding: 0.7rem;
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
 `;
 
-const FlagColorLabel = styled.span`
-  // color: ${backgroundGray};
+const RegionCardLabel = styled.span`
   color: oklch(14.5% 0 0);
   font-family: ${secondaryFont};
   text-transform: uppercase;
   font-size: 0.875rem;
 `;
 
-const FlagHexText = styled.span`
+const RegionCardHexText = styled.span`
   color: oklch(44.6% 0.03 256.802);
   font-family: ${secondaryFont};
   font-size: 0.8rem;
@@ -75,21 +91,16 @@ interface FlagColorCardProps {
   hexCode?: string;
 }
 
-const FlagColorCard = ({
-  color,
-  letters,
-  label,
-  hexCode,
-}: FlagColorCardProps) => (
-  <FlagColorCardWrapper>
-    <FlagColorTop color={color}>
-      <FlagLetters>{letters}</FlagLetters>
-    </FlagColorTop>
-    <FlagColorBottom>
-      <FlagColorLabel>{label}</FlagColorLabel>
-      <FlagHexText>{hexCode || color}</FlagHexText>
-    </FlagColorBottom>
-  </FlagColorCardWrapper>
+const RegionCard = ({ color, letters, label, hexCode }: FlagColorCardProps) => (
+  <RegionCardWrapper>
+    <RegionCardTop color={color}>
+      <RegionCardLetters>{letters}</RegionCardLetters>
+    </RegionCardTop>
+    <RegionCardBottom>
+      <RegionCardLabel>{label}</RegionCardLabel>
+      <RegionCardHexText>{hexCode || color}</RegionCardHexText>
+    </RegionCardBottom>
+  </RegionCardWrapper>
 );
 
 const CountryFlagCardGrid = styled.div`
@@ -358,19 +369,21 @@ const countryFlagItems = flagContext
   .sort((a, b) => a.countryAbbreviation.localeCompare(b.countryAbbreviation));
 
 interface CountriesQueryData {
-  ggLocationCountryList?: Array<{
+  countries?: Array<{
     iso3Code?: string | null;
     nameEn?: string | null;
   }>;
 }
 
 export const FlagsSection = () => {
-  const { data } = useQuery<CountriesQueryData>(GET_DESIGN_LIBRARY_COUNTRIES);
+  const { data } = useQuery<CountriesQueryData>(GET_DESIGN_LIBRARY_COUNTRIES, {
+    client: atlasClient,
+  });
   const [isZipDownloading, setIsZipDownloading] = useState(false);
 
   const countryNameByIso3 = useMemo(() => {
     const lookup = new Map<string, string>();
-    (data?.ggLocationCountryList || []).forEach((country) => {
+    (data?.countries || []).forEach((country) => {
       if (country.iso3Code && country.nameEn) {
         lookup.set(country.iso3Code.toUpperCase(), country.nameEn);
       }
@@ -384,6 +397,10 @@ export const FlagsSection = () => {
         .map((item) => {
           const countryName = countryNameByIso3.get(item.countryAbbreviation);
           if (!countryName) {
+            return null;
+          }
+
+          if (item.countryAbbreviation === excludedCountryCode) {
             return null;
           }
 
@@ -443,38 +460,38 @@ export const FlagsSection = () => {
         Country flags and regional visual indicators for geographic data.
       </BodyLarge>
       <Heading3>Regional Indicators</Heading3>
-      <FlagColorCardGrid>
-        <FlagColorCard
+      <RegionCardGrid>
+        <RegionCard
           color="#773bd8"
           letters="AF"
           label="Africa"
           hexCode="#773bd8"
         />
-        <FlagColorCard
+        <RegionCard
           color="#9e4643"
           letters="AM"
           label="Americas"
           hexCode="#9e4643"
         />
-        <FlagColorCard
+        <RegionCard
           color="#6bc285"
           letters="AS"
           label="Asia"
           hexCode="#6bc285"
         />
-        <FlagColorCard
+        <RegionCard
           color="#5780b7"
           letters="EU"
           label="Europe"
           hexCode="#5780b7"
         />
-        <FlagColorCard
+        <RegionCard
           color="#f2bc67"
           letters="OC"
           label="Oceania"
           hexCode="#f2bc67"
         />
-      </FlagColorCardGrid>
+      </RegionCardGrid>
 
       <Heading3>Country Flags</Heading3>
       <BodyLarge>
