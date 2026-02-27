@@ -75,10 +75,10 @@ const WeightLabel = styled.span`
   text-transform: uppercase;
 `;
 
-const SampleText = styled.p<{ weight: number }>`
+const SampleText = styled.p<{ $weight: number }>`
   margin: 0;
   font-family: "Source Sans 3", sans-serif;
-  font-weight: ${({ weight }) => weight};
+  font-weight: ${({ $weight }) => $weight};
   font-size: 2.25rem;
   line-height: 1.6;
   color: #333;
@@ -125,7 +125,7 @@ const FontDisplay = ({
           <WeightLabel>
             {label} ({weight})
           </WeightLabel>
-          <SampleText weight={weight} style={{ fontFamily }}>
+          <SampleText $weight={weight} style={{ fontFamily }}>
             The quick brown fox jumps over the lazy dog
           </SampleText>
         </FontSampleItem>

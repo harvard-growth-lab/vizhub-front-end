@@ -17,7 +17,7 @@ const GET_DESIGN_LIBRARY_COUNTRIES = gql`
   query GetDesignLibraryCountries {
     countries: locationCountry {
       iso3Code
-      nameEn
+      nameShortEn
     }
   }
 `;
@@ -371,7 +371,7 @@ const countryFlagItems = flagContext
 interface CountriesQueryData {
   countries?: Array<{
     iso3Code?: string | null;
-    nameEn?: string | null;
+    nameShortEn?: string | null;
   }>;
 }
 
@@ -384,8 +384,8 @@ export const FlagsSection = () => {
   const countryNameByIso3 = useMemo(() => {
     const lookup = new Map<string, string>();
     (data?.countries || []).forEach((country) => {
-      if (country.iso3Code && country.nameEn) {
-        lookup.set(country.iso3Code.toUpperCase(), country.nameEn);
+      if (country.iso3Code && country.nameShortEn) {
+        lookup.set(country.iso3Code.toUpperCase(), country.nameShortEn);
       }
     });
     return lookup;
@@ -495,7 +495,7 @@ export const FlagsSection = () => {
 
       <Heading3>Country Flags</Heading3>
       <BodyLarge>
-        Standard 4:3 aspect ratio flags following ISO 3166-1 alpha-2 codes
+        Standard 4:3 aspect ratio flags following ISO 3166-1 alpha-3 codes.
       </BodyLarge>
       <CountryFlagCardGrid>
         {mappedCountryFlagItems.map((item) => (

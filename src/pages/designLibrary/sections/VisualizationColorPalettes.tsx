@@ -87,10 +87,10 @@ const DownloadableSection = ({
   </Heading3Wrapper>
 );
 
-const GradientSwatch = styled.div<{ gradient: string }>`
+const GradientSwatch = styled.div<{ $gradient: string }>`
   width: 100%;
   height: 120px;
-  background: ${({ gradient }) => gradient};
+  background: ${({ $gradient }) => $gradient};
 `;
 
 const GradientCodeButton = styled.button`
@@ -184,7 +184,7 @@ const GradientCard = ({ gradient }: GradientCardProps) => {
 
   return (
     <FullWidthCard>
-      <GradientSwatch gradient={gradient} />
+      <GradientSwatch $gradient={gradient} />
       <GradientCardContent>
         <GradientCodeButton onClick={handleCopyGradient}>
           <GradientText>{gradient}</GradientText>
