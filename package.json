@@ -54,6 +54,7 @@
     "html2canvas": "^1.4.1",
     "hyparquet": "^1.5.0",
     "intersection-observer": "^0.12.2",
+    "jszip": "^3.10.1",
     "lodash": "^4.17.21",
     "mapbox-gl": "^1.13.3",
     "material-react-table": "^3.0.1",
