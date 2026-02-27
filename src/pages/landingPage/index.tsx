@@ -165,6 +165,17 @@ const LandingPage = () => {
         ({ keyword }) => keyword.toLowerCase(),
         ["asc"],
       );
+      const searchableCategories: ProjectCategories[] = [
+        ProjectCategories.TOOLS,
+        ProjectCategories.COUNTRY_DASHBOARDS,
+        ProjectCategories.VISUAL_STORIES,
+        ProjectCategories.SOFTWARE_PACKAGES,
+        ProjectCategories.ANNUAL_BEST_OF,
+        ProjectCategories.LIBRARY,
+        // ProjectCategories.ATLAS_PROJECTS,
+        // ProjectCategories.PROTOTYPES_EXPERIMENTS,
+        // ProjectCategories.PRESENTATIONS,
+      ];
       const allCategories: ProjectCategories[] = [];
       const allStatuses: string[] = [];
       const allDataKeywords: string[] = [];
@@ -173,6 +184,7 @@ const LandingPage = () => {
         if (show) {
           if (
             projectCategory &&
+            searchableCategories.includes(projectCategory) &&
             !allCategories.find((c) => c === projectCategory)
           ) {
             allCategories.push(projectCategory);

@@ -43,6 +43,10 @@ export const getCategoryString = (value: ProjectCategories | null) => {
     return "Software Packages";
   } else if (value === ProjectCategories.ANNUAL_BEST_OF) {
     return "Annual Best-Of";
+  } else if (value === ProjectCategories.TOOLS) {
+    return "Tools";
+  } else if (value === ProjectCategories.LIBRARY) {
+    return "Library";
   } else {
     return "";
   }
