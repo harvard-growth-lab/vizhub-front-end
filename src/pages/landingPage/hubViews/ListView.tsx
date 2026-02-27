@@ -1,20 +1,14 @@
-import React from 'react';
-import sortBy from 'lodash/sortBy';
-import ListItem from '../components/ListItem';
-import styled from 'styled-components';
-import {
-  HubProject,
-  ProjectCategories,
-} from '../graphql/graphQLTypes';
+import React from "react";
+import sortBy from "lodash/sortBy";
+import ListItem from "../components/ListItem";
+import styled from "styled-components";
+import { HubProject, ProjectCategories } from "../graphql/graphQLTypes";
 import {
   backgroundGray,
   listViewMediumWidth,
   listViewSmallWidth,
-} from '../Utils';
-import {
-  lightBaseColor,
-  secondaryFont,
-} from '../../../styling/styleUtils';
+} from "../Utils";
+import { lightBaseColor, secondaryFont } from "../../../styling/styleUtils";
 
 const Root = styled.div`
   display: grid;
@@ -55,31 +49,41 @@ interface Props {
   projects: HubProject[];
 }
 
-const ListView = ({projects}: Props) => {
+const ListView = ({ projects }: Props) => {
   const atlasProjects: React.ReactElement<any>[] = [];
   const annualBestOf: React.ReactElement<any>[] = [];
-  const countryDashboards:  React.ReactElement<any>[] = [];
-  const visualStories:  React.ReactElement<any>[] = [];
+  const countryDashboards: React.ReactElement<any>[] = [];
+  const visualStories: React.ReactElement<any>[] = [];
   const softwarePackages: React.ReactElement<any>[] = [];
+  const tools: React.ReactElement<any>[] = [];
+  const library: React.ReactElement<any>[] = [];
   const presentations: React.ReactElement<any>[] = [];
   const prototypes: React.ReactElement<any>[] = [];
   const undefinedProjects: React.ReactElement<any>[] = [];
-  const sortedProjects = sortBy(projects, ['projectName']);
-  sortedProjects.forEach(project => {
-    const projectElm = (
-      <ListItem project={project} key={project.projectName} />
-    );
+  const sortedProjects = sortBy(projects, ["projectName"]);
+  sortedProjects.forEach((project) => {
+    const projectElm = <ListItem project={project} key={project.projectName} />;
     if (project.projectCategory === ProjectCategories.ATLAS_PROJECTS) {
       atlasProjects.push(projectElm);
-    } else if (project.projectCategory === ProjectCategories.COUNTRY_DASHBOARDS) {
+    } else if (
+      project.projectCategory === ProjectCategories.COUNTRY_DASHBOARDS
+    ) {
       countryDashboards.push(projectElm);
     } else if (project.projectCategory === ProjectCategories.VISUAL_STORIES) {
       visualStories.push(projectElm);
-    } else if (project.projectCategory === ProjectCategories.SOFTWARE_PACKAGES) {
+    } else if (
+      project.projectCategory === ProjectCategories.SOFTWARE_PACKAGES
+    ) {
       softwarePackages.push(projectElm);
+    } else if (project.projectCategory === ProjectCategories.TOOLS) {
+      tools.push(projectElm);
+    } else if (project.projectCategory === ProjectCategories.LIBRARY) {
+      library.push(projectElm);
     } else if (project.projectCategory === ProjectCategories.PRESENTATIONS) {
       presentations.push(projectElm);
-    } else if (project.projectCategory === ProjectCategories.PROTOTYPES_EXPERIMENTS) {
+    } else if (
+      project.projectCategory === ProjectCategories.PROTOTYPES_EXPERIMENTS
+    ) {
       prototypes.push(projectElm);
     } else if (project.projectCategory === ProjectCategories.ANNUAL_BEST_OF) {
       annualBestOf.push(projectElm);
@@ -98,6 +102,8 @@ const ListView = ({projects}: Props) => {
       {countryDashboards}
       {visualStories}
       {softwarePackages}
+      {tools}
+      {library}
       {presentations}
       {prototypes}
       {undefinedProjects}
