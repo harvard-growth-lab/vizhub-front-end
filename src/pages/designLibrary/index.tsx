@@ -21,14 +21,21 @@ import {
   PageShell,
   Sidebar,
   SidebarButton,
+  SidebarChevron,
   SidebarIcon,
   SidebarLabel,
+  SubmenuButton,
+  SubmenuContainer,
 } from "./components";
 import { FlagsSection } from "./sections/Flags";
 import { LogoColorsSection } from "./sections/LogoColors";
 import { LogosSection } from "./sections/Logos";
 import { TypographySection } from "./sections/Typography";
-import { VisualizationColorPalettesSection } from "./sections/VisualizationColorPalettes";
+import { AtlasVisualizationColors } from "./sections/AtlasVisualizationColors";
+import { MetroverseVisualizationColors } from "./sections/MetroverseVisualizationColors";
+import { GreenplexityVisualizationColors } from "./sections/GreenplexityVisualizationColors";
+import { MetroverseVisualAssets } from "./sections/MetroverseVisualAssets";
+import { GreenplexityVisualAssets } from "./sections/GreenplexityVisualAssets";
 import visualizationColorPalettesIcon from "./assets/visualization_color_palettes_icon.svg";
 import typographyIcon from "./assets/typography_icon.svg";
 import logosIcon from "./assets/logos_icon.svg";
@@ -37,12 +44,33 @@ import flagsIcon from "./assets/flags_icon.svg";
 
 const metadata = meta.get(meta.Routes.DesignLibrary);
 
-const libraryItems = [
+const visualizationColorItems = [
   {
-    id: "visualization-color-palettes",
-    label: "Visualization Color Palettes",
-    icon: visualizationColorPalettesIcon,
+    id: "atlas-visualization-colors",
+    label: "Atlas of Economic Complexity",
   },
+  {
+    id: "metroverse-visualization-colors",
+    label: "Metroverse",
+  },
+  {
+    id: "greenplexity-visualization-colors",
+    label: "Greenplexity",
+  },
+] as const;
+
+const visualAssetItems = [
+  {
+    id: "metroverse-visual-assets",
+    label: "Metroverse",
+  },
+  {
+    id: "greenplexity-visual-assets",
+    label: "Greenplexity",
+  },
+] as const;
+
+const libraryItems = [
   {
     id: "typography",
     label: "Typography",
@@ -65,17 +93,32 @@ const libraryItems = [
   },
 ] as const;
 
-type LibraryItemId = (typeof libraryItems)[number]["id"];
+type LibraryItemId =
+  | (typeof libraryItems)[number]["id"]
+  | (typeof visualizationColorItems)[number]["id"]
+  | (typeof visualAssetItems)[number]["id"];
 
 type SectionRenderer = () => ReactNode;
 
 const sectionRegistry: Record<LibraryItemId, SectionRenderer> = {
-  "visualization-color-palettes": VisualizationColorPalettesSection,
+  "atlas-visualization-colors": AtlasVisualizationColors,
+  "metroverse-visualization-colors": MetroverseVisualizationColors,
+  "greenplexity-visualization-colors": GreenplexityVisualizationColors,
+  "metroverse-visual-assets": MetroverseVisualAssets,
+  "greenplexity-visual-assets": GreenplexityVisualAssets,
   typography: TypographySection,
   logos: LogosSection,
   "logo-colors": LogoColorsSection,
   flags: FlagsSection,
 };
+
+const visualizationColorIds = new Set<LibraryItemId>(
+  visualizationColorItems.map((item) => item.id),
+);
+
+const visualAssetIds = new Set<LibraryItemId>(
+  visualAssetItems.map((item) => item.id),
+);
 
 const FallbackSection: SectionRenderer = () => (
   <>
@@ -86,10 +129,26 @@ const FallbackSection: SectionRenderer = () => (
 
 const DesignLibraryPage = () => {
   const [selectedItemId, setSelectedItemId] = useState<LibraryItemId>(
-    libraryItems[0].id,
+    visualizationColorItems[0].id,
   );
+  const [isVisualizationMenuOpen, setIsVisualizationMenuOpen] = useState(true);
+  const [isVisualAssetsMenuOpen, setIsVisualAssetsMenuOpen] = useState(true);
 
   const SelectedSection = sectionRegistry[selectedItemId] || FallbackSection;
+
+  const handleVisualizationMenuToggle = () => {
+    if (isVisualizationMenuOpen && visualizationColorIds.has(selectedItemId)) {
+      return;
+    }
+    setIsVisualizationMenuOpen((isOpen) => !isOpen);
+  };
+
+  const handleVisualAssetsMenuToggle = () => {
+    if (isVisualAssetsMenuOpen && visualAssetIds.has(selectedItemId)) {
+      return;
+    }
+    setIsVisualAssetsMenuOpen((isOpen) => !isOpen);
+  };
 
   useEffect(() => scrollToTop({ smooth: false }), []);
 
@@ -111,10 +170,63 @@ const DesignLibraryPage = () => {
       <HubContentContainer>
         <PageShell>
           <Banner>
-            <Heading1>Atlas of Economic Complexity Design System</Heading1>
+            <Heading1>Design Library</Heading1>
           </Banner>
           <Layout>
             <Sidebar>
+              <SidebarButton
+                type="button"
+                $active={visualizationColorIds.has(selectedItemId)}
+                onClick={handleVisualizationMenuToggle}
+              >
+                <SidebarIcon
+                  $src={visualizationColorPalettesIcon}
+                  aria-hidden="true"
+                />
+                <SidebarLabel>Visualization Colors</SidebarLabel>
+                <SidebarChevron $open={isVisualizationMenuOpen} />
+              </SidebarButton>
+
+              {isVisualizationMenuOpen && (
+                <SubmenuContainer>
+                  {visualizationColorItems.map((item) => (
+                    <SubmenuButton
+                      key={item.id}
+                      type="button"
+                      $active={item.id === selectedItemId}
+                      onClick={() => setSelectedItemId(item.id)}
+                    >
+                      {item.label}
+                    </SubmenuButton>
+                  ))}
+                </SubmenuContainer>
+              )}
+
+              <SidebarButton
+                type="button"
+                $active={visualAssetIds.has(selectedItemId)}
+                onClick={handleVisualAssetsMenuToggle}
+              >
+                <SidebarIcon $src={logosIcon} aria-hidden="true" />
+                <SidebarLabel>Visual Assets</SidebarLabel>
+                <SidebarChevron $open={isVisualAssetsMenuOpen} />
+              </SidebarButton>
+
+              {isVisualAssetsMenuOpen && (
+                <SubmenuContainer>
+                  {visualAssetItems.map((item) => (
+                    <SubmenuButton
+                      key={item.id}
+                      type="button"
+                      $active={item.id === selectedItemId}
+                      onClick={() => setSelectedItemId(item.id)}
+                    >
+                      {item.label}
+                    </SubmenuButton>
+                  ))}
+                </SubmenuContainer>
+              )}
+
               {libraryItems.map((item) => (
                 <SidebarButton
                   key={item.id}

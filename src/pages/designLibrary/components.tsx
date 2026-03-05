@@ -81,6 +81,38 @@ export const SidebarLabel = styled.span`
   font-size: 1rem;
 `;
 
+export const SidebarChevron = styled.span<{ $open: boolean }>`
+  margin-left: auto;
+  margin-right: 0.25rem;
+  width: 0.35rem;
+  height: 0.35rem;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: ${({ $open }) => ($open ? "rotate(45deg)" : "rotate(-45deg)")};
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+`;
+
+export const SubmenuContainer = styled.div`
+  margin: 0.1rem 0 0.3rem 1.75rem;
+`;
+
+export const SubmenuButton = styled.button<{ $active: boolean }>`
+  width: 100%;
+  border: 0;
+  border-radius: 10px;
+  padding: 0.55rem 0.75rem;
+  margin: 0.12rem 0;
+  text-align: left;
+  font-family: ${secondaryFont};
+  background-color: ${({ $active }) =>
+    $active ? tertiaryColor : backgroundColor};
+  color: ${({ $active }) => ($active ? activeLinkColor : "oklch(14.5% 0 0);")};
+  cursor: pointer;
+  line-height: 1.2;
+  font-size: 0.95rem;
+`;
+
 export const MainSection = styled.main`
   //   border: 1px solid ${lightBorderColor};
   border-radius: 18px;
