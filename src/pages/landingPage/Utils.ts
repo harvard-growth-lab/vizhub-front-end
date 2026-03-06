@@ -46,7 +46,7 @@ export const getCategoryString = (value: ProjectCategories | null) => {
   } else if (value === ProjectCategories.TOOLS) {
     return "Tools";
   } else if (value === ProjectCategories.LIBRARY) {
-    return "Library";
+    return "Libraries";
   } else {
     return "";
   }
