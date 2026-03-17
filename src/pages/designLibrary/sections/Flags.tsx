@@ -197,17 +197,18 @@ const CountryFlagCardWrapper = styled.div`
 const CountryFlagTop = styled.div`
   width: 100%;
   aspect-ratio: 4 / 3;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  position: relative;
   background-color: #f8f8f8;
-  padding: 0;
+  overflow: hidden;
 `;
 
 const CountryFlagImage = styled.img`
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
 `;
 
 const CountryFlagBottom = styled.div`
