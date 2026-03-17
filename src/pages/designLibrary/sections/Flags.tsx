@@ -516,7 +516,7 @@ export const FlagsSection = () => {
           <InfoTitle>Complete Flag Library</InfoTitle>
           <InfoText>
             The Atlas includes flag assets for 200+ countries and territories,
-            all following ISO 3166-1 alpha-2 country codes for consistency.
+            all following ISO 3166-1 alpha-3 country codes for consistency.
           </InfoText>
           <ZipDownloadButton
             type="button"

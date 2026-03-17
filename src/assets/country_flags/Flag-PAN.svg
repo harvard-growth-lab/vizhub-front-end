@@ -1,1 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480"><defs><clipPath id="a"><path fill-opacity=".67" d="M0 0h640v480H0z"/></clipPath></defs><g clip-path="url(#a)"><path fill="#fff" d="M0 0h640v480H0z"/><path fill-rule="evenodd" fill="#fff" d="M92.462 0h477.19v480H92.462z"/><path fill-rule="evenodd" fill="#db0000" d="M323.07 3.655h358v221.68h-358z"/><path fill-rule="evenodd" fill="#0000ab" d="M3.227 225.33h319.87v254.66H3.227zM214.8 177.65l-41.959-29.326-41.754 29.614 15.529-48.124-41.677-29.716 51.562-.414 15.993-47.978 16.335 47.867 51.562.063-41.463 29.996 15.872 48.017z"/><path d="M516.85 413.89l-42.354-27.744-42.146 28.017 15.675-45.529-42.069-28.114 52.047-.392 16.143-45.391 16.489 45.286 52.047.06-41.853 28.379 16.021 45.428z" fill-rule="evenodd" fill="#d80000"/></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="600" viewBox="0 0 12 8">
+	<title>Flag of Panama</title>
+	<path fill="#fff" d="m0 4V0h6l6 4v4H6z"/>
+	<path fill="#da121a" d="m6 0h6v4H6zm3 5L9.6498 7 7.9485 5.7639h2.103L8.3502 7z"/>
+	<path fill="#072357" d="m0 4h6v4H0zm3-3 .6498 2-1.7013-1.2361h2.103L2.3502 3z"/>
+</svg>
