@@ -6,12 +6,17 @@ import {
   gql,
   useQuery,
 } from "@apollo/client";
-import { BodyLarge, Heading2, Heading3 } from "../components";
+import { BodyLarge, Heading2 } from "../components";
+import {
+  DownloadableSection,
+  type PaletteColor,
+} from "../designLibraryComponents";
 import styled from "styled-components";
-import { backgroundColor, backgroundGray } from "../../landingPage/Utils";
+import { backgroundColor } from "../../landingPage/Utils";
 import { lightBorderColor, secondaryFont } from "../../../styling/styleUtils";
 import JSZip from "jszip";
 import downloadIcon from "../assets/download.svg";
+import { downloadPaletteAsCSV } from "./downloadUtils";
 
 const GET_DESIGN_LIBRARY_COUNTRIES = gql`
   query GetDesignLibraryCountries {
@@ -32,6 +37,18 @@ const atlasClient = new ApolloClient({
 });
 
 const excludedCountryCode = "ANS";
+
+type RegionPaletteItem = PaletteColor & {
+  abbreviation: string;
+};
+
+export const regionPalette: RegionPaletteItem[] = [
+  { name: "Africa", abbreviation: "AF", hex: "#773bd8" },
+  { name: "Americas", abbreviation: "AM", hex: "#9e4643" },
+  { name: "Asia", abbreviation: "AS", hex: "#6bc285" },
+  { name: "Europe", abbreviation: "EU", hex: "#5780b7" },
+  { name: "Oceania", abbreviation: "OC", hex: "#f2bc67" },
+];
 
 const RegionCardGrid = styled.div`
   display: grid;
@@ -84,14 +101,23 @@ const RegionCardHexText = styled.span`
   font-size: 0.8rem;
 `;
 
-interface FlagColorCardProps {
+const SectionHeading = styled.h3`
+  margin: 1.25rem 0 0.5rem;
+  color: oklch(14.5% 0 0);
+  font-family: ${secondaryFont};
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  font-weight: 600;
+`;
+
+interface RegionCardProps {
   color: string;
   letters: string;
   label: string;
   hexCode?: string;
 }
 
-const RegionCard = ({ color, letters, label, hexCode }: FlagColorCardProps) => (
+const RegionCard = ({ color, letters, label, hexCode }: RegionCardProps) => (
   <RegionCardWrapper>
     <RegionCardTop color={color}>
       <RegionCardLetters>{letters}</RegionCardLetters>
@@ -347,7 +373,7 @@ const flagContext = (require as unknown as WebpackRequireContext).context(
   /^\.\/Flag-[A-Z0-9-]+\.(svg|png)$/,
 );
 
-const countryFlagItems = flagContext
+export const countryFlagItems = flagContext
   .keys()
   .map((path) => {
     const match = path.match(/^\.\/Flag-([A-Z0-9-]+)\.(svg|png)$/);
@@ -460,41 +486,26 @@ export const FlagsSection = () => {
       <BodyLarge>
         Country flags and regional visual indicators for geographic data.
       </BodyLarge>
-      <Heading3>Regional Indicators</Heading3>
+      <DownloadableSection
+        label="Regional Indicators"
+        description=""
+        onDownload={() =>
+          downloadPaletteAsCSV("Atlas Regional Indicators", regionPalette)
+        }
+      />
       <RegionCardGrid>
-        <RegionCard
-          color="#773bd8"
-          letters="AF"
-          label="Africa"
-          hexCode="#773bd8"
-        />
-        <RegionCard
-          color="#9e4643"
-          letters="AM"
-          label="Americas"
-          hexCode="#9e4643"
-        />
-        <RegionCard
-          color="#6bc285"
-          letters="AS"
-          label="Asia"
-          hexCode="#6bc285"
-        />
-        <RegionCard
-          color="#5780b7"
-          letters="EU"
-          label="Europe"
-          hexCode="#5780b7"
-        />
-        <RegionCard
-          color="#f2bc67"
-          letters="OC"
-          label="Oceania"
-          hexCode="#f2bc67"
-        />
+        {regionPalette.map((region) => (
+          <RegionCard
+            key={region.name}
+            color={region.hex}
+            letters={region.abbreviation}
+            label={region.name}
+            hexCode={region.hex}
+          />
+        ))}
       </RegionCardGrid>
 
-      <Heading3>Country Flags</Heading3>
+      <SectionHeading>Country Flags</SectionHeading>
       <BodyLarge>
         Standard 4:3 aspect ratio flags following ISO 3166-1 alpha-3 codes.
       </BodyLarge>

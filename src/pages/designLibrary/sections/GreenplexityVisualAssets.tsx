@@ -20,7 +20,7 @@ import NuclearPower from "../../../assets/greenGrowth/Nuclear_power.svg";
 import SolarPower from "../../../assets/greenGrowth/Solar_power.svg";
 import WindPower from "../../../assets/greenGrowth/Wind_power.svg";
 
-const iconAssets = [
+export const iconAssets = [
   { name: "Batteries", src: Batteries, fileBaseName: "batteries" },
   {
     name: "Critical Metals",

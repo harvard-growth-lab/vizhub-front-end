@@ -29,7 +29,7 @@ export const downloadPaletteAsCSV = (
   colors: PaletteColor[],
 ) => {
   downloadCsvRows(paletteName, [
-    ["Color Name", "Hex Code"],
+    ["Name", "Hex Code"],
     ...colors.map((color) => [color.name, color.hex]),
   ]);
 };

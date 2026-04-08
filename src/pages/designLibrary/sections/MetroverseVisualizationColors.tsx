@@ -7,7 +7,7 @@ import {
 } from "../designLibraryComponents";
 import { downloadGradientAsCSV, downloadPaletteAsCSV } from "./downloadUtils";
 
-const industryGroupsPalette: PaletteColor[] = [
+export const industryGroupsPalette: PaletteColor[] = [
   { name: "Construction", hex: "#A773BF" },
   { name: "Education & health", hex: "#F0866B" },
   { name: "Financial activities", hex: "#FFC034" },
@@ -19,7 +19,7 @@ const industryGroupsPalette: PaletteColor[] = [
   { name: "Trade & transportation", hex: "#F28188" },
 ];
 
-const knowledgeClustersPalette: PaletteColor[] = [
+export const knowledgeClustersPalette: PaletteColor[] = [
   { name: "Basic Materials", hex: "#999932" },
   { name: "Manufacturing", hex: "#495999" },
   { name: "Food", hex: "#37AE98" },
@@ -29,10 +29,10 @@ const knowledgeClustersPalette: PaletteColor[] = [
   { name: "Finance", hex: "#DDCC77" },
 ];
 
-const yearsOfEducationGradient =
+export const yearsOfEducationGradient =
   "linear-gradient(90deg, rgb(90, 173, 96) 0%, rgb(234, 235, 204) 50%, rgb(152, 111, 170) 100%);";
 
-const hourlyWageGradient =
+export const hourlyWageGradient =
   "linear-gradient(90deg, rgb(74, 122, 183) 0%, rgb(234, 235, 204) 50%, rgb(220, 61, 45) 100%);";
 
 export const MetroverseVisualizationColors = () => (

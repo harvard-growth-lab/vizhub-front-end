@@ -7,7 +7,7 @@ import {
 } from "../designLibraryComponents";
 import { downloadGradientAsCSV, downloadPaletteAsCSV } from "./downloadUtils";
 
-const hsProductSectorsPalette: PaletteColor[] = [
+export const hsProductSectorsPalette: PaletteColor[] = [
   { name: "Services", hex: "#b23c6f" },
   { name: "Textiles", hex: "#7bc8a4" },
   { name: "Agriculture", hex: "#e5c21a" },
@@ -21,7 +21,7 @@ const hsProductSectorsPalette: PaletteColor[] = [
   { name: "Other", hex: "#2f5d74" },
 ];
 
-const sitcProductSectorsPalette: PaletteColor[] = [
+export const sitcProductSectorsPalette: PaletteColor[] = [
   { name: "Services", hex: "#b23c6f" },
   { name: "Food", hex: "#e5c21a" },
   { name: "Beverages", hex: "#e76f8f" },
@@ -35,7 +35,7 @@ const sitcProductSectorsPalette: PaletteColor[] = [
   { name: "Unspecified", hex: "#355f73" },
 ];
 
-const locationColorsPalette: PaletteColor[] = [
+export const locationColorsPalette: PaletteColor[] = [
   { name: "Services Partners", hex: "#033095" },
   { name: "Africa", hex: "#773bd8" },
   { name: "Americas", hex: "#9e4643" },
@@ -45,7 +45,7 @@ const locationColorsPalette: PaletteColor[] = [
   { name: "Other", hex: "#576582" },
 ];
 
-const productSpaceClustersPalette: PaletteColor[] = [
+export const productSpaceClustersPalette: PaletteColor[] = [
   { name: "Agricultural Goods", hex: "#e0b614" },
   { name: "Construction Goods", hex: "#c77c2b" },
   { name: "Electronics", hex: "#5cc7c6" },
@@ -56,10 +56,10 @@ const productSpaceClustersPalette: PaletteColor[] = [
   { name: "Apparel", hex: "#2fa84f" },
 ];
 
-const complexityColorGradient =
+export const complexityColorGradient =
   "linear-gradient(to right, rgb(227, 159, 96) 0%, rgb(231, 173, 120) 27.8697%, rgb(235, 188, 143) 33.8965%, rgb(240, 202, 168) 39.8272%, rgb(244, 217, 191) 44.8314%, rgb(248, 231, 215) 49.3999%, rgb(192, 228, 225) 49.4099%, rgb(154, 211, 207) 53.3691%, rgb(116, 195, 189) 57.1435%, rgb(77, 178, 171) 60.6597%, rgb(40, 162, 153) 66.1681%, rgb(2, 146, 135) 100%)";
 
-const tradeAmountGradient =
+export const tradeAmountGradient =
   "linear-gradient(to right, rgb(177, 224, 187) 0px, rgb(177, 224, 187) 50%, rgb(173, 220, 186) 51%, rgb(169, 216, 184) 52%, rgb(164, 212, 183) 53%, rgb(160, 208, 182) 54%, rgb(156, 205, 180) 55%, rgb(152, 201, 179) 56%, rgb(148, 197, 178) 57%, rgb(144, 193, 176) 58%, rgb(139, 189, 175) 59%, rgb(135, 185, 174) 60%, rgb(131, 181, 172) 61%, rgb(127, 177, 171) 62%, rgb(123, 173, 170) 63%, rgb(119, 169, 168) 64%, rgb(114, 166, 167) 65%, rgb(110, 162, 166) 66%, rgb(106, 158, 164) 67%, rgb(102, 154, 163) 68%, rgb(98, 150, 162) 69%, rgb(94, 146, 161) 70%, rgb(89, 142, 159) 71%, rgb(85, 138, 158) 72%, rgb(81, 134, 157) 73%, rgb(77, 130, 155) 74%, rgb(73, 127, 154) 75%, rgb(68, 123, 153) 76%, rgb(64, 119, 151) 77%, rgb(60, 115, 150) 78%, rgb(56, 111, 149) 79%, rgb(52, 107, 147) 80%, rgb(48, 103, 146) 81%, rgb(43, 99, 145) 82%, rgb(39, 95, 143) 83%, rgb(35, 91, 142) 84%, rgb(31, 88, 141) 85%, rgb(27, 84, 139) 86%, rgb(23, 80, 138) 87%, rgb(18, 76, 137) 88%, rgb(14, 72, 135) 89%, rgb(10, 68, 134) 90%, rgb(6, 64, 133) 91%, rgb(2, 60, 131) 92%, rgb(0, 56, 130) 93%, rgb(0, 52, 129) 94%, rgb(0, 49, 127) 95%, rgb(0, 45, 126) 96%, rgb(0, 41, 125) 97%, rgb(0, 37, 123) 98%, rgb(0, 33, 122) 99%, rgb(0, 29, 121) 100%, rgb(10, 68, 134) 100%)";
 
 export const AtlasVisualizationColors = () => (

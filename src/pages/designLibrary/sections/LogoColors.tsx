@@ -46,7 +46,7 @@ const DownloadIcon = styled.img`
   filter: brightness(0) invert(1);
 `;
 
-const brandColorsPalette: PaletteColor[] = [
+export const brandColorsPalette: PaletteColor[] = [
   { name: "Blue", hex: "#6db5db" },
   { name: "Green", hex: "#48c0a2" },
   { name: "Yellow", hex: "#e5bd4f" },
