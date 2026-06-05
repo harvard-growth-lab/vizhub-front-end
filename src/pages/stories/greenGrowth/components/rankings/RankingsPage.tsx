@@ -217,7 +217,7 @@ const RankingsPage = () => {
             >
               Harvard Growth Lab's Greenplexity Index captures countries'
               presence in green value chains, based on the breadth and
-              complexity of its industries in green value chains. This metric
+              complexity of their industries in green value chains. This metric
               shows how many capabilities a country has in the industries
               driving the energy transition.
             </Typography>
