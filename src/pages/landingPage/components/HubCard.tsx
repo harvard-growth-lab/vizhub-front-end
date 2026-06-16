@@ -61,7 +61,7 @@ const Category = styled(CalloutBase)`
   background-image: url("${zigZagPattern}");
 `;
 
-const CategoryText = styled.h2`
+const CategoryText = styled.h3`
   font-size: 0.875rem;
   font-weight: 600;
   margin: 0;
@@ -124,7 +124,7 @@ const AnnouncementText = styled.h3`
   text-transform: uppercase;
 `;
 
-const Title = styled.h1`
+const Title = styled.h3`
   background-color: rgba(153, 103, 110, 0.8);
   color: #fff;
   font-size: 1.5rem;
@@ -159,7 +159,7 @@ const MetaDataContainerSmall = styled(MetaDataContainerBase)`
   }
 `;
 
-const MetaTitleContainerBase = styled.h1`
+const MetaTitleContainerBase = styled.h2`
   color: #fff;
   text-transform: uppercase;
   font-weight: 400;
@@ -172,7 +172,7 @@ const MetaTitleContainerSmall = styled(MetaTitleContainerBase)`
   }
 `;
 
-const MetaDetailBase = styled.h2`
+const MetaDetailBase = styled.h3`
   color: #fff;
   font-size: 1.2rem;
   font-weight: 400;
@@ -284,7 +284,7 @@ const HubCard = ({ project }: Props) => {
   const title =
     project.cardSize === CardSizes.LARGE &&
     !(mouseCoords !== undefined || windowWidth < 900) ? (
-      <Title>{project.projectName}</Title>
+      <Title aria-hidden>{project.projectName}</Title>
     ) : null;
 
   const status = project.status ? (
@@ -363,7 +363,7 @@ const HubCard = ({ project }: Props) => {
 
   return (
     <Root style={style}>
-      <Category>
+      <Category aria-hidden>
         <CategoryText dangerouslySetInnerHTML={{ __html: category }} />
       </Category>
       <Content
