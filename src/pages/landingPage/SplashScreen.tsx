@@ -1,6 +1,9 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
 import raw from "raw.macro";
+import MotionPauseButton, {
+  useMotionPaused,
+} from "../../components/general/MotionPauseButton";
 import LogoIMG from "./GL_logo_white.png";
 import { secondaryFont } from "../../styling/styleUtils";
 import { useLocation, useNavigate } from "react-router";
@@ -15,7 +18,7 @@ const slidein = keyframes`
   to {background-position: -200px 0px}
 `;
 
-const Root = styled.div`
+const Root = styled.div<{ $paused: boolean }>`
   width: 100%;
   height: 100%;
   position: relative;
@@ -47,6 +50,7 @@ const Root = styled.div`
     animation-fill-mode: forwards;
     animation-iteration-count: infinite;
     animation-direction: alternate;
+    animation-play-state: ${({ $paused }) => ($paused ? "paused" : "running")};
   }
 `;
 
@@ -419,6 +423,12 @@ const Scroll3 = styled(ScrollBase)`
 const Scroll = styled(ScrollBase)`
   animation: ${down3} 1.5s infinite;
 `;
+// Static triangle shown when motion is paused
+const StaticArrow = styled(ScrollBase)`
+  opacity: 1;
+  margin: 0.9em auto;
+  transform: translateY(2.3em);
+`;
 const ScrollText = styled.div`
   text-transform: uppercase;
   transform: translate(75%, 25%);
@@ -427,6 +437,8 @@ const ScrollText = styled.div`
 export default () => {
   const { search, pathname } = useLocation();
   const navigate = useNavigate();
+
+  const [motionPaused, toggleMotion] = useMotionPaused();
 
   const onDigitalHubClick = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -437,7 +449,7 @@ export default () => {
   };
 
   return (
-    <Root>
+    <Root $paused={motionPaused}>
       <Grid>
         <LogoCell
           href={"https://growthlab.hks.harvard.edu/"}
@@ -587,13 +599,20 @@ export default () => {
         </SocialCell>
         <ScrollCell>
           <ScrollArrow onClick={onDigitalHubClick}>
-            <Scroll />
-            <Scroll2 />
-            <Scroll3 />
+            {motionPaused ? (
+              <StaticArrow />
+            ) : (
+              <>
+                <Scroll />
+                <Scroll2 />
+                <Scroll3 />
+              </>
+            )}
             <ScrollText>Explore Our Portfolio</ScrollText>
           </ScrollArrow>
         </ScrollCell>
       </Grid>
+      <MotionPauseButton paused={motionPaused} onToggle={toggleMotion} />
     </Root>
   );
 };
