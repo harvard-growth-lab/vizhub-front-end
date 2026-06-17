@@ -1,11 +1,8 @@
-import { debounce } from 'lodash';
-import React, { useContext, useEffect, useRef } from 'react';
-import styled from 'styled-components';
-import {
-  lightBorderColor,
-  lightBaseColor,
-} from '../../styling/styleUtils';
-import { AppContext } from '../../App';
+import { debounce } from "lodash";
+import React, { useContext, useEffect, useRef } from "react";
+import styled from "styled-components";
+import { lightBorderColor, lightBaseColor } from "../../styling/styleUtils";
+import { AppContext } from "../../App";
 
 const magnifyingGlassSize = 1.5; // in rem
 const magnifyingGlassSpacing = 0.5; // in rem
@@ -14,7 +11,7 @@ const SearchContainer = styled.label`
   position: relative;
   display: flex;
   flex-wrap: wrap;
-  padding-left: ${magnifyingGlassSize + (magnifyingGlassSpacing * 2)}rem;
+  padding-left: ${magnifyingGlassSize + magnifyingGlassSpacing * 2}rem;
 `;
 
 const SearchIcon = styled.div`
@@ -30,6 +27,19 @@ const SearchIcon = styled.div`
   background-repeat: no-repeat;
   background-position: 5px center;
   background-size: 20px;
+`;
+
+// Visually hidden, but announced by screen readers
+const VisuallyHiddenLabel = styled.span`
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 `;
 
 const SearchBar = styled.input`
@@ -49,6 +59,7 @@ const SearchBar = styled.input`
 
 interface Props {
   placeholder: string;
+  label?: string;
   setSearchQuery: (value: string) => void;
   initialQuery: string;
   focusOnMount: boolean;
@@ -59,8 +70,13 @@ interface Props {
 
 const StandardSearch = (props: Props) => {
   const {
-    placeholder, setSearchQuery, initialQuery, focusOnMount,
-    containerStyleOverrides, searchBarStyleOverrides,
+    placeholder,
+    label,
+    setSearchQuery,
+    initialQuery,
+    focusOnMount,
+    containerStyleOverrides,
+    searchBarStyleOverrides,
     additionalContent,
   } = props;
 
@@ -86,17 +102,16 @@ const StandardSearch = (props: Props) => {
   }, [searchEl, focusOnMount, windowWidth, initialQuery]);
 
   return (
-    <SearchContainer
-      style={containerStyleOverrides}
-    >
+    <SearchContainer role="search" style={containerStyleOverrides}>
+      <VisuallyHiddenLabel>{label ?? placeholder}</VisuallyHiddenLabel>
       <SearchIcon />
       {additionalContent}
       <SearchBar
         ref={searchEl}
-        type='text'
+        type="text"
         placeholder={placeholder}
         onChange={onChange}
-        autoComplete={'off'}
+        autoComplete={"off"}
         style={searchBarStyleOverrides}
       />
     </SearchContainer>
