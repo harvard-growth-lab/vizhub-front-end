@@ -147,8 +147,8 @@ const MetaDataContainerBase = styled.div`
   padding: 2rem;
   background-image: linear-gradient(
     to bottom,
-    rgba(0, 0, 0, 0.65),
-    ${rgba(backgroundGray, 0.85)}
+    rgba(0, 0, 0, 0.8),
+    ${rgba(backgroundGray, 0.95)}
   );
   transition: transform 0.2s ease;
 `;
