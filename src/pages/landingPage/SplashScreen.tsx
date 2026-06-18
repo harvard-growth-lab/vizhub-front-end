@@ -65,7 +65,7 @@ const mobileWidth = 750; // in px
 const Grid = styled.div`
   height: 100%;
   display: grid;
-  grid-template-rows: auto 1fr auto auto 2fr auto auto auto;
+  grid-template-rows: auto 1fr auto auto minmax(1.5rem, 2fr) auto auto auto;
   grid-template-columns: 1fr 1fr;
   max-width: 100%;
   padding: 1.5rem 2rem 0.5rem;
@@ -73,7 +73,7 @@ const Grid = styled.div`
   box-sizing: border-box;
 
   @media (max-width: ${mobileWidth}px) {
-    grid-template-rows: auto 0 auto auto 2fr auto auto auto;
+    grid-template-rows: auto 0 auto auto minmax(1.5rem, 2fr) auto auto auto;
   }
 `;
 
