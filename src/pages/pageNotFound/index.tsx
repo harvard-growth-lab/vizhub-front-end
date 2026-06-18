@@ -13,6 +13,9 @@ import {
 } from '../../styling/styleUtils';
 import LogoIMG from '../landingPage/logo.png';
 import raw from 'raw.macro';
+import MotionPauseButton, {
+  useMotionPaused,
+} from '../../components/general/MotionPauseButton';
 
 const arrowSVG = raw('../landingPage/images/arrow.svg');
 
@@ -21,7 +24,7 @@ const slidein = keyframes`
   to {background-position: -200px 0px}
 `;
 
-const Root = styled.div`
+const Root = styled.div<{ $paused: boolean }>`
   width: 100vw;
   height: 100vh;
   position: fixed;
@@ -61,6 +64,7 @@ const Root = styled.div`
     animation-fill-mode: forwards;
     animation-iteration-count: infinite;
     animation-direction: alternate;
+    animation-play-state: ${({ $paused }) => ($paused ? 'paused' : 'running')};
   }
 `;
 
@@ -106,8 +110,9 @@ const Logo = styled.img`
   margin: 1rem 2rem;
 `;
 const PageNotFound = () => {
+  const [motionPaused, toggleMotion] = useMotionPaused();
   return (
-    <Root>
+    <Root $paused={motionPaused}>
       <a
         href='https://growthlab.hks.harvard.edu/'
         target='_blank'
@@ -124,6 +129,7 @@ const PageNotFound = () => {
           />
         </GrowthLabButton>
       </div>
+      <MotionPauseButton paused={motionPaused} onToggle={toggleMotion} />
     </Root>
   );
 };
