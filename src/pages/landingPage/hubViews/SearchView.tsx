@@ -85,6 +85,8 @@ const StatusContainer = styled(AttributeContainer)`
 `;
 
 const CheckboxLabel = styled(Label)`
+  position: relative;
+  display: inline-block;
   cursor: pointer;
 
   &:hover span {
@@ -93,16 +95,20 @@ const CheckboxLabel = styled(Label)`
 `;
 
 const CheckboxBase = styled.input`
-  opacity: 0;
-  width: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
   border: none;
+  cursor: pointer;
 `;
 
-const UnselectedCheckbox = styled(CheckboxBase)`
-  &:focus + span {
-    border-bottom: solid 1px #333;
-  }
-`;
 
 const TagContainer = styled.div`
   height: 100%;
@@ -111,6 +117,7 @@ const TagContainer = styled.div`
   align-self: center;
 `;
 const TagLabel = styled(Label)`
+  position: relative;
   font-size: 1rem;
   border-radius: 400px;
   padding: 0.5rem 0.6rem;
@@ -137,11 +144,6 @@ const TagLabel = styled(Label)`
   }
 `;
 
-const SelectedCheckbox = styled(CheckboxBase)`
-  &:focus + span {
-    border-bottom: solid 1px #333;
-  }
-`;
 
 
 interface CheckboxProps {
@@ -276,7 +278,7 @@ const SearchView = (props: Props) => {
         selectedKeywordList.push(
           <TagContainer key={'checkbox-field-' + checkbox.value + i}>
             <TagLabel>
-              <SelectedCheckbox type={'checkbox'} checked={checkbox.checked} onChange={onChange} value={checkbox.value} />
+              <CheckboxBase type={'checkbox'} checked={checkbox.checked} onChange={onChange} value={checkbox.value} />
               <span dangerouslySetInnerHTML={{__html: checkbox.label}} />
             </TagLabel>
           </TagContainer>,
@@ -286,7 +288,7 @@ const SearchView = (props: Props) => {
         keywordList.push(
           <KeywordContainer key={'checkbox-field-' + checkbox.value + i}>
             <CheckboxLabel>
-              <UnselectedCheckbox type={'checkbox'} checked={checkbox.checked} onChange={onChange} value={checkbox.value} />
+              <CheckboxBase type={'checkbox'} checked={checkbox.checked} onChange={onChange} value={checkbox.value} />
               <span>{checkbox.label},</span>
             </CheckboxLabel>
           </KeywordContainer>,
@@ -327,7 +329,7 @@ const SearchView = (props: Props) => {
         selectedCategoryList.push(
           <TagContainer key={'checkbox-field-' + checkbox.value + i}>
             <TagLabel>
-              <SelectedCheckbox type={'checkbox'} checked={checkbox.checked} onChange={onChange} value={checkbox.value} />
+              <CheckboxBase type={'checkbox'} checked={checkbox.checked} onChange={onChange} value={checkbox.value} />
               <span dangerouslySetInnerHTML={{__html: checkbox.label}} />
             </TagLabel>
           </TagContainer>,
@@ -337,7 +339,7 @@ const SearchView = (props: Props) => {
         categoriesList.push(
           <CategoryContainer key={'checkbox-field-' + checkbox.value + i}>
             <CheckboxLabel>
-              <UnselectedCheckbox type={'checkbox'} checked={checkbox.checked} onChange={onChange} value={checkbox.value} />
+              <CheckboxBase type={'checkbox'} checked={checkbox.checked} onChange={onChange} value={checkbox.value} />
               <span dangerouslySetInnerHTML={{__html: checkbox.label}} />
             </CheckboxLabel>
           </CategoryContainer>,
@@ -378,7 +380,7 @@ const SearchView = (props: Props) => {
         selectedDataKeywordsList.push(
           <TagContainer key={'checkbox-field-' + checkbox.value + i}>
             <TagLabel>
-              <SelectedCheckbox type={'checkbox'} checked={checkbox.checked} onChange={onChange} value={checkbox.value} />
+              <CheckboxBase type={'checkbox'} checked={checkbox.checked} onChange={onChange} value={checkbox.value} />
               <span dangerouslySetInnerHTML={{__html: checkbox.label}} />
             </TagLabel>
           </TagContainer>,
@@ -388,7 +390,7 @@ const SearchView = (props: Props) => {
         dataKeywordsList.push(
           <AttributeContainer key={'checkbox-field-' + checkbox.value + i}>
             <CheckboxLabel>
-              <UnselectedCheckbox type={'checkbox'} checked={checkbox.checked} onChange={onChange} value={checkbox.value} />
+              <CheckboxBase type={'checkbox'} checked={checkbox.checked} onChange={onChange} value={checkbox.value} />
               <span dangerouslySetInnerHTML={{__html: checkbox.label}} />
             </CheckboxLabel>
           </AttributeContainer>,
@@ -429,7 +431,7 @@ const SearchView = (props: Props) => {
         selectedStatusList.push(
           <TagContainer key={'checkbox-field-' + checkbox.value + i}>
             <TagLabel>
-              <SelectedCheckbox type={'checkbox'} checked={checkbox.checked} onChange={onChange} value={checkbox.value} />
+              <CheckboxBase type={'checkbox'} checked={checkbox.checked} onChange={onChange} value={checkbox.value} />
               <span>
                 {checkbox.label.charAt(0).toUpperCase() + checkbox.label.slice(1).toLowerCase()}
               </span>
@@ -441,7 +443,7 @@ const SearchView = (props: Props) => {
         statusList.push(
           <StatusContainer key={'checkbox-field-' + checkbox.value + i}>
             <CheckboxLabel>
-              <UnselectedCheckbox type={'checkbox'} checked={checkbox.checked} onChange={onChange} value={checkbox.value} />
+              <CheckboxBase type={'checkbox'} checked={checkbox.checked} onChange={onChange} value={checkbox.value} />
               <span>{checkbox.label.toLowerCase()}</span>
             </CheckboxLabel>
           </StatusContainer>,
