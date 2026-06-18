@@ -6,8 +6,7 @@ import {
   activeLinkColor,
   backgroundColor,
   HubContentContainer,
-  navBackgroundColor,
-  backgroundPattern,
+  topStickyNavBackground,
 } from "../landingPage/Utils";
 import StandardFooter from "../../components/text/StandardFooter";
 import meta from "../../metadata";
@@ -240,8 +239,7 @@ const DesignLibraryPage = () => {
         linkColor={backgroundColor}
         activeColor={activeLinkColor}
         showTitle={true}
-        backgroundColor={navBackgroundColor}
-        backgroundImage={backgroundPattern}
+        backgroundColor={topStickyNavBackground}
       />
       <HubContentContainer>
         <PageShell>

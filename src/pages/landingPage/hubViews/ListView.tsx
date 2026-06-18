@@ -4,7 +4,7 @@ import ListItem from "../components/ListItem";
 import styled from "styled-components";
 import { HubProject, ProjectCategories } from "../graphql/graphQLTypes";
 import {
-  backgroundGray,
+  textGray,
   listViewMediumWidth,
   listViewSmallWidth,
 } from "../Utils";
@@ -24,7 +24,7 @@ const Root = styled.div`
 `;
 
 const TitleCell = styled.div`
-  color: ${backgroundGray};
+  color: ${textGray};
   border-bottom: solid 1px ${lightBaseColor};
   text-align: center;
   padding: 1rem;

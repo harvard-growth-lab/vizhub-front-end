@@ -12,6 +12,7 @@ import {
   listViewSmallWidth,
   getCategoryString,
   backgroundGray,
+  textGray,
 } from '../Utils';
 import {rgba} from 'polished';
 
@@ -47,7 +48,7 @@ const Title = styled(Cell)`
   justify-content: flex-start;
   font-size: 1rem;
   font-weight: 600;
-  color: ${backgroundGray};
+  color: ${textGray};
 
   @media (max-width: ${listViewMediumWidth}px) {
     font-size: 0.9rem;

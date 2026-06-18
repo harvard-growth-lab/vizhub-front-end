@@ -8,8 +8,7 @@ import {
   activeLinkColor,
   HubContentContainer,
   queryStringToCategory,
-  navBackgroundColor as baseNavBackgroundColor,
-  backgroundPattern,
+  topStickyNavBackground,
 } from "./Utils";
 import { Grid, NavColumn, ContentColumn } from "./Grid";
 import StandardFooter from "../../components/text/StandardFooter";
@@ -115,10 +114,6 @@ const LandingPage = () => {
 
   const linkColor = "#fff";
   const activeColor = activeLinkColor;
-  const navBackgroundColor = isNavOverContent
-    ? baseNavBackgroundColor
-    : "rgba(255, 255, 255, 0.2)";
-  const navBackgroundImage = isNavOverContent ? backgroundPattern : undefined;
   useScrollBehavior({
     navAnchors: ["#" + hubId],
     smooth: false,
@@ -234,8 +229,7 @@ const LandingPage = () => {
         linkColor={linkColor}
         showTitle={isNavOverContent}
         activeColor={activeColor}
-        backgroundColor={navBackgroundColor}
-        backgroundImage={navBackgroundImage}
+        backgroundColor={topStickyNavBackground}
       />
       <FullWidthHeader>
         <SplashScreenContainer>

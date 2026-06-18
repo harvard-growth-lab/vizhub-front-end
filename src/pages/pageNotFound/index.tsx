@@ -6,6 +6,7 @@ import {
   activeLinkColor,
   backgroundGray,
   backgroundPattern,
+  textGray,
 } from '../landingPage/Utils';
 import {
   secondaryFont,
@@ -66,7 +67,7 @@ const Root = styled.div`
 const GrowthLabButton = styled(Link)`
   font-family: ${secondaryFont};
   padding: 8px 16px;
-  color: ${backgroundGray};
+  color: ${textGray};
   background-color: white;
   font-size: 14px;
   border-radius: 16px;

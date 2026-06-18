@@ -8,7 +8,7 @@ import {
   Label,
   secondaryFont,
 } from '../../../styling/styleUtils';
-import {getCategoryString, backgroundGray} from '../Utils';
+import {getCategoryString, backgroundGray, textGray} from '../Utils';
 import {
   HubProject,
   HubKeyword,
@@ -46,7 +46,7 @@ const CategoriesContainer = styled.div`
 
 const CheckboxTitle = styled.h3`
   font-family: ${secondaryFont};
-  color: ${backgroundGray};
+  color: ${textGray};
   text-transform: uppercase;
   grid-column: 1 / -1;
   border-bottom: solid 4px ${backgroundGray};
@@ -124,7 +124,7 @@ const TagLabel = styled(Label)`
     margin-left: 0.4rem;
     font-size: 1.4rem;
     display: block;
-    color: ${backgroundGray};
+    color: ${textGray};
   }
 
   &:hover {

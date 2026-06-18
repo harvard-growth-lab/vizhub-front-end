@@ -4,8 +4,7 @@ import TopLevelNav from '../../landingPage/TopLevelNav';
 import {
   activeLinkColor,
   HubContentContainer,
-  navBackgroundColor,
-  backgroundPattern,
+  topStickyNavBackground,
   Root,
   ZigZagContentCard,
   ZigZagContent,
@@ -79,8 +78,7 @@ const JordanOverviewPage = () => {
         linkColor={'#fff'}
         activeColor={activeLinkColor}
         showTitle={true}
-        backgroundColor={navBackgroundColor}
-        backgroundImage={backgroundPattern}
+        backgroundColor={topStickyNavBackground}
       />
       <HubContentContainer>
         <Root>

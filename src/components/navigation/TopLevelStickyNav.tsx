@@ -9,40 +9,13 @@ import { secondaryFont } from "../../styling/styleUtils";
 
 export const navHeight = 3.375; // in rem
 
-const Root = styled.nav<{ $backgroundImage?: string }>`
+const Root = styled.nav`
   position: fixed;
   top: 0;
   right: 0;
   left: 0;
   z-index: 1000;
   width: 100%;
-  transition: background 0.25s ease;
-
-  &:after {
-    ${({ $backgroundImage }) => ($backgroundImage ? "content: '';" : "")}
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    ${({ $backgroundImage }) =>
-      $backgroundImage
-        ? "background-image: url(" + $backgroundImage + ");"
-        : ""}
-    z-index: -2;
-    background-size: cover;
-  }
-  &:before {
-    ${({ $backgroundImage }) => ($backgroundImage ? "content: '';" : "")}
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background-color: rgba(255, 255, 255, 0.2);
-  }
 `;
 
 const ContentContainer = styled(FullWidthHeaderContent)`
@@ -125,7 +98,6 @@ interface Props {
   linkColor: string;
   activeColor: string;
   backgroundColor: string;
-  backgroundImage?: string;
 }
 
 const TopLevelStickyNav = (props: Props) => {
@@ -135,7 +107,6 @@ const TopLevelStickyNav = (props: Props) => {
     title,
     activeColor,
     backgroundColor,
-    backgroundImage,
   } = props;
 
   const { search, pathname } = useLocation();
@@ -191,10 +162,7 @@ const TopLevelStickyNav = (props: Props) => {
   );
 
   return (
-    <Root
-      style={{ background: backgroundColor }}
-      $backgroundImage={backgroundImage}
-    >
+    <Root style={{ background: backgroundColor }}>
       <ContentContainer>
         <Title style={{ color: linkColor }}>{title}</Title>
         <NavList>{linkList}</NavList>

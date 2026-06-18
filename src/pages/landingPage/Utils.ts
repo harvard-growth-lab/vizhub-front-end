@@ -13,6 +13,8 @@ export const activeLinkColor = "#ed3f4b";
 export const backgroundColor = "#fff";
 export const backgroundGray = "#8791a3";
 export const navBackgroundColor = lighten(0.1, backgroundGray);
+export const topStickyNavBackground = "#767f8f";
+export const textGray = "#767f8f";
 export const backgroundPattern = require("./images/background-pattern.png");
 
 export const listViewMediumWidth = 1000; // in px
@@ -110,7 +112,7 @@ export const ZigZagContent = styled.div`
 
 export const Title = styled.h1`
   font-weight: 600;
-  color: ${backgroundGray};
+  color: ${textGray};
   text-transform: uppercase;
   margin-bottom: 3rem;
   display: flex;

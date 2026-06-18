@@ -4,8 +4,7 @@ import { scrollToTop } from "../../hooks/useScrollBehavior";
 import {
   activeLinkColor,
   HubContentContainer,
-  navBackgroundColor,
-  backgroundPattern,
+  topStickyNavBackground,
   Root,
   ZigZagContentCard,
   ZigZagContent,
@@ -30,8 +29,7 @@ const CommunityPage = () => {
         linkColor={"#fff"}
         activeColor={activeLinkColor}
         showTitle={true}
-        backgroundColor={navBackgroundColor}
-        backgroundImage={backgroundPattern}
+        backgroundColor={topStickyNavBackground}
       />
       <HubContentContainer>
         <Root>

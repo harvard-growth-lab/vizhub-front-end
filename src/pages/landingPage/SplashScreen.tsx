@@ -8,7 +8,12 @@ import LogoIMG from "./GL_logo_white.png";
 import { secondaryFont } from "../../styling/styleUtils";
 import { useLocation, useNavigate } from "react-router";
 import { scrollToAnchor } from "../../hooks/useScrollBehavior";
-import { activeLinkColor, backgroundGray, backgroundPattern } from "./Utils";
+import {
+  activeLinkColor,
+  backgroundGray,
+  backgroundPattern,
+  textGray,
+} from "./Utils";
 import { triggerGoogleAnalyticsEvent } from "../../routing/tracking";
 
 const arrowSVG = raw("./images/arrow.svg");
@@ -294,7 +299,7 @@ const Logo = styled.img`
 const GrowthLabButton = styled.a`
   font-family: ${secondaryFont};
   padding: 8px 16px;
-  color: ${backgroundGray};
+  color: ${textGray};
   background-color: white;
   font-size: 14px;
   border-radius: 16px;
