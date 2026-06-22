@@ -388,7 +388,7 @@ const down3 = keyframes`
     transform: translateY(2.3em);
   }
 `;
-const ScrollArrow = styled.button`
+const ScrollArrow = styled.button<{ $paused: boolean }>`
   display: block;
   font-size: 1rem;
   color: white;
@@ -406,6 +406,26 @@ const ScrollArrow = styled.button`
   &:focus div {
     border-color: #fff;
   }
+
+  // When paused, freeze the arrows in their resting position so only the
+  // middle one shows, without changing the surrounding layout.
+  ${({ $paused }) =>
+    $paused &&
+    `
+    span {
+      animation: none;
+      transform: translateY(2.3em);
+    }
+    ${Scroll} {
+      opacity: 0;
+    }
+    ${Scroll2} {
+      opacity: 1;
+    }
+    ${Scroll3} {
+      opacity: 0;
+    }
+  `}
 `;
 
 const ScrollBase = styled.span`
@@ -427,12 +447,6 @@ const Scroll3 = styled(ScrollBase)`
 `;
 const Scroll = styled(ScrollBase)`
   animation: ${down3} 1.5s infinite;
-`;
-// Static triangle shown when motion is paused
-const StaticArrow = styled(ScrollBase)`
-  opacity: 1;
-  margin: 0.9em auto;
-  transform: translateY(2.3em);
 `;
 const ScrollText = styled.div`
   text-transform: uppercase;
@@ -603,16 +617,10 @@ export default () => {
           </SocialLink>
         </SocialCell>
         <ScrollCell>
-          <ScrollArrow onClick={onDigitalHubClick}>
-            {motionPaused ? (
-              <StaticArrow />
-            ) : (
-              <>
-                <Scroll />
-                <Scroll2 />
-                <Scroll3 />
-              </>
-            )}
+          <ScrollArrow $paused={motionPaused} onClick={onDigitalHubClick}>
+            <Scroll />
+            <Scroll2 />
+            <Scroll3 />
             <ScrollText>Explore Our Portfolio</ScrollText>
           </ScrollArrow>
         </ScrollCell>
