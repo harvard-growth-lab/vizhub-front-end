@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "license": "CC BY-NC-SA 4.0",
+  "engines": {
+    "node": ">=22",
+    "npm": ">=11.10.0"
+  },
   "dependencies": {
     "@apollo/client": "^3.8.10",
     "@apollo/react-hooks": "^4.0.0",
