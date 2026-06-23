@@ -3,6 +3,7 @@ import { BodyLarge, Heading2 } from "../components";
 import { DownloadButton, DownloadIcon } from "../components";
 import downloadIcon from "../assets/icons/download.svg";
 import presentationTemplate from "../assets/downloads/GL_presentation_template.potx";
+import presentationPreview from "../assets/icons/presentation_preview.png";
 
 const PreviewRow = styled.div`
   display: flex;
@@ -10,15 +11,13 @@ const PreviewRow = styled.div`
   margin-top: 1.25rem;
 `;
 
-const PreviewFrame = styled.iframe`
+const PreviewImage = styled.img`
   border: solid thin #d9d9d9;
   width: 80%;
-  aspect-ratio: 476 / 300;
+  height: auto;
   border-radius: 12px;
+  display: block;
 `;
-
-const presentationPreviewUrl =
-  "https://hu-my.sharepoint.com/personal/tammyzhang_hks_harvard_edu/_layouts/15/Doc.aspx?sourcedoc={c31db113-24da-4813-bba6-cd241878de52}&action=embedview&wdAr=1.7777777777777777";
 
 const DownloadButtonRow = styled.div`
   display: flex;
@@ -58,10 +57,9 @@ export const GLPresentationTemplate = () => (
       slide layouts for different types of content.
     </BodyLarge>
     <PreviewRow>
-      <PreviewFrame
-        src={presentationPreviewUrl}
-        title="Growth Lab Presentation Template preview"
-        allowFullScreen
+      <PreviewImage
+        src={presentationPreview}
+        alt="Growth Lab Presentation Template preview"
       />
     </PreviewRow>
     <DownloadButtonRow>
