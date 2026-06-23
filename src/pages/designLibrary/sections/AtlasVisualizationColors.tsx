@@ -4,8 +4,8 @@ import {
   DownloadableSection,
   GradientCard,
   PaletteColor,
-} from "../designLibraryComponents";
-import { downloadGradientAsCSV, downloadPaletteAsCSV } from "./downloadUtils";
+} from "../components";
+import { downloadGradientAsCSV, downloadPaletteAsCSV } from "../utils/download";
 
 export const hsProductSectorsPalette: PaletteColor[] = [
   { name: "Services", hex: "#b23c6f" },

@@ -2,14 +2,14 @@ import styled from "styled-components";
 import {
   activeLinkColor,
   backgroundColor,
-  backgroundGray,
   navBackgroundColor,
-} from "../landingPage/Utils";
+} from "../../landingPage/Utils";
 import {
   lightBorderColor,
   secondaryFont,
   tertiaryColor,
-} from "../../styling/styleUtils";
+} from "../../../styling/styleUtils";
+import { maskIcon } from "../utils/maskIcon";
 
 export const PageShell = styled.div`
   max-width: 1200px;
@@ -66,14 +66,7 @@ export const SidebarIcon = styled.span<{ $src: string }>`
   display: inline-block;
   flex-shrink: 0;
   background-color: currentColor;
-  mask-image: url(${({ $src }) => $src});
-  mask-repeat: no-repeat;
-  mask-position: center;
-  mask-size: contain;
-  -webkit-mask-image: url(${({ $src }) => $src});
-  -webkit-mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-  -webkit-mask-size: contain;
+  ${({ $src }) => maskIcon($src)}
 `;
 
 export const SidebarLabel = styled.span`
@@ -114,55 +107,8 @@ export const SubmenuButton = styled.button<{ $active: boolean }>`
 `;
 
 export const MainSection = styled.main`
-  //   border: 1px solid ${lightBorderColor};
   border-radius: 18px;
   background-color: ${backgroundColor};
   min-height: 420px;
   padding: 0 1.5rem;
-`;
-
-export const Heading1 = styled.h1`
-  margin: 0;
-  color: white;
-  text-transform: uppercase;
-  font-size: 1.4rem;
-  font-weight: 600;
-  font-family: ${secondaryFont};
-`;
-
-export const Heading2 = styled.h2`
-  margin-top: 0;
-  margin-bottom: 1rem;
-  //   color: ${backgroundGray};
-  color: oklch(14.5% 0 0);
-  font-family: ${secondaryFont};
-  text-transform: uppercase;
-  font-size: 1.875rem;
-  font-weight: 600;
-`;
-
-export const Heading3 = styled.h3`
-  margin-top: 1.5rem;
-  margin-bottom: 0.5rem;
-  //   color: ${backgroundGray};
-  color: oklch(14.5% 0 0);
-  font-family: ${secondaryFont};
-  text-transform: uppercase;
-  font-size: 1.25rem;
-  font-weight: 600;
-`;
-
-export const BodyLarge = styled.p`
-  line-height: 1.7;
-  margin: 0;
-  font-size: 1rem;
-  color: oklch(44.6% 0.03 256.802);
-`;
-
-export const BodySmall = styled.p`
-  line-height: 1.6;
-  margin: 0;
-  font-size: 0.875rem;
-  //   color: ${backgroundGray};
-  color: oklch(44.6% 0.03 256.802);
 `;

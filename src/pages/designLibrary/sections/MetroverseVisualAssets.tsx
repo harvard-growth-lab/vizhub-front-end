@@ -1,14 +1,13 @@
-import { Heading2, Heading3 } from "../components";
-import { ImageAssetCard, ImageAssetCardGrid } from "../designLibraryComponents";
-import metroverseLogoBlack from "../assets/metroverse_black.png";
-import metroverseLogoWhite from "../assets/metroverse_white.png";
-import metroverseLogoBlackSvg from "../assets/metroverse_black.svg";
-import metroverseLogoWhiteSvg from "../assets/metroverse_white.svg";
+import { Heading2 } from "../components";
+import { ImageAssetCard, ImageAssetCardGrid } from "../components";
+import metroverseLogoBlack from "../assets/downloads/metroverse_black.png";
+import metroverseLogoWhite from "../assets/downloads/metroverse_white.png";
+import metroverseLogoBlackSvg from "../assets/downloads/metroverse_black.svg";
+import metroverseLogoWhiteSvg from "../assets/downloads/metroverse_white.svg";
 
 export const MetroverseVisualAssets = () => (
   <>
     <Heading2>Metroverse Visual Assets</Heading2>
-    {/* <Heading3>Logos</Heading3> */}
     <ImageAssetCardGrid>
       <ImageAssetCard
         previewSrc={metroverseLogoBlack}

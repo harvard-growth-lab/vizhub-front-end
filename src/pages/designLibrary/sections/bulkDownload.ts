@@ -1,5 +1,5 @@
 import JSZip from "jszip";
-import { PaletteColor } from "../designLibraryComponents";
+import { PaletteColor } from "../components";
 
 // Atlas Visualization Colors
 import {
@@ -37,19 +37,24 @@ import growthLabFullLogoBlack from "../../../assets/GL_logo_black.png";
 import growthLabFaviconBlack from "../../../assets/GL_Atlas_favicon_black.png";
 import growthLabFaviconWhite from "../../../assets/GL_Atlas_favicon.png";
 import growthLabFullLogoWhite from "../../../assets/GL_logo_white.png";
-import growthLabFullLogoBlackPDF from "../assets/GL_logo_black.pdf";
-import growthLabFaviconBlackPDF from "../assets/GL_favicon_black.pdf";
-import growthLabFaviconWhitePDF from "../assets/GL_favicon_white.pdf";
-import growthLabFullLogoWhitePDF from "../assets/GL_logo_white.pdf";
+import growthLabFullLogoBlackPDF from "../assets/downloads/GL_logo_black.pdf";
+import growthLabFaviconBlackPDF from "../assets/downloads/GL_favicon_black.pdf";
+import growthLabFaviconWhitePDF from "../assets/downloads/GL_favicon_white.pdf";
+import growthLabFullLogoWhitePDF from "../assets/downloads/GL_logo_white.pdf";
+import growthLabPattern from "../assets/downloads/GL_pattern.png";
+import growthLabPatternPDF from "../assets/downloads/GL_pattern.pdf";
+
+// Presentation Template
+import presentationTemplate from "../assets/downloads/GL_presentation_template.potx";
 
 // Metroverse Visual Assets
-import metroverseLogoBlack from "../assets/metroverse_black.png";
-import metroverseLogoWhite from "../assets/metroverse_white.png";
-import metroverseLogoBlackSvg from "../assets/metroverse_black.svg";
-import metroverseLogoWhiteSvg from "../assets/metroverse_white.svg";
+import metroverseLogoBlack from "../assets/downloads/metroverse_black.png";
+import metroverseLogoWhite from "../assets/downloads/metroverse_white.png";
+import metroverseLogoBlackSvg from "../assets/downloads/metroverse_black.svg";
+import metroverseLogoWhiteSvg from "../assets/downloads/metroverse_white.svg";
 
 // Greenplexity Visual Assets
-import greenplexityBackground from "../assets/greenplexity-bg.png";
+import greenplexityBackground from "../assets/downloads/greenplexity-bg.png";
 import { iconAssets } from "./GreenplexityVisualAssets";
 
 const escapeCsvCell = (value: string) => `"${value.replace(/"/g, '""')}"`;
@@ -123,6 +128,7 @@ Growth Lab logos in PNG and PDF formats.
 - GL_logo_white.png / .pdf — Full logo, light variant
 - GL_favicon_black.png / .pdf — Favicon, dark variant
 - GL_favicon_white.png / .pdf — Favicon, light variant
+- GL_pattern.png / .pdf — Growth Lab pattern
 
 ### flags/
 - regional_indicators.csv — Regional color indicators (5 regions)
@@ -134,11 +140,15 @@ Growth Lab logos in PNG and PDF formats.
 
 **greenplexity/** — Greenplexity background and technology sector icons (SVG).
 
+### presentation_template/
+- GL_presentation_template.potx — PowerPoint template with 12 ready-to-use slide layouts
+
 ## File Formats
 - Color palettes: CSV (Name, Hex Code)
 - Gradient scales: CSV (Name, CSS Gradient)
 - Logos & flags: PNG, PDF, SVG
 - Icons: SVG
+- Presentation template: POTX (PowerPoint template)
 
 Note that this package does not include typography files. The primary font used in the Growth Lab's design library is "Source Sans 3", which can be accessed via [Google Fonts](https://fonts.google.com/specimen/Source+Sans+3).
 `;
@@ -244,10 +254,20 @@ export const createBulkDownloadZip = async (
     ["logos/GL_logo_white.pdf", growthLabFullLogoWhitePDF],
     ["logos/GL_favicon_white.png", growthLabFaviconWhite],
     ["logos/GL_favicon_white.pdf", growthLabFaviconWhitePDF],
+    ["logos/GL_pattern.png", growthLabPattern],
+    ["logos/GL_pattern.pdf", growthLabPatternPDF],
   ];
 
   await Promise.all(
     logoFiles.map(([path, url]) => addFetchedFile(zip, path, url)),
+  );
+
+  // ── Presentation Template ──
+  report("Downloading presentation template…");
+  await addFetchedFile(
+    zip,
+    "presentation_template/GL_presentation_template.potx",
+    presentationTemplate,
   );
 
   // ── Metroverse Visual Assets ──

@@ -1,9 +1,9 @@
 import { BodyLarge, Heading2, Heading3 } from "../components";
-import { ColorGrid, PaletteColor } from "../designLibraryComponents";
+import { ColorGrid, PaletteColor } from "../components";
 import styled from "styled-components";
 import { secondaryFont } from "../../../styling/styleUtils";
-import downloadIcon from "../assets/download.svg";
-import { downloadPaletteAsCSV } from "./downloadUtils";
+import downloadIcon from "../assets/icons/download.svg";
+import { downloadPaletteAsCSV } from "../utils/download";
 
 const DownloadableHeaderWrapper = styled.div`
   display: flex;

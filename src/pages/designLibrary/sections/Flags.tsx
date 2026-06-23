@@ -10,13 +10,13 @@ import { BodyLarge, Heading2 } from "../components";
 import {
   DownloadableSection,
   type PaletteColor,
-} from "../designLibraryComponents";
+} from "../components";
 import styled from "styled-components";
 import { backgroundColor } from "../../landingPage/Utils";
 import { lightBorderColor, secondaryFont } from "../../../styling/styleUtils";
 import JSZip from "jszip";
-import downloadIcon from "../assets/download.svg";
-import { downloadPaletteAsCSV } from "./downloadUtils";
+import downloadIcon from "../assets/icons/download.svg";
+import { downloadPaletteAsCSV } from "../utils/download";
 
 const GET_DESIGN_LIBRARY_COUNTRIES = gql`
   query GetDesignLibraryCountries {

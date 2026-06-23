@@ -1,10 +1,6 @@
-import { BodyLarge, Heading2 } from "../components";
+import { Heading2 } from "../components";
 import styled from "styled-components";
-import {
-  activeLinkColor,
-  backgroundColor,
-  backgroundGray,
-} from "../../landingPage/Utils";
+import { activeLinkColor, backgroundColor } from "../../landingPage/Utils";
 import { lightBorderColor, secondaryFont } from "../../../styling/styleUtils";
 
 const FontSectionContainer = styled.div`
@@ -29,12 +25,10 @@ const FontName = styled.p`
 
 const FontTitle = styled.h3`
   margin: 0;
-  // color: ${backgroundGray};
   color: oklch(44.6% 0.03 256.802);
   font-family: ${secondaryFont};
   text-transform: uppercase;
   font-size: 1.125rem;
-  // font-weight: 600;
   padding: 1rem 0;
 `;
 
@@ -69,8 +63,6 @@ const FontSampleItem = styled.div`
 const WeightLabel = styled.span`
   font-family: ${secondaryFont};
   font-size: 0.875rem;
-  // font-weight: 600;
-  // color: ${backgroundGray};
   color: oklch(55.1% 0.027 264.364);
   text-transform: uppercase;
 `;

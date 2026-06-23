@@ -6,16 +6,19 @@ import {
   GuidelinesTitle,
   ImageAssetCard,
   ImageAssetCardGrid,
-} from "../designLibraryComponents";
+} from "../components";
 import growthLabFullLogoBlack from "../../../assets/GL_logo_black.png";
 import growthLabFaviconBlack from "../../../assets/GL_Atlas_favicon_black.png";
 import growthLabFaviconWhite from "../../../assets/GL_Atlas_favicon.png";
 import growthLabFullLogoWhite from "../../../assets/GL_logo_white.png";
 
-import growthLabFullLogoBlackPDF from "../assets/GL_logo_black.pdf";
-import growthLabFaviconBlackPDF from "../assets/GL_favicon_black.pdf";
-import growthLabFaviconWhitePDF from "../assets/GL_favicon_white.pdf";
-import growthLabFullLogoWhitePDF from "../assets/GL_logo_white.pdf";
+import growthLabFullLogoBlackPDF from "../assets/downloads/GL_logo_black.pdf";
+import growthLabFaviconBlackPDF from "../assets/downloads/GL_favicon_black.pdf";
+import growthLabFaviconWhitePDF from "../assets/downloads/GL_favicon_white.pdf";
+import growthLabFullLogoWhitePDF from "../assets/downloads/GL_logo_white.pdf";
+
+import growthLabPattern from "../assets/downloads/GL_pattern.png";
+import growthLabPatternPDF from "../assets/downloads/GL_pattern.pdf";
 
 export const LogosSection = () => (
   <>
@@ -62,6 +65,16 @@ export const LogosSection = () => (
         downloads={{
           png: growthLabFullLogoWhite,
           pdf: growthLabFullLogoWhitePDF,
+        }}
+      />
+      <ImageAssetCard
+        previewSrc={growthLabPattern}
+        previewBackground="#ffffff"
+        label="Growth Lab Pattern"
+        fileBaseName="growth_lab_pattern"
+        downloads={{
+          png: growthLabPattern,
+          pdf: growthLabPatternPDF,
         }}
       />
     </ImageAssetCardGrid>

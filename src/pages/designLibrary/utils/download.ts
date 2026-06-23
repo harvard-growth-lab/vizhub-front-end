@@ -1,4 +1,27 @@
-import { PaletteColor } from "../designLibraryComponents";
+import type { PaletteColor } from "../components/ColorCard";
+
+const clickDownloadLink = (href: string, fileName: string) => {
+  const link = document.createElement("a");
+  link.href = href;
+  link.download = fileName;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
+
+// Fetches the asset and downloads it as a blob so the browser saves it with the
+// given file name. Falls back to a direct link if the fetch fails.
+export const downloadFile = async (url: string, fileName: string) => {
+  try {
+    const response = await fetch(url);
+    const blob = await response.blob();
+    const objectUrl = URL.createObjectURL(blob);
+    clickDownloadLink(objectUrl, fileName);
+    URL.revokeObjectURL(objectUrl);
+  } catch {
+    clickDownloadLink(url, fileName);
+  }
+};
 
 const escapeCsvCell = (value: string) => `"${value.replace(/"/g, '""')}"`;
 
@@ -8,19 +31,12 @@ const downloadCsvRows = (fileBaseName: string, rows: string[][]) => {
     .join("\n");
 
   const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
-  const link = document.createElement("a");
   const url = URL.createObjectURL(blob);
 
-  link.setAttribute("href", url);
-  link.setAttribute(
-    "download",
+  clickDownloadLink(
+    url,
     `${fileBaseName.replace(/\s+/g, "_").toLowerCase()}.csv`,
   );
-  link.style.visibility = "hidden";
-
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
   URL.revokeObjectURL(url);
 };
 

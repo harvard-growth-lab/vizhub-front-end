@@ -6,9 +6,9 @@ import {
   IconCardGrid,
   ImageAssetCard,
   ImageAssetCardGrid,
-} from "../designLibraryComponents";
+} from "../components";
 import JSZip from "jszip";
-import greenplexityBackground from "../assets/greenplexity-bg.png";
+import greenplexityBackground from "../assets/downloads/greenplexity-bg.png";
 
 import Batteries from "../../../assets/greenGrowth/Batteries.svg";
 import CriticalMetals from "../../../assets/greenGrowth/Critical Metals.svg";

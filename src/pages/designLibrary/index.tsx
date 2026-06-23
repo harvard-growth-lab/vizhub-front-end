@@ -35,13 +35,15 @@ import { MetroverseVisualizationColors } from "./sections/MetroverseVisualizatio
 import { GreenplexityVisualizationColors } from "./sections/GreenplexityVisualizationColors";
 import { MetroverseVisualAssets } from "./sections/MetroverseVisualAssets";
 import { GreenplexityVisualAssets } from "./sections/GreenplexityVisualAssets";
-import visualizationColorPalettesIcon from "./assets/visualization_color_palettes_icon.svg";
-import typographyIcon from "./assets/typography_icon.svg";
-import logosIcon from "./assets/logos_icon.svg";
-import logoColorsIcon from "./assets/logo_colors_icon.svg";
-import flagsIcon from "./assets/flags_icon.svg";
-import downloadIcon from "./assets/download.svg";
+import { GLPresentationTemplate } from "./sections/GLPresentationTemplate";
+import visualizationColorPalettesIcon from "./assets/icons/visualization_color_palettes_icon.svg";
+import typographyIcon from "./assets/icons/typography_icon.svg";
+import logosIcon from "./assets/icons/logos_icon.svg";
+import logoColorsIcon from "./assets/icons/logo_colors_icon.svg";
+import flagsIcon from "./assets/icons/flags_icon.svg";
+import downloadIcon from "./assets/icons/download.svg";
 import { createBulkDownloadZip } from "./sections/bulkDownload";
+import { maskIcon } from "./utils/maskIcon";
 import styled from "styled-components";
 import { secondaryFont } from "../../styling/styleUtils";
 
@@ -94,6 +96,11 @@ const libraryItems = [
     label: "Flags",
     icon: flagsIcon,
   },
+  {
+    id: "gl-presentation-template",
+    label: "GL Presentation Template",
+    icon: flagsIcon,
+  },
 ] as const;
 
 type LibraryItemId =
@@ -113,6 +120,7 @@ const sectionRegistry: Record<LibraryItemId, SectionRenderer> = {
   logos: LogosSection,
   "logo-colors": LogoColorsSection,
   flags: FlagsSection,
+  "gl-presentation-template": GLPresentationTemplate,
 };
 
 const visualizationColorIds = new Set<LibraryItemId>(
@@ -169,14 +177,7 @@ const BulkDownloadIcon = styled.span`
   display: inline-block;
   flex-shrink: 0;
   background-color: currentColor;
-  mask-image: url(${downloadIcon});
-  mask-repeat: no-repeat;
-  mask-position: center;
-  mask-size: contain;
-  -webkit-mask-image: url(${downloadIcon});
-  -webkit-mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-  -webkit-mask-size: contain;
+  ${maskIcon(downloadIcon)}
 `;
 
 const DesignLibraryPage = () => {
