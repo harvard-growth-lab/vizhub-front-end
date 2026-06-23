@@ -99,7 +99,7 @@ const libraryItems = [
   {
     id: "gl-presentation-template",
     label: "GL Presentation Template",
-    icon: flagsIcon,
+    icon: logosIcon,
   },
 ] as const;
 
