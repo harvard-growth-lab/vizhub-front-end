@@ -7,4 +7,5 @@ export * from "./GradientCard";
 export * from "./ImageAssetCard";
 export * from "./IconCard";
 export * from "./DownloadableSection";
+export * from "./FileDownloadSection";
 export * from "./Guidelines";

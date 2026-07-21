@@ -47,6 +47,10 @@ import growthLabPatternPDF from "../assets/downloads/GL_pattern.pdf";
 // Presentation Template
 import presentationTemplate from "../assets/downloads/GL_presentation_template.potx";
 
+// Design Specs
+import dataVisualizationSpec from "../assets/downloads/GL_data_visualization_spec.pdf";
+import reportDesignSpec from "../assets/downloads/GL_report_design_spec.pdf";
+
 // Metroverse Visual Assets
 import metroverseLogoBlack from "../assets/downloads/metroverse_black.png";
 import metroverseLogoWhite from "../assets/downloads/metroverse_white.png";
@@ -143,12 +147,17 @@ Growth Lab logos in PNG and PDF formats.
 ### presentation_template/
 - GL_presentation_template.potx — PowerPoint template with 12 ready-to-use slide layouts
 
+### design_specs/
+- GL_data_visualization_spec.pdf — Guidelines for designing data visualizations in the Growth Lab style
+- GL_report_design_spec.pdf — Guidelines for designing reports in the Growth Lab style
+
 ## File Formats
 - Color palettes: CSV (Name, Hex Code)
 - Gradient scales: CSV (Name, CSS Gradient)
 - Logos & flags: PNG, PDF, SVG
 - Icons: SVG
 - Presentation template: POTX (PowerPoint template)
+- Design specs: PDF
 
 Note that this package does not include typography files. The primary font used in the Growth Lab's design library is "Source Sans 3", which can be accessed via [Google Fonts](https://fonts.google.com/specimen/Source+Sans+3).
 `;
@@ -268,6 +277,16 @@ export const createBulkDownloadZip = async (
     zip,
     "presentation_template/GL_presentation_template.potx",
     presentationTemplate,
+  );
+
+  // ── Design Specs ──
+  report("Downloading design specs…");
+  const designSpecFiles: [string, string][] = [
+    ["design_specs/GL_data_visualization_spec.pdf", dataVisualizationSpec],
+    ["design_specs/GL_report_design_spec.pdf", reportDesignSpec],
+  ];
+  await Promise.all(
+    designSpecFiles.map(([path, url]) => addFetchedFile(zip, path, url)),
   );
 
   // ── Metroverse Visual Assets ──

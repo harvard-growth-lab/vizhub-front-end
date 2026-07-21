@@ -36,11 +36,14 @@ import { GreenplexityVisualizationColors } from "./sections/GreenplexityVisualiz
 import { MetroverseVisualAssets } from "./sections/MetroverseVisualAssets";
 import { GreenplexityVisualAssets } from "./sections/GreenplexityVisualAssets";
 import { GLPresentationTemplate } from "./sections/GLPresentationTemplate";
+import { GLDataVisualizationSpec } from "./sections/GLDataVisualizationSpec";
+import { GLReportDesignSpec } from "./sections/GLReportDesignSpec";
 import visualizationColorPalettesIcon from "./assets/icons/visualization_color_palettes_icon.svg";
 import typographyIcon from "./assets/icons/typography_icon.svg";
 import logosIcon from "./assets/icons/logos_icon.svg";
 import logoColorsIcon from "./assets/icons/logo_colors_icon.svg";
 import flagsIcon from "./assets/icons/flags_icon.svg";
+import designSpecsIcon from "./assets/icons/design_specs.svg";
 import downloadIcon from "./assets/icons/download.svg";
 import { createBulkDownloadZip } from "./sections/bulkDownload";
 import { maskIcon } from "./utils/maskIcon";
@@ -101,6 +104,16 @@ const libraryItems = [
     label: "GL Presentation Template",
     icon: logosIcon,
   },
+  {
+    id: "gl-data-visualization-spec",
+    label: "GL Data Visualization Spec",
+    icon: designSpecsIcon,
+  },
+  {
+    id: "gl-report-design-spec",
+    label: "GL Report Design Spec",
+    icon: designSpecsIcon,
+  },
 ] as const;
 
 type LibraryItemId =
@@ -121,6 +134,8 @@ const sectionRegistry: Record<LibraryItemId, SectionRenderer> = {
   "logo-colors": LogoColorsSection,
   flags: FlagsSection,
   "gl-presentation-template": GLPresentationTemplate,
+  "gl-data-visualization-spec": GLDataVisualizationSpec,
+  "gl-report-design-spec": GLReportDesignSpec,
 };
 
 const visualizationColorIds = new Set<LibraryItemId>(
