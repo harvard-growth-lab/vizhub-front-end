@@ -34,6 +34,7 @@ export interface HubProject {
   ordering: number | null;
   cardImageHi: string | null;
   cardImageLo: string | null;
+  cardImageAltText: string | null;
   status: ProjectStatuses | null;
   localFile: boolean | null;
   id: string;

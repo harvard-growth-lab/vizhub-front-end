@@ -45,6 +45,7 @@ const GET_ALL_PROJECTS_AND_KEYWORDS = gql`
       ordering
       cardImageHi
       cardImageLo
+      cardImageAltText
       localFile
       status
       id

@@ -355,6 +355,10 @@ const HubCard = ({ project }: Props) => {
     }
   }
 
+  const cardImageAltText = project.cardImageAltText
+    ? project.cardImageAltText
+    : "";
+
   const category = getCategoryString(project.projectCategory);
 
   const link = project.localFile
@@ -372,7 +376,11 @@ const HubCard = ({ project }: Props) => {
         onMouseMove={onMouseMove}
         onMouseLeave={() => setMouseCoords(undefined)}
       >
-        <SmartImage lowResSrc={cardImageLo} highResSrc={cardImageHi} />
+        <SmartImage
+          lowResSrc={cardImageLo}
+          highResSrc={cardImageHi}
+          alt={cardImageAltText}
+        />
         <ZigZagOverlay />
         {title}
         <MetaDataContainer style={metaDataStyle}>

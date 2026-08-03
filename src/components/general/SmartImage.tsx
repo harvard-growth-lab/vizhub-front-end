@@ -40,10 +40,13 @@ const SmartImage = ({highResSrc, lowResSrc, title, alt}: Props) => {
         alt={alt ? alt : ''}
         onLoad={() => setHighResLoaded(true)}
       />
+      {/* The low-res image is a placeholder for the high-res one above, so it
+          is hidden from assistive tech to avoid announcing the same image
+          twice. */}
       <Image
         src={lowResSrc}
-        title={title ? title : ''}
-        alt={alt ? alt : ''}
+        alt=''
+        aria-hidden={true}
         style={{opacity: highResLoaded ? 0 : 1}}
       />
     </Root>
